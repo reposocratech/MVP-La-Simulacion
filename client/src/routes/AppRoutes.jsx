@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router';
 import { PublicLayout } from '../layouts/PublicLayout';
-import ErrorPage from '../pages/PublicPages/ErrorPage/ErrorPage';
+
 
 // Componentes públicos:
 const Home = lazy(()=>import('../pages/PublicPages/Home/Home'));
@@ -35,7 +35,7 @@ export const AppRoutes = () => {
         </Route>
         </Route>
 
-        <Route path='*' element={<ErrorPage />}/>
+        <Route path='*' element={<Error />}/>
       </Routes>
     </BrowserRouter>
   )
