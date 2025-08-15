@@ -52,7 +52,6 @@ class UserController {
                 res.status(200).json({user:result[0]})
             }
         } catch (error) {
-            console.log(error);
             res.status(500).json({message: "server error"});
         }
     }

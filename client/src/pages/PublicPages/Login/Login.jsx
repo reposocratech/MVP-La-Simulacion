@@ -21,7 +21,6 @@ const Login = () => {
   const onSubmit = async()=> {
     try {
       login(userLogin);
-      console.log(userLogin);
     } catch (error) {
       console.log(error);
     }
