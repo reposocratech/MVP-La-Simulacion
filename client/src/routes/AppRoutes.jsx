@@ -13,7 +13,7 @@ const Events = lazy(()=>import('../pages/PublicPages/Events/Events'));
 const Rooms = lazy(()=>import('../pages/PublicPages/Rooms/Rooms'));
 const Register = lazy(()=>import('../pages/PublicPages/Register/Register'));
 const Login = lazy(()=>import('../pages/PublicPages/Login/Login'));
-const Error = lazy(()=>import('../pages/PublicPages/ErrorPage/ErrorPage'));
+const ErrorPage = lazy(()=>import('../pages/PublicPages/ErrorPage/ErrorPage'));
 
 
 export const AppRoutes = () => {
@@ -35,7 +35,7 @@ export const AppRoutes = () => {
         </Route>
         </Route>
 
-        <Route path='*' element={<Error />}/>
+        <Route path='*' element={<ErrorPage />}/>
       </Routes>
     </BrowserRouter>
   )
