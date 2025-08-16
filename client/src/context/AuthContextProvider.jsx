@@ -36,11 +36,11 @@ export const AuthContextProvider = ({children}) => {
 
       const responseUser = await fetchData("/users/userById", "get", null, tokenBack);
       localStorage.setItem("token", tokenBack);
-      //setUser(responseUser.data.user);
       setToken(tokenBack);
+      setUser(responseUser.data.user);
 
     } catch (error) {
-      console.log(error);
+      throw error;
     }
 
   };
