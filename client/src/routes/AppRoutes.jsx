@@ -1,6 +1,8 @@
-import { lazy } from 'react';
+import { lazy, useContext } from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router';
 import { PublicLayout } from '../layouts/PublicLayout';
+import { AuthContext } from '../context/AuthContextProvider';
+import { PublicRoutes } from './PublicRoutes';
 
 
 // Componentes públicos:
@@ -17,26 +19,34 @@ const ErrorPage = lazy(()=>import('../pages/PublicPages/ErrorPage/ErrorPage'));
 
 
 export const AppRoutes = () => {
-  return (
-    <BrowserRouter>
-      {/* Rutas Públicas: */}
-      <Routes>
-        <Route>
-          <Route element={< PublicLayout />}>
-            <Route path='/' element={< Home />} />
-            <Route path='/about' element={< About />} />
-            <Route path='/contact' element={< Contact />} />
-            <Route path='/services' element={< Services />} />
-            <Route path='/serviceCoop' element={< ServicesCoop />} />
-            <Route path='/events' element={< Events />} />
-            <Route path='/rooms' element={< Rooms />} />
-            <Route path='/register' element={< Register />} />
-            <Route path='/login' element={< Login />} />
-        </Route>
-        </Route>
 
-        <Route path='*' element={<ErrorPage />}/>
-      </Routes>
-    </BrowserRouter>
+  const {loading} = useContext(AuthContext);
+
+  return (
+    <>{loading?<h1>Cargando...</h1>:
+      <BrowserRouter>
+        {/* Rutas Públicas: */}
+        <Routes>
+          <Route>
+            <Route element={< PublicRoutes/>}>
+              <Route element={< PublicLayout />}>
+                <Route path='/' element={< Home />} />
+                <Route path='/about' element={< About />} />
+                <Route path='/contact' element={< Contact />} />
+                <Route path='/services' element={< Services />} />
+                <Route path='/serviceCoop' element={< ServicesCoop />} />
+                <Route path='/events' element={< Events />} />
+                <Route path='/rooms' element={< Rooms />} />
+                <Route path='/register' element={< Register />} />
+                <Route path='/login' element={< Login />} />
+              </Route>
+            </Route>
+          </Route>
+
+          <Route path='*' element={<ErrorPage />}/>
+        </Routes>
+      </BrowserRouter>}
+    </>
+
   )
 }
