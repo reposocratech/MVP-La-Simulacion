@@ -5,6 +5,6 @@ const router = express.Router();
 
 /* GET users listing. */
 router.post('/register', usersController.register);
-
+router.get('/verify-email', usersController.verifyEmail);
 
 export default router;
