@@ -1,4 +1,3 @@
--- drop database la_simulacion;
 CREATE DATABASE la_simulacion;
 
 USE la_simulacion;
