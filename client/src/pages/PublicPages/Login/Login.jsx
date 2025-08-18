@@ -51,10 +51,10 @@ const Login = () => {
     <section className='d-flex justify-content-center p-4'>
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Dirección de Email</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Introduce tu email"
+            placeholder="porejemplo@tucorreo.com"
             onChange={handleChange}
             value={userLogin.email}
             name="email"
@@ -65,7 +65,7 @@ const Login = () => {
           <Form.Label>Contraseña</Form.Label>
           <Form.Control
             type="text"
-            placeholder="introduce tu contraseña"
+            placeholder="Tu contraseña"
             onChange={handleChange}
             value={userLogin.password}
             name="password"
@@ -74,10 +74,11 @@ const Login = () => {
           {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
         </Form.Group>
         <Button variant="primary"  onClick={onSubmit}>
-          Enviar
+          Iniciar sesión
         </Button>
-        <p>¿No estás registrado? <Link to='/register'>Regístrate aquí</Link> </p>
+        
       </Form>
+      <Link to='/register'>¿Aún no tienes cuenta? Regístrate desde aquí</Link>
     </section>
   )
 }

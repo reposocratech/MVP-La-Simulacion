@@ -2,7 +2,7 @@ import { useState } from "react"
 import {Button, Col, Container, Form, Row} from "react-bootstrap"
 import { Link, useNavigate } from "react-router"
 import { fetchData } from "../../../helpers/axiosHelper"
-import { registerSchema } from "../../../../schemas/registerSchema"
+import { registerSchema } from "../../../schemas/registerSchema"
 import { ZodError } from "zod"
 
 const initialValue = {
