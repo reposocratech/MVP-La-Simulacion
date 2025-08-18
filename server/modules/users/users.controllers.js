@@ -15,7 +15,7 @@ class UserController {
             const {user_name, email, password} = req.body;
             
             const result = await usersDal.findUserEmail(email);
-            console.log("ressuullt", result);
+           
             
             if(result.length !== 0){
                 throw {
@@ -31,7 +31,6 @@ class UserController {
 
             const token = jwt.sign({email} , process.env.JWT_SECRET, {expiresIn: "1h"})
             const verificationLink = `${process.env.SERVER_URL_PUBLIC}api/users/verify-email?token=${token}`
-            console.log("direccionnnnnnnnnnn" ,process.env.SERVER_URL_PUBLIC);
             const mailOptions = {
             from: `"travels" <${process.env.EMAIL_USER}>`,
             to: email,
@@ -39,9 +38,7 @@ class UserController {
             html: `<h2>Link para confirmar registro</h2><p>${verificationLink}</p>`,
              };
              const emailResult = await sendConfirmationMail.sendMail(mailOptions);
-            console.log("Resultado envío email:", emailResult);
             
-
             res.status(200).json("usuario creado") 
              } catch (error) {
                 
@@ -49,7 +46,7 @@ class UserController {
                 res.status(401).json(error.message);
             }else{
               
-                res.status(500).json(error.message);
+                res.status(500).json({message: "server error"});
             }
         }
     }
@@ -90,7 +87,6 @@ class UserController {
   </html>
 `);
   } catch (error) {
-    console.error('Error verificando email:', error);
     res.status(400).send('Token inválido o expirado');
   }
 };
