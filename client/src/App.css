@@ -1,7 +1,7 @@
 /* Tipografía general del body */
 @font-face {
   font-family: 'Anek Devanagari';
-  src: url('./assets/fonts/AnekDevanagari-VariableFont_wdth\,wght.ttf') format('truetype-variations');
+  src: url('./assets/fonts/AnekDevanagari-VariableFont_wdth.ttf') format('truetype-variations');
   font-stretch: 125%; /* Ancho específico según el libro de diseño de la marca */
   font-style: normal;
 }
