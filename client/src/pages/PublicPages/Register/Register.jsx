@@ -3,7 +3,8 @@ import {Button, Form} from "react-bootstrap"
 import { Link, useNavigate } from "react-router"
 import { fetchData } from "../../../helpers/axiosHelper"
 import { registerSchema } from "../../../schemas/registerSchema"
-import { ZodError } from "zod"
+import { ZodError } from "zod" 
+
 
 const initialValue = {
   user_name: "",
@@ -45,7 +46,7 @@ const Register = () => {
         setValErrors({})
         setMsgError(error.response.data)
       }
-        }
+      }
       }  
   return (
     <>
@@ -98,7 +99,7 @@ const Register = () => {
               </Form.Group>
               {msgError && <p className="text-danger fw-bold">{msgError}</p>}
                 <Button
-                style={{backgroundColor:"var( --color-primary-green)" , borderColor:"var( --color-primary-green)", color: "black"}}
+                style={{background1Color:"var( --color-primary-green)" , borderColor:"var( --color-primary-green)", color: "black"}}
                 onClick={onSubmit}
                 className="w-100"
               >

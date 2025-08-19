@@ -9,6 +9,7 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 router.post('/servicescoop', validateForm(formCoopSchema) , servicesControllers.sendMailServCoop);
+router.get('/servicescoop', servicesControllers.getDataServCoop)
 
 
 export default router;

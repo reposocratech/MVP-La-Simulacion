@@ -32,7 +32,7 @@ class UserController {
             const token = jwt.sign({email} , process.env.JWT_SECRET, {expiresIn: "1h"})
             const verificationLink = `${process.env.SERVER_URL_PUBLIC}api/users/verify-email?token=${token}`
             const mailOptions = {
-            from: `"travels" <${process.env.EMAIL_USER}>`,
+            from: `"La Simulación" <${process.env.EMAIL_USER}>`,
             to: email,
             subject: "Confirma tu cuenta",
             html: `<h2>Link para confirmar registro</h2><p>${verificationLink}</p>`,
