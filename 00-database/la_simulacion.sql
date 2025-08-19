@@ -22,9 +22,10 @@ CREATE TABLE service (
     -- agent VARCHAR(50) NOT NULL DEFAULT 'Cooperativa' -- cooperativa o asociación    
     service_name  VARCHAR(100) NOT NULL,
     image VARCHAR(200),
-    service_description VARCHAR(500) NOT NULL, 
+    service_description VARCHAR(1500) NOT NULL, 
     service_is_deleted BOOLEAN NOT NULL DEFAULT 0
 );
+
 
 CREATE TABLE room (
 	room_id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -71,9 +72,9 @@ CREATE TABLE event (
     -- user_id BIGINT UNSIGNED NOT NULL, -- permitan que un usuario cree en la app toda la info de un taller, curso, concierto...
     event_title VARCHAR(100) NOT NULL, 
     event_description VARCHAR(350) NOT NULL,
-    location VARCHAR(150) NOT NULL,
+    location VARCHAR(150) NOT NULL, -- --quitar not null
     cover_image VARCHAR(200),
-    duration VARCHAR(50) NOT NULL, -- "30 minutos" o "2 horas"
+    duration VARCHAR(50) NOT NULL, -- "30 minutos" o "2 horas", que sea opcional (quitar not null)
     start_date DATE,
     end_date DATE,
     start_hour TIME,
@@ -131,7 +132,6 @@ CREATE TABLE section_key_point (
     REFERENCES section(event_id, section_id) ON DELETE CASCADE ON UPDATE CASCADE  
 );
 
-
     
-    
+ SELECT * FROM user;   
     

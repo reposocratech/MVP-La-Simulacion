@@ -1,9 +1,10 @@
 import { useContext, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { ZodError } from 'zod';
 import { loginSchema } from '../../../schemas/loginSchema';
+import './login.css';
 
 const initialValue = {
   email:"",
@@ -22,7 +23,8 @@ const Login = () => {
     setUserLogin ({...userLogin, [name]:value });
   };
 
-  const onSubmit = async()=> {
+  const onSubmit = async(e)=> {
+    e.preventDefault();
     try {
       loginSchema.parse(userLogin);
       //Espera a que la función de login del contexto termine. Si el servidor devuelve un error, este await lo lanzará.
@@ -48,37 +50,45 @@ const Login = () => {
   };
   
   return (
-    <section className='d-flex justify-content-center p-4'>
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="porejemplo@tucorreo.com"
-            onChange={handleChange}
-            value={userLogin.email}
-            name="email"
-          />
-          {valError.email && <Form.Text className="text-danger fw-bold">{valError.email}</Form.Text>}
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Contraseña</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Tu contraseña"
-            onChange={handleChange}
-            value={userLogin.password}
-            name="password"
-          />
-          {valError.password && <Form.Text className="text-danger fw-bold">{valError.password}</Form.Text>}
-          {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
-        </Form.Group>
-        <Button variant="primary"  onClick={onSubmit}>
-          Iniciar sesión
-        </Button>
-        
-      </Form>
-      <Link to='/register'>¿Aún no tienes cuenta? Regístrate desde aquí</Link>
+    <section className='d-flex justify-content-center' >
+      <Container fluid>
+        <Row>
+          <h1 className='h1-login text-center p-2 my-5'>Entra en tu cuenta <span className='span-login accent-text align-middle'>E</span> </h1>
+          <Col className="d-flex justify-content-center">
+            <Form className='w-25 border border-2 p-4 rounded rounded-3'>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Email:</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="porejemplo@tucorreo.com"
+                  onChange={handleChange}
+                  value={userLogin.email}
+                  name="email"
+                />
+                {valError.email && <Form.Text>{valError.email}</Form.Text>}
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Contraseña:</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Tu contraseña"
+                  onChange={handleChange}
+                  value={userLogin.password}
+                  name="password"
+                />
+                {valError.password && <Form.Text className="text-danger fw-bold">{valError.password}</Form.Text>}
+                {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
+              </Form.Group>
+              <div className='d-flex flex-column gap-4'>
+                <button className='submit-button' onClick={onSubmit}>
+                  Iniciar sesión
+                </button>
+                <Link to='/register' className='text-center'>¿Aún no tienes cuenta? Regístrate desde aquí</Link>
+              </div>
+            </Form> 
+          </Col>
+        </Row>
+      </Container>
     </section>
   )
 }

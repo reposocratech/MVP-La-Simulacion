@@ -62,7 +62,19 @@ body {
     font-weight: bold;
   } 
 
+  label {
+    font-weight: bold;
+  }
+
   .accent-text {
     font-family: "Pilowlava", fantasy;
+  }
+
+  .submit-button {
+    background-color: var(--color-primary-green);
+    color: black;
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
   }
 }
