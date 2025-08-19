@@ -1,19 +1,19 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router';
 import logoNav from '../../../assets/logos/la-simulacion-logo-darkgreen.svg'
-import './navbarPublic.css';
+import './navbarUser.css';
 
-export const NavbarPublic = () => {
+export const NavbarUser = () => {
 
   const navigate = useNavigate();
 
   return (
     <Navbar className="navbar-public" expand="lg">
      <Container fluid className="px-4">
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to='/'>
              <img src={`${logoNav}`} 
                     alt="Ir a inicio"
-                    className="logo-nav-class" />
+                    className='logo-nav-class' />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -24,8 +24,8 @@ export const NavbarPublic = () => {
             <Nav.Link as={Link} to="/services">Servicios</Nav.Link>
           </Nav>
           <div>
-            <button className="button-navbar" onClick={()=>navigate("/register")}>Regístrate</button>
-            <button className="button-navbar" onClick={()=>navigate("/login")}>Accede</button>
+            <button className="button-navbar">User Icon</button>
+            <button className="button-navbar">Cierra Sesión</button>
           </div>
        </Navbar.Collapse>
      </Container>
