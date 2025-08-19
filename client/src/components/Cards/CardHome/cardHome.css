@@ -1,0 +1,9 @@
+.card-home {
+  width: 380px;
+
+  .card-home-button {
+    border: none;
+    border-radius: 12px;
+    padding: .4rem 1.2rem;
+  }
+}

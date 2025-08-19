@@ -18,7 +18,7 @@ export const NavbarAdmin = () => {
   }
 
   return (
-    <Navbar className="navbar-public" expand="lg">
+    <Navbar className="navbar-public" expand="lg" fixed="top">
      <Container>
         <Navbar.Brand as={Link} to='/'>
              <img src={logoNav} 
