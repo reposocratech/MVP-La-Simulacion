@@ -57,6 +57,10 @@
 body {
   font-family: "Anek Devanagari", Arial, sans-serif;
 
+  main {
+    min-height: calc(100dvh - 97.83px);
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: "Ubuntu", Helvetica, sans-serif;
     font-weight: bold;
@@ -77,4 +81,5 @@ body {
     border-radius: 12px;
     padding: .6rem 1.5rem;
   }
+
 }

@@ -10,5 +10,7 @@
       color: var(--color-text-navbar);
       background-color: transparent;
       border: none;
+      display: flex;
+      align-items: center;
     }
   }

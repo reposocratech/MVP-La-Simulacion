@@ -1,0 +1,13 @@
+.avatar-button {
+  background-color: transparent;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+
+  .avatar-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+  }
+}
