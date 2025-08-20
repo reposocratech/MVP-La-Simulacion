@@ -1,0 +1,27 @@
+.section-about-1 {
+
+  .spanLetter-1 {
+    color: var(--color-primary-violet);
+  }
+}
+
+.section-about-2 {
+
+  .spanLetter-2 {
+    color: var(--color-secondary-superdark-pink);
+  }
+}
+
+.section-about-3 {
+
+  .spanLetter-3 {
+    color: var(--color-primary-electric-blue);
+  }
+}
+
+.section-about-4 {
+
+  .spanLetter-4 {
+    color: var(--color-primary-orange);
+  }
+}
