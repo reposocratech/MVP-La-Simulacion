@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Col, Container, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { ZodError } from 'zod';
@@ -50,7 +50,7 @@ const Login = () => {
   };
   
   return (
-    <section className='d-flex justify-content-center' >
+    <section className='section-login d-flex justify-content-center' >
       <Container fluid>
         <Row>
           <h1 className='h1-login text-center p-2 my-5'>Entra en tu cuenta <span className='span-login accent-text align-middle'>E</span> </h1>
