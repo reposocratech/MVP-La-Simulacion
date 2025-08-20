@@ -1,11 +1,38 @@
+.span-servcoop{
+  color: var(--color-primary-baby-pink);  
+  font-weight: normal;
+  text-decoration: none;
+}
+
+.marg-top{
+    margin-top: 6rem;
+}
+
 .textblack{
     color: black;
     text-decoration: none;
+   
+    }
   
-    
-    
+.active{
+    background-color: var(--color-primary-baby-pink);
+}  
+@media (min-width: 992px) {
+  .sticky-col {
+    position: sticky;
+    top: 100px;
+    align-self: flex-start;
+    height: fit-content;
+  }
 }
-img{
+    
+
+.i-width{
     max-width: 600px;
 }
 
+.form-error {
+  font-size: 0.7rem;     
+  color: red;   
+  font-weight: bold;    
+}
