@@ -1,0 +1,16 @@
+  .navbar-public {
+    background-color: var(--color-bg-navbar);
+    color: var(--color-text-navbar);
+
+    .logo-nav-class{
+      width: 200px;
+    }
+
+    .button-navbar{
+      color: var(--color-text-navbar);
+      background-color: transparent;
+      border: none;
+      display: flex;
+      align-items: center;
+    }
+  }

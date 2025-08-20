@@ -1,0 +1,25 @@
+.section-home-1 {
+  padding-block-start: 6rem;
+
+  .images-container {
+    position: relative;
+
+    .img-home {
+      width: 340px;
+      height: 340px;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .circle {
+      position: absolute;
+      transform: translate(-100px, 220px);
+      width: 130px;
+    }
+  }
+}
+
+.section-home-2 {
+  padding-block-end: 4rem;
+}

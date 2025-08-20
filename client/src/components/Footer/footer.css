@@ -1,0 +1,8 @@
+.web-footer {
+  background-color: var(--color-bg-footer);
+  color: whitesmoke;
+}
+
+.sm-icon{
+  width: 25px;
+}

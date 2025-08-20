@@ -1,6 +1,12 @@
+import { Container } from "react-bootstrap";
+
 const About = () => {
   return (
-    <div>About</div>
+    <section className="section-about-1 pt-5">
+      <Container>
+        <h1 className="mt-5">About</h1>
+      </Container>
+    </section>
   )
 }
 
