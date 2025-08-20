@@ -9,8 +9,10 @@ export const verifyToken = (req, res, next)=> {
 
   if(!tokenBearer){
     res.status(401).json({message: "No autorizado"});
+
   }else{
     let cleanToken = tokenBearer.split(" ")[1];
+
     try {
       let result = jwt.verify(cleanToken, process.env.TOKEN_KEY);
       req.simulacion_user_id = result.user_id;

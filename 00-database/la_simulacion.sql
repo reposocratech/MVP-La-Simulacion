@@ -134,4 +134,4 @@ CREATE TABLE section_key_point (
 
     
  SELECT * FROM user;   
-    
+SELECT * FROM room;

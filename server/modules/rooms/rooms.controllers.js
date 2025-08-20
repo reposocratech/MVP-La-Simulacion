@@ -23,7 +23,7 @@ class RoomController {
       const result = await roomsDal.createRoom(data);
       res.status(200).json({message:"inserción ok", result})
     } catch (error) {
-      console.log(error);
+
       res.status(500).json({message:"error de server"})
     }
 
