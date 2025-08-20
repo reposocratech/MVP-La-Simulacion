@@ -66,7 +66,7 @@ const ServicesCoop = () => {
      <div>
       {servicesCoop.result?.map(service => (
         <>
-        <a className="text-text-decoration-underline"  href={`#${service.service_name}`} key={service.service_id}>{service.service_name}</a> 
+        <a className="textblack text-text-decoration-underline pt-2 pb-2"  href={`#${service.service_name}`} key={service.service_id}>{service.service_name}</a> 
         <br />
         </>  
       ))}
@@ -78,6 +78,7 @@ const ServicesCoop = () => {
     {servicesCoop.result?.map(service => (      
           <section id={service.service_name}>
             <h2>{service.service_name}</h2>
+            <img className="twidth" src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/servCoop/${service.image}`} alt="" />
             <p>{service.service_description} </p>
           </section>
            ))}  
