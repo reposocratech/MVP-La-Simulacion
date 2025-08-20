@@ -57,9 +57,13 @@ const CreateRoom1 = () => {
 
       if(files){
         for(const elem of files){
-          newFormData.append("file", elem)
+          newFormData.append("files", elem)
         }
       }
+
+      console.log("Datos del formulario:", room);
+      console.log("Archivos:", files);
+      console.log("Token a enviar:", token);
       
       let res = await fetchData("/rooms/createRoom", "post", newFormData, token);
       console.log(res); 

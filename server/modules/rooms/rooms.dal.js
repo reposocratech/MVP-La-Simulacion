@@ -12,7 +12,6 @@ class RoomDal {
       let result = await connection.query(sql, values);
       let room_id = result[0].insertId;
 
-      let room_image_id = 0;
 
       let file_id_initial=0;
       data.file.forEach(async(file) => {

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { ZodError } from 'zod';
 import { loginSchema } from '../../../schemas/loginSchema';
@@ -16,6 +16,8 @@ const Login = () => {
   const [valError, setValError] = useState({});
   const [msgError, setMsgError] = useState();
 
+  const navigate = useNavigate();
+
   const {login} = useContext(AuthContext);
 
   const handleChange = (e)=> {
@@ -30,6 +32,7 @@ const Login = () => {
       //Espera a que la función de login del contexto termine. Si el servidor devuelve un error, este await lo lanzará.
       await login(userLogin);
       setValError({});
+      navigate('/admin/createroom1')
     } catch (error) {
       console.log(error);
       if(error instanceof ZodError){
