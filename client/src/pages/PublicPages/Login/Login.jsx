@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import { Col, Container, Form, Row } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { ZodError } from 'zod';

@@ -1,9 +1,10 @@
 import express from 'express';
+import roomsControllers from './rooms.controllers.js';
+import { verifyToken } from '../../middlewares/verifyToken.js';
+import { uploadImageMulti } from '../../middlewares/multerMultifile.js';
+
 const router = express.Router();
 
-/* GET rooms listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.post('/createRoom', verifyToken, uploadImageMulti("rooms"), roomsControllers.createRoom);
 
 export default router;
