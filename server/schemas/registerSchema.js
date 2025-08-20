@@ -4,7 +4,7 @@ export const registerSchema = z.object({
     user_name: z
         .string({message:"El nombre es necesario"})
         .min(3,{message:"El nombre debe ser mayor de 3 caracteres"})
-        .max(30,{message:"El nombre debe ser mayor de 30 caracteres"}),
+        .max(50,{message:"El nombre debe ser mayor de 50 caracteres"}),
     email: z
         .email({message:"Email no válido"}),
     password: z

@@ -3,6 +3,15 @@ import servicesDal from "./services.dal.js";
 
 class ServiceController {
 
+getDataServCoop = async (req , res) => {
+  try {
+  const result = await servicesDal.getDataServCoop();
+  res.status(200).json({message: "Datos Ok" , result }) 
+  } catch (error) {
+  res.status(500).json({message: "server error"}); 
+  }
+}
+
 sendMailServCoop = async (req , res)=>{
     try {
         

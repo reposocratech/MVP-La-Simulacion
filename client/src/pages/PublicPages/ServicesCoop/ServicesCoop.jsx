@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { fetchData } from "../../../helpers/axiosHelper";
 import { formCoopSchema } from "../../../schemas/formCoopSchema"
 import { ZodError } from "zod"
+import "./servicesCoop.css"
 
 const initialValues = {
   user_name: "",
@@ -17,6 +18,22 @@ const initialValues = {
 const ServicesCoop = () => {
   const [sendInfo, setSendInfo] = useState({initialValues})
   const [valErrors, setValErrors] = useState({})
+  const [servicesCoop, setServicesCoop] = useState([])
+
+  useEffect(() => {
+    const servicesCoopData = async () => {
+      try {
+        const res = await fetchData("/services/servicescoop", "get");
+        console.log("Datos recibidos:", res.data);
+        setServicesCoop(res.data); 
+      } catch (error) {
+        throw error; 
+      }
+    };
+
+    servicesCoopData();
+  }, []);
+  
 
   const handleChange = (e) =>{
     const{name , value} = e.target
@@ -38,47 +55,33 @@ const ServicesCoop = () => {
       }
   }  
   
+  
   }
 
   return (
      <section >
       <Container>
-        <Row className="d-flex align-items-center p-5">
+        <Row className="mt-5">
           <Col md={12} lg={3}>
-          
-    
-    <a href="#eventos">Organización de eventos</a>
-    <a href="#audiovisual">Producción Audiovisual</a>
-    <a href="#talleres">Talleres artes y audiovisual</a>
-    <a href="#comunicacion">Comunicación y Publicidad</a>
-    <a href="#management">Management artístico</a>
-    <a href="#proyectos">Acompañamiento de proyectos</a>
-    
-    
+     <div>
+      {servicesCoop.result?.map(service => (
+        <>
+        <a className="textblack text-text-decoration-underline pt-2 pb-2"  href={`#${service.service_name}`} key={service.service_id}>{service.service_name}</a> 
+        <br />
+        </>  
+      ))}
+    </div>
 
           </Col>
           <Col md={12} lg={6}>
           <h1>Nuestros servicios:</h1>
-          <section id="eventos">
-            <h2>Organización de eventos culturales, creativos y comunitarios </h2>
-            <p>En La Simulación nos especializamos en la organización de eventos con enfoque cultural, 
-artístico y comunitario. No organizamos bodas, comuniones ni eventos tradicionales; 
-nuestro trabajo se centra en propuestas con contenido, creatividad y participación. 
-Diseñamos, producimos y coordinamos eventos que transforman espacios y activan el 
-tejido social, apostando por formatos originales y experiencias con valor cultural, 
-educativo o lúdico. 
-Convertimos cualquier espacio o evento en una experiencia participativa y significativa. 
-Proponemos actividades que fomentan la creatividad y la colaboración, como laboratorios 
-creativos, juegos urbanos, intervenciones artísticas o dinámicas de grupo. Nuestra 
-metodología pone en el centro a las personas y busca activar el entorno para fortalecer los 
-lazos comunitarios y la cultura de proximidad.</p>
+    {servicesCoop.result?.map(service => (      
+          <section id={service.service_name}>
+            <h2>{service.service_name}</h2>
+            <img className="twidth" src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/servCoop/${service.image}`} alt="" />
+            <p>{service.service_description} </p>
           </section>
-          <section id="audiovisual">...</section>
-          <section id="talleres">...</section>
-          <section id="comunicacion">...</section>
-          <section id="management">...</section>
-          <section id="proyectos">...</section>
-          
+           ))}  
           </Col>
           <Col md={12} lg={3}>
           <h2>¿Quieres más información?Completa este formulario:</h2>

@@ -1,9 +1,9 @@
 import { useState } from "react"
-import {Button, Col, Container, Form, Row} from "react-bootstrap"
+import {Button, Form} from "react-bootstrap"
 import { Link, useNavigate } from "react-router"
 import { fetchData } from "../../../helpers/axiosHelper"
 import { registerSchema } from "../../../schemas/registerSchema"
-import { ZodError } from "zod"
+import { ZodError } from "zod" 
 
 
 const initialValue = {
@@ -35,7 +35,6 @@ const Register = () => {
         
         
       } catch (error) {
-        console.log("axios" ,error);
       if(error instanceof ZodError){
         let objTemp = {}
       error.issues.forEach((err)=>{
@@ -47,22 +46,18 @@ const Register = () => {
         setValErrors({})
         setMsgError(error.response.data)
       }
-        }
+      }
       }  
   return (
-
-   <section >
-      <Container>
-        <Row className="d-flex align-items-center p-5">
-          <Col md={12} lg={6}>
-          </Col>
-          <Col md={12} lg={6}>
-            <Form>
+    <>
+     <h2 className="text-center bg-primary mt-5 text-light p-3">Crea una cuenta 😎</h2>
+   <section className='d-flex flex-wrap justify-content-center p-4' >
+            <Form className="border border-2 rounded-2 p-3  mt-5" >
               <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Label>Name</Form.Label>
+                <Form.Label className="fw-bold">Nombre:</Form.Label>
                 <Form.Control 
                   type="text" 
-                  placeholder="Enter name" 
+                  placeholder="Nombre" 
                   onChange={handleChange}
                   value={register.user_name}
                   name="user_name"
@@ -70,10 +65,10 @@ const Register = () => {
                 {valErrors.user_name && <Form.Text className="text-danger">{valErrors.user_name}</Form.Text>}
                 </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email</Form.Label>
+                <Form.Label className="fw-bold">Email:</Form.Label>
                 <Form.Control 
                   type="text" 
-                  placeholder="Enter email" 
+                  placeholder="porejemplo@tucorreo.com" 
                   onChange={handleChange}
                   value={register.email}
                   name="email"
@@ -81,10 +76,10 @@ const Register = () => {
                  {valErrors.email && <Form.Text className="text-danger">{valErrors.email}</Form.Text>}
                 </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password <span onClick={()=>setseePass(!seePass)}>{seePass===true? "🍟":"🥔"} </span></Form.Label>
+                <Form.Label className="fw-bold">Contraseña:<span onClick={()=>setseePass(!seePass)}>{seePass===true? "🍟":"🥔"} </span></Form.Label>
                 <Form.Control 
                   type={seePass === false ? "password" : "text"}   
-                  placeholder="Enter password" 
+                  placeholder="Tu contraseña" 
                   onChange={handleChange}
                   value={register.password}
                   name="password"
@@ -92,10 +87,10 @@ const Register = () => {
                    {valErrors.password && <Form.Text className="text-danger">{valErrors.password}</Form.Text>}
              </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicRepPassword">
-                <Form.Label>Repeat Password</Form.Label>
+                <Form.Label className="fw-bold" >Repite tu Contraseña:</Form.Label>
                 <Form.Control 
                   type="password" 
-                  placeholder="Repeat password" 
+                  placeholder="Tu contraseña" 
                   onChange={handleChange}
                   value={register.repPassword}
                   name="repPassword"
@@ -104,17 +99,16 @@ const Register = () => {
               </Form.Group>
               {msgError && <p className="text-danger fw-bold">{msgError}</p>}
                 <Button
-                variant="primary"
+                style={{background1Color:"var( --color-primary-green)" , borderColor:"var( --color-primary-green)", color: "black"}}
                 onClick={onSubmit}
+                className="w-100"
               >
-                Registrarse
+                Aceptar
               </Button>
+               <p className="mt-3"> <Link to="/login"> ¿Ya tienes una cuenta?Inicia sesión aqui</Link> </p>
             </Form>
-            <p>Si ya estás registrado <Link to="/login">Login aquí</Link> </p>
-          </Col>
-        </Row>
-      </Container>
     </section>
+    </>
   )
 }
 
