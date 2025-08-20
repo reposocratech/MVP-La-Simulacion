@@ -1,0 +1,8 @@
+.section-register {
+  margin-top: 7rem;
+  background-color: var( --color-primary-electric-blue);
+}
+.span-register{
+    color: var(--color-primary-orange);
+    font-weight: normal;
+}
