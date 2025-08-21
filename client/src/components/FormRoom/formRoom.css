@@ -1,0 +1,15 @@
+.section-createRoom {
+    padding-block-start: 3.75rem;
+    
+    .h1-createRoom {
+        font-size: 26px;
+    }
+
+    .span-createRoom {
+        font-size: 32px;
+        margin-right: .5rem;
+        font-weight: normal;
+        color: var(--color-primary-baby-pink);
+    }
+}
+
