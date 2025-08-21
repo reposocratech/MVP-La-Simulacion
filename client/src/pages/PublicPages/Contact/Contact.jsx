@@ -1,14 +1,7 @@
-import { Container } from "react-bootstrap";
+import React from 'react'
 
-const Contact = () => {
+export const Contact = () => {
   return (
-    <section className="section-contact pt-5">
-      <Container>
-        <h1 className="mt-5">Contacto</h1>
-      </Container>
-      
-    </section>
+    <div>Contact</div>
   )
 }
-
-export default Contact;
