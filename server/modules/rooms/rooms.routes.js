@@ -6,6 +6,6 @@ import { uploadImageMulti } from '../../middlewares/multerMultifile.js';
 const router = express.Router();
 
 router.post('/createRoom', verifyToken, uploadImageMulti("rooms"), roomsControllers.createRoom);
-router.get('/room:id', roomsControllers.showOneRoom);
+router.get('/room:id', roomsControllers.getRoomById);
 
 export default router;

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../../context/AuthContextProvider';
@@ -18,7 +18,17 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const {login} = useContext(AuthContext);
+  const {user, login} = useContext(AuthContext);
+
+  // Hook que al cargar el componente comprueba si hay usuario en el contexto,
+  // de manera que si alguién se logueó, no se le deja ir al login y 
+  // se le redirige a una págimna concreta dependiendo del tipo de user:
+  useEffect(()=>{
+    if (user){
+      if(user.type === 1) navigate("/admin/adminPanel"); //redirección del admin
+      if(user.type === 2) navigate("/services"); //redirección del "usuario normal"
+    }
+  }, [user]);
 
   const handleChange = (e)=> {
     const {name, value} = e.target;
@@ -32,7 +42,8 @@ const Login = () => {
       //Espera a que la función de login del contexto termine. Si el servidor devuelve un error, este await lo lanzará.
       await login(userLogin);
       setValError({});
-      navigate('/admin/createroom1')
+      navigate('/admin/createroom1');
+
     } catch (error) {
       console.log(error);
       if(error instanceof ZodError){
@@ -42,9 +53,11 @@ const Login = () => {
         })
         setValError(objectTemp)
         setMsgError(null);
+
       }else if (error.response){
         setValError({}); 
         setMsgError(error.response.data.message);
+        
       }else{
         setValError({});
         setMsgError('Algo salío mal, inténtelo de nuevo')

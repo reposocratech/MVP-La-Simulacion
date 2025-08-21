@@ -6,9 +6,8 @@ import { PublicRoutes } from './PublicRoutes';
 import { PrivateRoutes } from './PrivateRoutes';
 import { AdminLayout } from '../layouts/AdminLayout';
 
-
-
-// Componentes públicos:
+// Importaciones "carga perezosa":
+  // Componentes públicos:
 const Home = lazy(()=>import('../pages/PublicPages/Home/Home'));
 const About = lazy(()=>import('../pages/PublicPages/About/About'));
 const Contact = lazy(()=>import('../pages/PublicPages/Contact/Contact'));
@@ -21,12 +20,14 @@ const Register = lazy(()=>import('../pages/PublicPages/Register/Register'));
 const Login = lazy(()=>import('../pages/PublicPages/Login/Login'));
 const ErrorPage = lazy(()=>import('../pages/PublicPages/ErrorPage/ErrorPage'));
 
-// Componentes Administrador:
+  // Componentes Administrador:
 const CreateRoom1 = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom1'))
+const AdminPanel = lazy(()=>import('../pages/AdminPages/AdminPanel/AdminPanel'));
+
 
 export const AppRoutes = () => {
 
-  const {loading} = useContext(AuthContext);
+  const {user, loading} = useContext(AuthContext);
 
   return (
     <>{loading?<h1>Cargando...</h1>:
@@ -53,10 +54,11 @@ export const AppRoutes = () => {
          <Route element={< PrivateRoutes />}>
           <Route element={< AdminLayout />}>
             <Route path='/admin/createroom1' element={< CreateRoom1 />}/>
+            <Route path='/admin/adminPanel' element={< AdminPanel />}/>
           </Route>
          </Route>
 
-
+          {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
           <Route path='*' element={<ErrorPage />}/>
         </Routes>
       </BrowserRouter>}
