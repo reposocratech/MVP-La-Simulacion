@@ -16,7 +16,7 @@ export const UserIcon = ({navbarData}) => {
   }
   
   return (
-    <div className="me-2">
+    <div className="d-flex align-items-center me-2">
       <button className="avatar-button" onClick={onClickIcon}>
         {userAvatar? 
           <img 
@@ -29,6 +29,9 @@ export const UserIcon = ({navbarData}) => {
               alt="Ir a mi perfil de usuario"
               className="avatar-icon" />}
       </button>
+      {userName &&
+        <p className='my-0 ms-3'>{userName}</p>
+      }
     </div>
   )
 }
