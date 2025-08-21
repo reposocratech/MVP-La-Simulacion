@@ -59,9 +59,9 @@ const Home = () => {
         </Container>
       </section>
 
-      <section className="section-home-2 pt-3">
+      <section className="section-home-2 pt-5">
         <Container>
-          <h2 className="text-center pb-4 pt-4 pt-lg-0">¿A qué nos dedicamos?</h2>
+          <h2 className="text-center py-4 pt-lg-0">¿A qué nos dedicamos?</h2>
           <Row className="d-flex justify-content-evenly">
             {cardsData.map((card)=>{
                 return (

@@ -1,0 +1,23 @@
+.custom-btn1 {
+  width: 100%;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.custom-btn1-primary {
+  background-color: var(--color-primary-green);
+}
+
+.custom-btn1-primary:hover {
+  filter: brightness(85%);
+}
+
+.custom-btn1-secondary {
+  background-color: var(--color-primary-electric-blue);
+}
+
+.custom-btn1-secondary:hover {
+  filter: brightness(85%);
+}
