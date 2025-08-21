@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap"
-import { ButtonType1 } from "../../../components/buttonType1/ButtonType1";
 import { FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { MiniCardContact } from "../../../components/Cards/miniCardContact/MiniCardContact";
 import { getMiniCardsData } from "../../../data/MiniCardsData";
@@ -114,9 +113,10 @@ const Contact = () => {
               </Form.Group>
               {msgError && <p className="text-danger">{msgError}</p>}
               <div className="w-100">
-                <ButtonType1
+                <button 
+                  className="submit-button w-100"
                   onClick={onSubmit}
-                >Enviar</ButtonType1>
+                >Enviar</button>
               </div>
             </Form>
           </Col>
