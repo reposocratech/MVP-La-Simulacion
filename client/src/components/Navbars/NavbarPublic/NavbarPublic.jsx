@@ -18,7 +18,7 @@ export const NavbarPublic = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-         <Nav className="me-auto">
+          <Nav className="me-auto d-flex align-items-center">
             <Nav.Link className="align-text-bottom" as={Link} to='/'>Inicio</Nav.Link>
             <Nav.Link as={Link} to="/about">Conócenos</Nav.Link>
             <Nav.Link as={Link} to="/contact">Contacta</Nav.Link>
@@ -28,8 +28,8 @@ export const NavbarPublic = () => {
             <button className="button-navbar" onClick={()=>navigate("/register")}>Regístrate</button>
             <button className="button-navbar" onClick={()=>navigate("/login")}>Accede</button>
           </div>
-       </Navbar.Collapse>
-     </Container>
-   </Navbar>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   )
 }
