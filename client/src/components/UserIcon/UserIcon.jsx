@@ -2,7 +2,9 @@ import { useNavigate } from 'react-router'
 
 import './userIcon.css'
 
-export const UserIcon = ({userType}) => {
+export const UserIcon = ({navbarData}) => {
+
+  const {userName, userType, userAvatar} = navbarData;
 
   const navigate = useNavigate(); 
 
@@ -16,9 +18,16 @@ export const UserIcon = ({userType}) => {
   return (
     <div className="me-2">
       <button className="avatar-button" onClick={onClickIcon}>
-        <img src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/users/default-avatar.svg`} 
+        {userAvatar? 
+          <img 
+              src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/users/${userAvatar}`} 
               alt="Ir a mi perfil de usuario"
               className="avatar-icon" />
+
+        : <img 
+              src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/users/default-avatar.svg`} 
+              alt="Ir a mi perfil de usuario"
+              className="avatar-icon" />}
       </button>
     </div>
   )

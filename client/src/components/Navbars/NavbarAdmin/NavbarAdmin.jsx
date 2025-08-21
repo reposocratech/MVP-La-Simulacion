@@ -12,6 +12,12 @@ export const NavbarAdmin = () => {
   const {user, logout} = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const navbarData = {
+    userName: user.user_name,
+    userType: user.type,
+    userAvatar: user.avatar
+  }
+
   const onLogout = () => {
     logout();
     navigate("/");
@@ -43,7 +49,7 @@ export const NavbarAdmin = () => {
             <Nav.Link as={Link} to="/admin/reservations">Reservas</Nav.Link>
           </Nav>
           <div className="d-flex">
-            <UserIcon userType={user.type}/>
+            <UserIcon navbarData={navbarData}/>
             <button className="button-navbar"
                     onClick={onLogout}>Cierra Sesión</button>
           </div>
