@@ -7,7 +7,7 @@ export const PublicRoutes = () => {
   const {user, loading} = useContext(AuthContext);
   return (
     <>
-     {!user && !loading && <Outlet />}
+     {!loading && <Outlet />}
     </>
   )
 }

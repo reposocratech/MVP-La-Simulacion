@@ -16,6 +16,7 @@ const Services = lazy(()=>import('../pages/PublicPages/Services/Services'));
 const ServicesCoop = lazy(()=>import('../pages/PublicPages/ServicesCoop/ServicesCoop'));
 const Events = lazy(()=>import('../pages/PublicPages/Events/Events'));
 const Rooms = lazy(()=>import('../pages/PublicPages/Rooms/Rooms'));
+const ViewOneRoom = lazy(()=>import('../pages/PublicPages/viewOneRoom/ViewOneRoom'));
 const Register = lazy(()=>import('../pages/PublicPages/Register/Register'));
 const Login = lazy(()=>import('../pages/PublicPages/Login/Login'));
 const ErrorPage = lazy(()=>import('../pages/PublicPages/ErrorPage/ErrorPage'));
@@ -42,6 +43,7 @@ export const AppRoutes = () => {
               <Route path='/servicesCoop' element={< ServicesCoop />} />
               <Route path='/events' element={< Events />} />
               <Route path='/rooms' element={< Rooms />} />
+              <Route path='/rooms/room:id' element={< ViewOneRoom />} />
               <Route path='/register' element={< Register />} />
               <Route path='/login' element={< Login />} />
             </Route>

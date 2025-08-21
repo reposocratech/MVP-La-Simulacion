@@ -29,6 +29,10 @@ class RoomController {
     }
 
   }
+
+  showOneRoom = () => {
+    res.status(200).json("Hola, soy una room");
+  }
 }
 
 export default new RoomController();
