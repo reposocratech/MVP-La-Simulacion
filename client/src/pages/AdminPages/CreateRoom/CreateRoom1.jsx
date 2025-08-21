@@ -75,15 +75,13 @@ const CreateRoom1 = () => {
   return (
     <>
       {form1 && <FormRoom1 
-          room={room} 
-          setRoom={setRoom}
+          room={room}
           handleChange={handleChange}
           next={next}
           cancel={cancel}
         />}
       {form2 && <FormRoom2 
-          room={room} 
-          setRoom={setRoom}
+          room={room}
           handleChange={handleChange}
           handleFile={handleFile}
           previous={previous}

@@ -1,43 +1,52 @@
-import { Form } from 'react-bootstrap'
+import { Col, Container, Form, Row } from 'react-bootstrap';
+import './formRoom.css';
 
-export const FormRoom2 = ({room, setRoom, handleChange, cancel, previous, handleFile, onSubmit}) => {
+export const FormRoom2 = ({room, handleChange, cancel, previous, handleFile, onSubmit}) => {
 
   return (
-    <section>
-        <Form>
-          <Form.Group className="mb-3" controlId="formBasicPricing">
-            <Form.Label>Precios:</Form.Label>
-            <Form.Control 
-              type="text" 
-              placeholder="Precios del alquiler de la sala y de los extras que pueda tener"
-              onChange={handleChange}
-              value={room.pricing}
-              name="pricing"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicUsage_Policy">
-            <Form.Label>Política y condiciones de uso:</Form.Label>
-            <Form.Control 
-              type="text" 
-              placeholder="Política, condiciones, normas..."
-              onChange={handleChange}
-              value={room.usage_policy}
-              name="usage_policy"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicFile">
-            <Form.Label>Subir imágenes a la sala </Form.Label>
-            <Form.Control 
-              type="file" 
-              onChange={handleFile}
-              name="file"
-              hidden
-            />
-          </Form.Group>
-            <button onClick={previous}>Anterior</button>
-            <button onClick={cancel}>Cancelar</button>
-            <button onClick={onSubmit}>Siguiente</button>
-        </Form>
+    <section className='section-createRoom'>
+        <Container fluid>
+          <Row><h1 className='h1-createRoom  text-center p-2 my-5'><span className='span-createRoom accent-text align-middle'>ES</span>Editar sala (Paso 2):</h1>
+            <Col className="d-flex justify-content-center">
+              <Form className='w-75 border border-2 p-4 rounded rounded-3'>
+                <Form.Group className="mb-3" controlId="formBasicPricing">
+                  <Form.Label>Precios:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Precios del alquiler de la sala y de los extras que pueda tener"
+                    onChange={handleChange}
+                    value={room.pricing}
+                    name="pricing"
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicUsage_Policy">
+                  <Form.Label>Política y condiciones de uso:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Política, condiciones, normas..."
+                    onChange={handleChange}
+                    value={room.usage_policy}
+                    name="usage_policy"
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicFile">
+                  <Form.Label>Subir imágenes a la sala </Form.Label>
+                  <Form.Control
+                    type="file"
+                    onChange={handleFile}
+                    name="file"
+                    hidden
+                  />
+                </Form.Group>
+                  <div className='d-flex flex-column flex-md-row gap-2'>
+                    <button className='prev-button w-auto' onClick={previous}>Anterior</button>
+                    <button className='cancel-button w-auto' onClick={cancel}>Cancelar</button>
+                    <button className='submit-button w-auto' onClick={onSubmit}>Siguiente</button>
+                  </div>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
       </section>
   )
 }
