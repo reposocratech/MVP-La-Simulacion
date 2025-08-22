@@ -5,29 +5,104 @@
 }
 
 .marg-top{
-    margin-top: 6rem;
+    padding-block: 5rem;
+}
+.m_form_group{
+  margin-bottom: 0.2rem;
+  margin-top: 0.3rem;
 }
 
 .textblack{
     color: black;
     text-decoration: none;
-   
     }
   
 .active{
     background-color: var(--color-primary-baby-pink);
-}  
+} 
+
 @media (min-width: 992px) {
-  .sticky-col {
+  .sticky-col-sect {
     position: sticky;
-    top: 100px;
+    top: 70px;
     align-self: flex-start;
     height: fit-content;
   }
 }
-    
+
+
+@media (min-width: 768px) {
+    .sticky-col-sect{
+    border-right: 1px solid;
+    }
+    .sticky-col-sect .textblack {
+    width: fit-content;
+    margin: 0 auto;
+     
+  }
+}
+.sticky-col-sect {
+  border-right: none; 
+}
+
+@media (min-width: 992px) {
+  .sticky-col {
+    position: sticky;
+    top: 70px;
+    align-self: flex-start;
+    height: fit-content;
+  }
+}
+
+
+@media (max-height: 800px) {
+  .sticky-col input,
+  .sticky-col textarea,
+  .sticky-col select,
+  .sticky-col h5,
+  .sticky-col .m_form_group{
+    font-size: 0.6rem;       
+   }
+
+  .sticky-col label {
+    margin-bottom: 0.1rem;
+    font-size: 0.7rem;
+  }
+
+  .sticky-col button {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+
+  .sticky-col h5 {
+    font-size: 0.9rem;
+  }
+
+  .sticky-col .form-error {
+    font-size: 0.5rem;
+  }
+  .sticky-col .m_form_group{
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+  }
+  .textblack{
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 1400px){
+  .i-width{
+    width: 450px;
+  }
+}
+@media (max-width: 500px){
+  .i-width{
+    width: 270px;
+  }
+}
 
 .i-width{
+  text-align: center;
     max-width: 600px;
 }
 
