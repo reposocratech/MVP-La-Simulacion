@@ -1,9 +1,7 @@
 import express from 'express';
+import eventsControllers from './events.controllers.js';
 const router = express.Router();
 
-/* GET rooms listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.get('/futures', eventsControllers.getEventData);
 
 export default router;

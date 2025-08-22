@@ -1,0 +1,46 @@
+.section-rooms {
+  padding-block: 7rem;
+
+  h1 {
+    text-align: center;
+    font-size: 2.25rem;
+    margin-block-end: 2rem;
+
+    span {
+      font-family: 'Pilowlava';
+      color: var(--color-secondary-medium-lavender);
+    }
+  }
+
+  button {
+    background-color: var(--color-secondary-medium-lavender);
+    color: #FFF;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
+
+    &:hover {
+      filter: brightness(85%);
+    }
+  }
+
+  article {
+    border: 2px solid var(--color-secondary-medium-lavender);
+    background-color: var(--color-tertiary-lavender);
+
+    h2 {
+      font-size: 1.8rem;
+      margin-block-end: 1rem;
+    }
+
+    p {
+      margin-block-end: 0.5rem;
+
+      span {
+        color: var(--color-secondary-superdark-pink);
+        font-size: .85rem;
+      }
+    }
+  }
+}

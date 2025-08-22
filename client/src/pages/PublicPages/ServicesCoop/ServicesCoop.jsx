@@ -58,8 +58,8 @@ const ServicesCoop = () => {
   return (
      <section className="marg-top" >
       <Container>
-        <Row className="mt-5">
-          <Col md={12} lg={3} className="sticky-col border-end">
+        <Row >
+          <Col md={12} lg={3} className="sticky-col-sect ">
               <div >
                 {servicesCoop.result?.map(service => (        
                 <div  className={`textblack p-2   ${active === service.service_id ? "active" : ""} `}>
@@ -80,16 +80,18 @@ const ServicesCoop = () => {
                 {servicesCoop.result?.map(service => (      
                 <section id={service.service_name}>
                   <h3 className="text-center" >{service.service_name}</h3>
-                  <img className="i-width mb-4 mt-4" src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/servCoop/${service.image}`} alt="" />
+                  <div className="text-center"> 
+                    <img className="i-width mb-4 mt-4" src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/servCoop/${service.image}`} alt="" />
+                  </div>
                   <p>{service.service_description} </p>
                 </section>
                 ))}  
           </Col>
 
-          <Col md={12} lg={3} className="sticky-col">
-            <h4 className="mb-2"  >¿Quieres más información? Completa este formulario:</h4>
+          <Col md={12} lg={3} className="sticky-col ">
+            <h5 className="mb-1"  >¿Quieres más información?</h5>
             <Form className="border border-1 rounded-2 p-2 ">
-              <Form.Group className="mb-2" controlId="formBasicName">
+              <Form.Group className="m_form_group"  controlId="formBasicName">
                 <Form.Label>Nombre:</Form.Label>
                 <Form.Control 
                   type="text" 
@@ -100,7 +102,7 @@ const ServicesCoop = () => {
                 />
               {valErrors.user_name && <Form.Text className="form-error">{valErrors.user_name}</Form.Text>}
               </Form.Group>
-              <Form.Group className="mb-2" controlId="formBasiclastName">
+              <Form.Group className="m_form_group"  controlId="formBasiclastName">
                 <Form.Label>Apellidos:</Form.Label>
                 <Form.Control 
                   type="text" 
@@ -111,7 +113,7 @@ const ServicesCoop = () => {
                   />
               {valErrors.lastName && <Form.Text className="form-error">{valErrors.lastName}</Form.Text>}
                 </Form.Group>
-              <Form.Group className="mb-2" controlId="formBasicEmail">
+              <Form.Group className="m_form_group"  controlId="formBasicEmail">
                 <Form.Label>Email:</Form.Label>
                 <Form.Control 
                   type="text" 
@@ -122,7 +124,7 @@ const ServicesCoop = () => {
                   />
               {valErrors.email && <Form.Text className="form-error">{valErrors.email}</Form.Text>}
                   </Form.Group>
-                  <Form.Group className="mb-2" controlId="formBasicPhone">
+                  <Form.Group className="m_form_group"  controlId="formBasicPhone">
                 <Form.Label>Telefono:</Form.Label>
                 <Form.Control 
                   type="text" 
@@ -133,7 +135,7 @@ const ServicesCoop = () => {
                   />
                 {valErrors.phone && <Form.Text className="form-error">{valErrors.phone}</Form.Text>}
                   </Form.Group>
-                    <Form.Group className="mb-2" controlId="formBasicType">
+                    <Form.Group className="m_form_group"  controlId="formBasicType">
                 <Form.Label>¿Sobre qué servicio deseas consultar?:</Form.Label>
                  <Form.Select
                   name="type"
@@ -152,7 +154,7 @@ const ServicesCoop = () => {
                   </Form.Select>
                   {valErrors.type && <Form.Text className="form-error">{valErrors.type}</Form.Text>}
                   </Form.Group>
-                  <Form.Group className="mb-2" controlId="formBasicDescription">
+                  <Form.Group className="m_form_group" controlId="formBasicDescription">
                 <Form.Label>Escribe tu consulta:</Form.Label>
                 <Form.Control 
                   as={"textarea"}
@@ -165,7 +167,7 @@ const ServicesCoop = () => {
                   </Form.Group>
                   
                   
-               <button className="submit-button w-100" onClick={sendMail}>
+               <button className="submit-button mt-1 w-100" onClick={sendMail}>
                 Enviar
                </button>
             </Form>
