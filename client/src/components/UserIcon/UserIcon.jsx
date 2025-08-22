@@ -16,22 +16,25 @@ export const UserIcon = ({navbarData}) => {
   }
   
   return (
-    <div className="d-flex align-items-center me-2">
-      <button className="avatar-button" onClick={onClickIcon}>
-        {userAvatar? 
-          <img 
-              src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/users/${userAvatar}`} 
-              alt="Ir a mi perfil de usuario"
-              className="avatar-icon" />
-
-        : <img 
-              src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/users/default-avatar.svg`} 
-              alt="Ir a mi perfil de usuario"
-              className="avatar-icon" />}
+    <>
+      <button className="avatar-button d-flex align-items-center" onClick={onClickIcon}>
+            {userAvatar? 
+            <img
+                src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/users/${userAvatar}`}
+                alt="Ir a mi perfil de usuario"
+                className="avatar-icon" />
+            
+                : <img
+                src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/users/default-avatar.svg`}
+                alt="Ir a mi perfil de usuario"
+                className="avatar-icon" />
+            }
+ 
+            {userName &&
+            <p className='my-0 ms-2'>{userName}</p>
+            }
       </button>
-      {userName &&
-        <p className='my-0 ms-3'>{userName}</p>
-      }
-    </div>
+      
+    </>
   )
 }
