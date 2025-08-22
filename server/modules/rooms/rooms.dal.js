@@ -16,7 +16,7 @@ class RoomDal {
       let file_id_initial=0;
       data.file.forEach(async(file) => {
         file_id_initial++;
-        let sqlFile = 'INSERT INTO room_img (room_id, room_image_id, file) VALUES (?,?,?)';
+        let sqlFile = 'INSERT INTO room_image (room_id, room_image_id, file) VALUES (?,?,?)';
         let valuesFile = [room_id, file_id_initial, file];
         await connection.query(sqlFile, valuesFile);
       });

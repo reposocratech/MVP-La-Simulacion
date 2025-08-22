@@ -25,9 +25,9 @@ const ErrorPage = lazy(() => import('../pages/PublicPages/ErrorPage/ErrorPage'))
 const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'))
 
 // Componentes Administrador:
-const CreateRoom1 = lazy(() =>
-  import('../pages/AdminPages/CreateRoom/CreateRoom1')
-)
+
+const CreateRoom = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom'));
+
 
 export const AppRoutes = () => {
   const { user, loading } = useContext(AuthContext)
@@ -54,21 +54,21 @@ export const AppRoutes = () => {
               </Route>
             </Route>
 
-            {/* Rutas Privadas de Usuario: */}
-            <Route
-              element={<PrivateRoutes userType={user?.type} requiredUser={0} />}
-            >
-              <Route element={<UserLayout />}>
-                <Route path="/user/profile" element={<Profile />} />
-              </Route>
-            </Route>
+          {/* Rutas de Administrador: */}
+         <Route element={< PrivateRoutes />}>
+          <Route element={< AdminLayout />}>
+            <Route path='/admin/createRoom' element={< CreateRoom />}/>
+          </Route>
+         </Route>
 
-            {/* Rutas de Administrador: */}
-            <Route element={<PrivateRoutes />}>
-              <Route element={<AdminLayout />}>
-                <Route path="/admin/createroom1" element={<CreateRoom1 />} />
-              </Route>
+          {/* Rutas Privadas de Usuario: */}
+          <Route
+            element={<PrivateRoutes userType={user?.type} requiredUser={0} />}
+          >
+            <Route element={<UserLayout />}>
+              <Route path="/user/profile" element={<Profile />} />
             </Route>
+          </Route>
 
             <Route path="*" element={<ErrorPage />} />
           </Routes>
