@@ -6,7 +6,6 @@ import { PublicRoutes } from './PublicRoutes';
 import { PrivateRoutes } from './PrivateRoutes';
 import { AdminLayout } from '../layouts/AdminLayout';
 import { UserLayout } from '../layouts/UserLayout'
-
 // Importaciones "carga perezosa":
   // Componentes públicos:
 const Home = lazy(()=>import('../pages/PublicPages/Home/Home'));
@@ -20,18 +19,13 @@ const OneRoom = lazy(() => import('../pages/PublicPages/oneRoom/OneRoom'));
 const Register = lazy(()=>import('../pages/PublicPages/Register/Register'));
 const Login = lazy(()=>import('../pages/PublicPages/Login/Login'));
 const ErrorPage = lazy(()=>import('../pages/PublicPages/ErrorPage/ErrorPage'));
-
   // Componentes Administrador:
 const AdminPanel = lazy(()=>import('../pages/AdminPages/AdminPanel/AdminPanel'));
 const CreateRoom = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom'));
-
 // Componentes de Usuario:
 const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'))
-
-
 export const AppRoutes = () => {
   const { user, loading } = useContext(AuthContext);
-
   return (
     <>
       {loading ? (
@@ -55,28 +49,28 @@ export const AppRoutes = () => {
               </Route>
             </Route>
 
-            {/* Rutas de Administrador: */}
-            <Route element={< PrivateRoutes />}>
-              <Route element={< AdminLayout />}>
-                <Route path='/admin/createRoom' element={< CreateRoom />}/>
-                <Route path='/admin/adminPanel' element={< AdminPanel />}/>
-              </Route>
-            </Route>
+          {/* Rutas de Administrador: */}
+         <Route element={< PrivateRoutes />}>
+          <Route element={< AdminLayout />}>
+          <Route path='/admin/createRoom' element={< CreateRoom />}/>
+          <Route path='/admin/adminPanel' element={< AdminPanel />}/>
+          </Route>
+         </Route>
 
-            {/* Rutas Privadas de Usuario: */}
-            <Route
-              element={<PrivateRoutes userType={user?.type} requiredUser={0} />}
-            >
-              <Route element={<UserLayout />}>
-                <Route path="/user/profile" element={<Profile />} />
-              </Route>
+          {/* Rutas Privadas de Usuario: */}
+          <Route
+            element={<PrivateRoutes userType={user?.type} requiredUser={0} />}
+          >
+            <Route element={<UserLayout />}>
+              <Route path="/user/profile" element={<Profile />} />
             </Route>
+          </Route>
 
-            {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
-            <Route path='*' element={<ErrorPage />}/>
-          </Routes>
-        </BrowserRouter>
-      )}
+          {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
+          <Route path='*' element={<ErrorPage />}/>
+        </Routes>
+      </BrowserRouter>
+      })
     </>
   )
 }
