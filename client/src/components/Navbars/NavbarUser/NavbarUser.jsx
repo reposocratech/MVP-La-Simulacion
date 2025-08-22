@@ -10,15 +10,20 @@ import './navbarUser.css';
 
 export const NavbarUser = () => {
 
+  // Sacamos el user y la función para desloguearse del contexto "AuthContext":
   const {user, logout} = useContext(AuthContext);
+
+  // función navegar para utilizarla en el onClick del logout:
   const navigate = useNavigate();
 
+  // Creamos un objeto para almacenar los campos del user que nos interesa pasar por props al componente "UserIcon":
   const navbarData = {
     userName: user.user_name,
     userType: user.type,
     userAvatar: user.avatar
   }
 
+  // Función que incluye el logout del context y además nos redirige al Home:
   const onLogout = () => {
     logout();
     navigate("/");
@@ -41,6 +46,7 @@ export const NavbarUser = () => {
             <Nav.Link as={Link} to="/services">Servicios</Nav.Link>
           </Nav>
           <div className="d-flex">
+            {/* Pasamos por props el objeto con los datos: */}
             <UserIcon navbarData={navbarData}/>
             <button className="button-navbar"
                     onClick={onLogout}>Cierra Sesión</button>

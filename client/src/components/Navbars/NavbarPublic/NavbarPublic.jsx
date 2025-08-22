@@ -6,6 +6,7 @@ import './navbarPublic.css';
 
 export const NavbarPublic = () => {
 
+  // función navegar para utilizarla en los botones de register y login:
   const navigate = useNavigate();
 
   return (
