@@ -73,7 +73,8 @@ export const AppRoutes = () => {
           {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
           <Route path='*' element={<ErrorPage />}/>
         </Routes>
-      </BrowserRouter>}
+      </BrowserRouter>)
+      } 
     </>
   )
 }
