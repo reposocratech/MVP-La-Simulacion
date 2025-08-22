@@ -139,30 +139,30 @@ const Contact = () => {
             <section className="mt-3 section-redes rounded-4 text-white">
               <div className="p-3 rounded-4 text-center  ">
                 <p className="mb-3 fs-5 fw-bold">También estamos en redes sociales</p>
-                <div className="d-flex justify-content-center gap-3">
+                <div className="d-flex justify-content-center gap-4">
                   <a 
                     href="https://www.linkedin.com/company/lasimulacion/" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                  ><FaLinkedin color="#FFF" size={28} title="LinkedIn" />
+                  ><FaLinkedin color="var(--color-primary-orange)" size={32} title="LinkedIn" />
                   </a>
                   <a 
                     href="https://www.facebook.com/tu-pagina" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                  ><FaFacebook color="#FFF" size={28} title="Facebook" />
+                  ><FaFacebook color="var(--color-primary-orange)" size={32} title="Facebook" />
                   </a>
                   <a 
                     href="https://www.instagram.com/tu-cuenta" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                  ><FaInstagram color="#FFF" size={28} title="Instagram" />
+                  ><FaInstagram color="var(--color-primary-orange)" size={32} title="Instagram" />
                   </a>
                   <a 
                     href="https://www.tiktok.com/@tu-cuenta" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                  ><FaTiktok color="#FFF" size={28} title="TikTok" />
+                  ><FaTiktok color="var(--color-primary-orange)" size={32} title="TikTok" />
                   </a>
                 </div>
               </div>

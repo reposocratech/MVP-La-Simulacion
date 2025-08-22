@@ -12,7 +12,7 @@ export const createRoomSchema1 = z.object({
     .nullable(),
   who_can_use_it: z
     .string()
-    .max(500, {message: "Esta campo tiene que tener un máximo de 500 caracteres"})
+    .max(2000, {message: "Esta campo tiene que tener un máximo de 500 caracteres"})
     .optional()
     .nullable()
 });

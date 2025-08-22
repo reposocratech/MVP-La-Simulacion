@@ -32,18 +32,20 @@ class RoomController {
 
   }
 
-  // Método para mostrar una única sala:
-  getRoomById = async(req, res) => {
+  // Método para mostrar una única sala con sus imágenes:
+  getRoomWithImagesById = async(req, res) => {
+    const { id } = req.params;
     try {
-      const result = await roomsDal.getRoomById();
-      res.status(200).json("Hola, soy una room");
+      const room = await roomsDal.getRoomById(id);
+      const images = await roomsDal.getRoomImagesById(id);
+      res.status(200).json({room, images});
 
     } catch (error) {
       console.log("Error Controller RoomById", error);
       res.status(500).json({message:"error de server"})
     }
-
   }
+
 }
 
 export default new RoomController();

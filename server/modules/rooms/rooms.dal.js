@@ -37,7 +37,7 @@ class RoomDal {
   getRoomById = async(id)=> {
     try {
       let sql = "SELECT * FROM room WHERE room_id = ?"
-      const result = executeQuery(sql, [id]);
+      const result = await executeQuery(sql, [id]);
       return result;
 
     } catch (error) {
@@ -46,6 +46,16 @@ class RoomDal {
     }
   }
 
+  getRoomImagesById = async(id) => {
+    try {
+      let sql = "SELECT * FROM room_image WHERE room_id = ?";
+      const result = await executeQuery(sql, [id]);
+      return result;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 
 }
 

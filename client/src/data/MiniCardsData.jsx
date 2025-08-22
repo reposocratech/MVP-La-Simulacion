@@ -6,7 +6,7 @@ export const getMiniCardsData = () => [
     icon: <FaEnvelope color="var(--color-primary-baby-pink)" size={34} title="Email" />,
     title: "E-Mail",
     subtitle: "info.lasimulacion@gmail.com",
-    bgColor: "var(--color-secondary-medium-pink)"
+    bgColor: "var(--color-primary-electric-blue)"
   },
   {
     id: 2,

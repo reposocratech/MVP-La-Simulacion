@@ -26,7 +26,7 @@ const Events = () => {
         <h1><span>EV </span>Próximos eventos y talleres</h1>
         <div className="d-flex flex-column align-items-center gap-4">
           {events?.map(event => (
-            <div key={event.id} className="w-75">
+            <div key={event.event_id} className="w-75">
               <CardEvents event={event}/>
             </div>
           ))}
