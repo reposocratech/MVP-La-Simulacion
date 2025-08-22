@@ -2,12 +2,11 @@ import { useNavigate } from 'react-router'
 
 import './userIcon.css'
 
-export const UserIcon = ({navbarData}) => {
 
-  const {userName, userType, userAvatar} = navbarData;
-
-  const navigate = useNavigate(); 
-
+export const UserIcon = ({ navbarData }) => {
+  const { userName, userType, userAvatar } = navbarData
+  const navigate = useNavigate()
+  
   //Función para que al pulsar en el UserIcon, nos redirija al peril o al panel de Admin, en función del tipo de usuario:
   const onClickIcon = () => {
     if(userType === 1) navigate("/admin/AdminPanel"); //admin
@@ -32,8 +31,7 @@ export const UserIcon = ({navbarData}) => {
             {userName &&
             <p className='my-0 ms-2'>{userName}</p>
             }
-      </button>
-      
+      </button> 
     </>
   )
 }
