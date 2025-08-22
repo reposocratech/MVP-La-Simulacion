@@ -71,7 +71,7 @@ body {
   h1, h2, h3, h4, h5, h6 {
     font-family: "Ubuntu", Helvetica, sans-serif;
     font-weight: bold;
-  } 
+  }
 
   label {
     font-weight: bold;
@@ -89,7 +89,23 @@ body {
     padding: .6rem 1.5rem;
   }
 
-  .bg-color-secondary-green {
+  .cancel-button {
+    background-color: var(--color-primary-orange);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
+  }
+
+  .prev-button {
+    background-color: var(--color-primary-baby-pink);
+    color: black;
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
+  }
+
+   .bg-color-secondary-green {
     background-color: var(--color-secondary-medium-green);
   }
 

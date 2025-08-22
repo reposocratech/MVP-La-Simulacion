@@ -58,7 +58,7 @@ const Login = () => {
         <Row>
           <h1 className='h1-login text-center p-2 my-5'>Entra en tu cuenta <span className='span-login accent-text align-middle'>E</span> </h1>
           <Col className="d-flex justify-content-center">
-            <Form className='w-25 border border-2 p-4 rounded rounded-3'>
+            <Form xs={9} lg={3} className='border border-2 p-4 rounded rounded-3'>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email:</Form.Label>
                 <Form.Control
