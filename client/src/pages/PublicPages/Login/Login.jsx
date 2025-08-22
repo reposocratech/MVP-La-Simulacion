@@ -42,10 +42,11 @@ const Login = () => {
       //Espera a que la función de login del contexto termine. Si el servidor devuelve un error, este await lo lanzará.
       await login(userLogin);
       setValError({});
-      navigate('/admin/createroom1');
+
+      navigate('/admin/createroom')
 
     } catch (error) {
-      console.log(error);
+      
       if(error instanceof ZodError){
         let objectTemp = {}
         error.issues.forEach((er)=>{
@@ -60,7 +61,7 @@ const Login = () => {
         
       }else{
         setValError({});
-        setMsgError('Algo salío mal, inténtelo de nuevo')
+        setMsgError('Algo salío mal, inténtelo de nuevo');
       }
     }
   };
@@ -86,7 +87,7 @@ const Login = () => {
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Contraseña:</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="password"
                   placeholder="Tu contraseña"
                   onChange={handleChange}
                   value={userLogin.password}

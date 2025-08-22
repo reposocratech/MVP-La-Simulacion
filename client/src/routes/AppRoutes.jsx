@@ -5,6 +5,7 @@ import { AuthContext } from '../context/AuthContextProvider';
 import { PublicRoutes } from './PublicRoutes';
 import { PrivateRoutes } from './PrivateRoutes';
 import { AdminLayout } from '../layouts/AdminLayout';
+import { UserLayout } from '../layouts/UserLayout'
 
 // Importaciones "carga perezosa":
   // Componentes públicos:
@@ -15,54 +16,64 @@ const Services = lazy(()=>import('../pages/PublicPages/Services/Services'));
 const ServicesCoop = lazy(()=>import('../pages/PublicPages/ServicesCoop/ServicesCoop'));
 const Events = lazy(()=>import('../pages/PublicPages/Events/Events'));
 const Rooms = lazy(()=>import('../pages/PublicPages/Rooms/Rooms'));
-const ViewOneRoom = lazy(()=>import('../pages/PublicPages/viewOneRoom/ViewOneRoom'));
 const Register = lazy(()=>import('../pages/PublicPages/Register/Register'));
 const Login = lazy(()=>import('../pages/PublicPages/Login/Login'));
 const ErrorPage = lazy(()=>import('../pages/PublicPages/ErrorPage/ErrorPage'));
 
   // Componentes Administrador:
-const CreateRoom1 = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom1'))
 const AdminPanel = lazy(()=>import('../pages/AdminPages/AdminPanel/AdminPanel'));
+const CreateRoom = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom'));
+
+// Componentes de Usuario:
+const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'))
 
 
 export const AppRoutes = () => {
-
-  const {user, loading} = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
   return (
-    <>{loading?<h1>Cargando...</h1>:
-      <BrowserRouter>
-        
-        <Routes>
-          {/* Rutas Públicas: */}
-          <Route element={< PublicRoutes/>}>
-            <Route element={< PublicLayout />}>
-              <Route path='/' element={< Home />} />
-              <Route path='/about' element={< About />} />
-              <Route path='/contact' element={< Contact />} />
-              <Route path='/services' element={< Services />} />
-              <Route path='/servicesCoop' element={< ServicesCoop />} />
-              <Route path='/events' element={< Events />} />
-              <Route path='/rooms' element={< Rooms />} />
-              <Route path='/rooms/room:id' element={< ViewOneRoom />} />
-              <Route path='/register' element={< Register />} />
-              <Route path='/login' element={< Login />} />
+    <>
+      {loading ? (
+        <h1>Cargando...</h1>
+      ) : (
+        <BrowserRouter>
+          <Routes>
+            {/* Rutas Públicas: */}
+            <Route element={<PublicRoutes />}>
+              <Route element={<PublicLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/servicesCoop" element={<ServicesCoop />} />
+                <Route path="/events" element={<Events />} />
+                <Route path="/rooms" element={<Rooms />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+              </Route>
             </Route>
-          </Route>
 
           {/* Rutas de Administrador: */}
          <Route element={< PrivateRoutes />}>
           <Route element={< AdminLayout />}>
-            <Route path='/admin/createroom1' element={< CreateRoom1 />}/>
-            <Route path='/admin/adminPanel' element={< AdminPanel />}/>
+          <Route path='/admin/createRoom' element={< CreateRoom />}/>
+          <Route path='/admin/adminPanel' element={< AdminPanel />}/>
           </Route>
          </Route>
+
+          {/* Rutas Privadas de Usuario: */}
+          <Route
+            element={<PrivateRoutes userType={user?.type} requiredUser={0} />}
+          >
+            <Route element={<UserLayout />}>
+              <Route path="/user/profile" element={<Profile />} />
+            </Route>
+          </Route>
 
           {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
           <Route path='*' element={<ErrorPage />}/>
         </Routes>
       </BrowserRouter>}
     </>
-
   )
 }

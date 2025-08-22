@@ -1,0 +1,17 @@
+.card {
+  border: 2px solid var(--color-secondary-superdark-pink);
+
+  .info-button {
+    background-color: var(--color-primary-lavender);
+    color: black;
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
+
+    &:hover {
+      filter: brightness(85%);
+    }
+  }
+}
+
+

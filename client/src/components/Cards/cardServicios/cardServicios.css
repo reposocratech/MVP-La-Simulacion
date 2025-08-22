@@ -1,0 +1,18 @@
+.card-servicios {
+  h4 span {
+    font-family: 'Pilowlava';
+    font-size: 2rem;
+    color: #FFF;
+  }
+  .service-button {
+    background-color: #FFF;
+    color: black;
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
+
+    &:hover {
+      filter: brightness(85%);
+    }
+  }
+}

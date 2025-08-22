@@ -128,6 +128,31 @@ class UserController {
             res.status(500).json({message: "server error"});
         }
     }
+
+  contactEmail = async(req, res) => {
+    try {
+      const { name, lastname, email, phone_number, consult } = req.body;
+
+      const mailOptions = {
+        from: `"Formulario contacto Web" <${process.env.EMAIL_USER}>`,
+        to: process.env.EMAIL_USER, 
+        subject: `Nuevo mensaje de contacto de ${name} ${lastname}`,
+        html: `
+          <h2>Nuevo mensaje de contacto</h2>
+          <p><strong>Nombre:</strong> ${name} ${lastname}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Teléfono:</strong> ${phone_number}</p>
+          <p><strong>Consulta:</strong> ${consult}</p>
+        `
+      };
+
+      const info = await sendConfirmationMail.sendMail(mailOptions);
+      console.log("mensaje enviado", info.messageId);
+      res.status(200).json({ message: 'Correo enviado correctamente' });
+    } catch (error) {
+      res.status(500).json({ message: 'Error al enviar el correo' });
+    }
+  }
 }
 
 export default new UserController();
