@@ -1,12 +1,12 @@
 .section-about-1 {
-
+  padding-block-start: 7rem;
   .spanLetter-1 {
     color: var(--color-primary-violet);
   }
 }
 
 .section-about-2 {
-
+  background-color: var(--color-primary-lavender);
   .spanLetter-2 {
     color: var(--color-secondary-superdark-pink);
   }

@@ -4,6 +4,9 @@
   src: url('./assets/fonts/AnekDevanagari-VariableFont_wdth.ttf') format('truetype-variations');
   font-stretch: 125%; /* Ancho específico según el libro de diseño de la marca */
   font-style: normal;
+  ascent-override: 80%;
+  descent-override: 20%;
+  line-gap-override: 0%;
 }
 
 /* Tipografía de encabezados */
@@ -45,6 +48,8 @@
 
   /* Variables de Color del footer: */
   --color-bg-footer: #323232;
+
+  --color-tertiary-lavender: #F7F4FB;
 
   /* Variables de espaciado: */
   --spacing: 8px;
