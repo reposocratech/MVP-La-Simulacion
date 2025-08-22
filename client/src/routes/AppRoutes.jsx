@@ -21,7 +21,7 @@ const Login = lazy(()=>import('../pages/PublicPages/Login/Login'));
 const ErrorPage = lazy(()=>import('../pages/PublicPages/ErrorPage/ErrorPage'));
 
 // Componentes Administrador:
-const CreateRoom1 = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom1'))
+const CreateRoom = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom'));
 
 export const AppRoutes = () => {
 
@@ -50,7 +50,7 @@ export const AppRoutes = () => {
           {/* Rutas de Administrador: */}
          <Route element={< PrivateRoutes />}>
           <Route element={< AdminLayout />}>
-            <Route path='/admin/createroom1' element={< CreateRoom1 />}/>
+            <Route path='/admin/createRoom' element={< CreateRoom />}/>
           </Route>
          </Route>
 

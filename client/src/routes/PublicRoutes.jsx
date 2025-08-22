@@ -4,10 +4,10 @@ import { AuthContext } from "../context/AuthContextProvider"
 
 
 export const PublicRoutes = () => {
-  const {user, loading} = useContext(AuthContext);
+  const {loading} = useContext(AuthContext);
   return (
     <>
-     {!user && !loading && <Outlet />}
+     {!loading && <Outlet />}
     </>
   )
 }

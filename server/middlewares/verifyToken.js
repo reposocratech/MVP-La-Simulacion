@@ -17,6 +17,7 @@ export const verifyToken = (req, res, next)=> {
       let result = jwt.verify(cleanToken, process.env.TOKEN_KEY);
       req.simulacion_user_id = result.user_id;
       next();
+      
     } catch (error) {
       res.status(401).json({message: "No autorizado"});
     }
