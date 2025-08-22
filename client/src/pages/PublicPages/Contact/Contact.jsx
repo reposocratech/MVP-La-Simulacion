@@ -158,6 +158,7 @@ const Contact = () => {
         </Row>
       </Container>
     </section>
-
   )
 }
+
+export default Contact;
