@@ -1,0 +1,50 @@
+.section-panel {
+  padding-block-start: 6.5rem;
+
+  /* Estilo de las letras de acento en el h1 del panel: */
+  .spanLetter-panel {
+    font-size: 40px;
+    margin-inline-end: .5rem;
+    font-weight: normal;
+    color: var(--color-primary-baby-pink);
+  }
+
+  /* Estilos de los botones del panel de admin: */
+  .panel-button-gest {
+    background-color: var(--color-primary-baby-pink);
+    color: black;
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
+  }
+
+  .panel-button-gest-light {
+    background-color: var(--color-secondary-light-pink);
+    color: black;
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
+  }
+
+  .panel-button-create {
+    background-color: var(--color-primary-green);
+    color: black;
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
+  }
+
+  .panel-button-create-light {
+    background-color: var(--color-secondary-light-green);
+    color: black;
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
+  }
+
+  .panel-button-hover:hover {
+    filter: brightness(1.1); /* Aumenta el brillo en un 10% */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Añade una sombra sutil */
+    transform: translateY(-2px); /* Mueve el botón ligeramente hacia arriba */
+  }
+}
