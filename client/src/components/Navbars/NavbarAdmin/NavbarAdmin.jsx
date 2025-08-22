@@ -2,15 +2,21 @@ import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router';
 import logoNav from '../../../assets/logos/la-simulacion-logo-darkgreen.svg'
 import { UserIcon } from '../../UserIcon/UserIcon';
-
-import './navbarAdmin.css';
 import { useContext } from 'react';
 import { AuthContext } from '../../../context/AuthContextProvider';
 
+import './navbarAdmin.css';
+
 export const NavbarAdmin = () => {
 
-  const {logout} = useContext(AuthContext);
+  const {user, logout} = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const navbarData = {
+    userName: user.user_name,
+    userType: user.type,
+    userAvatar: user.avatar
+  }
 
   const onLogout = () => {
     logout();
@@ -43,7 +49,7 @@ export const NavbarAdmin = () => {
             <Nav.Link as={Link} to="/admin/reservations">Reservas</Nav.Link>
           </Nav>
           <div className="d-flex">
-            <UserIcon />
+            <UserIcon navbarData={navbarData}/>
             <button className="button-navbar"
                     onClick={onLogout}>Cierra Sesión</button>
           </div>

@@ -1,4 +1,4 @@
-import { dbPool } from "../../config/db.js";
+import executeQuery, { dbPool } from "../../config/db.js";
 
 class RoomDal {
   createRoom = async(data)=>{
@@ -33,6 +33,20 @@ class RoomDal {
       connection.release();
     }
   }
+
+  getRoomById = async(id)=> {
+    try {
+      let sql = "SELECT * FROM room WHERE room_id = ?"
+      const result = executeQuery(sql, [id]);
+      return result;
+
+    } catch (error) {
+      console.log("Error RoomByIdDal", error);
+      throw error;
+    }
+  }
+
+
 }
 
 export default new RoomDal();

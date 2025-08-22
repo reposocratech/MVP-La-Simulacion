@@ -1,36 +1,35 @@
-import { lazy, useContext } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router'
-import { PublicLayout } from '../layouts/PublicLayout'
-import { AuthContext } from '../Context/AuthContextProvider'
-import { PublicRoutes } from './PublicRoutes'
-import { PrivateRoutes } from './PrivateRoutes'
-import { AdminLayout } from '../layouts/AdminLayout'
+import { lazy, useContext } from 'react';
+import {BrowserRouter, Route, Routes} from 'react-router';
+import { PublicLayout } from '../layouts/PublicLayout';
+import { AuthContext } from '../context/AuthContextProvider';
+import { PublicRoutes } from './PublicRoutes';
+import { PrivateRoutes } from './PrivateRoutes';
+import { AdminLayout } from '../layouts/AdminLayout';
 import { UserLayout } from '../layouts/UserLayout'
 
-// Componentes públicos:
-const Home = lazy(() => import('../pages/PublicPages/Home/Home'))
-const About = lazy(() => import('../pages/PublicPages/About/About'))
-const Contact = lazy(() => import('../pages/PublicPages/Contact/Contact'))
-const Services = lazy(() => import('../pages/PublicPages/Services/Services'))
-const ServicesCoop = lazy(() =>
-  import('../pages/PublicPages/ServicesCoop/ServicesCoop')
-)
-const Events = lazy(() => import('../pages/PublicPages/Events/Events'))
-const Rooms = lazy(() => import('../pages/PublicPages/Rooms/Rooms'))
-const Register = lazy(() => import('../pages/PublicPages/Register/Register'))
-const Login = lazy(() => import('../pages/PublicPages/Login/Login'))
-const ErrorPage = lazy(() => import('../pages/PublicPages/ErrorPage/ErrorPage'))
+// Importaciones "carga perezosa":
+  // Componentes públicos:
+const Home = lazy(()=>import('../pages/PublicPages/Home/Home'));
+const About = lazy(()=>import('../pages/PublicPages/About/About'));
+const Contact = lazy(()=>import('../pages/PublicPages/Contact/Contact'));
+const Services = lazy(()=>import('../pages/PublicPages/Services/Services'));
+const ServicesCoop = lazy(()=>import('../pages/PublicPages/ServicesCoop/ServicesCoop'));
+const Events = lazy(()=>import('../pages/PublicPages/Events/Events'));
+const Rooms = lazy(()=>import('../pages/PublicPages/Rooms/Rooms'));
+const Register = lazy(()=>import('../pages/PublicPages/Register/Register'));
+const Login = lazy(()=>import('../pages/PublicPages/Login/Login'));
+const ErrorPage = lazy(()=>import('../pages/PublicPages/ErrorPage/ErrorPage'));
+
+  // Componentes Administrador:
+const AdminPanel = lazy(()=>import('../pages/AdminPages/AdminPanel/AdminPanel'));
+const CreateRoom = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom'));
 
 // Componentes de Usuario:
 const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'))
 
-// Componentes Administrador:
-
-const CreateRoom = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom'));
-
 
 export const AppRoutes = () => {
-  const { user, loading } = useContext(AuthContext)
+  const { user, loading } = useContext(AuthContext);
 
   return (
     <>
@@ -57,7 +56,8 @@ export const AppRoutes = () => {
           {/* Rutas de Administrador: */}
          <Route element={< PrivateRoutes />}>
           <Route element={< AdminLayout />}>
-            <Route path='/admin/createRoom' element={< CreateRoom />}/>
+          <Route path='/admin/createRoom' element={< CreateRoom />}/>
+          <Route path='/admin/adminPanel' element={< AdminPanel />}/>
           </Route>
          </Route>
 
@@ -70,10 +70,10 @@ export const AppRoutes = () => {
             </Route>
           </Route>
 
-            <Route path="*" element={<ErrorPage />} />
-          </Routes>
-        </BrowserRouter>
-      )}
+          {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
+          <Route path='*' element={<ErrorPage />}/>
+        </Routes>
+      </BrowserRouter>}
     </>
   )
 }
