@@ -63,7 +63,7 @@ export const AppRoutes = () => {
 
           {/* Rutas Privadas de Usuario: */}
           <Route
-            element={<PrivateRoutes userType={user?.type} requiredUser={0} />}
+            element={<PrivateRoutes userType={user?.type} requiredUser={2} />}
           >
             <Route element={<UserLayout />}>
               <Route path="/user/profile" element={<Profile />} />
