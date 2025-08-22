@@ -1,0 +1,14 @@
+.section-events {
+  padding-block: 7rem;
+
+  h1 {
+    text-align: center;
+    font-size: 2.25rem;
+    margin-block-end: 2rem;
+
+    span {
+      font-family: 'Pilowlava';
+      color: var(--color-secondary-superdark-pink);
+    }
+  }
+}

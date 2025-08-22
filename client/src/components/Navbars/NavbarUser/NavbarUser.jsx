@@ -10,8 +10,14 @@ import './navbarUser.css';
 
 export const NavbarUser = () => {
 
-  const {logout} = useContext(AuthContext);
+  const {user, logout} = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const navbarData = {
+    userName: user.user_name,
+    userType: user.type,
+    userAvatar: user.avatar
+  }
 
   const onLogout = () => {
     logout();
@@ -35,7 +41,7 @@ export const NavbarUser = () => {
             <Nav.Link as={Link} to="/services">Servicios</Nav.Link>
           </Nav>
           <div className="d-flex">
-            <UserIcon />
+            <UserIcon navbarData={navbarData}/>
             <button className="button-navbar"
                     onClick={onLogout}>Cierra Sesión</button>
           </div>

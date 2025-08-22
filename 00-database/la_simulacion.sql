@@ -17,6 +17,7 @@ CREATE TABLE user (
     type TINYINT UNSIGNED NOT NULL DEFAULT 2
 );
 
+
 CREATE TABLE service (
 	service_id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     -- agent VARCHAR(50) NOT NULL DEFAULT 'Cooperativa' -- cooperativa o asociación    
@@ -30,11 +31,12 @@ CREATE TABLE service (
 CREATE TABLE room (
 	room_id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	room_name VARCHAR(150) NOT NULL, -- "sala de grabacion de audio"
-	room_description VARCHAR(500),  -- sala de grabacion de audio con micros, auriculares
-    who_can_use_it VARCHAR(500),  -- ¿Quién puede solicitar el uso del espacio?
+	room_description VARCHAR(1000),  -- sala de grabacion de audio con micros, auriculares
+    who_can_use_it VARCHAR(1000),  -- ¿Quién puede solicitar el uso del espacio?
 	pricing VARCHAR(500),  -- precios
-	usage_policy VARCHAR(500) --  politica de uso
+	usage_policy VARCHAR(1500) --  politica de uso
 );
+
 
 CREATE TABLE room_image (
 	room_id TINYINT UNSIGNED NOT NULL,
@@ -110,6 +112,7 @@ CREATE TABLE section (
     REFERENCES event(event_id) ON DELETE CASCADE ON UPDATE CASCADE    
 );
 
+
 CREATE TABLE section_image (
 	event_id INT UNSIGNED NOT NULL,
     section_id TINYINT UNSIGNED NOT NULL,
@@ -120,6 +123,7 @@ CREATE TABLE section_image (
 	CONSTRAINT fk_section_1 FOREIGN KEY (event_id, section_id)
     REFERENCES section(event_id, section_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 
 CREATE TABLE section_key_point (
 	event_id INT UNSIGNED NOT NULL,
@@ -133,5 +137,5 @@ CREATE TABLE section_key_point (
 );
 
     
- SELECT * FROM user;   
+SELECT * FROM user;   
 SELECT * FROM room;

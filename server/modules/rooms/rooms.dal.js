@@ -1,4 +1,4 @@
-import { dbPool } from "../../config/db.js";
+import executeQuery, { dbPool } from "../../config/db.js";
 
 class RoomDal {
   createRoom = async(data)=>{
@@ -16,7 +16,7 @@ class RoomDal {
       let file_id_initial=0;
       data.file.forEach(async(file) => {
         file_id_initial++;
-        let sqlFile = 'INSERT INTO room_img (room_id, room_image_id, file) VALUES (?,?,?)';
+        let sqlFile = 'INSERT INTO room_image (room_id, room_image_id, file) VALUES (?,?,?)';
         let valuesFile = [room_id, file_id_initial, file];
         await connection.query(sqlFile, valuesFile);
       });
@@ -33,6 +33,20 @@ class RoomDal {
       connection.release();
     }
   }
+
+  getRoomById = async(id)=> {
+    try {
+      let sql = "SELECT * FROM room WHERE room_id = ?"
+      const result = executeQuery(sql, [id]);
+      return result;
+
+    } catch (error) {
+      console.log("Error RoomByIdDal", error);
+      throw error;
+    }
+  }
+
+
 }
 
 export default new RoomDal();

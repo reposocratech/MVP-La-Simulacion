@@ -1,59 +1,30 @@
-import { lazy, useContext } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router'
-import { PublicLayout } from '../layouts/PublicLayout'
-<<<<<<< Updated upstream
-import { AuthContext } from '../Context/AuthContextProvider'
-=======
-import { AuthContext } from '../context/AuthContextProvider'
->>>>>>> Stashed changes
-import { PublicRoutes } from './PublicRoutes'
-import { PrivateRoutes } from './PrivateRoutes'
-import { AdminLayout } from '../layouts/AdminLayout'
+import { lazy, useContext } from 'react';
+import {BrowserRouter, Route, Routes} from 'react-router';
+import { PublicLayout } from '../layouts/PublicLayout';
+import { AuthContext } from '../context/AuthContextProvider';
+import { PublicRoutes } from './PublicRoutes';
+import { PrivateRoutes } from './PrivateRoutes';
+import { AdminLayout } from '../layouts/AdminLayout';
 import { UserLayout } from '../layouts/UserLayout'
-
-<<<<<<< Updated upstream
-=======
 // Importaciones "carga perezosa":
->>>>>>> Stashed changes
-// Componentes públicos:
-const Home = lazy(() => import('../pages/PublicPages/Home/Home'))
-const About = lazy(() => import('../pages/PublicPages/About/About'))
-const Contact = lazy(() => import('../pages/PublicPages/Contact/Contact'))
-const Services = lazy(() => import('../pages/PublicPages/Services/Services'))
-const ServicesCoop = lazy(() =>
-  import('../pages/PublicPages/ServicesCoop/ServicesCoop')
-)
-const Events = lazy(() => import('../pages/PublicPages/Events/Events'))
-const Rooms = lazy(() => import('../pages/PublicPages/Rooms/Rooms'))
-const Register = lazy(() => import('../pages/PublicPages/Register/Register'))
-const Login = lazy(() => import('../pages/PublicPages/Login/Login'))
-const ErrorPage = lazy(() => import('../pages/PublicPages/ErrorPage/ErrorPage'))
-<<<<<<< Updated upstream
-=======
-
-// Componentes Administrador:
-const AdminPanel = lazy(() =>
-  import('../pages/AdminPages/AdminPanel/AdminPanel')
-)
-const CreateRoom = lazy(() =>
-  import('../pages/AdminPages/CreateRoom/CreateRoom')
-)
->>>>>>> Stashed changes
-
+  // Componentes públicos:
+const Home = lazy(()=>import('../pages/PublicPages/Home/Home'));
+const About = lazy(()=>import('../pages/PublicPages/About/About'));
+const Contact = lazy(()=>import('../pages/PublicPages/Contact/Contact'));
+const Services = lazy(()=>import('../pages/PublicPages/Services/Services'));
+const ServicesCoop = lazy(()=>import('../pages/PublicPages/ServicesCoop/ServicesCoop'));
+const Events = lazy(()=>import('../pages/PublicPages/Events/Events'));
+const Rooms = lazy(()=>import('../pages/PublicPages/Rooms/Rooms'));
+const Register = lazy(()=>import('../pages/PublicPages/Register/Register'));
+const Login = lazy(()=>import('../pages/PublicPages/Login/Login'));
+const ErrorPage = lazy(()=>import('../pages/PublicPages/ErrorPage/ErrorPage'));
+  // Componentes Administrador:
+const AdminPanel = lazy(()=>import('../pages/AdminPages/AdminPanel/AdminPanel'));
+const CreateRoom = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom'));
 // Componentes de Usuario:
 const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'))
-
-<<<<<<< Updated upstream
-// Componentes Administrador:
-const CreateRoom1 = lazy(() =>
-  import('../pages/AdminPages/CreateRoom/CreateRoom1')
-)
-
-=======
->>>>>>> Stashed changes
 export const AppRoutes = () => {
-  const { user, loading } = useContext(AuthContext)
-
+  const { user, loading } = useContext(AuthContext);
   return (
     <>
       {loading ? (
@@ -75,48 +46,26 @@ export const AppRoutes = () => {
                 <Route path="/login" element={<Login />} />
               </Route>
             </Route>
-
-<<<<<<< Updated upstream
-            {/* Rutas Privadas de Usuario: */}
-            <Route
-              element={<PrivateRoutes userType={user?.type} requiredUser={0} />}
-            >
-              <Route element={<UserLayout />}>
-                <Route path="/user/profile" element={<Profile />} />
-              </Route>
+          {/* Rutas de Administrador: */}
+         <Route element={< PrivateRoutes />}>
+          <Route element={< AdminLayout />}>
+          <Route path='/admin/createRoom' element={< CreateRoom />}/>
+          <Route path='/admin/adminPanel' element={< AdminPanel />}/>
+          </Route>
+         </Route>
+          {/* Rutas Privadas de Usuario: */}
+          <Route
+            element={<PrivateRoutes userType={user?.type} requiredUser={2} />}
+          >
+            <Route element={<UserLayout />}>
+              <Route path="/user/profile" element={<Profile />} />
             </Route>
-
-            {/* Rutas de Administrador: */}
-            <Route element={<PrivateRoutes />}>
-              <Route element={<AdminLayout />}>
-                <Route path="/admin/createroom1" element={<CreateRoom1 />} />
-              </Route>
-            </Route>
-
-=======
-            {/* Rutas de Administrador: */}
-            <Route element={<PrivateRoutes />}>
-              <Route element={<AdminLayout />}>
-                <Route path="/admin/createRoom" element={<CreateRoom />} />
-                <Route path="/admin/adminPanel" element={<AdminPanel />} />
-              </Route>
-            </Route>
-
-            {/* Rutas Privadas de Usuario: */}
-            <Route
-              element={<PrivateRoutes userType={user?.type} requiredUser={0} />}
-            >
-              <Route element={<UserLayout />}>
-                <Route path="/user/profile" element={<Profile />} />
-              </Route>
-            </Route>
-
-            {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
->>>>>>> Stashed changes
-            <Route path="*" element={<ErrorPage />} />
-          </Routes>
-        </BrowserRouter>
-      )}
+          </Route>
+          {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
+          <Route path='*' element={<ErrorPage />}/>
+        </Routes>
+      </BrowserRouter>)
+      }
     </>
   )
 }
