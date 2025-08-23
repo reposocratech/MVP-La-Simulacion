@@ -1,5 +1,5 @@
 .section-home-1 {
-  padding-block-start: 6rem;
+  padding-block-start: 3.75rem;
 
   .images-container {
     position: relative;
@@ -12,11 +12,26 @@
       border-radius: 50%;
     }
 
+    @media (width <= 450px) {
+      .img-home {
+        width: 270px;
+        height: 270px;
+      }
+    }
+
     .circle {
       position: absolute;
       transform: translate(-100px, 220px);
       width: 130px;
     }
+
+    @media (width <= 450px) {
+      .circle {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
   }
 }
 

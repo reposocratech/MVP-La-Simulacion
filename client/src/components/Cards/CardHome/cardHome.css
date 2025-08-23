@@ -1,9 +1,15 @@
 .card-home {
-  width: 380px;
+  min-width: 350px;
 
   .card-home-button {
     border: none;
     border-radius: 12px;
     padding: .4rem 1.2rem;
+  }
+}
+
+@media (width <= 450px) {
+  .card-home {
+    min-width: 200px;
   }
 }

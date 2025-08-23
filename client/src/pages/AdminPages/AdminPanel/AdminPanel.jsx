@@ -47,10 +47,10 @@ const AdminPanel = () => {
             </article>
           </Col>
         </Row>
-        <div className="d-flex flex-column justify-content-center align-items-center">
+        {/* <div className="d-flex flex-column justify-content-center align-items-center">
           <SpinnerLoading />
           <h1 className="fs-5 mt-3">En seguida estamos...</h1>
-        </div>
+        </div> */}
       </Container>
     </section>
   )
