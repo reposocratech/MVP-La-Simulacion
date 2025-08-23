@@ -4,8 +4,8 @@ import './userIcon.css'
 
 
 export const UserIcon = ({ navbarData }) => {
-  const { userName, userType, userAvatar } = navbarData
-  const navigate = useNavigate()
+  const { userName, userType, userAvatar } = navbarData;
+  const navigate = useNavigate();
   
   // Función para que al pulsar en el UserIcon, nos redirija al peril o al panel de Admin, en función del tipo de usuario:
   const onClickIcon = () => {
@@ -28,8 +28,10 @@ export const UserIcon = ({ navbarData }) => {
                 className="avatar-icon" />
             }
  
-            {userName &&
-            <p className='my-0 ms-2'>{userName}</p>
+            {userName.length <=20 ?
+              <p className="my-0 ms-2">{userName}</p>
+              :
+              <p className="my-0 ms-2">Tu perfil</p>
             }
       </button> 
     </>
