@@ -16,9 +16,8 @@ const AdminPanel = () => {
         <span className="accent-text spanLetter-panel">PA</span>
           Panel de Administrador
         </h1>
-        <Row className="pt-2 pb-3 pb-lg-0">
+        <Row className="pt-0 pt-lg-2 pb-3 pb-lg-0">
           <Col xs={12} lg={6}>
-          <div className="spinner-web"></div>
             <article className="p-4 h-100">
               <h2 className="fs-4 text-center">Gestiones:</h2>
               <p>(Bloquear/activar usuarios, cambiar el estado de una reserva, mostrar u ocultar los contenidos publicados...)</p>

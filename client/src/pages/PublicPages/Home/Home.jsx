@@ -1,7 +1,6 @@
 import { Col, Container, Row } from 'react-bootstrap';
 import circle from '../../../assets/decorative/circulo-con-flor.svg';
 import { CardHome } from '../../../components/Cards/CardHome/CardHome';
-
 import './home.css';
 
 // Creamos este array de objetos para pasar la información personalizable al componente CardHome:

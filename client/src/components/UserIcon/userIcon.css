@@ -3,7 +3,7 @@
   border: none;  
 
   &:hover {
-    font-weight: bold;
+    font-weight: 600;
   }
 
   .avatar-icon {
