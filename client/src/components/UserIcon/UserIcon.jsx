@@ -12,6 +12,22 @@ export const UserIcon = ({ navbarData }) => {
     if(userType === 1) navigate("/admin/AdminPanel"); //admin
     if(userType === 2) navigate("/user/profile"); // user normal
   }
+
+  //Función para mostrar o bien el nombre, o bien otra expresión, según la logintud del nombre del usuario:
+  const showTextContent = () => {
+    let textContent;
+
+    if (userType === 1){
+      textContent = <p className="my-0 ms-2">Panel Admin</p>;
+    }
+    else if (userType === 2 && userName.length <= 20){
+      textContent = <p className="my-0 ms-2">{userName}</p>;
+    }
+    else if (userType === 2 && userName.length > 20){
+      textContent = <p className="my-0 ms-2">Tu perfil</p>;
+    }
+    return textContent;
+  }
   
   return (
     <>
@@ -28,11 +44,11 @@ export const UserIcon = ({ navbarData }) => {
                 className="avatar-icon" />
             }
  
-            {userName.length <=20 ?
-              <p className="my-0 ms-2">{userName}</p>
-              :
-              <p className="my-0 ms-2">Tu perfil</p>
+            {
+              showTextContent()
             }
+
+            
       </button> 
     </>
   )
