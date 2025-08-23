@@ -2,6 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
 
 import './adminPanel.css';
+import { SpinnerLoading } from "../../../components/SpinnerLoading/SpinnerLoading";
 
 
 const AdminPanel = () => {
@@ -12,12 +13,17 @@ const AdminPanel = () => {
   return (
     <section className="section-panel">
       <Container>
+        <div className="d-flex flex-column justify-content-center align-items-center">
+          <SpinnerLoading />
+          <h1 className="fs-5 mt-3">En seguida estamos...</h1>
+        </div>
         <h1 className="text-center">
         <span className="accent-text spanLetter-panel">PA</span>
           Panel de Administrador
         </h1>
         <Row className="pt-2 pb-3 pb-lg-0">
           <Col xs={12} lg={6}>
+          <div className="spinner-web"></div>
             <article className="p-4 h-100">
               <h2 className="fs-4 text-center">Gestiones:</h2>
               <p>(Bloquear/activar usuarios, cambiar el estado de una reserva, mostrar u ocultar los contenidos publicados...)</p>
