@@ -46,7 +46,7 @@ export const FormRoom2 = ({room, handleChange, cancel, previous, handleFile, onS
                   <div className='d-flex flex-column flex-md-row gap-2'>
                     <button className='prev-button w-auto' onClick={previous}>Anterior</button>
                     <button className='cancel-button w-auto' onClick={cancel}>Cancelar</button>
-                    <button className='submit-button w-auto' onClick={onSubmit}>Siguiente</button>
+                    <button className='submit-button w-auto' onClick={onSubmit}>Guardar y finalizar</button>
                   </div>
               </Form>
             </Col>

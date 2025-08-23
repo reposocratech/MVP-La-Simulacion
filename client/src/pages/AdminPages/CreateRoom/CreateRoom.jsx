@@ -41,23 +41,26 @@ const CreateRoom = () => {
     e.preventDefault();
 
     try {
+      // Validamos los datos del primer formulario usando Zod
       createRoomSchema1.parse(roomData);
       setShowForm(2);
       setValError({});
+
     } catch (error) {
-            if (error instanceof ZodError){
+        if (error instanceof ZodError){
+        // Si la validación falla recorremos los errores y los guardamos en un objeto para mostrarlos
         let objectTemp = {}
         error.issues.forEach((er)=>{
         objectTemp[er.path[0]]=er.message
-        })
+        });
         setValError(objectTemp)
         setMsgError(null);
+
       }else{
         setValError({});
         setMsgError('Algo salío mal, inténtelo de nuevo');
       }
     }
-    
   }
 
   const previous = (e)=>{
@@ -65,16 +68,26 @@ const CreateRoom = () => {
     setShowForm(1);
   }
 
-  const cancel = ()=>{
+  const cancel1 = (e)=>{
+    e.preventDefault();
+    setRoomData(initialValue);
+    navigate('/admin/adminPanel')
+  }
+
+  const cancel2 = (e)=>{
+    e.preventDefault();
     setRoomData(initialValue);
     setShowForm(1);
   }
 
   const onSubmit = async (e)=>{
     e.preventDefault();
+
     try {
+      // Validamos los datos del segundo formulario usando Zod
       createRoomSchema2.parse(roomData);
 
+      // Creamos un objeto FormData para enviar datos y archivos al backend y agregamos los datos al formulario convirtiendolo a JSON
       const newFormData = new FormData();
       newFormData.append("data", JSON.stringify(roomData));
 
@@ -86,17 +99,22 @@ const CreateRoom = () => {
       
       let res = await fetchData("/rooms/createRoom", "post", newFormData, token);
 
+      // Usamos el id que extraímos en el dal y que nos llega por el controlador
+      let room_id = res.data.room_id;
+      navigate(`/oneRoom/${room_id}`);
       setValError({});
-      //navigate(`/rooms/room${id}`)
+
     } catch (error) {
       
       if (error instanceof ZodError){
+
         let objectTemp = {}
         error.issues.forEach((er)=>{
         objectTemp[er.path[0]]=er.message
         })
         setValError(objectTemp)
         setMsgError(null);
+
       }else{
         setValError({});
         setMsgError('Algo salío mal, inténtelo de nuevo');
@@ -110,7 +128,7 @@ const CreateRoom = () => {
           room={roomData}
           handleChange={handleChange}
           next={next}
-          cancel={cancel}
+          cancel={cancel1}
           valError={valError}
           msgError={msgError}
         />}
@@ -119,7 +137,7 @@ const CreateRoom = () => {
           handleChange={handleChange}
           handleFile={handleFile}
           previous={previous}
-          cancel={cancel}
+          cancel={cancel2}
           onSubmit={onSubmit}
           valError={valError}
           msgError={msgError}

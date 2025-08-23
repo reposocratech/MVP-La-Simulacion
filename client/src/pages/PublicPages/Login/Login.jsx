@@ -87,7 +87,7 @@ const Login = () => {
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Contraseña:</Form.Label>
                 <Form.Control
-                  type="password"
+                  type="text"
                   placeholder="Tu contraseña"
                   onChange={handleChange}
                   value={userLogin.password}
