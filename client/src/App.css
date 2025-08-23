@@ -67,7 +67,7 @@ body {
   font-family: "Anek Devanagari", Arial, sans-serif;
 
   main {
-    min-height: calc(100dvh - 41.83px);
+    min-height: calc(100dvh - 46px);
   }
 
   h1, h2, h3, h4, h5, h6 {
