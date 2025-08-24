@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
-import { AuthContext } from '../../../Context/AuthContextProvider'
+import { Link } from 'react-router'
+import { AuthContext } from '../../../context/AuthContextProvider'
 import userPlaceholder from '../../../assets/icons/user-placeholder.png'
 import './ProfileCard.css'
 

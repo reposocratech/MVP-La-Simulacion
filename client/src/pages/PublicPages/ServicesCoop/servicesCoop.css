@@ -5,21 +5,26 @@
 }
 
 .marg-top{
-    padding-block: 5rem;
+  padding-block: 5rem;
 }
+
 .m_form_group{
   margin-bottom: 0.2rem;
   margin-top: 0.3rem;
 }
 
 .textblack{
-    color: black;
-    text-decoration: none;
-    }
-  
+  color: black;
+  text-decoration: none;
+}
+
 .active{
-    background-color: var(--color-primary-baby-pink);
-} 
+  background-color: var(--color-primary-baby-pink);
+}
+
+.sticky-col-sect {
+  text-align: center; 
+}
 
 @media (min-width: 992px) {
   .sticky-col-sect {
@@ -27,25 +32,14 @@
     top: 70px;
     align-self: flex-start;
     height: fit-content;
-  }
-}
-
-
-@media (min-width: 768px) {
-    .sticky-col-sect{
     border-right: 1px solid;
-    }
-    .sticky-col-sect .textblack {
+  }
+
+  .sticky-col-sect .textblack {
     width: fit-content;
     margin: 0 auto;
-     
   }
-}
-.sticky-col-sect {
-  border-right: none; 
-}
 
-@media (min-width: 992px) {
   .sticky-col {
     position: sticky;
     top: 70px;
@@ -54,7 +48,6 @@
   }
 }
 
-
 @media (max-height: 800px) {
   .sticky-col input,
   .sticky-col textarea,
@@ -62,7 +55,7 @@
   .sticky-col h5,
   .sticky-col .m_form_group{
     font-size: 0.6rem;       
-   }
+  }
 
   .sticky-col label {
     margin-bottom: 0.1rem;
@@ -81,10 +74,12 @@
   .sticky-col .form-error {
     font-size: 0.5rem;
   }
+
   .sticky-col .m_form_group{
     margin-top: 0.2rem;
     margin-bottom: 0.2rem;
   }
+
   .textblack{
     font-size: 0.8rem;
   }
@@ -95,6 +90,7 @@
     width: 450px;
   }
 }
+
 @media (max-width: 500px){
   .i-width{
     width: 270px;
@@ -103,7 +99,7 @@
 
 .i-width{
   text-align: center;
-    max-width: 600px;
+  max-width: 600px;
 }
 
 .form-error {
