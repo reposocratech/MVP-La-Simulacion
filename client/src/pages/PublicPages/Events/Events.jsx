@@ -12,7 +12,6 @@ const Events = () => {
       try {
         const res = await fetchData("/events/futures", "get");
         setEvents(res.data);
-        console.log(res);
       } catch (error) {
         console.log(error);
       }

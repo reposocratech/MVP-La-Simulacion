@@ -1,12 +1,12 @@
-import { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap"
 import { FaInstagram, FaLinkedin, FaFacebook, FaTiktok } from "react-icons/fa";
 import { MiniCardContact } from "../../../components/Cards/miniCardContact/MiniCardContact";
 import { getMiniCardsData } from "../../../data/MiniCardsData";
-import { Link } from "react-router";
 import { validateForms } from "../../../helpers/validateForms";
 import { fetchData } from "../../../helpers/axiosHelper";
 import { contactSchema } from "../../../schemas/contactSchema";
+import logoGenkoa from '../../../assets/logos/logo_genkoa_insta.png';
+import { useState } from "react";
 import './contact.css';
 
 const initialValue = {
@@ -136,7 +136,7 @@ const Contact = () => {
                 ))}
               </div>
             </address>
-            <section className="mt-3 section-redes rounded-4 text-white">
+            <section className="mt-3 rounded-4">
               <div className="p-3 rounded-4 text-center  ">
                 <p className="mb-3 fs-5 fw-bold">También estamos en redes sociales</p>
                 <div className="d-flex justify-content-center gap-4">
@@ -144,31 +144,36 @@ const Contact = () => {
                     href="https://www.linkedin.com/company/lasimulacion/" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                  ><FaLinkedin color="var(--color-primary-orange)" size={32} title="LinkedIn" />
+                  ><FaLinkedin color="#0A66C2" size={32} title="LinkedIn" />
                   </a>
                   <a 
                     href="https://www.facebook.com/tu-pagina" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                  ><FaFacebook color="var(--color-primary-orange)" size={32} title="Facebook" />
+                  ><FaFacebook color="#1877F2" size={32} title="Facebook" />
                   </a>
                   <a 
                     href="https://www.instagram.com/tu-cuenta" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                  ><FaInstagram color="var(--color-primary-orange)" size={32} title="Instagram" />
+                  ><FaInstagram color="#E4405F" size={32} title="Instagram" />
                   </a>
                   <a 
                     href="https://www.tiktok.com/@tu-cuenta" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                  ><FaTiktok color="var(--color-primary-orange)" size={32} title="TikTok" />
+                  ><FaTiktok color="#000" size={32} title="TikTok" />
                   </a>
                 </div>
               </div>
               <div className="py-4 text-center">
                 <p className="mb-4 fs-5 fw-bold">Descubre nuestra comunidad, Genkoa</p>
-                <Link></Link>
+                <a 
+                  href="https://genkoa.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                ><img src={logoGenkoa} alt="Enlace externo a web Genkoa" />
+                </a>
               </div>
             </section>
           </Col>

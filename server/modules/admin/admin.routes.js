@@ -1,9 +1,7 @@
 import express from 'express';
+import adminControllers from './admin.controllers.js';
 const router = express.Router();
 
-/* GET admin listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.get('/users', adminControllers.getUsersData);
 
 export default router;
