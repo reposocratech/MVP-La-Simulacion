@@ -8,7 +8,8 @@ export const registerSchema = z.object({
         .max(50,{message:"El nombre debe ser menor de 50 caracteres"}),
 
     email: z
-        .email({message:"Email no válido"}),
+        .email({message:"Email no válido"})
+         .max(100, {message: "El email tiene un máximo de 100 caracteres"}),
     password: z
         .string({message:"Password Obligatorio"})
         .nonempty({message: "La contraseña es obligatoria"})

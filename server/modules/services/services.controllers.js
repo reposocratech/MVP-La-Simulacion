@@ -18,7 +18,7 @@ sendMailServCoop = async (req , res)=>{
         const {user_name , lastName , email , phone , type , description} = req.body
     
         const mailsend = {
-         from: `"Servicios Cooperativa" <${process.env.EMAIL_USER}>`,
+        from: `"Servicios Cooperativa" <${process.env.EMAIL_USER}>`,
         to: process.env.EMAIL_USER,
         subject: "Consulta Servicios Cooperativa",
         text: `
