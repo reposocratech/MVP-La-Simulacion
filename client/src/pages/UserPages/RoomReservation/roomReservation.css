@@ -1,0 +1,11 @@
+.section-reservation {
+  padding-block-start: 3.75rem;
+
+  /* Estilo de las letras de acento en el h1: */
+  .spanLetter-reservation {
+    font-size: 40px;
+    margin-inline-end: .5rem;
+    font-weight: normal;
+    color: var(--color-primary-violet);
+  }
+}
