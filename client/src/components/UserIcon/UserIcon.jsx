@@ -9,8 +9,8 @@ export const UserIcon = ({ navbarData }) => {
   
   //Función para que al pulsar en el UserIcon, nos redirija al peril o al panel de Admin, en función del tipo de usuario:
   const onClickIcon = () => {
-    if (userType === 1) navigate('/admin/AdminPanel') //admin
-    if (userType === 2) navigate('/user/Profile') // user normal
+    if(userType === 1) navigate("/admin/AdminPanel"); //admin
+    if(userType === 2) navigate("/user/profile"); // user normal
   }
   
   return (

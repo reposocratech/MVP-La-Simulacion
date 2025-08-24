@@ -3,7 +3,8 @@ import {Col, Container, Form, Row} from "react-bootstrap"
 import { Link, useNavigate } from "react-router"
 import { fetchData } from "../../../helpers/axiosHelper"
 import { registerSchema } from "../../../schemas/registerSchema"
-import { ZodError } from "zod" 
+import { validateForms } from "../../../helpers/validateForms"
+import { PiEyeClosed , PiEye } from "react-icons/pi";
 import "./register.css"
 
 const initialValue = {
@@ -19,6 +20,7 @@ const Register = () => {
   const [valErrors, setValErrors] = useState({})
   const [msgError, setMsgError] = useState()
   const [seePass, setseePass] = useState(false) 
+  const [seePassRep, setseePassRep] = useState(false) 
   const navigate = useNavigate() 
     
   
@@ -31,23 +33,17 @@ const Register = () => {
     e.preventDefault();
     try {
         //Comprobación de que los datos metidos se cumplan
-        registerSchema.parse(register)
-        //Esperando respues de la base de datos
+        const {valid, errors} = validateForms(registerSchema , register)
+        setValErrors(errors)
+        //Esperando respuesta de la base de datos
+        if(valid){
         let res = await fetchData("/users/register","post", register)
-        navigate("/login")
+        navigate("/login")}
   } 
-    catch (error) {
-        //Si hay error que marque el error 
-        if(error instanceof ZodError){
-        let objTemp = {}
-        error.issues.forEach((err)=>{
-        objTemp[err.path[0]]=err.message
-      })
-        setValErrors(objTemp)
-        }else{
-        setValErrors({})
-        setMsgError(error.response.data)
-  }}}  
+    catch (error) {        
+        setValErrors({});
+        setMsgError(error.response.data);
+  }}
 
   return (    
      <section className='section-register d-flex  justify-content-center ' >
@@ -55,7 +51,7 @@ const Register = () => {
         <Row>
            <h1 className="h1-register text-center text-light p-2 w-100">Crea una cuenta <span className='span-register accent-text align-middle'>C</span></h1>
           <Col className="d-flex justify-content-center">
-              <Form className="form-register border border-2 rounded rounded-3" >
+              <Form className="form-register border border-2 rounded rounded-3 mb-2" >
                 <Form.Group className="form-group-custom" controlId="formBasicName">
                   <Form.Label className="fw-bold">Nombre:</Form.Label>
                   <Form.Control
@@ -70,7 +66,7 @@ const Register = () => {
                 <Form.Group className="form-group-custom" controlId="formBasicEmail">
                   <Form.Label className="fw-bold">Email:</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="email"
                     placeholder="porejemplo@tucorreo.com"
                     onChange={handleChange}
                     value={register.email}
@@ -79,30 +75,48 @@ const Register = () => {
                     {valErrors.email && <Form.Text className="text-error">{valErrors.email}</Form.Text>}
                 </Form.Group>
                 <Form.Group className="form-group-custom" controlId="formBasicPassword">
-                  <Form.Label className="fw-bold">Contraseña:<span onClick={()=>setseePass(!seePass)}>{seePass===true? "🍟":"🥔"} </span></Form.Label>
-                  <Form.Control
+                  <Form.Label className="fw-bold">Contraseña: </Form.Label>
+                  <div className="passPos">
+                    <Form.Control
                     type={seePass === false ? "password" : "text"}
                     placeholder="Tu contraseña"
                     onChange={handleChange}
                     value={register.password}
                     name="password"
                     />
+                    <button
+                    type="button" 
+                    className="iconPos" 
+                    onClick={()=>setseePass(!seePass)}
+                    aria-label={seePass ? "Ocultar contraseña" : "Mostrar contraseña"}
+                    >
+                    {seePass===true? <PiEye /> :<PiEyeClosed />} </button>
+                  </div>
                       {valErrors.password && <Form.Text className="text-error">{valErrors.password}</Form.Text>}
                 </Form.Group>
                 <Form.Group className="form-group-custom" controlId="formBasicRepPassword">
-                  <Form.Label className="fw-bold" >Repite tu Contraseña:</Form.Label>
-                  <Form.Control
+                  <Form.Label className="fw-bold" >Repite tu Contraseña: </Form.Label>
+                  <div className="passPos">
+                    <Form.Control
                     type="password"
                     placeholder="Tu contraseña"
                     onChange={handleChange}
                     value={register.repPassword}
                     name="repPassword"
                     />
+                    <button
+                    type="button" 
+                    className="iconPos" 
+                    onClick={()=>setseePassRep(!seePassRep)}
+                    aria-label={seePassRep ? "Ocultar contraseña" : "Mostrar contraseña"}
+                    >
+                    {seePassRep===true? <PiEye /> :<PiEyeClosed />} </button>
+                  </div>
                     {valErrors.repPassword && <Form.Text className="text-error">{valErrors.repPassword}</Form.Text>}
                 </Form.Group>
                     {msgError && <p className="text-danger fw-bold">{msgError}</p>}
                     <button className="submit-button w-100" onClick={onSubmit}>
-                  Aceptar
+                      Aceptar
                     </button>
                     <p className="mt-3"> <Link to="/login"> ¿Ya tienes una cuenta?Inicia sesión aqui</Link> </p>
               </Form>

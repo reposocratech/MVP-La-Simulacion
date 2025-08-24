@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { AuthContext } from '../../../Context/AuthContextProvider'
+import { AuthContext } from '../../../context/AuthContextProvider'
 import userPlaceholder from '../../../assets/icons/user-placeholder.png'
 import './ProfileCard.css'
 

@@ -4,14 +4,36 @@
   .h1-login {
     background-color: var(--color-primary-orange);
     color: white;
-    margin-top: 2rem;
-    font-size: 26px;
+    margin-block-start: 2rem;
+    font-size: 2rem;
   }
 
-  .span-login{
+  .span-login {
     font-size: 32px;
-    margin-left: .5rem;
+    margin-inline-start: .5rem;
     font-weight: normal;
     color: var(--color-primary-electric-blue);
+  }
+
+  .form-container {
+    position: relative;
+
+    .flor-login {
+      z-index: -1;
+      position: absolute;
+      width: 85px;
+      transform: translate(-150px, -25px);
+    }
+
+    .destellos-login {
+      z-index: -1;
+      position: relative;
+      width: 190px;
+      transform: translate(500px, -100px);
+    }
+
+    .login-form {
+      z-index: 1;
+    }
   }
 }

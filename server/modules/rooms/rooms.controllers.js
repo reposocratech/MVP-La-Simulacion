@@ -7,11 +7,13 @@ class RoomController {
     try {
       const {room_name, room_description, who_can_use_it, pricing, usage_policy} =req.body;
 
+      // Creamos un array para almacenar los nombres de los archivos.
       let file = [];
 
       if (req.files) {
         req.files.forEach(e => file.push(e.filename)); 
       }
+
       // reducer
       const data = {
         room_name,
@@ -22,8 +24,10 @@ class RoomController {
         file
       }
 
-      const result = await roomsDal.createRoom(data);
-      res.status(200).json({message:"inserción ok", result})
+      // Este await me devuelve el id del room desde el Dal y se lo mando al front en la respuesta
+      const room_id = await roomsDal.createRoom(data);
+      res.status(200).json({message:"inserción ok", room_id});
+
     } catch (error) {
       console.log(error);
       

@@ -8,6 +8,7 @@ import { ZodError } from "zod";
 import { useNavigate } from "react-router";
 import { createRoomSchema2 } from "../../../schemas/createRoomSchema2";
 import { createRoomSchema1 } from "../../../schemas/createRoomSchema1";
+import { validateForms } from "../../../helpers/validateForms";
 
 const initialValue = {
   room_name: "",
@@ -41,23 +42,20 @@ const CreateRoom = () => {
     e.preventDefault();
 
     try {
-      createRoomSchema1.parse(roomData);
-      setShowForm(2);
-      setValError({});
-    } catch (error) {
-            if (error instanceof ZodError){
-        let objectTemp = {}
-        error.issues.forEach((er)=>{
-        objectTemp[er.path[0]]=er.message
-        })
-        setValError(objectTemp)
-        setMsgError(null);
-      }else{
+      // Validamos los datos del primer formulario usando la función validateForms
+      const { valid, errors} = validateForms(createRoomSchema1, roomData);
+      setValError(errors);
+
+      if(valid){
+        setShowForm(2);
         setValError({});
-        setMsgError('Algo salío mal, inténtelo de nuevo');
       }
+ 
+    } catch (error) {
+      console.log(error);
+      setValError({});
+      setMsgError('Algo salío mal, inténtelo de nuevo');
     }
-    
   }
 
   const previous = (e)=>{
@@ -73,35 +71,34 @@ const CreateRoom = () => {
   const onSubmit = async (e)=>{
     e.preventDefault();
     try {
-      createRoomSchema2.parse(roomData);
+      //Validamos los datos del segundo formulario usando la función validateForm
+      const { valid, errors } = validateForms(createRoomSchema2, roomData);
+      setValError(errors);
 
-      const newFormData = new FormData();
-      newFormData.append("data", JSON.stringify(roomData));
+      if(valid){
+        // Creamos un objeto FormData para enviar datos y archivos al backend y agregamos los datos al formulario convirtiendolo a JSON
+        const newFormData = new FormData();
+        newFormData.append("data", JSON.stringify(roomData));
 
-      if(files){
-        for(const elem of files){
-          newFormData.append("file", elem)
+        if(files){
+          for(const elem of files){
+            newFormData.append("file", elem)
+          }
         }
-      }
-      
-      let res = await fetchData("/rooms/createRoom", "post", newFormData, token);
+        
+        let res = await fetchData("/rooms/createRoom", "post", newFormData, token);
 
-      setValError({});
-      //navigate(`/rooms/room${id}`)
+        // Usamos el id que extraímos en el dal y que nos llega por el controlador
+        let room_id = res.data.room_id;
+        navigate(`/oneRoom/${room_id}`);
+        setValError({});    
+      }
     } catch (error) {
-      
-      if (error instanceof ZodError){
-        let objectTemp = {}
-        error.issues.forEach((er)=>{
-        objectTemp[er.path[0]]=er.message
-        })
-        setValError(objectTemp)
-        setMsgError(null);
-      }else{
+        console.log(error);
         setValError({});
         setMsgError('Algo salío mal, inténtelo de nuevo');
       }
-    }
+    
   }
 
   return (

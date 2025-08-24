@@ -65,7 +65,7 @@ export const AppRoutes = () => {
           <Route path='*' element={<ErrorPage />}/>
         </Routes>
       </BrowserRouter>)
-      }
+      } 
     </>
   )
 }

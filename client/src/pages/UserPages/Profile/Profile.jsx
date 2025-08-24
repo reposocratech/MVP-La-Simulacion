@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-import { AuthContext } from '../../../Context/AuthContextProvider'
+import { AuthContext } from '../../../context/AuthContextProvider'
 import { ProfileCard } from '../../../components/Cards/UserInfo/ProfileCard'
 import './profile.css'
 import EditProfileForm from '../../../components/UserForms/EditProfileForm'
