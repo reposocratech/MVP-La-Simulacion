@@ -1,90 +1,79 @@
 .section-register {
- padding-block-start: 3.75rem; 
+  padding-block-start: 3.75rem;
 }
 
-.h1-register{
- background-color: var( --color-primary-electric-blue);
- color: white;
- margin-top: 3rem;
- font-size: 2rem;
+.h1-register {
+  background-color: var(--color-primary-electric-blue);
+  color: white;
+  margin-top: 3rem;
+  font-size: 2rem;
 }
-.form-group-custom{
-  margin-bottom: 1rem;
+
+.span-register {
+  color: var(--color-primary-orange);
+  font-weight: normal;
 }
-.span-register{
-    color: var(--color-primary-orange);
-    font-weight: normal;
-}
-.form-register{
+
+.form-register {
   margin-top: 1rem;
   padding: 3rem;
 }
-.form-register p{
-  margin: 0;
-}
-@media(max-height: 700px ){
-  .h1-register{   
-    font-size: 1.5rem;
-    margin-top: 0.5rem;
-  }
-  .form-register{
-    width: 100%;
-    max-width: 30rem;
-    padding: 0.3rem;
-  }
-  .form-register label{
-    font-size: 0.7rem;
-    margin: 0;
-  } 
-  .form-register input{
-    font-size: 0.7rem;
-    margin: 0;
-  } 
-  .form-register .text-error{
-    font-size: 0.4rem;
-    margin: 0;
-  } 
-  .form-register .form-group-custom{
-    margin-bottom: 0.5;
-  }
-  .form-register p{
-    font-size: 0.5rem;
-    margin: 0;
-  }
 
+.form-group-custom {
+  margin-bottom: 1rem;
 }
-@media(max-height: 500px ){
-  .h1-register{   
-    font-size: 1.5rem;
-    margin-top: 0.5rem;
-  }
-  .form-register{
-    width: 100%;
-    max-width: 30rem;
-    padding: 0.3rem;
-  }
-  .form-register label{
-    font-size: 0.7rem;
-    margin: 0;
-  } 
-  .form-register input{
-    font-size: 0.5rem;
-    margin: 0;
-  } 
-  .form-register .text-error{
-    font-size: 0.4rem;
-    margin: 0;
-  } 
-  .form-register .form-group-custom{
-    margin-bottom: 0;
-  }
-  .form-register p{
-    font-size: 0.5rem;
-    margin: 0;
-  }
 
-}
-.text-error{
+.text-error {
   color: red;
   font-weight: bold;
+  font-size: 0.75rem;
+}
+
+.passPos {
+  position: relative;
+}
+
+.iconPos {
+  position: absolute;
+  border: none;
+  background-color: transparent;
+  top: 50%;
+  right: 5px;
+  font-size: 1.5rem;
+  transform: translateY(-50%); 
+}
+
+@media (max-height: 700px) {
+  .h1-register {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .form-register {
+    width: 100%;
+    max-width: 30rem;
+    padding: 0.7rem;
+  }
+
+  .form-register label,
+  .form-register input,
+  .form-register p,
+  .form-register .text-error {
+    font-size: 0.75rem;
+    margin: 0;
+  }
+
+  .form-group-custom {
+    margin-bottom: 0.75rem;
+  }
+}
+
+@media (max-height: 500px) {
+  .form-register {
+    padding: 0.5rem;
+  }
+
+  .form-group-custom {
+    margin-bottom: 0.5rem;
+  }
 }

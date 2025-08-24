@@ -1,10 +1,9 @@
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
-import { AuthContext } from '../../../Context/AuthContextProvider'
+import { AuthContext } from '../../../context/AuthContextProvider'
 import userPlaceholder from '../../../assets/icons/user-placeholder.png'
 import './ProfileCard.css'
 
-export const ProfileCard = () => {
+export const ProfileCard = ({ setActiveComponent }) => {
   const { user } = useContext(AuthContext)
 
   if (!user) {
@@ -56,15 +55,24 @@ export const ProfileCard = () => {
         </div>
       </div>
       <div className="profile-buttons-container">
-        <Link to="/user/edit-profile" className="custom-button">
+        <button
+          onClick={() => setActiveComponent('editProfile')}
+          className="submit-button custom-button"
+        >
           Editar mi perfil
-        </Link>
-        <Link to="/user/change-password" className="custom-button">
+        </button>
+        <button
+          onClick={() => setActiveComponent('changePassword')}
+          className="submit-button custom-button"
+        >
           Cambiar contraseña
-        </Link>
-        <Link to="/user/change-email" className="custom-button">
+        </button>
+        <button
+          onClick={() => setActiveComponent('changeEmail')}
+          className="submit-button custom-button"
+        >
           Cambiar email
-        </Link>
+        </button>
         <a href="#" className="delete-link">
           Darme de baja
         </a>
