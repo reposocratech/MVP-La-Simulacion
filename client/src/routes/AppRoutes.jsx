@@ -6,6 +6,8 @@ import { PublicRoutes } from './PublicRoutes';
 import { PrivateRoutes } from './PrivateRoutes';
 import { AdminLayout } from '../layouts/AdminLayout';
 import { UserLayout } from '../layouts/UserLayout'
+
+
 // Importaciones "carga perezosa":
   // Componentes públicos:
 const Home = lazy(()=>import('../pages/PublicPages/Home/Home'));
@@ -15,16 +17,22 @@ const Services = lazy(()=>import('../pages/PublicPages/Services/Services'));
 const ServicesCoop = lazy(()=>import('../pages/PublicPages/ServicesCoop/ServicesCoop'));
 const Events = lazy(()=>import('../pages/PublicPages/Events/Events'));
 const Rooms = lazy(()=>import('../pages/PublicPages/Rooms/Rooms'));
+const OneRoom = lazy(() => import('../pages/PublicPages/oneRoom/OneRoom'));
 const Register = lazy(()=>import('../pages/PublicPages/Register/Register'));
 const Login = lazy(()=>import('../pages/PublicPages/Login/Login'));
 const ErrorPage = lazy(()=>import('../pages/PublicPages/ErrorPage/ErrorPage'));
+
   // Componentes Administrador:
 const AdminPanel = lazy(()=>import('../pages/AdminPages/AdminPanel/AdminPanel'));
 const CreateRoom = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom'));
+const AdminUsers = lazy(() => import('../pages/AdminPages/AdminUsers/AdminUsers'));
+
 // Componentes de Usuario:
 const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'))
+
 export const AppRoutes = () => {
   const { user, loading } = useContext(AuthContext);
+
   return (
     <>
       {loading ? (
@@ -42,30 +50,35 @@ export const AppRoutes = () => {
                 <Route path="/servicesCoop" element={<ServicesCoop />} />
                 <Route path="/events" element={<Events />} />
                 <Route path="/rooms" element={<Rooms />} />
+                <Route path="/oneRoom/:id" element={<OneRoom />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
               </Route>
             </Route>
-          {/* Rutas de Administrador: */}
-         <Route element={< PrivateRoutes />}>
-          <Route element={< AdminLayout />}>
-          <Route path='/admin/createRoom' element={< CreateRoom />}/>
-          <Route path='/admin/adminPanel' element={< AdminPanel />}/>
-          </Route>
-         </Route>
-          {/* Rutas Privadas de Usuario: */}
-          <Route
-            element={<PrivateRoutes userType={user?.type} requiredUser={2} />}
-          >
-            <Route element={<UserLayout />}>
-              <Route path="/user/profile" element={<Profile />} />
+
+            {/* Rutas de Administrador: */}
+            <Route element={< PrivateRoutes />}>
+              <Route element={< AdminLayout />}>
+                <Route path='/admin/createRoom' element={< CreateRoom />}/>
+                <Route path='/admin/adminPanel' element={< AdminPanel />}/>
+                <Route path='/admin/users' element={<AdminUsers />}/>
+              </Route>
             </Route>
-          </Route>
-          {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
-          <Route path='*' element={<ErrorPage />}/>
-        </Routes>
-      </BrowserRouter>)
-      } 
+
+            {/* Rutas Privadas de Usuario: */}
+            <Route
+              element={<PrivateRoutes userType={user?.type} requiredUser={0} />}
+            >
+              <Route element={<UserLayout />}>
+                <Route path="/user/profile" element={<Profile />} />
+              </Route>
+            </Route>
+
+            {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
+            <Route path='*' element={<ErrorPage />}/>
+          </Routes>
+        </BrowserRouter>
+      )}
     </>
   )
 }

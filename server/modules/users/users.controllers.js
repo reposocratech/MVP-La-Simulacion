@@ -140,7 +140,6 @@ class UserController {
       };
 
       const info = await sendConfirmationMail.sendMail(mailOptions);
-      console.log("mensaje enviado", info.messageId);
       res.status(200).json({ message: 'Correo enviado correctamente' });
     } catch (error) {
       res.status(500).json({ message: 'Error al enviar el correo' });

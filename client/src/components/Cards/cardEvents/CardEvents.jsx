@@ -6,9 +6,12 @@ export const CardEvents = ({event}) => {
         <div className="row ">
           <div className="col-lg-7">
             <div className="p-3 d-flex flex-column justify-content-between h-100">
-              <h4 className='mb-3'>{event.title}</h4>
+              <h4 className='mb-3'>{event.event_title}</h4>
               <p>
-                {event.description}
+                {event.event_description}
+              </p>
+              <p className='fst-italic'>
+                {event.location}
               </p>
               <div>
                 <button className='info-button'>Mas información</button>

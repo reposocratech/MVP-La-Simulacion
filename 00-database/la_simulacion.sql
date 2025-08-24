@@ -1,3 +1,4 @@
+
 CREATE DATABASE la_simulacion;
 
 USE la_simulacion;
@@ -31,10 +32,10 @@ CREATE TABLE service (
 CREATE TABLE room (
 	room_id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	room_name VARCHAR(150) NOT NULL, -- "sala de grabacion de audio"
-	room_description VARCHAR(1000),  -- sala de grabacion de audio con micros, auriculares
-    who_can_use_it VARCHAR(1000),  -- ¿Quién puede solicitar el uso del espacio?
+	room_description VARCHAR(2000),  -- sala de grabacion de audio con micros, auriculares
+    who_can_use_it VARCHAR(2000),  -- ¿Quién puede solicitar el uso del espacio?
 	pricing VARCHAR(500),  -- precios
-	usage_policy VARCHAR(1500) --  politica de uso
+	usage_policy VARCHAR(2000) --  politica de uso
 );
 
 
@@ -139,3 +140,18 @@ CREATE TABLE section_key_point (
     
 SELECT * FROM user;   
 SELECT * FROM room;
+
+INSERT INTO room (
+    room_name,
+    room_description,
+    who_can_use_it,
+    pricing,
+    usage_policy
+) VALUES (
+    'Sala de grabación de audio',
+    'Es un espacio creativo en el corazón de la ciudad, diseñado para músicos, productores y artistas. Ofrecemos un entorno acústicamente optimizado con equipos de alta gama, perfectos para la grabación, mezcla y masterización. Nuestro estudio cuenta con una sala de control espaciosa, una cabina de grabación insonorizada y una selección de micrófonos e instrumentos de calidad profesional. Un lugar ideal para dar vida a tu música, con flexibilidad y todo el soporte que necesitas.',
+    'Este servicio está destinado a artistas emergentes, entendiendo por ello: Músicos: con menos de 10.000 reproducciones por canción o 5.000 oyentes mensuales en Spotify/YouTube. Ilustradores/as y artistas visuales: en etapa inicial, sin exposiciones individuales de gran alcance o contratos comerciales establecidos. Modelos y performers: en proceso de creación de portafolio y sin representación por agencias consolidadas. Proyectos audiovisuales: que no cuenten con financiación comercial ni presupuestos elevados de producción.',
+    'Alquiler del espacio: (Portafondos blanco 3m): 25€/hora (15€/hora para socias). El alquiler del material adicional (foco grande Godox SL300IIBI + softbox y focos pequeños de colores) tiene un coste de 50€ por jornada (35€ socias).',
+    'El alquiler del espacio es de 25€/hora. (15€/hora socias) El alquiler del material adicional (foco grande Godox SL300IIBI + softbox y focos pequeños de colores) tiene un coste de 50€ por jornada (35€ socias). Se requiere puntualidad en los horarios indicados. El pago debe realizarse antes de la sesión. El espacio debe ser entregado limpio y en las mismas condiciones en las que se recibió. Cualquier daño al material o al espacio será responsabilidad del usuario y deberá ser asumido económicamente. Desde la asociación La Simulación, queremos facilitar el acceso a herramientas profesionales para artistas emergentes de Castelló. Por eso, ofrecemos nuestro espacio y material a un coste reducido. Los ingresos generados se destinan a dos fines, en primer lugar como donativo a la asociación, contribuyendo al desarrollo de nuestros proyectos y objetivos en apoyo a la comunidad artística de la ciudad. En segundo lugar como aportación para cubrir gastos de mantenimiento, como el consumo eléctrico del espacio. Normas básicas de uso: -Puntualidad en los horarios indicados. -El pago debe realizarse antes de la sesión. -El espacio debe entregarse limpio y en las mismas condiciones en las que se recibió. -Los usuarios son responsables de cualquier daño al material o al espacio, debiendo asumir los costes de reparación o reemplazo...'
+);
+

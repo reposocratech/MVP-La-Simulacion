@@ -8,6 +8,6 @@ import {createRoomSchema } from '../../schemas/createRoomSchema.js'
 const router = express.Router();
 
 router.post('/createRoom', verifyToken, uploadImageMulti("rooms"), validateForm(createRoomSchema), roomsControllers.createRoom);
-router.get('/room:id', roomsControllers.getRoomById);
+router.get('/room/:id', roomsControllers.getRoomWithImagesById);
 
 export default router;
