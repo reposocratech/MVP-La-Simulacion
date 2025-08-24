@@ -23,7 +23,7 @@ const Events = () => {
   return (
     <section className="section-events">
       <Container>
-        <h1><span>EV </span>Próximos eventos y talleres</h1>
+        <h1><span>EV</span>Próximos eventos y talleres</h1>
         <div className="d-flex flex-column align-items-center gap-4">
           {events?.map(event => (
             <div key={event.event_id} className="w-75">

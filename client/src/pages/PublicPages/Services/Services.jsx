@@ -7,7 +7,7 @@ const Services = () => {
   return (
     <section className="section-services">
       <Container>
-        <h1><span>O </span>Conoce nuestra oferta cultural</h1>
+        <h1><span>O</span>Conoce nuestra oferta cultural</h1>
         <Row className="justify-content-center gy-4 gx-5">
           {services.map(service => (
             <Col  lg={6} xl={4} key={service.id}>

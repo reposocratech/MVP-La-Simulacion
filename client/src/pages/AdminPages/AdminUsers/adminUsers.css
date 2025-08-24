@@ -1,4 +1,4 @@
-.section-services {
+.section-admin-users {
   padding-block: 7rem;
 
   h1 {
@@ -9,7 +9,16 @@
     span {
       margin-inline-end: .5rem;
       font-family: 'Pilowlava';
-      color: var(--color-primary-violet);
+      color: var(--color-primary-baby-pink);
     }
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  h2 + span {
+    font-size: 1.4rem;
+    font-weight: bold;
   }
 }

@@ -1,8 +1,11 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import './oneRoom.css';
 import { useParams } from "react-router";
 import { fetchData } from "../../../helpers/axiosHelper";
+import flowerCircle from '../../../assets/decorative/circulo-con-flor.svg';
+import pinkShine from '../../../assets/decorative/brillo-rosa.png';
+import greenFlower from '../../../assets/decorative/trebol-verde.svg';
+import './oneRoom.css';
 
 const OneRoom = () => {
   const { id } = useParams();
@@ -21,69 +24,76 @@ const OneRoom = () => {
     }
     fetchRoom();
   }, [id]);
-  console.log(room);
-  console.log(imgRoom);
 
   return (
-    <section className="section-room">
+    <section className="section-room ">
       <Container>
         <h1>
           <span>{room?.room_name.split(" ").map(word => word[0]).join("")}</span>
           {room?.room_name}
         </h1>
-        <Row className="justify-content-center gy-4">
-          {imgRoom?.map((img) => {
+        <div className="d-flex justify-content-end">
+          <img src={pinkShine} alt="" />
+          <img src={greenFlower} alt="" />
+        </div>
+        <Row className="justify-content-center align-items-stretch gy-4">
+          {imgRoom?.map((img, index) => {
             return(
-              <Col key={img.room_image_id} md={6} lg={4}>
-                <div>
+              <Col 
+                key={img.room_image_id} 
+                md={index === 0 ? 12 : 6} 
+                lg={index === 2 ? 2 : 5}
+              >
+                <div className="h-100 position-relative">
                   <img 
                     src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/rooms/${img.file}`} 
                     alt="" 
-                    className="w-100 rounded-4"
+                    className="w-100 rounded-4 object-fit-cover h-100"
                   />
+                  {index === 0 && (
+                    <div className="img-deco">
+                      <img src={flowerCircle} alt="" />
+                    </div>
+                  )}
                 </div>
               </Col>
             )
           })}
         </Row>
 
-        <div className="text-center my-4">
-          <button>Solicitud de reserva</button>
-        </div>
 
-        <Row className="align-items-stretch gy-4">
-          <Col lg={6}>
-            <article className="p-3 rounded-4 h-100">
-              <h2>Características de este espacio</h2>
-              <p>
-                {room?.room_description}
-              </p>
-            </article>
-          </Col>
-          <Col lg={6}>
-            <article className="p-3 rounded-4 h-100">
-              <h2>¿Quién puede solicitar su uso?</h2>
-              <p>
-                {room?.who_can_use_it}
-              </p>
-            </article>
-          </Col>
-        </Row>
-        <article className="my-4 p-3 rounded-4">
-          <h2>Tarifas</h2>
-          <p>
-            {room?.pricing}
-          </p>
-        </article>
-        <article className="p-3 rounded-4">
-          <h2>Política de uso y condiciones</h2>
-          <p>
-            {room?.usage_policy}
-          </p>
-        </article>
-        <div className="text-center mt-4">
-          <button>Solicitud de reserva</button>
-        </div>
+        <section className="section-room-info">
+          <div className="text-center my-5">
+            <button className="btn-violet">Solicitud de reserva</button>
+          </div>
+          <article >
+            <h2>Características de este espacio</h2>
+            <p>
+              {room?.room_description}
+            </p>
+          </article>
+          <article>
+            <h2>¿Quién puede solicitar su uso?</h2>
+            <p>
+              {room?.who_can_use_it}
+            </p>
+          </article>
+          <article>
+            <h2>Tarifas</h2>
+            <p>
+              {room?.pricing}
+            </p>
+          </article>
+          <article>
+            <h2>Política de uso y condiciones</h2>
+            <p>
+              {room?.usage_policy}
+            </p>
+          </article>
+          <div className="text-center mt-5">
+            <button className="btn-violet">Solicitud de reserva</button>
+          </div>
+        </section>
       </Container>
     </section>
   )
