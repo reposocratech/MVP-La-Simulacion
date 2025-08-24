@@ -6,7 +6,7 @@ import { PublicRoutes } from './PublicRoutes';
 import { PrivateRoutes } from './PrivateRoutes';
 import { AdminLayout } from '../layouts/AdminLayout';
 import { UserLayout } from '../layouts/UserLayout'
-
+import { SpinnerLoading } from '../components/SpinnerLoading/SpinnerLoading';
 
 // Importaciones "carga perezosa":
   // Componentes públicos:
@@ -27,8 +27,10 @@ const AdminPanel = lazy(()=>import('../pages/AdminPages/AdminPanel/AdminPanel'))
 const CreateRoom = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom'));
 const AdminUsers = lazy(() => import('../pages/AdminPages/AdminUsers/AdminUsers'));
 
-// Componentes de Usuario:
-const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'))
+  // Componentes de Usuario:
+const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'));
+const RoomReservation = lazy(()=>import('../pages/UserPages/RoomReservation/RoomReservation'));
+
 
 export const AppRoutes = () => {
   const { user, loading } = useContext(AuthContext);
@@ -36,7 +38,10 @@ export const AppRoutes = () => {
   return (
     <>
       {loading ? (
-        <h1>Cargando...</h1>
+         <div className="d-flex flex-column justify-content-center align-items-center">
+          <SpinnerLoading />
+          <h1 className="fs-5 mt-3">En seguida estamos...</h1>
+        </div>
       ) : (
         <BrowserRouter>
           <Routes>
@@ -56,29 +61,30 @@ export const AppRoutes = () => {
               </Route>
             </Route>
 
-            {/* Rutas de Administrador: */}
-            <Route element={< PrivateRoutes />}>
-              <Route element={< AdminLayout />}>
-                <Route path='/admin/createRoom' element={< CreateRoom />}/>
-                <Route path='/admin/adminPanel' element={< AdminPanel />}/>
-                <Route path='/admin/users' element={<AdminUsers />}/>
-              </Route>
+          {/* Rutas Privadas de Administrador: */}
+          <Route element={< PrivateRoutes />}>
+            <Route element={< AdminLayout />}>
+            <Route path='/admin/createRoom' element={< CreateRoom />}/>
+            <Route path='/admin/adminPanel' element={< AdminPanel />}/>
+            <Route path='/admin/users' element={<AdminUsers />}/>
             </Route>
+          </Route>
 
-            {/* Rutas Privadas de Usuario: */}
-            <Route
-              element={<PrivateRoutes userType={user?.type} requiredUser={0} />}
-            >
-              <Route element={<UserLayout />}>
-                <Route path="/user/profile" element={<Profile />} />
-              </Route>
+          {/* Rutas Privadas de Usuario: */}
+          <Route
+            element={<PrivateRoutes userType={user?.type} requiredUser={2} />}
+          >
+            <Route element={<UserLayout />}>
+              <Route path="/user/profile" element={<Profile />} />
+              <Route path="/user/roomReservation" element={<RoomReservation />}/>
             </Route>
+          </Route>
 
-            {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
-            <Route path='*' element={<ErrorPage />}/>
-          </Routes>
-        </BrowserRouter>
-      )}
+          {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
+          <Route path='*' element={<ErrorPage />}/>
+        </Routes>
+      </BrowserRouter>)
+      } 
     </>
   )
 }

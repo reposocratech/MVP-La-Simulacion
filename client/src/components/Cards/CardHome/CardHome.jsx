@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router';
 
 import './cardHome.css';
 
+// Esta card recibe sus textos y propiedades personalizables por props, desde la page Home:
 export const CardHome = ({title, accentLetter, textBody, color, textButton, urlButton}) => {
 
+  // función navegar para "onClick" del botón de la card:
   const navigate = useNavigate();
 
   return (

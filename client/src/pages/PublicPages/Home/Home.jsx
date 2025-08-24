@@ -1,9 +1,9 @@
 import { Col, Container, Row } from 'react-bootstrap';
 import circle from '../../../assets/decorative/circulo-con-flor.svg';
 import { CardHome } from '../../../components/Cards/CardHome/CardHome';
-
 import './home.css';
 
+// Creamos este array de objetos para pasar la información personalizable al componente CardHome:
 const cardsData = [
   {   
     id: 1, 
@@ -62,11 +62,15 @@ const Home = () => {
       <section className="section-home-2 pt-5">
         <Container>
           <h2 className="text-center py-4 pt-lg-0">¿A qué nos dedicamos?</h2>
-          <Row className="d-flex justify-content-evenly">
+          <Row className="column-gap-2 row-gap-4">
+
+            {/* Realizamos un mapeo del array "cardsData",
+             donde cada elemento (objeto), va a pintar una "CardHome" y a 
+             pasarle sus valores por props de forma dinámica: */}
             {cardsData.map((card)=>{
                 return (
-                  <Col lg={4} key={card.id}>
-                    <CardHome
+                  <Col key={card.id}>
+                    <CardHome 
                         title={card.title}
                         textButton={card.textButton}
                         color={card.color}

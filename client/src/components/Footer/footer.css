@@ -1,8 +1,14 @@
 .web-footer {
   background-color: var(--color-bg-footer);
   color: whitesmoke;
+
+  .col-texts {
+    font-size: .875rem;
+    text-align: center;
+  }
+
+  .genkoa-icon {
+    width: 30px;
+  }
 }
 
-.sm-icon{
-  width: 25px;
-}
