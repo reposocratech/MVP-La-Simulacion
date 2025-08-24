@@ -1,10 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
-import { Col, Container, Form, Row } from 'react-bootstrap';
+import { Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../../context/AuthContextProvider';
 import { ZodError } from 'zod';
 import { loginSchema } from '../../../schemas/loginSchema';
+import flor from '../../../assets/decorative/flor-redondeada.svg';
+import destellos from '../../../assets/decorative/pareja-destellos.svg';
+import { LuEye } from "react-icons/lu";
+import { LuEyeClosed } from "react-icons/lu";
 import './login.css';
+import { validateForms } from '../../../helpers/validateForms';
 
 const initialValue = {
   email:"",
@@ -15,6 +20,7 @@ const Login = () => {
   const [userLogin, setUserLogin] = useState(initialValue);
   const [valError, setValError] = useState({});
   const [msgError, setMsgError] = useState();
+  const [seePass, setseePass] = useState(false);
 
   const navigate = useNavigate();
 
@@ -38,24 +44,20 @@ const Login = () => {
   const onSubmit = async(e)=> {
     e.preventDefault();
     try {
-      loginSchema.parse(userLogin);
-      //Espera a que la función de login del contexto termine. Si el servidor devuelve un error, este await lo lanzará.
-      await login(userLogin);
-      setValError({});
+      const { valid, errors } = validateForms(loginSchema, userLogin);
+      setValError(errors);
+      
+      if(valid){
+        //Espera a que la función de login del contexto termine. Si el servidor devuelve un error, este await lo lanzará.
+        await login(userLogin);
 
-      navigate('/admin/createroom')
+        setValError({});
+        navigate('/admin/createroom')
+      }
 
     } catch (error) {
       
-      if(error instanceof ZodError){
-        let objectTemp = {}
-        error.issues.forEach((er)=>{
-        objectTemp[er.path[0]]=er.message
-        })
-        setValError(objectTemp)
-        setMsgError(null);
-
-      }else if (error.response){
+      if (error.response){
         setValError({}); 
         setMsgError(error.response.data.message);
         
@@ -72,37 +74,44 @@ const Login = () => {
         <Row>
           <h1 className='h1-login text-center p-2 my-5'>Entra en tu cuenta <span className='span-login accent-text align-middle'>E</span> </h1>
           <Col className="d-flex justify-content-center">
-            <Form xs={9} lg={3} className='border border-2 p-4 rounded rounded-3'>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email:</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="porejemplo@tucorreo.com"
-                  onChange={handleChange}
-                  value={userLogin.email}
-                  name="email"
-                />
-                {valError.email && <Form.Text>{valError.email}</Form.Text>}
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Contraseña:</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Tu contraseña"
-                  onChange={handleChange}
-                  value={userLogin.password}
-                  name="password"
-                />
-                {valError.password && <Form.Text className="text-danger fw-bold">{valError.password}</Form.Text>}
-                {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
-              </Form.Group>
-              <div className='d-flex flex-column gap-4'>
-                <button className='submit-button' onClick={onSubmit}>
-                  Iniciar sesión
-                </button>
-                <Link to='/register' className='text-center'>¿Aún no tienes cuenta? Regístrate desde aquí</Link>
-              </div>
-            </Form> 
+            <div className='form-container p-2'>
+              <img src={flor} alt="" className='flor-login' />
+              <Form xs={9} lg={3} className='login-form border border-2 p-4 mt-3 rounded rounded-3'>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Email:</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="porejemplo@tucorreo.com"
+                    onChange={handleChange}
+                    value={userLogin.email}
+                    name="email"
+                  />
+                  {valError.email && <Form.Text>{valError.email}</Form.Text>}
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Label>Contraseña:</Form.Label>
+                  <InputGroup className="mb-3">
+                    <Form.Control
+                      type={seePass === false ? "password" : "text"}
+                      placeholder="Tu contraseña"
+                      onChange={handleChange}
+                      value={userLogin.password}
+                      name="password"
+                    />
+                    <InputGroup.Text id="basic-addon2"><span onClick={()=>setseePass(!seePass)}>{seePass === true ? <LuEyeClosed /> : <LuEye />}</span></InputGroup.Text>
+                  </InputGroup>
+                  {valError.password && <Form.Text className="text-danger fw-bold">{valError.password}</Form.Text>}
+                  {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
+                </Form.Group>
+                <div className='d-flex flex-column gap-4'>
+                  <button className='submit-button' onClick={onSubmit}>
+                    Iniciar sesión
+                  </button>
+                  <Link to='/register' className='text-center'>¿Aún no tienes cuenta? Regístrate desde aquí</Link>
+                </div>
+              </Form>
+              <img src={destellos} alt="" className='destellos-login' />
+            </div>
           </Col>
         </Row>
       </Container>
