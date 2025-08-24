@@ -91,34 +91,46 @@ class UserController {
   }
 };
 
-    login = async(req, res) => {
-        try {
-            const {email, password} = req.body;
-            const result = await usersDal.findUserByEmailLogin(email);
-            if(result.length === 0){
-                res.status(401).json({message: "Credenciales incorrectas"});
-            }else{
-                let match = await compareHash(password, result[0].password);
-                if(!match){
-                    res.status(401).json({message: "Credenciales incorrectas"});
-                }else{
-                    const token = jwt.sign(
-                        {user_id: result[0].user_id},
-                        process.env.TOKEN_KEY,
-                        {expiresIn:"1d"}
-                    )
-                    res.status(200).json({token});
-                }
-            }
-        } catch (error) {
-            res.status(500).json({message: "server error"});
-        }
+  login = async(req, res) => {
+
+    try {
+      const {email, password} = req.body;
+      // Se llama a la función findUserByEmailLogin en el Dal para buscar al usuario por email
+      const result = await usersDal.findUserByEmailLogin(email);
+
+      // Se verifica si el resultado de la consulta está vacío. Si no se encontró un usuario, se devuelve un error
+      if(result.length === 0){
+          res.status(401).json({message: "Credenciales incorrectas"});
+
+      }else{
+          // Si el usuario existe, se compara la contraseña enviada con la contraseña hasheada en la base de datos con la funcion compareHash
+          let match = await compareHash(password, result[0].password);
+
+          if(!match){
+              res.status(401).json({message: "Credenciales incorrectas"});
+              
+          }else{
+              // Si la contraseña es correcta se genera un token
+              const token = jwt.sign(
+                  {user_id: result[0].user_id},
+                  process.env.TOKEN_KEY,
+                  {expiresIn:"1d"}
+              )
+              res.status(200).json({token});
+          }
+      }
+    } catch (error) {
+        res.status(500).json({message: "server error"});
     }
+  }
 
     userById = async(req,res) => {
         try {
+            // Conseguimos el id de la solicitud
             const {simulacion_user_id} = req;
+
             const result = await usersDal.userById(simulacion_user_id);
+            
             if (result.length === 0){
                 res.status(401).json({message: "No autorizado"})
             }else{
