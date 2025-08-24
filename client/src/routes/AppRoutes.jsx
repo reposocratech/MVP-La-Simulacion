@@ -26,7 +26,10 @@ const AdminPanel = lazy(()=>import('../pages/AdminPages/AdminPanel/AdminPanel'))
 const CreateRoom = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom'));
 
   // Componentes de Usuario:
-const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'))
+const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'));
+const RoomReservation = lazy(()=>import('../pages/UserPages/RoomReservation/RoomReservation'));
+
+
 export const AppRoutes = () => {
   const { user, loading } = useContext(AuthContext);
   return (
@@ -54,13 +57,13 @@ export const AppRoutes = () => {
               </Route>
             </Route>
 
-          {/* Rutas de Administrador: */}
-         <Route element={< PrivateRoutes />}>
-          <Route element={< AdminLayout />}>
-          <Route path='/admin/createRoom' element={< CreateRoom />}/>
-          <Route path='/admin/adminPanel' element={< AdminPanel />}/>
+          {/* Rutas Privadas de Administrador: */}
+          <Route element={< PrivateRoutes />}>
+            <Route element={< AdminLayout />}>
+            <Route path='/admin/createRoom' element={< CreateRoom />}/>
+            <Route path='/admin/adminPanel' element={< AdminPanel />}/>
+            </Route>
           </Route>
-         </Route>
 
           {/* Rutas Privadas de Usuario: */}
           <Route
@@ -68,6 +71,7 @@ export const AppRoutes = () => {
           >
             <Route element={<UserLayout />}>
               <Route path="/user/profile" element={<Profile />} />
+              <Route path="/user/roomReservation" element={<RoomReservation />}/>
             </Route>
           </Route>
 

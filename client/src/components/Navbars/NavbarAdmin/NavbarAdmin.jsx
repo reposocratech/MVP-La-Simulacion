@@ -17,7 +17,7 @@ export const NavbarAdmin = () => {
   // Creamos un objeto para almacenar los campos del user que nos interesa pasar por props al componente "UserIcon":
   const navbarData = {
     userName: user.user_name,
-    userType: user.type,
+    userType: Number(user.type),
     userAvatar: user.avatar
   }
 
