@@ -48,7 +48,7 @@ const OneRoom = () => {
                   <img 
                     src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/rooms/${img.file}`} 
                     alt="" 
-                    className="w-100 rounded-4 object-fit-cover h-100"
+                    className="img-room"
                   />
                   {index === 0 && (
                     <div className="img-deco">
