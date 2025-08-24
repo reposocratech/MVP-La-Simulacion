@@ -69,8 +69,7 @@ const Home = () => {
              pasarle sus valores por props de forma dinámica: */}
             {cardsData.map((card)=>{
                 return (
-                  <Col  
-                        key={card.id}>
+                  <Col key={card.id}>
                     <CardHome 
                         title={card.title}
                         textButton={card.textButton}
