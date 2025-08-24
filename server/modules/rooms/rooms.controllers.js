@@ -7,11 +7,13 @@ class RoomController {
     try {
       const {room_name, room_description, who_can_use_it, pricing, usage_policy} =req.body;
 
+      // Creamos un array para almacenar los nombres de los archivos.
       let file = [];
 
       if (req.files) {
         req.files.forEach(e => file.push(e.filename)); 
       }
+
       // reducer
       const data = {
         room_name,
@@ -22,8 +24,10 @@ class RoomController {
         file
       }
 
-      const result = await roomsDal.createRoom(data);
-      res.status(200).json({message:"inserción ok", result})
+      // Este await me devuelve el id del room desde el Dal y se lo mando al front en la respuesta
+      const room_id = await roomsDal.createRoom(data);
+      res.status(200).json({message:"inserción ok", room_id});
+
     } catch (error) {
       console.log(error);
       
@@ -32,18 +36,20 @@ class RoomController {
 
   }
 
-  // Método para mostrar una única sala:
-  getRoomById = async(req, res) => {
+  // Método para mostrar una única sala con sus imágenes:
+  getRoomWithImagesById = async(req, res) => {
+    const { id } = req.params;
     try {
-      const result = await roomsDal.getRoomById();
-      res.status(200).json("Hola, soy una room");
+      const room = await roomsDal.getRoomById(id);
+      const images = await roomsDal.getRoomImagesById(id);
+      res.status(200).json({room, images});
 
     } catch (error) {
       console.log("Error Controller RoomById", error);
       res.status(500).json({message:"error de server"})
     }
-
   }
+
 }
 
 export default new RoomController();

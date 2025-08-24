@@ -39,6 +39,6 @@ export const services = [
     button: "Reserva aquí",
     img: "/images/imagesServices/img03.png",
     bgColor: "var(--color-primary-violet)",
-    path: "/rooms"
+    path: "/oneRoom/2"
   }
 ];

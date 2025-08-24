@@ -80,8 +80,8 @@
 
 .custom-button {
   display: inline-block;
-  background-color: var(--color-primary-electric-blue);
-  color: rgb(255, 255, 255);
+  background-color: var(--color-primary-electric-blue) !important;
+  color: rgb(255, 255, 255) !important;
   text-align: center;
   text-decoration: none;
   padding: .75rem 1rem;
@@ -93,9 +93,9 @@
 
 .custom-button:hover {
   background-color: var(--color-primary-electric-blue);
-  filter: brightness(1.1); /* Aumenta el brillo en un 10% */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Añade una sombra sutil */
-  transform: translateY(-2px); /* Mueve el botón ligeramente hacia arriba */
+  filter: brightness(1.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
 }
 
 .delete-link {

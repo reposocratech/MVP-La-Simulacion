@@ -1,4 +1,5 @@
 import { Col, Container, Form, Row } from 'react-bootstrap';
+import { RiUpload2Fill } from "react-icons/ri";
 import './formRoom.css';
 
 export const FormRoom2 = ({room, handleChange, cancel, previous, handleFile, onSubmit, valError, msgError}) => {
@@ -34,7 +35,7 @@ export const FormRoom2 = ({room, handleChange, cancel, previous, handleFile, onS
                   {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicFile">
-                  <Form.Label>Subir imágenes a la sala </Form.Label>
+                  <Form.Label>Subir imágenes a la sala <RiUpload2Fill className='ms-2 align-text-top'/></Form.Label>
                   <Form.Control
                     type="file"
                     onChange={handleFile}
@@ -46,7 +47,7 @@ export const FormRoom2 = ({room, handleChange, cancel, previous, handleFile, onS
                   <div className='d-flex flex-column flex-md-row gap-2'>
                     <button className='prev-button w-auto' onClick={previous}>Anterior</button>
                     <button className='cancel-button w-auto' onClick={cancel}>Cancelar</button>
-                    <button className='submit-button w-auto' onClick={onSubmit}>Siguiente</button>
+                    <button className='submit-button w-auto' onClick={onSubmit}>Guardar y finalizar</button>
                   </div>
               </Form>
             </Col>

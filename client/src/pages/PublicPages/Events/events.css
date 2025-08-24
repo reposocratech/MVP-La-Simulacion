@@ -7,8 +7,9 @@
     margin-block-end: 2rem;
 
     span {
+      margin-inline-end: .5rem;
       font-family: 'Pilowlava';
-      color: var(--color-secondary-superdark-pink);
+      color: var(--color-secondary-medium-green);
     }
   }
 }

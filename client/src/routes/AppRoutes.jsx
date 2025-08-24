@@ -17,6 +17,7 @@ const Services = lazy(()=>import('../pages/PublicPages/Services/Services'));
 const ServicesCoop = lazy(()=>import('../pages/PublicPages/ServicesCoop/ServicesCoop'));
 const Events = lazy(()=>import('../pages/PublicPages/Events/Events'));
 const Rooms = lazy(()=>import('../pages/PublicPages/Rooms/Rooms'));
+const OneRoom = lazy(() => import('../pages/PublicPages/oneRoom/OneRoom'));
 const Register = lazy(()=>import('../pages/PublicPages/Register/Register'));
 const Login = lazy(()=>import('../pages/PublicPages/Login/Login'));
 const ErrorPage = lazy(()=>import('../pages/PublicPages/ErrorPage/ErrorPage'));
@@ -24,6 +25,7 @@ const ErrorPage = lazy(()=>import('../pages/PublicPages/ErrorPage/ErrorPage'));
   // Componentes Administrador:
 const AdminPanel = lazy(()=>import('../pages/AdminPages/AdminPanel/AdminPanel'));
 const CreateRoom = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom'));
+const AdminUsers = lazy(() => import('../pages/AdminPages/AdminUsers/AdminUsers'));
 
   // Componentes de Usuario:
 const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'));
@@ -32,6 +34,7 @@ const RoomReservation = lazy(()=>import('../pages/UserPages/RoomReservation/Room
 
 export const AppRoutes = () => {
   const { user, loading } = useContext(AuthContext);
+
   return (
     <>
       {loading ? (
@@ -52,6 +55,7 @@ export const AppRoutes = () => {
                 <Route path="/servicesCoop" element={<ServicesCoop />} />
                 <Route path="/events" element={<Events />} />
                 <Route path="/rooms" element={<Rooms />} />
+                <Route path="/oneRoom/:id" element={<OneRoom />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
               </Route>
@@ -62,6 +66,7 @@ export const AppRoutes = () => {
             <Route element={< AdminLayout />}>
             <Route path='/admin/createRoom' element={< CreateRoom />}/>
             <Route path='/admin/adminPanel' element={< AdminPanel />}/>
+            <Route path='/admin/users' element={<AdminUsers />}/>
             </Route>
           </Route>
 

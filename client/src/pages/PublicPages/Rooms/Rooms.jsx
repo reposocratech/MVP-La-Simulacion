@@ -2,6 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import './rooms.css';
 
 const Rooms = () => {
+
   return (
     <section className="section-rooms">
       <Container>

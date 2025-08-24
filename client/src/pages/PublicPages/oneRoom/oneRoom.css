@@ -1,0 +1,68 @@
+.section-room {
+  padding-block: 7rem;
+
+  h1 {
+    text-align: center;
+    font-size: 2.25rem;
+    margin-block-end: 2rem;
+
+    span {
+      margin-inline-end: 0.5rem;
+      font-family: 'Pilowlava';
+      color: var(--color-primary-violet);
+    }
+  }
+
+  .img-deco {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translate(-30%, 40%);
+    z-index: 1;
+    img {
+      width: 6rem;
+    }
+  }
+
+  .btn-violet {
+    background-color: var(--color-primary-violet);
+    color: #FFF;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
+  
+    &:hover {
+      filter: brightness(85%);
+    }
+  }
+  
+  .section-room-info {
+    margin: 0 auto;
+    max-width: 900px;
+
+    article:not(:last-child) {
+      margin-bottom: 3rem;
+    }
+  
+    article {
+      border: 2px solid var(--color-primary-violet);
+      border-radius: 1rem;
+      padding: 1rem;
+    
+      h2 {
+        font-size: 1.8rem;
+        margin-block-end: 1rem;
+      }
+    
+      p {
+        margin-block-end: 0.5rem;
+    
+        span {
+          color: var(--color-secondary-superdark-pink);
+          font-size: .85rem;
+        }
+      }
+    }
+  }
+}

@@ -21,15 +21,36 @@
   background-position: center;
   background-size: contain;
   min-height: 520px;
-  width: 100%; /* Ajustado para que ocupe el espacio de la columna */
+  width: 100%;
 }
 
-/* Responsive */
+.profile-form-section {
+  width: 450px;
+  max-width: 100%;
+  padding: 0 24px;
+}
+
+
+.form-container {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 100%;
+}
+
 @media (max-width: 991px) {
-  .profile-card-section {
+  .profile-card-section,
+  .profile-form-section {
     width: 100%;
     padding: 24px 0;
   }
 }
 
-/* Estilos de botones y otros elementos no se tocan si ya están en ProfileCard.css */
+
+@media (max-width: 991px) {
+  .profile-form-section {
+    margin-bottom: 50px;
+  }
+}
