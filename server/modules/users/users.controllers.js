@@ -145,6 +145,23 @@ class UserController {
       res.status(500).json({ message: 'Error al enviar el correo' });
     }
   }
+  deleteUser = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { simulacion_user_id } = req;
+
+      if (parseInt(id) !== simulacion_user_id) {
+        return res.status(401).json({ message: "No autorizado para eliminar este usuario." });
+      }
+
+      await usersDal.deleteUser(id);
+      res.status(200).json({ message: "Usuario eliminado correctamente" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error del servidor" });
+    }
+  };
+
     editUser = async (req, res) => {
     try {
       const { simulacion_user_id } = req;
@@ -181,20 +198,20 @@ class UserController {
       const { simulacion_user_id } = req;
       const { email, newEmail } = req.body;
 
-      //1. Verificar que el email actual coincida
+
       const result = await usersDal.findUserEmail(email);
 
       if (result.length === 0 || result[0].user_id !== simulacion_user_id) {
         return res.status(401).json({ message: "El email actual no es correcto" });
       }
 
-      //2. Verificar que el nuevo email no exista
+
       const existEmail = await usersDal.findUserEmail(newEmail);
       if (existEmail.length !== 0) {
         return res.status(401).json({ message: "El nuevo email ya existe" });
       }
 
-      //3. Actualizar el email en la base de datos
+
       await usersDal.changeEmail(simulacion_user_id, newEmail);
       const userEdited = await usersDal.userById(simulacion_user_id);
 
@@ -211,20 +228,18 @@ class UserController {
     const { prevPass, newPass } = req.body;
 
     try {
-      //1. Obtener la contraseña hasheada del usuario
+
       const result = await usersDal.passwordById(simulacion_user_id);
 
-      //2. Comparar la contraseña actual con la hasheada
       const match = await compareHash(prevPass, result);
 
       if (!match) {
         return res.status(401).json({ message: "Contraseña actual incorrecta" });
       }
 
-      //3. Hashear la nueva contraseña
+
       let newHashedPass = await hashPassword(newPass);
 
-      //4. Actualizar la nueva contraseña en la base de datos
       await usersDal.changePass(newHashedPass, simulacion_user_id);
 
       res.status(200).json({ message: "Contraseña actualizada correctamente" });
@@ -232,6 +247,27 @@ class UserController {
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: "server error" });
+    }
+  }
+
+  editAvatar = async(req, res) => {
+    try {
+        const { user_id } = req.body;
+        const user = await usersDal.userById(user_id);
+
+        if (req.file && user[0].avatar) {
+            deleteFile(user[0].avatar, "users");
+        }
+
+        const avatarFileName = req.file ? req.file.filename : null;
+        await usersDal.editAvatar(user_id, avatarFileName);
+
+        const userEdited = await usersDal.userById(user_id);
+
+        res.status(200).json({ message: "Avatar actualizado", avatar: userEdited[0].avatar });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error del servidor" });
     }
   }
 }

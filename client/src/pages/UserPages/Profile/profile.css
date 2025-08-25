@@ -54,3 +54,8 @@
     margin-bottom: 50px;
   }
 }
+
+
+.span-profile{
+ color: var(--color-text-navbar);
+}

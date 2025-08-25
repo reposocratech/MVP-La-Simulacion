@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import { Form, Button, InputGroup } from 'react-bootstrap'
 import { VscClose } from 'react-icons/vsc'
 import { LuEye, LuEyeClosed } from 'react-icons/lu'
@@ -7,7 +7,7 @@ import { validateForms } from '../../helpers/validateForms'
 import { changePasswordSchema } from '../../schemas/changePasswordSchema'
 import { fetchData } from '../../helpers/axiosHelper'
 
-const ChangePasswordForm = ({ setActiveComponent }) => {
+const ChangePasswordForm = ({ setActiveComponent, setSuccessMessage }) => {
   const { token } = useContext(AuthContext)
   const [formData, setFormData] = useState({
     prevPass: '',
@@ -19,6 +19,13 @@ const ChangePasswordForm = ({ setActiveComponent }) => {
   const [showPrevPass, setShowPrevPass] = useState(false)
   const [showNewPass, setShowNewPass] = useState(false)
   const [showRepPass, setShowRepPass] = useState(false)
+  const formRef = useRef(null)
+
+  useEffect(() => {
+    if (formRef.current) {
+      formRef.current.focus()
+    }
+  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -33,7 +40,13 @@ const ChangePasswordForm = ({ setActiveComponent }) => {
     setServerError('')
     setErrors({})
 
-    const result = validateForms(changePasswordSchema, formData)
+    const trimmedData = {
+      prevPass: formData.prevPass.trim(),
+      newPass: formData.newPass.trim(),
+      repPass: formData.repPass.trim(),
+    }
+
+    const result = validateForms(changePasswordSchema, trimmedData)
 
     if (!result.valid) {
       setErrors(result.errors)
@@ -41,14 +54,14 @@ const ChangePasswordForm = ({ setActiveComponent }) => {
     }
 
     try {
-      await fetchData('/users/changePass', 'put', formData, token)
+      await fetchData('/users/changePass', 'put', trimmedData, token)
       setFormData({
         prevPass: '',
         newPass: '',
         repPass: '',
       })
       setActiveComponent('none')
-      alert('Contraseña cambiada con éxito!')
+      setSuccessMessage('Contraseña cambiada con éxito!')
     } catch (error) {
       console.error('Error al cambiar la contraseña:', error)
       if (
@@ -64,7 +77,7 @@ const ChangePasswordForm = ({ setActiveComponent }) => {
   }
 
   return (
-    <div className="form-container">
+    <div tabIndex={-1} ref={formRef} className="form-container">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2>Cambiar contraseña:</h2>
         <Button
@@ -92,6 +105,11 @@ const ChangePasswordForm = ({ setActiveComponent }) => {
               </span>
             </InputGroup.Text>
           </InputGroup>
+          {errors.prevPass && (
+            <Form.Control.Feedback type="invalid">
+              {errors.prevPass}
+            </Form.Control.Feedback>
+          )}
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -110,6 +128,11 @@ const ChangePasswordForm = ({ setActiveComponent }) => {
               </span>
             </InputGroup.Text>
           </InputGroup>
+          {errors.newPass && (
+            <Form.Control.Feedback type="invalid">
+              {errors.newPass}
+            </Form.Control.Feedback>
+          )}
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -128,20 +151,14 @@ const ChangePasswordForm = ({ setActiveComponent }) => {
               </span>
             </InputGroup.Text>
           </InputGroup>
+          {errors.repPass && (
+            <Form.Control.Feedback type="invalid">
+              {errors.repPass}
+            </Form.Control.Feedback>
+          )}
         </Form.Group>
 
         {serverError && <p className="text-danger fw-bold">{serverError}</p>}
-
-        {Object.keys(errors).length > 0 && (
-          <div className="text-danger fw-bold mb-3">
-            <p>Por favor, revisa los siguientes errores:</p>
-            <ul>
-              {Object.values(errors).map((error, index) => (
-                <li key={index}>{error}</li>
-              ))}
-            </ul>
-          </div>
-        )}
 
         <div className="d-flex justify-content-end mt-4">
           <Button

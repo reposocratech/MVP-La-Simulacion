@@ -18,9 +18,11 @@ router.post('/contact', validateForm(contactSchema), usersController.contactEmai
 
 //Rutas Privadas
 router.get('/userById', verifyToken, usersController.userById);
-router.put('/editUser', verifyToken, uploadImageSingle('users'), usersController.editUser);
+router.put('/editUser', verifyToken,  usersController.editUser);
 router.put('/changeEmail', verifyToken, usersController.changeEmail);
 router.put('/changePass', verifyToken, usersController.changePass);
+router.delete("/deleteUser/:id", verifyToken, usersController.deleteUser);
+router.put("/editAvatar", verifyToken, uploadImageSingle("users"), usersController.editAvatar);
 
 
 export default router;

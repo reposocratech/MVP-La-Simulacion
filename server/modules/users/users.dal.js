@@ -103,6 +103,25 @@ editUser = async (data) => {
       throw { message: "Error en db" };
     }
   };
+
+   deleteUser = async (id) => {
+    try {
+      const sql = "UPDATE user SET user_is_deleted = 1 WHERE user_id = ?";
+      await executeQuery(sql, [id]);
+    } catch (error) {
+      throw { message: "Error en bd" };
+    }
+  };
+
+   editAvatar = async(user_id, avatar) => {
+        try {
+            const sql = 'UPDATE user SET avatar = ? WHERE user_id = ?';
+            const values = [avatar, user_id];
+            await executeQuery(sql, values);
+        } catch (error) {
+            throw { message: "Error en bd" };
+        }
+    };
 }
 
 export default new UserDal();
