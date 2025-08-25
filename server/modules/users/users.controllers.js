@@ -145,6 +145,14 @@ class UserController {
       res.status(500).json({ message: 'Error al enviar el correo' });
     }
   }
+
+  makeRoomReservation = async(req, res) =>{
+    try {
+      res.status(200).json({message: "Solicitud de reserva enviada correctamente."})
+    } catch (error) {
+      res.status(500).json({message: "server error"});
+    }
+  }
 }
 
 export default new UserController();

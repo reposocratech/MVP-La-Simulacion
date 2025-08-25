@@ -1,7 +1,7 @@
 import { Col, Form, Row } from "react-bootstrap";
 
 
-export const ReservationForm1 = ({userName, userLastname, handleChange, goNext, cancel}) => {
+export const ReservationForm1 = ({userName, userLastname, reservationData, handleChange, goNext, cancel}) => {
 
   return (
     <Form className="border border-2 rounded rounded-3 mb-2 mt-3 p-4">
@@ -32,6 +32,8 @@ export const ReservationForm1 = ({userName, userLastname, handleChange, goNext, 
             type="text"
             placeholder="Número de teléfono"
             onChange={handleChange}
+            value={reservationData.phone_number}
+            name="phone_number"
           />
         </Col>
       </Form.Group>
@@ -41,6 +43,8 @@ export const ReservationForm1 = ({userName, userLastname, handleChange, goNext, 
           <Form.Control
             type="date"
             onChange={handleChange}
+            value={reservationData.date}
+            name="date"
           />
         </Col>
       </Form.Group>
@@ -50,6 +54,8 @@ export const ReservationForm1 = ({userName, userLastname, handleChange, goNext, 
           <Form.Control
             type="time"
             onChange={handleChange}
+            value={reservationData.start_hour}
+            name="start_hour"
           />
         </Col>
       </Form.Group>
@@ -59,6 +65,8 @@ export const ReservationForm1 = ({userName, userLastname, handleChange, goNext, 
           <Form.Control
             type="time"
             onChange={handleChange}
+            value={reservationData.end_hour}
+            name="end_hour"
           />
         </Col>
       </Form.Group>

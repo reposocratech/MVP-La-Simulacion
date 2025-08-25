@@ -1,7 +1,7 @@
 import { Form } from "react-bootstrap";
 
 
-export const ReservationForm2 = ({handleChange, goNext, cancel}) => {
+export const ReservationForm2 = ({reservationData, handleChange, goNext, cancel}) => {
 
   return (
     <Form className="border border-2 rounded rounded-3 mb-2 mt-3 p-4">
@@ -12,6 +12,8 @@ export const ReservationForm2 = ({handleChange, goNext, cancel}) => {
             rows={6}
             placeholder="Hablános de tu trayectoria artística y de tu proyecto" 
             onChange={handleChange}
+            value={reservationData.proyect_description}
+            name="proyect_description"
           />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicTypeProyect">
@@ -21,6 +23,8 @@ export const ReservationForm2 = ({handleChange, goNext, cancel}) => {
             rows={2}
             placeholder="Por ej. Fotografía de producto, Sesión de retratos, Grabación de vídeo, Podcast..." 
             onChange={handleChange}
+            value={reservationData.proyect_type}
+            name="proyect_type"
           />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicSM">
@@ -29,6 +33,8 @@ export const ReservationForm2 = ({handleChange, goNext, cancel}) => {
             type="text"
             placeholder="URL red social" 
             onChange={handleChange}
+            value={reservationData.socialmedia_link}
+            name="socialmedia_link"
           />
       </Form.Group>
       <div className="d-flex gap-2">

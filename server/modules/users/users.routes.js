@@ -12,8 +12,12 @@ const router = express.Router();
 router.post('/register', validateForm(registerSchema) , usersController.register);
 router.get('/verify-email', usersController.verifyEmail);
 router.post('/login', validateForm(loginSchema), usersController.login);
+//! userById es pública?
 router.get('/userById', verifyToken, usersController.userById);
 router.post('/contact', validateForm(contactSchema), usersController.contactEmail);
+
+//Rutas privadas
+router.post('/roomReservation', verifyToken, usersController.makeRoomReservation);
 
 
 export default router;

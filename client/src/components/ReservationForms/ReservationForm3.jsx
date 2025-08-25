@@ -1,7 +1,7 @@
 import { Form } from "react-bootstrap";
 
 
-export const ReservationForm3 = ({handleChange, cancel}) => {
+export const ReservationForm3 = ({reservationData, handleChange, cancel}) => {
 
   return (
     <Form className="border border-2 rounded rounded-3 mb-2 mt-3 p-4">
@@ -10,19 +10,21 @@ export const ReservationForm3 = ({handleChange, cancel}) => {
         <div className="d-flex gap-4">
           <Form.Check
             type="radio"
-            id="option-yes"
-            name="lights-material"
+            id="ilumination-yes"
+            onChange={handleChange}
+            name="ilumination_material"
             label="Sí"
-            value="sí"
-            // checked={confirmed === 'yes'}
+            value={1}
+            checked={reservationData.ilumination_material === 1}
           />
           <Form.Check
             type="radio"
-            id="option-no"
-            name="lights-material"
+            id="ilumination-no"
+            onChange={handleChange}
+            name="ilumination_material"
             label="No"
-            value="no"
-            // checked={confirmed === 'yes'}
+            value={0}
+            checked={reservationData.ilumination_material === 0}
           />
         </div>
       </Form.Group>
@@ -32,6 +34,8 @@ export const ReservationForm3 = ({handleChange, cancel}) => {
             type="text"
             placeholder="Número de personas"
             onChange={handleChange}
+            value={reservationData.number_of_attendees}
+            name="number_of_attendees"
             />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicAdditionalReq">
@@ -41,17 +45,20 @@ export const ReservationForm3 = ({handleChange, cancel}) => {
             rows={2}
             placeholder="Cuéntanos qué necesita tu proyecto" 
             onChange={handleChange}
+            value={reservationData.aditional_requirement}
+            name="aditional_requirement"
           />
       </Form.Group>
-       <Form.Group className="mb-3" controlId="formBasicLights">
+       <Form.Group className="mb-3" controlId="formBasicPolicy">
         <Form.Label>Confirmo que he leído y acepto las condiciones de uso:</Form.Label>
           <Form.Check
             type="checkbox"
-            id="option-yes"
-            name="lights-material"
+            id="user_policy_check"
+            onChange={handleChange}
+            name="user_policy_confirmation"
             label="Sí, he leído y acepto las condiciones."
-            value="sí"
-            // checked={confirmed === 'yes'}
+            value={1}
+            checked={reservationData.user_policy_confirmation === 1}
           />
       </Form.Group>
       
