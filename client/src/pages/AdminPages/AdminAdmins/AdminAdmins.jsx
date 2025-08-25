@@ -27,24 +27,28 @@ const AdminAdmins = () => {
   const [valErrors, setValErrors] = useState({});
   const [msgError, setMsgError] = useState();
 
-  const handleChange = (e) =>{
+  const handleChange = (e) => {
     const {name, value} = e.target;
     setRegister({...register, [name]: value});
   }
 
+  const handleShowForm = () => {
+    if (showForm) {
+      setRegister(initialValue);
+    }
+    setShowForm(!showForm);
+  }
+
   const onSubmit = async(e) => {
     e.preventDefault();
-    console.log("🔵 SUBMIT disparado", register);
 
     try {
       const { valid, errors } = validateForms(registerSchema, register);
-      console.log("🟡 Resultado validación:", valid, errors);
       setValErrors(errors);
 
       if (valid) {
-        console.log("✔ Validación OK, llamando a fetchData");
         const res = await fetchData("/admin/registerAdmin", "post", register, token);
-        console.log(res);
+        setAdminsData((prev) => [...prev, res.data]);
         setShowForm(false);
         setRegister(initialValue);
       }
@@ -93,7 +97,7 @@ const AdminAdmins = () => {
             <div className="my-5">
               <button
                 className="babypink-button w-100"
-                onClick={() => setShowForm(!showForm)}
+                onClick={handleShowForm}
               >Crear Administradora</button>
             </div>
             <AnimatePresence>

@@ -59,7 +59,12 @@ class AdminController {
       const hashedPassword = await hashPassword(password);
       const data = [user_name, email, hashedPassword, 1];
       await adminDal.registerAdmin(data);
-      res.status(200).json("registro ok");
+      const newInsert = {
+        id: result.insertId,
+        user_name,
+        email
+      };
+      res.status(200).json(newInsert);
     } catch (error) {
       res.status(500).json({message: "Error de servidor"});
     }
