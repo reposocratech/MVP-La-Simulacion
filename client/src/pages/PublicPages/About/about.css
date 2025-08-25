@@ -2,6 +2,7 @@
   padding-block-start: 3.75rem;
   .spanLetter-1 {
     color: var(--color-primary-violet);
+    margin-inline-end: .5rem;
   }
 }
 
@@ -9,6 +10,7 @@
   background-color: var(--color-primary-violet);
   .spanLetter-2 {
     color: var(--color-secondary-superdark-pink);
+    margin-inline-end: .5rem;
   }
 }
 
@@ -16,6 +18,7 @@
 
   .spanLetter-3 {
     color: var(--color-primary-electric-blue);
+    margin-inline-end: .5rem;
   }
 }
 
@@ -23,5 +26,6 @@
 
   .spanLetter-4 {
     color: var(--color-primary-orange);
+    margin-inline-end: .5rem;
   }
 }

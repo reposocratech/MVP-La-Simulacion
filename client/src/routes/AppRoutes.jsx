@@ -28,6 +28,7 @@ const CreateRoom = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom'))
 const EditRoom = lazy(()=>import('../pages/AdminPages/EditRoom/EditRoom'));
 const CreateServCoop = lazy(()=>import('../pages/AdminPages/CreateServCoop/CreateServCoop'));
 const AdminUsers = lazy(() => import('../pages/AdminPages/AdminUsers/AdminUsers'));
+const UserProfile = lazy(() => import('../pages/AdminPages/UserProfile/UserProfile'));
 
   // Componentes de Usuario:
 const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'));
@@ -66,11 +67,12 @@ export const AppRoutes = () => {
           {/* Rutas Privadas de Administrador: */}
           <Route element={< PrivateRoutes userType={user?.type} requiredUser={1}/>}>
             <Route element={< AdminLayout />}>
-            <Route path='/admin/createRoom' element={< CreateRoom />}/>
-            <Route path='/admin/editRoom/:id' element={< EditRoom />}/>
-            <Route path='/admin/createServCoop' element={< CreateServCoop />}/>
-            <Route path='/admin/adminPanel' element={< AdminPanel />}/>
-            <Route path='/admin/users' element={<AdminUsers />}/>
+              <Route path='/admin/createRoom' element={< CreateRoom />}/>
+              <Route path='/admin/editRoom/:id' element={< EditRoom />}/>
+              <Route path='/admin/createServCoop' element={< CreateServCoop />}/>
+              <Route path='/admin/adminPanel' element={< AdminPanel />}/>
+              <Route path='/admin/users' element={<AdminUsers />}/>
+              <Route path='/admin/userProfile/:id' element={<UserProfile />}/>
             </Route>
           </Route>
 
