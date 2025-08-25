@@ -37,6 +37,22 @@ sendMailServCoop = async (req , res)=>{
         
     }
 }
+    createServCoop = async (req , res) => {
+  try {
+    const data = JSON.parse(req.body.data);
+    const { title, description } = data;
+
+    let filename = null;
+    if (req.file) {
+      filename = req.file.filename;
+      console.log("Archivo subido:", filename);
+    }
+    const result = await servicesDal.createServCoop(title, description, filename);
+    res.status(200).json("Servicio Añadido");
+  } catch (error) {
+    res.status(500).json({ message: "server error" });
+  }
+}
 
 }
 

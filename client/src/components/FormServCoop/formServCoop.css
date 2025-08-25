@@ -1,0 +1,9 @@
+.span-formServCoop{
+  color: var(--color-primary-baby-pink);  
+  font-weight: normal;
+  text-decoration: none;
+  }
+  .text-error{
+    color: red;
+    font-weight: bold;
+  }
