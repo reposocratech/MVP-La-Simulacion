@@ -15,17 +15,17 @@ const columns = [
   {
     key: "user_is_confirmed", 
     label: "Confirmado", 
-    render: (value) => value === 1 ? "Sí" : "No"
+    render: (row) => row.user_is_confirmed === 1 ? "Sí" : "No"
   },
   {
     key: "user_is_disabled", 
     label: "Bloqueado",
-    render: (value) => value === 1 ? "Sí" : "No"
+    render: (row) => row.user_is_disabled === 1 ? "Sí" : "No"
   },
   {
     key: "user_is_deleted", 
     label: "Borrado",
-    render: (value) => value === 1 ? "Sí" : "No"
+    render: (row) => row.user_is_deleted === 1 ? "Sí" : "No"
   },
   {key: "actions", label: "Acciones"}
 ];

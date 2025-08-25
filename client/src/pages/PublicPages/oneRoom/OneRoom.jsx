@@ -1,6 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { fetchData } from "../../../helpers/axiosHelper";
 import flowerCircle from '../../../assets/decorative/circulo-con-flor.svg';
 import pinkShine from '../../../assets/decorative/brillo-rosa.png';
@@ -9,6 +9,8 @@ import './oneRoom.css';
 
 const OneRoom = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [room, setRoom] = useState();
   const [imgRoom, setImgRoom] = useState([]);
 
@@ -64,7 +66,10 @@ const OneRoom = () => {
 
         <section className="section-room-info">
           <div className="text-center my-5">
-            <button className="btn-violet">Solicitud de reserva</button>
+            <button 
+              className="btn-violet"
+              onClick={() => navigate('/user/roomReservation')}
+            >Solicitud de reserva</button>
           </div>
           <article >
             <h2>Características de este espacio</h2>
@@ -91,7 +96,10 @@ const OneRoom = () => {
             </p>
           </article>
           <div className="text-center mt-5">
-            <button className="btn-violet">Solicitud de reserva</button>
+            <button 
+              className="btn-violet"
+              onClick={() => navigate('/user/roomReservation')}
+            >Solicitud de reserva</button>
           </div>
         </section>
       </Container>

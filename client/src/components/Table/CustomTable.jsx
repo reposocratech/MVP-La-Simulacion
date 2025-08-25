@@ -21,7 +21,7 @@ export const CustomTable = ({ data, columns }) => {
               {columns.map((col) => (
                 <td key={col.key}>
                   {/* si la columna tiene render: se usa el condicional y si no, se muestra directamente el valor */}
-                  {col.render ? col.render(row[col.key]) : row[col.key]}
+                  {col.render ? col.render(row) : row[col.key]}
                 </td>
               ))}
             </tr>
