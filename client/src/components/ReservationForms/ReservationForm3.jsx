@@ -49,7 +49,7 @@ export const ReservationForm3 = ({handleChange, cancel}) => {
             type="checkbox"
             id="option-yes"
             name="lights-material"
-            label="Sí"
+            label="Sí, he leído y acepto las condiciones."
             value="sí"
             // checked={confirmed === 'yes'}
           />

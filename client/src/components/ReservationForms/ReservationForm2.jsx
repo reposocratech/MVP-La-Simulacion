@@ -18,7 +18,7 @@ export const ReservationForm2 = ({handleChange, goNext, cancel}) => {
         <Form.Label>¿Qué tipo de proyecto realizarás?</Form.Label>
           <Form.Control
             as="textarea"
-            rows={3}
+            rows={2}
             placeholder="Por ej. Fotografía de producto, Sesión de retratos, Grabación de vídeo, Podcast..." 
             onChange={handleChange}
           />
