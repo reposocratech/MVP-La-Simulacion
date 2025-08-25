@@ -15,10 +15,14 @@
 }
 
 .section-about-3 {
-
+  background-color: var(--color-primary-orange);
+  h2 {
+    text-align: center;
+    color: #FFF;
+  }
   .spanLetter-3 {
     color: var(--color-primary-electric-blue);
-    margin-inline-end: .5rem;
+    margin-inline-start: .5rem;
   }
 }
 

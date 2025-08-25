@@ -5,10 +5,12 @@ import { fetchData } from "../../../helpers/axiosHelper";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { PiEyeClosed , PiEye } from "react-icons/pi";
 import { motion, AnimatePresence } from "framer-motion";
+import { validateForms } from "../../../helpers/validateForms";
+import { registerSchema } from "../../../schemas/registerSchema";
 import './adminadmins.css';
 
 const initialValue = {
-  name: "",
+  user_name: "",
   email:"", 
   password: "",
   repPassword:""
@@ -30,7 +32,29 @@ const AdminAdmins = () => {
     setRegister({...register, [name]: value});
   }
 
-  
+  const onSubmit = async(e) => {
+    e.preventDefault();
+    console.log("🔵 SUBMIT disparado", register);
+
+    try {
+      const { valid, errors } = validateForms(registerSchema, register);
+      console.log("🟡 Resultado validación:", valid, errors);
+      setValErrors(errors);
+
+      if (valid) {
+        console.log("✔ Validación OK, llamando a fetchData");
+        const res = await fetchData("/admin/registerAdmin", "post", register, token);
+        console.log(res);
+        setShowForm(false);
+        setRegister(initialValue);
+      }
+
+    } catch (error) {
+      console.log(error);
+      setValErrors({});
+      setMsgError(error?.response?.data || "Error inesperado en el servidor");
+    }
+  }
 
   useEffect(() => {
     const fetchAdmins = async() => {
@@ -72,8 +96,8 @@ const AdminAdmins = () => {
                 onClick={() => setShowForm(!showForm)}
               >Crear Administradora</button>
             </div>
+            <AnimatePresence>
             {showForm && 
-              <AnimatePresence>
                 <motion.div
                   key="form"
                   initial={{ opacity: 0, y: -20 }}
@@ -81,15 +105,15 @@ const AdminAdmins = () => {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <Form className="border border-2 rounded-4 p-3">
+                  <Form className="border border-2 rounded-4 p-3" onSubmit={onSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicName">
                       <Form.Label className="fw-bold">Nombre:</Form.Label>
                       <Form.Control 
                         type="text" 
                         placeholder="Nombre" 
                         onChange={handleChange}
-                        value={register.name}
-                        name="name"
+                        value={register.user_name}
+                        name="user_name"
                       />
                       {valErrors.name && <Form.Text className="text-danger">{valErrors.name}</Form.Text>}
                     </Form.Group>
@@ -142,12 +166,14 @@ const AdminAdmins = () => {
                     <div className="w-100">
                       <button 
                         className="submit-button w-100"
+                        onClick={onSubmit}
+                        type="submit"
                       >Enviar</button>
                     </div>
                   </Form>
                 </motion.div>
-              </AnimatePresence>
             }
+            </AnimatePresence>
           </Col>
         </Row>
       </Container>

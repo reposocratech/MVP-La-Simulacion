@@ -66,9 +66,9 @@ const About = () => {
       <section className="section-about-3 pt-5">
         <Container>
           <h2>
+            Misión y visión
             <span className="spanLetter-3 accent-text">V 
             </span>
-            Misión y visión
           </h2>
         </Container>
       </section>

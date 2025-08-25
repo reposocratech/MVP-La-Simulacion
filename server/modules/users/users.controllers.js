@@ -38,8 +38,7 @@ class UserController {
             const emailResult = await sendConfirmationMail.sendMail(mailOptions);
 
             res.status(200).json("usuario creado") 
-             } catch (error) {
-                
+        } catch (error) {
             if(error.isLogged){
                 res.status(401).json(error.message);
             }else{
