@@ -1,7 +1,3 @@
 .section-contact {
-  padding-block: 7rem;
-
-  .section-redes {
-    background-color: var(--color-primary-violet);
-  }
+  padding-block: 3.75rem;
 }

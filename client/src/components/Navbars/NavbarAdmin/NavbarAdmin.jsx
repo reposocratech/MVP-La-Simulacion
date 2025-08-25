@@ -22,8 +22,8 @@ export const NavbarAdmin = () => {
   }
 
   // Función que incluye el logout del context y además nos redirige al Home:
-  const onLogout = () => {
-    logout();
+  const onLogout = async() => {
+    await logout();
     navigate("/");
   }
 

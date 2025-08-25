@@ -1,6 +1,5 @@
 import { Card } from "react-bootstrap"
 import { useNavigate } from 'react-router';
-
 import './cardHome.css';
 
 // Esta card recibe sus textos y propiedades personalizables por props, desde la page Home:
