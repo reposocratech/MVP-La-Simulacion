@@ -2,6 +2,8 @@ import express from 'express';
 import servicesControllers from './services.controllers.js';
 import { formCoopSchema } from '../../schemas/formCoopSchema.js';
 import { validateForm } from '../../middlewares/validateForm.js';
+import { verifyToken } from '../../middlewares/verifyToken.js';
+import { uploadImageSingle } from '../../middlewares/multerSingle.js';
 const router = express.Router();
 
 
@@ -10,6 +12,7 @@ router.get('/', function(req, res, next) {
 });
 router.post('/servicescoop', validateForm(formCoopSchema) , servicesControllers.sendMailServCoop);
 router.get('/servicescoop', servicesControllers.getDataServCoop)
+router.post('/createservicecoop', verifyToken , uploadImageSingle("servCoop") , servicesControllers.createServCoop);
 
 
 export default router;

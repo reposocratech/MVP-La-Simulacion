@@ -1,0 +1,70 @@
+import { useState } from "react";
+import { FormServCoop } from "../../../components/FormServCoop/FormServCoop";
+import { useNavigate } from "react-router";
+import { validateForms } from "../../../helpers/validateForms";
+import { fetchData } from "../../../helpers/axiosHelper";
+import { createCoopSchema } from "../../../schemas/createCoopSchema";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContextProvider";
+
+const initialValues = {
+  title: "",
+  description: "",
+  fimg: "",
+};
+export const CreateServCoop = () => {
+  const [datosForm, setDatosForm] = useState(initialValues);
+  const [valErrors, setValErrors] = useState({});
+  const [fileError, setFileError] = useState("");
+  const [file, setFile] = useState();
+  const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setDatosForm({ ...datosForm, [name]: value });
+  };
+  const handleFile = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      //Comprobación de que los datos metidos se cumplan
+      const { valid, errors } = validateForms(createCoopSchema, datosForm);
+      setValErrors(errors);
+      if (valid) {
+        const newFormData = new FormData();
+        newFormData.append("data", JSON.stringify(datosForm));
+        if (file) {
+          if (file.name.length > 200) {
+            setFileError(
+              "Los caracteres que admiten la imagen son 200 caracteres"
+            );
+            return;
+          } else {
+            newFormData.append("file", file);
+          }
+        }
+        let res = await fetchData("/services/createservicecoop","post",newFormData,token);
+        navigate("/");
+      }
+    } catch (error) {
+      setValErrors({});
+    }
+  };
+
+  return (
+    <FormServCoop
+      handleChange={handleChange}
+      onSubmit={onSubmit}
+      datosForm={datosForm}
+      handleFile={handleFile}
+      fileError={fileError}
+      valErrors={valErrors}
+    />
+  );
+};
+
+export default CreateServCoop;
