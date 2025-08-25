@@ -1,4 +1,4 @@
-import { lazy, useContext } from 'react';
+import { lazy, Suspense, useContext } from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router';
 import { PublicLayout } from '../layouts/PublicLayout';
 import { AuthContext } from '../context/AuthContextProvider';
@@ -40,53 +40,60 @@ export const AppRoutes = () => {
   return (
     <>
       {loading ? (
-         <div className="d-flex flex-column justify-content-center align-items-center">
+         <div className="d-flex flex-column mt-5 align-items-center">
           <SpinnerLoading />
           <h1 className="fs-5 mt-3">En seguida estamos...</h1>
         </div>
       ) : (
         <BrowserRouter>
-          <Routes>
-            {/* Rutas Públicas: */}
-            <Route element={<PublicRoutes />}>
-              <Route element={<PublicLayout />}>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/servicesCoop" element={<ServicesCoop />} />
-                <Route path="/events" element={<Events />} />
-                <Route path="/rooms" element={<Rooms />} />
-                <Route path="/oneRoom/:id" element={<OneRoom />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
+          <Suspense fallback={
+                      <div className="d-flex flex-column mt-5 align-items-center">
+                        <SpinnerLoading />
+                        <h1 className="fs-5 mt-3">En seguida estamos...</h1>
+                      </div>
+                    }>
+            <Routes>
+              {/* Rutas Públicas: */}
+              <Route element={<PublicRoutes />}>
+                <Route element={<PublicLayout />}>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/servicesCoop" element={<ServicesCoop />} />
+                  <Route path="/events" element={<Events />} />
+                  <Route path="/rooms" element={<Rooms />} />
+                  <Route path="/oneRoom/:id" element={<OneRoom />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/login" element={<Login />} />
+                </Route>
+              </Route>
+
+            {/* Rutas Privadas de Administrador: */}
+            <Route element={< PrivateRoutes userType={user?.type} requiredUser={1}/>}>
+              <Route element={< AdminLayout />}>
+              <Route path='/admin/createRoom' element={< CreateRoom />}/>
+              <Route path='/admin/editRoom/:id' element={< EditRoom />}/>
+              <Route path='/admin/createServCoop' element={< CreateServCoop />}/>
+              <Route path='/admin/adminPanel' element={< AdminPanel />}/>
+              <Route path='/admin/users' element={<AdminUsers />}/>
               </Route>
             </Route>
 
-          {/* Rutas Privadas de Administrador: */}
-          <Route element={< PrivateRoutes userType={user?.type} requiredUser={1}/>}>
-            <Route element={< AdminLayout />}>
-            <Route path='/admin/createRoom' element={< CreateRoom />}/>
-            <Route path='/admin/editRoom/:id' element={< EditRoom />}/>
-            <Route path='/admin/createServCoop' element={< CreateServCoop />}/>
-            <Route path='/admin/adminPanel' element={< AdminPanel />}/>
-            <Route path='/admin/users' element={<AdminUsers />}/>
+            {/* Rutas Privadas de Usuario: */}
+            <Route
+              element={<PrivateRoutes userType={user?.type} requiredUser={2} />}
+            >
+              <Route element={<UserLayout />}>
+                <Route path="/user/profile" element={<Profile />} />
+                <Route path="/user/roomReservation" element={<RoomReservation />}/>
+              </Route>
             </Route>
-          </Route>
 
-          {/* Rutas Privadas de Usuario: */}
-          <Route
-            element={<PrivateRoutes userType={user?.type} requiredUser={2} />}
-          >
-            <Route element={<UserLayout />}>
-              <Route path="/user/profile" element={<Profile />} />
-              <Route path="/user/roomReservation" element={<RoomReservation />}/>
-            </Route>
-          </Route>
-
-          {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
-          <Route path='*' element={<ErrorPage />}/>
-        </Routes>
+            {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
+            <Route path='*' element={<ErrorPage />}/>
+          </Routes>
+        </Suspense>
       </BrowserRouter>)
       } 
     </>

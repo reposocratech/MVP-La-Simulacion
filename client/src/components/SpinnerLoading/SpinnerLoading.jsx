@@ -3,7 +3,7 @@ import './spinnerLoading.css'
 
 export const SpinnerLoading = () => {
   return (
-    <div className='d-flex justify-content-center align-items-end'>
+    <div className='d-flex justify-content-center align-items-end mt-5'>
       <Spinner
           animation="border"
           role="status"
