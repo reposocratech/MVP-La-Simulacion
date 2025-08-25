@@ -30,6 +30,15 @@ class AdminController {
       res.status(500).json({message: "Error de servidor"});
     }
   }
+
+  getAdminsData = async(req, res) => {
+    try {
+      const result = await adminDal.getAdminsData();
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({message: "Error de servidor"});
+    }
+  }
 }
 
 export default new AdminController();

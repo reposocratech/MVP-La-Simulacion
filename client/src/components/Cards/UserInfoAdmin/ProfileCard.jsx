@@ -1,16 +1,18 @@
 import './ProfileCard.css';
 
 export const ProfileCard = ({ user }) => {
+  const serverPublicUrl = import.meta.env.VITE_SERVER_URL_PUBLIC;
+
   return (
     <div className="profile-card ">
       <figure className="profile-image-container">
         <img
-          src={user?.avatar}
+          src={user?.avatar || `${serverPublicUrl}images/users/default-avatar.svg`}
           alt="Icono de usuario"
           className="profile-image"
         />
       </figure>
-      <div className="profile-card-body mt-3">
+      <div className="p-3 mt-3">
         <ul className="profile-data-list">
           <li>
             <span className='fw-bold'>Nombre</span>

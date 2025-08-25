@@ -78,17 +78,17 @@ const Register = () => {
                   <Form.Label className="fw-bold">Contraseña: </Form.Label>
                   <div className="passPos">
                     <Form.Control
-                    type={seePass === false ? "password" : "text"}
-                    placeholder="Tu contraseña"
-                    onChange={handleChange}
-                    value={register.password}
-                    name="password"
+                      type={seePass === false ? "password" : "text"}
+                      placeholder="Tu contraseña"
+                      onChange={handleChange}
+                      value={register.password}
+                      name="password"
                     />
                     <button
-                    type="button" 
-                    className="iconPos" 
-                    onClick={()=>setseePass(!seePass)}
-                    aria-label={seePass ? "Ocultar contraseña" : "Mostrar contraseña"}
+                      type="button" 
+                      className="iconPos" 
+                      onClick={()=>setseePass(!seePass)}
+                      aria-label={seePass ? "Ocultar contraseña" : "Mostrar contraseña"}
                     >
                     {seePass===true? <PiEye /> :<PiEyeClosed />} </button>
                   </div>

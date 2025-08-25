@@ -6,5 +6,6 @@ const router = express.Router();
 router.get('/users', verifyToken, adminControllers.getUsersData);
 router.put('/enableDisableUser', verifyToken, adminControllers.enableDisableUser);
 router.get('/userProfile/:id', verifyToken, adminControllers.getUserById);
+router.get('/admins', verifyToken, adminControllers.getAdminsData);
 
 export default router;

@@ -1,0 +1,158 @@
+import { Col, Container, Form, Row } from "react-bootstrap";
+import { CustomTable } from "../../../components/Table/CustomTable";
+import { useContext, useEffect, useState } from "react";
+import { fetchData } from "../../../helpers/axiosHelper";
+import { AuthContext } from "../../../context/AuthContextProvider";
+import { PiEyeClosed , PiEye } from "react-icons/pi";
+import { motion, AnimatePresence } from "framer-motion";
+import './adminadmins.css';
+
+const initialValue = {
+  name: "",
+  email:"", 
+  password: "",
+  repPassword:""
+}
+
+const AdminAdmins = () => {
+  const { token } = useContext(AuthContext);
+
+  const [adminsData, setAdminsData] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [register, setRegister] = useState(initialValue);
+  const [seePass, setseePass] = useState(false);
+  const [seePassRep, setseePassRep] = useState(false);
+  const [valErrors, setValErrors] = useState({});
+  const [msgError, setMsgError] = useState();
+
+  const handleChange = (e) =>{
+    const {name, value} = e.target;
+    setRegister({...register, [name]: value});
+  }
+
+  
+
+  useEffect(() => {
+    const fetchAdmins = async() => {
+      try {
+        const res = await fetchData("/admin/admins", "get", null, token);
+        setAdminsData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchAdmins();
+  }, []);
+
+  const columns = [
+    {key: "user_name", label: "Nombre"},
+    {key: "email", label: "Email"},
+    {
+      key: "actions", 
+      label: "Acciones"
+    }
+  ];
+
+  return (
+    <section className="section-admin-admins">
+      <Container>
+        <h1><span>A</span>Gestión de administradoras</h1>
+        <Row className="justify-content-between gap-3">
+          <Col lg={6}>
+            <CustomTable 
+              columns={columns}
+              data={adminsData}
+            />
+          </Col>
+
+          <Col lg={4}>
+            <div className="my-5">
+              <button
+                className="babypink-button w-100"
+                onClick={() => setShowForm(!showForm)}
+              >Crear Administradora</button>
+            </div>
+            {showForm && 
+              <AnimatePresence>
+                <motion.div
+                  key="form"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Form className="border border-2 rounded-4 p-3">
+                    <Form.Group className="mb-3" controlId="formBasicName">
+                      <Form.Label className="fw-bold">Nombre:</Form.Label>
+                      <Form.Control 
+                        type="text" 
+                        placeholder="Nombre" 
+                        onChange={handleChange}
+                        value={register.name}
+                        name="name"
+                      />
+                      {valErrors.name && <Form.Text className="text-danger">{valErrors.name}</Form.Text>}
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label className="fw-bold">Email:</Form.Label>
+                      <Form.Control 
+                        type="text" 
+                        placeholder="porejemplo@tucorreo.com"
+                        onChange={handleChange}
+                        value={register.email}
+                        name="email"
+                      />
+                      {valErrors.email && <Form.Text className="text-danger">{valErrors.email}</Form.Text>}
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                      <Form.Label className="fw-bold">Contraseña:</Form.Label>
+                      <button
+                        type="button" 
+                        className="iconPass" 
+                        onClick={()=>setseePass(!seePass)}
+                        aria-label={seePass ? "Ocultar contraseña" : "Mostrar contraseña"}
+                      >{seePass===true? <PiEye /> :<PiEyeClosed />} </button>
+                      <Form.Control 
+                        type={seePass === false ? "password" : "text"}
+                        placeholder="Tu contraseña"
+                        onChange={handleChange}
+                        value={register.password}
+                        name="password"
+                      />
+                      {valErrors.password && <Form.Text className="text-danger">{valErrors.password}</Form.Text>}
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicRepPassword">
+                      <Form.Label className="fw-bold">Repite la contraseña:</Form.Label>
+                      <button
+                        type="button" 
+                        className="iconPass" 
+                        onClick={()=>setseePassRep(!seePassRep)}
+                        aria-label={seePass ? "Ocultar contraseña" : "Mostrar contraseña"}
+                      >{seePassRep===true? <PiEye /> :<PiEyeClosed />} </button>
+                      <Form.Control 
+                        type={seePassRep === false ? "password" : "text"} 
+                        placeholder="Repite tu contraseña"
+                        onChange={handleChange}
+                        value={register.repPassword}
+                        name="repPassword"
+                      />
+                      {valErrors.repPassword && <Form.Text className="text-danger">{valErrors.repPassword}</Form.Text>}
+                    </Form.Group>
+                    {msgError && <p className="text-danger">{msgError}</p>}
+                    <div className="w-100">
+                      <button 
+                        className="submit-button w-100"
+                      >Enviar</button>
+                    </div>
+                  </Form>
+                </motion.div>
+              </AnimatePresence>
+            }
+          </Col>
+        </Row>
+      </Container>
+    </section>
+  )
+}
+
+export default AdminAdmins;

@@ -31,6 +31,16 @@ class AdminDal {
       throw { message: "Error en base de datos" };
     }
   }
+
+  getAdminsData = async() => {
+    try {
+      let sql = 'SELECT user_id, user_name, email FROM user WHERE type = 1';
+      let result = await executeQuery(sql);
+      return result;
+    } catch (error) {
+      throw { message: "Error en base de datos" };
+    }
+  }
 }
 
 export default new AdminDal();
