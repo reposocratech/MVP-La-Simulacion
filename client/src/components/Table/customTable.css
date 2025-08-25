@@ -1,3 +1,7 @@
+.custom-table-responsive {
+  overflow-x: auto;
+}
+
 .custom-table {
   margin-block-start: 3rem;
 
