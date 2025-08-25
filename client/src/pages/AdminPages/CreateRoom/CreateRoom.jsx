@@ -63,7 +63,14 @@ const CreateRoom = () => {
     setShowForm(1);
   }
 
-  const cancel = ()=>{
+  const cancel1 = (e)=>{
+    e.preventDefault();
+    setRoomData(initialValue);
+    navigate('/admin/adminPanel');
+  }
+
+  const cancel2 = (e)=>{
+    e.preventDefault();
     setRoomData(initialValue);
     setShowForm(1);
   }
@@ -107,7 +114,7 @@ const CreateRoom = () => {
           room={roomData}
           handleChange={handleChange}
           next={next}
-          cancel={cancel}
+          cancel={cancel1}
           valError={valError}
           msgError={msgError}
         />}
@@ -116,7 +123,7 @@ const CreateRoom = () => {
           handleChange={handleChange}
           handleFile={handleFile}
           previous={previous}
-          cancel={cancel}
+          cancel={cancel2}
           onSubmit={onSubmit}
           valError={valError}
           msgError={msgError}

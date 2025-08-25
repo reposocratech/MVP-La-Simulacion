@@ -25,7 +25,8 @@ const ErrorPage = lazy(()=>import('../pages/PublicPages/ErrorPage/ErrorPage'));
   // Componentes Administrador:
 const AdminPanel = lazy(()=>import('../pages/AdminPages/AdminPanel/AdminPanel'));
 const CreateRoom = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom'));
-const CreateServCoop = lazy(()=>import('../pages/AdminPages/CreateServCoop/CreateServCoop'))
+const EditRoom = lazy(()=>import('../pages/AdminPages/EditRoom/EditRoom'));
+const CreateServCoop = lazy(()=>import('../pages/AdminPages/CreateServCoop/CreateServCoop'));
 const AdminUsers = lazy(() => import('../pages/AdminPages/AdminUsers/AdminUsers'));
 
   // Componentes de Usuario:
@@ -66,6 +67,7 @@ export const AppRoutes = () => {
           <Route element={< PrivateRoutes userType={user?.type} requiredUser={1}/>}>
             <Route element={< AdminLayout />}>
             <Route path='/admin/createRoom' element={< CreateRoom />}/>
+            <Route path='/admin/editRoom/:id' element={< EditRoom />}/>
             <Route path='/admin/createServCoop' element={< CreateServCoop />}/>
             <Route path='/admin/adminPanel' element={< AdminPanel />}/>
             <Route path='/admin/users' element={<AdminUsers />}/>

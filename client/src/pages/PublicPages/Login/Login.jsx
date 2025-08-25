@@ -103,7 +103,7 @@ const Login = () => {
                   {valError.password && <Form.Text className="text-danger fw-bold">{valError.password}</Form.Text>}
                   {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
                 </Form.Group>
-                <div className='d-flex flex-column gap-4'>
+                <div className='d-flex flex-column row-gap-4'>
                   <button className='submit-button' onClick={onSubmit}>
                     Iniciar sesión
                   </button>

@@ -9,49 +9,55 @@ export const AuthContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    let tokenLS = localStorage.getItem('token')
+    let tokenLS = localStorage.getItem('token');
+
     if (tokenLS) {
       const fetching = async () => {
         try {
-          const res = await fetchData('/users/userById', 'get', null, tokenLS)
-          setUser(res.data.user)
-          setToken(tokenLS)
+          const res = await fetchData('/users/userById', 'get', null, tokenLS);
+          setUser(res.data.user);
+          setToken(tokenLS);
+
         } catch (error) {
-          console.log(error)
+          console.log(error);
+
         } finally {
-          setLoading(false)
+          setLoading(false);
         }
       }
-      fetching()
+      fetching();
+
     } else {
-      setLoading(false)
+      setLoading(false);
     }
   }, [])
 
   const login = async (userLogin) => {
     try {
-      let res = await fetchData('/users/login', 'post', userLogin)
+      let res = await fetchData('/users/login', 'post', userLogin);
 
-      let tokenBack = res.data.token
+      let tokenBack = res.data.token;
 
       const responseUser = await fetchData(
         '/users/userById',
         'get',
         null,
         tokenBack
-      )
-      localStorage.setItem('token', tokenBack)
-      setToken(tokenBack)
-      setUser(responseUser.data.user)
+      );
+
+      localStorage.setItem('token', tokenBack);
+      setToken(tokenBack);
+      setUser(responseUser.data.user);
+
     } catch (error) {
       throw error
     }
   }
 
   const logout = () => {
-    localStorage.removeItem('token')
-    setUser()
-    setToken()
+    localStorage.removeItem('token');
+    setUser();
+    setToken();
   }
 
   return (
