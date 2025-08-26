@@ -1,6 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router";
-import { SpinnerLoading } from "../../../components/SpinnerLoading/SpinnerLoading";
 import './adminPanel.css';
 
 
@@ -54,10 +53,6 @@ const AdminPanel = () => {
             </article>
           </Col>
         </Row>
-        {/* <div className="d-flex flex-column justify-content-center align-items-center">
-          <SpinnerLoading />
-          <h1 className="fs-5 mt-3">En seguida estamos...</h1>
-        </div> */}
       </Container>
     </section>
   )

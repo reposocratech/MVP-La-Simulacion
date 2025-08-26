@@ -15,7 +15,6 @@ router.get('/verify-email', usersController.verifyEmail);
 router.post('/login', validateForm(loginSchema), usersController.login);
 router.post('/contact', validateForm(contactSchema), usersController.contactEmail);
 
-
 //Rutas Privadas
 router.get('/userById', verifyToken, usersController.userById);
 router.put('/editUser', verifyToken,  usersController.editUser);
@@ -23,6 +22,7 @@ router.put('/changeEmail', verifyToken, usersController.changeEmail);
 router.put('/changePass', verifyToken, usersController.changePass);
 router.delete("/deleteUser/:id", verifyToken, usersController.deleteUser);
 router.put("/editAvatar", verifyToken, uploadImageSingle("users"), usersController.editAvatar);
+router.post('/roomReservation', verifyToken, usersController.makeRoomReservation);
 
 
 export default router;

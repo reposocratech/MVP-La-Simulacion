@@ -57,8 +57,9 @@ CREATE TABLE reservation (
     start_hour TIME NOT NULL,
     end_hour TIME NOT NULL,
     status TINYINT NOT NULL DEFAULT 1,
-    proyect_description VARCHAR(350),
-    proyect_type VARCHAR(150), -- "fotografia", "sesión de retratos", "grabacion de video" u texto libre
+    proyect_description VARCHAR(350) NOT NULL,
+    proyect_type VARCHAR(150) NOT NULL, -- "fotografia", "sesión de retratos", "grabacion de video" u texto libre
+    socialmedia_link VARCHAR(200),
     ilumination_material BOOLEAN NOT NULL DEFAULT 0,
     number_of_attendees VARCHAR(100) NOT NULL, -- "entre 20 y 30"
     aditional_requirement VARCHAR(250),
@@ -140,6 +141,7 @@ CREATE TABLE section_key_point (
     
 SELECT * FROM user;   
 SELECT * FROM room;
+SELECT * FROM service;
 
 INSERT INTO room (
     room_name,
