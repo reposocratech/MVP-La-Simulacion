@@ -12,3 +12,14 @@
         color: var(--color-primary-baby-pink);
     }
 }
+
+.list-img{
+    .room-img {
+        img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+}

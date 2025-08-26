@@ -66,40 +66,29 @@ class RoomDal {
     }
   }
 
-  editRoom = async(data, room_id)=>{
-    const {room_name, room_description, who_can_use_it, pricing, usage_policy} = data;
+  editRoom = async(data)=>{
+    const {room_id, room_name, room_description, who_can_use_it, pricing, usage_policy} = data;
     
-    // Creamos la conexión con la Pool
-    const connection = await dbPool.getConnection();
-
     try {
-      //Empezamos la transacción
-      await connection.beginTransaction();
-
       let sql = 'UPDATE room SET room_name = ?, room_description = ?, who_can_use_it = ?, pricing = ?, usage_policy = ? WHERE room_id =?';
       let values = [room_name, room_description, who_can_use_it, pricing, usage_policy, room_id];
-      let result = await connection.query(sql, values);
-
-      // Iteramos sobre los archivos de imágenes para insertarlos en la tabla `room_image`.
-      let file_id_initial=0;
-      data.file.forEach(async(file) => {
-        file_id_initial++;
-        let sqlFile = 'INSERT INTO room_image (room_id, room_image_id, file) VALUES (?,?,?)';
-        let valuesFile = [room_id, file_id_initial, file];
-        await connection.query(sqlFile, valuesFile);
-      });
-      
-      // Confirmamos la transacción
-      await connection.commit();
+      await executeQuery(sql, values);
 
     } catch (error) {
-      // Si hay error, se revierte la transacción
-      await connection.rollback();
       throw error;
 
-    }finally {
-      // Liberamos la conexión
-      connection.release();
+    }
+  }
+
+  imagesByRoomId = async(id)=>{
+    console.log("iddddddddddd del Dal", id)
+    try {
+      let sql = "SELECT * FROM room_image WHERE room_id = ?";
+      const result = await executeQuery(sql,[id]);
+      return result;
+    } catch (error) {
+      console.log("error del dal", error);
+      throw error;
     }
   }
 

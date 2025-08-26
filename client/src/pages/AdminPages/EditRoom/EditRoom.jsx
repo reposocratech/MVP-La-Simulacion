@@ -4,6 +4,7 @@ import { FormEditRoom2 } from "../../../components/FormEditRoom/FormEditRoom2";
 import { useNavigate, useParams } from "react-router";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { fetchData } from "../../../helpers/axiosHelper";
+import { ManageRoomPics } from "../../../components/FormEditRoom/ManageRoomPics";
 
 const initialValue = {
   room_name: "",
@@ -19,6 +20,7 @@ const EditRoom = () => {
   const [files, setFiles] = useState();
   const [valError, setValError] = useState({});
   const [msgError, setMsgError] = useState();
+  
   
 
   const navigate = useNavigate();
@@ -70,18 +72,8 @@ const EditRoom = () => {
   
   const onSubmit = async(e)=>{
     e.preventDefault();
-    const newFormData = new FormData();
-    newFormData.append("data", JSON.stringify(roomData));
-
-    if(files){
-      for(const elem of files){
-        newFormData.append("file", elem)
-      }
-
-
-    }
-
-    await fetchData(`/rooms/editRoom/${id}`, 'put', newFormData, token);
+    await fetchData(`/rooms/editRoom/${id}`, 'put', roomData, token);
+    setShowForm(3);
   }
 
   return (
@@ -104,6 +96,11 @@ const EditRoom = () => {
         valError={valError}
         msgError={msgError} 
       />}
+      {showForm === 3 && <ManageRoomPics
+        room={roomData}
+        files={files}
+        id={id}
+       />}
     </>
 
   )
