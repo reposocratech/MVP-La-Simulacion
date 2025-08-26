@@ -5,7 +5,7 @@ class RoomController {
   // Método para crear una nueva sala:
   createRoom = async(req,res)=>{
     try {
-      const {room_name, room_description, who_can_use_it, pricing, usage_policy} =req.body;
+      const {room_name, room_description, who_can_use_it, pricing, usage_policy} = req.body;
 
       // Creamos un array para almacenar los nombres de los archivos.
       let file = [];
@@ -52,29 +52,25 @@ class RoomController {
 
   editRoom = async(req,res)=> {
     try {
-      const {room_name, room_description, who_can_use_it, pricing, usage_policy} =req.body;
-      const { room_id } = req.params; 
+      const {room_id, room_name, room_description, who_can_use_it, pricing, usage_policy} = req.body; 
 
-      let file = [];
-
-      if (req.files) {
-        req.files.forEach(e => file.push(e.filename)); 
-      }
-
-      // reducer
-      const data = {
-        room_name,
-        room_description,
-        who_can_use_it,
-        pricing,
-        usage_policy,
-        file
-      }
-
-      const res = await roomsDal.editRoom(data, room_id);
+      await roomsDal.editRoom(req.body);
       res.status(200).json({message:"inserción ok"})
     } catch (error) {
       res.status(500).json({message:"error de server"})
+    }
+  }
+
+  imagesByRoomId = async(req,res)=> {
+    try {
+      const {id} = req.params;
+      console.log("iiiiiiiiiiiiiiiiid del controller", id);
+      
+      const result = await roomsDal.imagesByRoomId(id);
+      res.status(200).json(result)
+    } catch (error) {
+      console.log("error del controler", error);
+      res.status(500).json({message: "error de server"})
     }
   }
 
