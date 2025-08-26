@@ -71,6 +71,26 @@ class AdminDal {
       throw { message: "Error en base de datos" };
     }
   }
+
+  getEventsData = async() => {
+    try {
+      let sql = 'SELECT event_id, event_title, location, duration, start_date, end_date, number_of_attendees, price, ticket_link FROM event WHERE event_is_deleted = 0';
+      const result = await executeQuery(sql);
+      return result;
+    } catch (error) {
+      throw { message: "Error en base de datos" };
+    }
+  }
+
+  //borrado lógico de evento
+  deleteEvent = async(id) => {
+    try {
+      let sql = 'UPDATE event SET event_is_deleted = 1 WHERE event_id = ?';
+      await executeQuery(sql, [id]);
+    } catch (error) {
+      throw { message: "Error en base de datos" };
+    }
+  }
 }
 
 export default new AdminDal();

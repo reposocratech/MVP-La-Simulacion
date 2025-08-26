@@ -24,22 +24,3 @@
   }
 }
 
-.btn-table {
-  border: none;
-  color: white;
-  border-radius: 8px;
-  padding: 0.2rem 0.4rem;
-  background-color: var(--color-secondary-medium-lavender);
-
-  &:hover {
-    filter: brightness(85%);
-  }
-}
-
-.block {
-  background-color: var(--color-primary-orange);
-}
-
-.unblock {
-  background-color: var(--color-primary-green);
-}

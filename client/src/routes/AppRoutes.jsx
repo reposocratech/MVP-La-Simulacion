@@ -31,6 +31,7 @@ const EditServCoop = lazy(()=>import('../pages/AdminPages/EditServCoop/EditServC
 const AdminUsers = lazy(() => import('../pages/AdminPages/AdminUsers/AdminUsers'));
 const UserProfile = lazy(() => import('../pages/AdminPages/UserProfile/UserProfile'));
 const AdminAdmins = lazy(() => import('../pages/AdminPages/AdminAdmins/AdminAdmins'));
+const AdminEvents = lazy(() => import('../pages/AdminPages/AdminEvents/AdminEvents'));
 
   // Componentes de Usuario:
 const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'));
@@ -83,6 +84,7 @@ export const AppRoutes = () => {
                   <Route path='/admin/users' element={<AdminUsers />}/>
                   <Route path='/admin/userProfile/:id' element={<UserProfile />}/>
                   <Route path='/admin/admins' element={<AdminAdmins />}/>
+                  <Route path='/admin/events' element={<AdminEvents />}/>
                 </Route>
               </Route>
 
@@ -101,7 +103,7 @@ export const AppRoutes = () => {
             </Routes>
           </Suspense>
         </BrowserRouter>
-        )
+      )
       } 
     </>
   )
