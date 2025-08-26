@@ -107,7 +107,14 @@ body {
     padding: .6rem 1.5rem;
   }
 
-   .bg-color-secondary-green {
+  .babypink-button {
+    background-color: var(--color-primary-baby-pink);
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
+  }
+
+  .bg-color-secondary-green {
     background-color: var(--color-secondary-medium-green);
   }
 

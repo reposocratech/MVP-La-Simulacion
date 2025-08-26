@@ -1,10 +1,10 @@
 import { useState } from "react"
-import {Col, Container, Form, Row} from "react-bootstrap"
+import {Col, Container, Form, InputGroup, Row} from "react-bootstrap"
 import { Link, useNavigate } from "react-router"
 import { fetchData } from "../../../helpers/axiosHelper"
 import { registerSchema } from "../../../schemas/registerSchema"
 import { validateForms } from "../../../helpers/validateForms"
-import { PiEyeClosed , PiEye } from "react-icons/pi";
+import { LuEye, LuEyeClosed } from "react-icons/lu"
 import "./register.css"
 
 const initialValue = {
@@ -14,21 +14,20 @@ const initialValue = {
   repPassword: ""
 }
 
-
 const Register = () => {
   const [register, setRegister] = useState(initialValue)
   const [valErrors, setValErrors] = useState({})
   const [msgError, setMsgError] = useState()
-  const [seePass, setseePass] = useState(false) 
-  const [seePassRep, setseePassRep] = useState(false) 
-  const navigate = useNavigate() 
-    
+  const [seePass, setseePass] = useState(false)
+  const [seePassRep, setseePassRep] = useState(false)
+  const [msgRembr, setMsgRembr] = useState("")
+  const navigate = useNavigate()
   
   const handleChange = (e)=>{
     const {name , value} = e.target
     setRegister({...register, [name] : value})
   }
-   
+  
   const onSubmit = async (e)=>{
     e.preventDefault();
     try {
@@ -38,14 +37,16 @@ const Register = () => {
         //Esperando respuesta de la base de datos
         if(valid){
         let res = await fetchData("/users/register","post", register)
-        navigate("/login")}
-  } 
-    catch (error) {        
+        setMsgRembr("Te hemos enviado un email de confirmación , Verificalo")
+        //navigate("/login")
+        }
+  }
+    catch (error) {
         setValErrors({});
         setMsgError(error.response.data);
   }}
-
-  return (    
+  
+  return (
      <section className='section-register d-flex  justify-content-center ' >
       <Container fluid>
         <Row>
@@ -76,7 +77,7 @@ const Register = () => {
                 </Form.Group>
                 <Form.Group className="form-group-custom" controlId="formBasicPassword">
                   <Form.Label className="fw-bold">Contraseña: </Form.Label>
-                  <div className="passPos">
+                  <InputGroup className="mb-3">
                     <Form.Control
                     type={seePass === false ? "password" : "text"}
                     placeholder="Tu contraseña"
@@ -84,19 +85,13 @@ const Register = () => {
                     value={register.password}
                     name="password"
                     />
-                    <button
-                    type="button" 
-                    className="iconPos" 
-                    onClick={()=>setseePass(!seePass)}
-                    aria-label={seePass ? "Ocultar contraseña" : "Mostrar contraseña"}
-                    >
-                    {seePass===true? <PiEye /> :<PiEyeClosed />} </button>
-                  </div>
+                    <InputGroup.Text id="basic-addon2"><span onClick={()=>setseePass(!seePass)}>{seePass === true ? <LuEyeClosed /> : <LuEye />}</span></InputGroup.Text>
+                  </InputGroup>
                       {valErrors.password && <Form.Text className="text-error">{valErrors.password}</Form.Text>}
                 </Form.Group>
                 <Form.Group className="form-group-custom" controlId="formBasicRepPassword">
                   <Form.Label className="fw-bold" >Repite tu Contraseña: </Form.Label>
-                  <div className="passPos">
+                  <InputGroup className="mb-3">
                     <Form.Control
                     type="password"
                     placeholder="Tu contraseña"
@@ -104,20 +99,15 @@ const Register = () => {
                     value={register.repPassword}
                     name="repPassword"
                     />
-                    <button
-                    type="button" 
-                    className="iconPos" 
-                    onClick={()=>setseePassRep(!seePassRep)}
-                    aria-label={seePassRep ? "Ocultar contraseña" : "Mostrar contraseña"}
-                    >
-                    {seePassRep===true? <PiEye /> :<PiEyeClosed />} </button>
-                  </div>
+                    <InputGroup.Text id="basic-addon2"><span onClick={()=>setseePassRep(!seePassRep)}>{seePassRep === true ? <LuEyeClosed /> : <LuEye />}</span></InputGroup.Text>
+                   </InputGroup>
                     {valErrors.repPassword && <Form.Text className="text-error">{valErrors.repPassword}</Form.Text>}
                 </Form.Group>
                     {msgError && <p className="text-danger fw-bold">{msgError}</p>}
                     <button className="submit-button w-100" onClick={onSubmit}>
                       Aceptar
                     </button>
+                    {msgRembr? <p className="mailsend">{msgRembr} </p> : ""}
                     <p className="mt-3"> <Link to="/login"> ¿Ya tienes una cuenta?Inicia sesión aqui</Link> </p>
               </Form>
           </Col>
@@ -126,5 +116,5 @@ const Register = () => {
     </section>
     )
     }
-
+                     
 export default Register;

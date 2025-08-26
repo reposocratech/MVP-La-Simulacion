@@ -1,10 +1,83 @@
-import React from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { useContext, useState, useEffect, useRef } from 'react'
+import { Form, Button, InputGroup } from 'react-bootstrap'
 import { VscClose } from 'react-icons/vsc'
+import { LuEye, LuEyeClosed } from 'react-icons/lu'
+import { AuthContext } from '../../context/AuthContextProvider'
+import { validateForms } from '../../helpers/validateForms'
+import { changePasswordSchema } from '../../schemas/changePasswordSchema'
+import { fetchData } from '../../helpers/axiosHelper'
 
-const ChangePasswordForm = ({ setActiveComponent }) => {
+const ChangePasswordForm = ({ setActiveComponent, setSuccessMessage }) => {
+  const { token } = useContext(AuthContext)
+  const [formData, setFormData] = useState({
+    prevPass: '',
+    newPass: '',
+    repPass: '',
+  })
+  const [errors, setErrors] = useState({})
+  const [serverError, setServerError] = useState('')
+  const [showPrevPass, setShowPrevPass] = useState(false)
+  const [showNewPass, setShowNewPass] = useState(false)
+  const [showRepPass, setShowRepPass] = useState(false)
+  const formRef = useRef(null)
+
+  useEffect(() => {
+    if (formRef.current) {
+      formRef.current.focus()
+    }
+  }, [])
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setServerError('')
+    setErrors({})
+
+    const trimmedData = {
+      prevPass: formData.prevPass.trim(),
+      newPass: formData.newPass.trim(),
+      repPass: formData.repPass.trim(),
+    }
+
+    const result = validateForms(changePasswordSchema, trimmedData)
+
+    if (!result.valid) {
+      setErrors(result.errors)
+      return
+    }
+
+    try {
+      await fetchData('/users/changePass', 'put', trimmedData, token)
+      setFormData({
+        prevPass: '',
+        newPass: '',
+        repPass: '',
+      })
+      setActiveComponent('none')
+      setSuccessMessage('Contraseña cambiada con éxito!')
+    } catch (error) {
+      console.error('Error al cambiar la contraseña:', error)
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setServerError(error.response.data.message)
+      } else {
+        setServerError('Ha ocurrido un error inesperado. Inténtalo de nuevo.')
+      }
+    }
+  }
+
   return (
-    <div className="form-container">
+    <div tabIndex={-1} ref={formRef} className="form-container">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2>Cambiar contraseña:</h2>
         <Button
@@ -15,19 +88,78 @@ const ChangePasswordForm = ({ setActiveComponent }) => {
           <VscClose size={30} />
         </Button>
       </div>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Contraseña actual:</Form.Label>
-          <Form.Control type="password" />
+          <InputGroup className="mb-3">
+            <Form.Control
+              type={showPrevPass ? 'text' : 'password'}
+              name="prevPass"
+              value={formData.prevPass}
+              onChange={handleChange}
+              isInvalid={!!errors.prevPass}
+            />
+            <InputGroup.Text>
+              <span onClick={() => setShowPrevPass(!showPrevPass)}>
+                {showPrevPass ? <LuEyeClosed /> : <LuEye />}
+              </span>
+            </InputGroup.Text>
+          </InputGroup>
+          {errors.prevPass && (
+            <Form.Control.Feedback type="invalid">
+              {errors.prevPass}
+            </Form.Control.Feedback>
+          )}
         </Form.Group>
+
         <Form.Group className="mb-3">
           <Form.Label>Nueva contraseña:</Form.Label>
-          <Form.Control type="password" />
+          <InputGroup className="mb-3">
+            <Form.Control
+              type={showNewPass ? 'text' : 'password'}
+              name="newPass"
+              value={formData.newPass}
+              onChange={handleChange}
+              isInvalid={!!errors.newPass}
+            />
+            <InputGroup.Text>
+              <span onClick={() => setShowNewPass(!showNewPass)}>
+                {showNewPass ? <LuEyeClosed /> : <LuEye />}
+              </span>
+            </InputGroup.Text>
+          </InputGroup>
+          {errors.newPass && (
+            <Form.Control.Feedback type="invalid">
+              {errors.newPass}
+            </Form.Control.Feedback>
+          )}
         </Form.Group>
+
         <Form.Group className="mb-3">
           <Form.Label>Repite la contraseña:</Form.Label>
-          <Form.Control type="password" />
+          <InputGroup className="mb-3">
+            <Form.Control
+              type={showRepPass ? 'text' : 'password'}
+              name="repPass"
+              value={formData.repPass}
+              onChange={handleChange}
+              isInvalid={!!errors.repPass}
+            />
+            <InputGroup.Text>
+              <span onClick={() => setShowRepPass(!showRepPass)}>
+                {showRepPass ? <LuEyeClosed /> : <LuEye />}
+              </span>
+            </InputGroup.Text>
+          </InputGroup>
+          {errors.repPass && (
+            <Form.Control.Feedback type="invalid">
+              {errors.repPass}
+            </Form.Control.Feedback>
+          )}
         </Form.Group>
+
+        {serverError && <p className="text-danger fw-bold">{serverError}</p>}
+
         <div className="d-flex justify-content-end mt-4">
           <Button
             onClick={() => setActiveComponent('none')}

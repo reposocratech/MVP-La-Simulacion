@@ -1,3 +1,4 @@
+import { hashPassword } from "../../helpers/hashUtils.js";
 import adminDal from "./admin.dal.js";
 
 class AdminController {
@@ -5,6 +6,65 @@ class AdminController {
     try {
       const result = await adminDal.getUsersData();
       res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({message: "Error de servidor"});
+    }
+  }
+
+  //método para habilitar o deshabilitar usuarios desde tabla
+  enableDisableUser = async(req, res) => {
+    try {
+      const { id, user_is_disabled } = req.body;
+      await adminDal.enableDisableUser(id, user_is_disabled);
+      res.status(200).json({message: "Cambio realizado"});
+    } catch (error) {
+      res.status(500).json({message: "Error de servidor"});
+    }
+  }
+
+  getUserById = async(req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await adminDal.getUserById(id);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({message: "Error de servidor"});
+    }
+  }
+
+  getAdminsData = async(req, res) => {
+    try {
+      const result = await adminDal.getAdminsData();
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({message: "Error de servidor"});
+    }
+  }
+
+  registerAdmin = async(req, res) => {
+    try {
+      console.log(req.body);
+      const { user_name, email, password } = req.body;
+
+      //Verificacion de que el email no este registrado
+      const result = await adminDal.findUserEmail(email);
+      if (result.length !== 0) {
+        throw {
+          isLogged: true,
+          message: "Usuario ya existe"
+        }
+      }
+
+      //encriptar la contraseña
+      const hashedPassword = await hashPassword(password);
+      const data = [user_name, email, hashedPassword, 1];
+      await adminDal.registerAdmin(data);
+      const newInsert = {
+        id: result.insertId,
+        user_name,
+        email
+      };
+      res.status(200).json(newInsert);
     } catch (error) {
       res.status(500).json({message: "Error de servidor"});
     }

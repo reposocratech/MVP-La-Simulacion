@@ -9,16 +9,16 @@ dotenv.config();
 
 class UserController {
     register = async (req, res) => {
-        try {           
+        try {
             const {user_name, email, password} = req.body;
-            //Verificacion de que el email no este registrado            
-            const result = await usersDal.findUserEmail(email);                      
+            //Verificacion de que el email no este registrado
+            const result = await usersDal.findUserEmail(email);
             if(result.length !== 0){
                 throw {
                     isLogged: true,
                     message: "usuario ya existe"}
             }
-            //Encriptar la contraseña            
+            //Encriptar la contraseña
             const hashedPassword = await hashPassword(password);
             const data = [user_name, email, hashedPassword];
             await usersDal.register(data);
@@ -34,21 +34,22 @@ class UserController {
             subject: "Confirma tu cuenta",
             html: `<h2>Link para confirmar registro</h2><p>${verificationLink}</p>`,
              };
-             
+
             const emailResult = await sendConfirmationMail.sendMail(mailOptions);
 
-            res.status(200).json("usuario creado") 
+
+            res.status(200).json("usuario creado")
              } catch (error) {
-                
+
             if(error.isLogged){
                 res.status(401).json(error.message);
             }else{
-              
+
                 res.status(500).json({message: "server error"});
             }
         }
     }
-   
+
     verifyEmail = async (req, res) => {
   try {
       const { token } = req.query;
@@ -62,12 +63,12 @@ class UserController {
     //Verificar relacion Email tokon
     if (!email) {
       return res.status(400).json({ message: 'Token inválido' });
-    }    
+    }
       await usersDal.verifyEmail(email);
       //Pagina de confirmacion de registro satisfactorio
       const sendConfirmation = emailVerify(`${process.env.FRONTEND_URL}login`);
       res.status(200).send(sendConfirmation)
-    } 
+    }
     catch (error) {
     res.status(400).send('Token inválido o expirado');
     }}
@@ -89,7 +90,7 @@ class UserController {
 
           if(!match){
               res.status(401).json({message: "Credenciales incorrectas"});
-              
+
           }else{
               // Si la contraseña es correcta se genera un token
               const token = jwt.sign(
@@ -111,7 +112,7 @@ class UserController {
             const {simulacion_user_id} = req;
 
             const result = await usersDal.userById(simulacion_user_id);
-            
+
             if (result.length === 0){
                 res.status(401).json({message: "No autorizado"})
             }else{
@@ -128,7 +129,7 @@ class UserController {
 
       const mailOptions = {
         from: `"Formulario contacto Web" <${process.env.EMAIL_USER}>`,
-        to: process.env.EMAIL_USER, 
+        to: process.env.EMAIL_USER,
         subject: `Nuevo mensaje de contacto de ${name} ${lastname}`,
         html: `
           <h2>Nuevo mensaje de contacto</h2>
@@ -151,8 +152,133 @@ class UserController {
       res.status(200).json({message: "Solicitud de reserva enviada correctamente."})
     } catch (error) {
       res.status(500).json({message: "server error"});
+
+  deleteUser = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { simulacion_user_id } = req;
+
+      if (parseInt(id) !== simulacion_user_id) {
+        return res.status(401).json({ message: "No autorizado para eliminar este usuario." });
+      }
+
+      await usersDal.deleteUser(id);
+      res.status(200).json({ message: "Usuario eliminado correctamente" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error del servidor" });
+    }
+  };
+
+    editUser = async (req, res) => {
+    try {
+      const { simulacion_user_id } = req;
+      const { user_name, lastname, phone_number, specialty } = req.body;
+
+      const user = await usersDal.userById(simulacion_user_id);
+
+      if (req.file && user[0].avatar) {
+        deleteFile(user[0].avatar, "users");
+      }
+
+      const data = {
+        user_name,
+        lastname,
+        phone_number,
+        specialty,
+        user_id: simulacion_user_id,
+        avatar: req.file ? req.file.filename : user[0].avatar
+      }
+
+      await usersDal.editUser(data);
+      const userEdited = await usersDal.userById(simulacion_user_id);
+
+      res.status(200).json({ message: "update ok", user: userEdited[0] });
+
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "server error" });
+    }
+  }
+
+  changeEmail = async (req, res) => {
+    try {
+      const { simulacion_user_id } = req;
+      const { email, newEmail } = req.body;
+
+
+      const result = await usersDal.findUserEmail(email);
+
+      if (result.length === 0 || result[0].user_id !== simulacion_user_id) {
+        return res.status(401).json({ message: "El email actual no es correcto" });
+      }
+
+
+      const existEmail = await usersDal.findUserEmail(newEmail);
+      if (existEmail.length !== 0) {
+        return res.status(401).json({ message: "El nuevo email ya existe" });
+      }
+
+
+      await usersDal.changeEmail(simulacion_user_id, newEmail);
+      const userEdited = await usersDal.userById(simulacion_user_id);
+
+      res.status(200).json({ message: "Email actualizado correctamente", user: userEdited[0] });
+
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "server error" });
+    }
+  }
+
+  changePass = async (req, res) => {
+    const { simulacion_user_id } = req;
+    const { prevPass, newPass } = req.body;
+
+    try {
+
+      const result = await usersDal.passwordById(simulacion_user_id);
+
+      const match = await compareHash(prevPass, result);
+
+      if (!match) {
+        return res.status(401).json({ message: "Contraseña actual incorrecta" });
+      }
+
+
+      let newHashedPass = await hashPassword(newPass);
+
+      await usersDal.changePass(newHashedPass, simulacion_user_id);
+
+      res.status(200).json({ message: "Contraseña actualizada correctamente" });
+
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "server error" });
+    }
+  }
+
+  editAvatar = async(req, res) => {
+    try {
+        const { user_id } = req.body;
+        const user = await usersDal.userById(user_id);
+
+        if (req.file && user[0].avatar) {
+            deleteFile(user[0].avatar, "users");
+        }
+
+        const avatarFileName = req.file ? req.file.filename : null;
+        await usersDal.editAvatar(user_id, avatarFileName);
+
+        const userEdited = await usersDal.userById(user_id);
+
+        res.status(200).json({ message: "Avatar actualizado", avatar: userEdited[0].avatar });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error del servidor" });
     }
   }
 }
+
 
 export default new UserController();

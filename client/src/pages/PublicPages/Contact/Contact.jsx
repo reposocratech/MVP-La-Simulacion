@@ -6,6 +6,7 @@ import { validateForms } from "../../../helpers/validateForms";
 import { fetchData } from "../../../helpers/axiosHelper";
 import { contactSchema } from "../../../schemas/contactSchema";
 import logoGenkoa from '../../../assets/logos/logo_genkoa_insta.png';
+import logoSimu from '../../../assets/logos/web-favicon-la-simulacion.svg';
 import { useState } from "react";
 import './contact.css';
 
@@ -136,44 +137,58 @@ const Contact = () => {
                 ))}
               </div>
             </address>
-            <section className="mt-3 rounded-4">
-              <div className="p-3 rounded-4 text-center  ">
-                <p className="mb-3 fs-5 fw-bold">También estamos en redes sociales</p>
-                <div className="d-flex justify-content-center gap-4">
-                  <a 
-                    href="https://www.linkedin.com/company/lasimulacion/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  ><FaLinkedin color="#0A66C2" size={32} title="LinkedIn" />
-                  </a>
-                  <a 
-                    href="https://www.facebook.com/tu-pagina" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  ><FaFacebook color="#1877F2" size={32} title="Facebook" />
-                  </a>
-                  <a 
-                    href="https://www.instagram.com/tu-cuenta" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  ><FaInstagram color="#E4405F" size={32} title="Instagram" />
-                  </a>
-                  <a 
-                    href="https://www.tiktok.com/@tu-cuenta" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  ><FaTiktok color="#000" size={32} title="TikTok" />
-                  </a>
+            <section className="mt-3">
+              <div className="text-center  ">
+                <div className="p-3 bg-color-secondary-pink rounded-4 d-flex justify-content-center gap-3 align-items-center">
+                  <div className="fs-5 fw-bold text-white">
+                    <a
+                      href="https://lasimulacion.escenaonline.com/par-public/rest/evento/listado"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    ><img src={logoSimu} alt="Enlace a comprar entradas" className="logo-simu me-3"/>Consulta nuestros eventos y consigue tus entradas</a>
+                  </div>
+                  {/* <p className=" mb-0 fs-5 fw-bold text-white">Consulta nuestros eventos y consigue tus entradas</p> */}
                 </div>
               </div>
-              <div className="py-4 text-center">
-                <p className="mb-4 fs-5 fw-bold">Descubre nuestra comunidad, Genkoa</p>
-                <a 
-                  href="https://genkoa.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                ><img src={logoGenkoa} alt="Enlace externo a web Genkoa" />
-                </a>
+              <div className="mt-4 d-flex gap-5">
+                <div className="text-center">
+                  <p className="my-4 fs-5 fw-bold">También estamos en redes sociales</p>
+                  <div className="d-flex justify-content-center gap-4">
+                    <a
+                      href="https://www.linkedin.com/company/lasimulacion/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    ><FaLinkedin color="#0A66C2" size={32} title="LinkedIn" />
+                    </a>
+                    <a
+                      href="https://www.facebook.com/tu-pagina"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    ><FaFacebook color="#1877F2" size={32} title="Facebook" />
+                    </a>
+                    <a
+                      href="https://www.instagram.com/tu-cuenta"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    ><FaInstagram color="#E4405F" size={32} title="Instagram" />
+                    </a>
+                    <a
+                      href="https://www.tiktok.com/@tu-cuenta"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    ><FaTiktok color="#000" size={32} title="TikTok" />
+                    </a>
+                  </div>
+                </div>
+                <div className="py-4 text-center">
+                  <p className="mb-2 fs-5 fw-bold">Descubre nuestra comunidad, Genkoa</p>
+                  <a
+                    href="https://genkoa.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  ><img src={logoGenkoa} alt="Enlace externo a web Genkoa" className="logo-genkoa"/>
+                  </a>
+                </div>
               </div>
             </section>
           </Col>

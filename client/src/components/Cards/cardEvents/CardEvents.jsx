@@ -2,10 +2,10 @@ import './cardEvents.css';
 
 export const CardEvents = ({event}) => {
   return (
-    <article className='card rounded-4 overflow-hidden'>
+    <article className='card-event rounded-4 overflow-hidden'>
         <div className="row ">
           <div className="col-lg-7">
-            <div className="p-3 d-flex flex-column justify-content-between h-100">
+            <div className="p-3 pt-2 d-flex flex-column justify-content-between h-100">
               <h4 className='mb-3'>{event.event_title}</h4>
               <p>
                 {event.event_description}
@@ -19,7 +19,8 @@ export const CardEvents = ({event}) => {
             </div>
           </div>
           <div className="col-lg-5">
-            <img src={event.cover_image} alt="" className='w-100 h-100 object-fit-cover'/>
+            {/* <img src={event.cover_image} alt="" className='w-100 h-100 object-fit-cover'/> */}
+            <img src="/images/imgPruebas/img02.jpg" alt="" className='w-100 h-100 object-fit-cover'/>
           </div>
         </div>
     </article>
