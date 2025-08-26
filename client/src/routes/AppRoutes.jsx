@@ -27,6 +27,7 @@ const AdminPanel = lazy(()=>import('../pages/AdminPages/AdminPanel/AdminPanel'))
 const CreateRoom = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom'));
 const EditRoom = lazy(()=>import('../pages/AdminPages/EditRoom/EditRoom'));
 const CreateServCoop = lazy(()=>import('../pages/AdminPages/CreateServCoop/CreateServCoop'));
+const EditServCoop = lazy(()=>import('../pages/AdminPages/EditServCoop/EditServCoop'))
 const AdminUsers = lazy(() => import('../pages/AdminPages/AdminUsers/AdminUsers'));
 
   // Componentes de Usuario:
@@ -69,6 +70,7 @@ export const AppRoutes = () => {
             <Route path='/admin/createRoom' element={< CreateRoom />}/>
             <Route path='/admin/editRoom/:id' element={< EditRoom />}/>
             <Route path='/admin/createServCoop' element={< CreateServCoop />}/>
+            <Route path='/admin/editServCoop' element={< EditServCoop />}/>
             <Route path='/admin/adminPanel' element={< AdminPanel />}/>
             <Route path='/admin/users' element={<AdminUsers />}/>
             </Route>

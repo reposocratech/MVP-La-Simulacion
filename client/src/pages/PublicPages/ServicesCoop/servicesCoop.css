@@ -4,8 +4,9 @@
   text-decoration: none;
 }
 
-.marg-top{
-  padding-block: 5rem;
+.marg-top {
+  padding-block: 3.5rem;
+  
 }
 
 .m_form_group{
@@ -18,31 +19,40 @@
   text-decoration: none;
 }
 
-.active{
+.active {
   background-color: var(--color-primary-baby-pink);
+  width: 100%;
+  display: block;
+  border-radius: 4px; 
+}
+.stickyLeft{
+position: sticky;
+top: 0; 
 }
 
 .sticky-col-sect {
-  text-align: center; 
+  border-right: 1px solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: auto; 
 }
 
 @media (min-width: 992px) {
   .sticky-col-sect {
     position: sticky;
     top: 70px;
-    align-self: flex-start;
-    height: fit-content;
-    border-right: 1px solid;
+    align-self: stretch;
   }
 
   .sticky-col-sect .textblack {
-    width: fit-content;
+    width: 100%;
     margin: 0 auto;
   }
 
   .sticky-col {
     position: sticky;
-    top: 70px;
+    top: 0;
     align-self: flex-start;
     height: fit-content;
   }
