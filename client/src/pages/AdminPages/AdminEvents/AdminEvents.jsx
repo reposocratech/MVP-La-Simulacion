@@ -1,9 +1,9 @@
 import { Container } from "react-bootstrap";
 import { CustomTable } from "../../../components/Table/CustomTable";
-import './adminEvents.css';
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { fetchData } from "../../../helpers/axiosHelper";
+import './adminEvents.css';
 
 const AdminEvents = () => {
   const { token } = useContext(AuthContext);

@@ -32,6 +32,7 @@ const AdminUsers = lazy(() => import('../pages/AdminPages/AdminUsers/AdminUsers'
 const UserProfile = lazy(() => import('../pages/AdminPages/UserProfile/UserProfile'));
 const AdminAdmins = lazy(() => import('../pages/AdminPages/AdminAdmins/AdminAdmins'));
 const AdminEvents = lazy(() => import('../pages/AdminPages/AdminEvents/AdminEvents'));
+const AdminRooms = lazy(() => import('../pages/AdminPages/AdminRooms/AdminRooms'));
 
   // Componentes de Usuario:
 const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'));
@@ -85,6 +86,7 @@ export const AppRoutes = () => {
                   <Route path='/admin/userProfile/:id' element={<UserProfile />}/>
                   <Route path='/admin/admins' element={<AdminAdmins />}/>
                   <Route path='/admin/events' element={<AdminEvents />}/>
+                  <Route path='/admin/rooms' element={<AdminRooms />}/>
                 </Route>
               </Route>
 

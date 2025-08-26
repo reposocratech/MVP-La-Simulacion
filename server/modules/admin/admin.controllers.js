@@ -90,7 +90,6 @@ class AdminController {
       const result = await adminDal.getEventsData();
       res.status(200).json(result);
     } catch (error) {
-      console.log(error);
       res.status(500).json({message: "Error de servidor"});
     }
   }
@@ -100,6 +99,15 @@ class AdminController {
       const { id } = req.body;
       await adminDal.deleteEvent(id);
       res.status(200).json({message: "Cambio realizado"});
+    } catch (error) {
+      res.status(500).json({message: "Error de servidor"});
+    }
+  }
+
+  getRoomsData = async(req, res) => {
+    try {
+      const result = await adminDal.getRoomsData();
+      res.status(200).json(result);
     } catch (error) {
       res.status(500).json({message: "Error de servidor"});
     }
