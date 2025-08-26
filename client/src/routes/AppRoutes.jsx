@@ -42,14 +42,14 @@ export const AppRoutes = () => {
       {loading ? (
          <div className="d-flex flex-column mt-5 align-items-center">
           <SpinnerLoading />
-          <h1 className="fs-5 mt-3">En seguida estamos...</h1>
+          <h1 className="fs-5 mt-3">Ya casi estamos...</h1>
         </div>
       ) : (
         <BrowserRouter>
           <Suspense fallback={
                       <div className="d-flex flex-column mt-5 align-items-center">
                         <SpinnerLoading />
-                        <h1 className="fs-5 mt-3">En seguida estamos...</h1>
+                        <h1 className="fs-5 mt-3">Ya casi estamos...</h1>
                       </div>
                     }>
             <Routes>
