@@ -115,6 +115,6 @@ const Register = () => {
       </Container>
     </section>
     )
-    }
+}
                      
 export default Register;

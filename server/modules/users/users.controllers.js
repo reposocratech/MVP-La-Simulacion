@@ -29,17 +29,16 @@ class UserController {
 
             //Lo que se manda en el email
             const mailOptions = {
-            from: `"La Simulación" <${process.env.EMAIL_USER}>`,
-            to: email,
-            subject: "Confirma tu cuenta",
-            html: `<h2>Link para confirmar registro</h2><p>${verificationLink}</p>`,
-             };
+                from: `"La Simulación" <${process.env.EMAIL_USER}>`,
+                to: email,
+                subject: "Confirma tu cuenta",
+                html: `<h2>Link para confirmar registro</h2><p>${verificationLink}</p>`,
+            };
 
             const emailResult = await sendConfirmationMail.sendMail(mailOptions);
 
-
             res.status(200).json("usuario creado")
-             } catch (error) {
+        } catch (error) {
 
             if(error.isLogged){
                 res.status(401).json(error.message);
