@@ -10,5 +10,6 @@ router.put('/enableDisableUser', verifyToken, adminControllers.enableDisableUser
 router.get('/userProfile/:id', verifyToken, adminControllers.getUserById);
 router.get('/admins', verifyToken, adminControllers.getAdminsData);
 router.post('/registerAdmin', verifyToken, validateForm(registerSchema), adminControllers.registerAdmin);
+router.put('/removeAdmin', verifyToken, adminControllers.removeAdmin);
 
 export default router;

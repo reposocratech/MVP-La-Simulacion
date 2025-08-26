@@ -27,6 +27,18 @@ const AdminAdmins = () => {
   const [valErrors, setValErrors] = useState({});
   const [msgError, setMsgError] = useState();
 
+  useEffect(() => {
+    const fetchAdmins = async() => {
+      try {
+        const res = await fetchData("/admin/admins", "get", null, token);
+        setAdminsData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchAdmins();
+  }, []);
+
   const handleChange = (e) => {
     const {name, value} = e.target;
     setRegister({...register, [name]: value});
@@ -60,24 +72,29 @@ const AdminAdmins = () => {
     }
   }
 
-  useEffect(() => {
-    const fetchAdmins = async() => {
-      try {
-        const res = await fetchData("/admin/admins", "get", null, token);
-        setAdminsData(res.data);
-      } catch (error) {
-        console.log(error);
-      }
+  const removeAdmin = async(id) => {
+    try {
+      const values = { id };
+      const res = await fetchData(`/admin/removeAdmin`, "put", values, token);
+      setAdminsData(adminsData.filter(e => e.user_id !== id));
+    } catch (error) {
+      console.log(error);
     }
-    fetchAdmins();
-  }, []);
+  }
 
   const columns = [
     {key: "user_name", label: "Nombre"},
     {key: "email", label: "Email"},
     {
       key: "actions", 
-      label: "Acciones"
+      label: "Acciones",
+      render: (row) => (
+        <button
+          className="btn-table block"
+          onClick={() => removeAdmin(row.user_id)}
+          disabled={row.user_id === 1}
+        >Deshabilitar</button>
+      )
     }
   ];
 

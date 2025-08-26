@@ -34,7 +34,7 @@ class AdminDal {
 
   getAdminsData = async() => {
     try {
-      let sql = 'SELECT user_id, user_name, email FROM user WHERE type = 1';
+      let sql = 'SELECT user_id, user_name, email FROM user WHERE type = 1 AND user_is_disabled = 0';
       let result = await executeQuery(sql);
       return result;
     } catch (error) {
@@ -58,6 +58,15 @@ class AdminDal {
       let sql = 'INSERT INTO user (user_name, email, password, type) VALUES (?, ?, ?, ?)';
       const result = await executeQuery(sql, data);
       return result;
+    } catch (error) {
+      throw { message: "Error en base de datos" };
+    }
+  }
+
+  removeAdmin = async(id) => {
+    try {
+      let sql = 'UPDATE user SET user_is_disabled = 1 WHERE user_id = ?';
+      await executeQuery(sql, [id]);
     } catch (error) {
       throw { message: "Error en base de datos" };
     }
