@@ -39,8 +39,7 @@ sendMailServCoop = async (req , res)=>{
 }
     createServCoop = async (req , res) => {
   try {
-    const data = JSON.parse(req.body.data);
-    const { title, description } = data;
+    const { title, description } = req.body;
 
     let filename = null;
     if (req.file) {

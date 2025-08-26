@@ -28,6 +28,11 @@ export const CreateServCoop = () => {
     setFile(e.target.files[0]);
   };
 
+  const cancel = (e) => {
+    e.preventDefault();
+    navigate("/admin/AdminPanel")
+  }
+
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -63,6 +68,7 @@ export const CreateServCoop = () => {
       handleFile={handleFile}
       fileError={fileError}
       valErrors={valErrors}
+      cancel={cancel}
     />
   );
 };
