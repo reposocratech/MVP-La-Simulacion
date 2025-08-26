@@ -9,46 +9,96 @@ const AdminPanel = () => {
   const navigate = useNavigate();
   
   return (
+    // <section className="section-panel">
+    //   <Container>
+    //     <h1 className="text-center">
+    //     <span className="accent-text spanLetter-panel">PA</span>
+    //       Panel de Administrador
+    //     </h1>
+    //     <Row className="pt-0 pt-lg-2 pb-3 pb-lg-0">
+    //       <Col xs={12} lg={6}>
+    //         <article className="p-4 h-100">
+    //           <h2 className="fs-4 text-center">Gestiones:</h2>
+    //           <p>(Bloquear/activar usuarios, cambiar el estado de una reserva, mostrar u ocultar los contenidos publicados...)</p>
+    //           <div className="buttons-container-1 d-flex flex-column gap-3">
+    //             <button 
+    //               className="panel-button-gest-light panel-button-hover"
+    //               onClick={()=>navigate('/admin/admins')}
+    //               >Gestionar Administradores</button>
+    //             <button 
+    //               className="panel-button-gest panel-button-hover"
+    //               onClick={()=>navigate('/admin/users')}
+    //             >Gestionar Usuarios</button>
+    //             <button className="panel-button-gest-light panel-button-hover">Gestionar Reservas</button>
+    //             <button className="panel-button-gest panel-button-hover">Gestionar Servicios</button>
+    //             <button className="panel-button-gest-light panel-button-hover">Gestionar Eventos y talleres</button>
+    //             <button className="panel-button-gest panel-button-hover">Gestionar Salas</button>
+    //           </div>
+    //         </article>
+    //       </Col>
+    //       <Col xs={12} lg={6}>
+    //         <article className="p-4">
+    //           <h2 className="fs-4 text-center">Creación/Edición de contenido:</h2>
+    //           <p>(Añadir servicios, eventos/talleres, salas... o Editar los ya creados.)</p>
+    //           <div className="buttons-container-1 d-flex flex-column gap-3">
+    //             <button 
+    //                 className="panel-button-create panel-button-hover"
+    //                 onClick={()=>navigate('/admin/createServCoop')}>Crear Nuevo Servicio de la Cooperativa</button>
+    //             <button 
+    //                 className="panel-button-create-light panel-button-hover"
+    //                 onClick={()=>navigate('/admin/editServCoop')}>Editar Serivicios de la Cooperativa</button>
+    //             <button className="panel-button-create panel-button-hover">Crear Nuevo Evento o Taller</button>
+    //             <button className="panel-button-create-light panel-button-hover">Editar Eventos y Talleres</button>
+    //             <button 
+    //                 className="panel-button-create panel-button-hover"
+    //                 onClick={()=>navigate('/admin/createRoom')}>Crea Nueva Sala/Espacio</button>
+    //             <button className="panel-button-create-light panel-button-hover">Editar Sala/Espacio</button>
+    //           </div>
+    //         </article>
+    //       </Col>
+    //     </Row>
+    //   </Container>
+    // </section>
+
     <section className="section-panel">
       <Container>
         <h1 className="text-center">
         <span className="accent-text spanLetter-panel">PA</span>
           Panel de Administrador
         </h1>
-        <Row className="pt-0 pt-lg-2 pb-3 pb-lg-0">
+        <Row className="pt-0 pt-lg-3 pb-3 pb-lg-0">
           <Col xs={12} lg={6}>
             <article className="p-4 h-100">
-              <h2 className="fs-4 text-center">Gestiones:</h2>
-              <p>(Bloquear/activar usuarios, cambiar el estado de una reserva, mostrar u ocultar los contenidos publicados...)</p>
+              <h2 className="fs-4 text-center">Gestión de usuarios y reservas:</h2>
+              <p>(Gestión de usuarios administradores, bloquear/activar usuarios, cambiar el estado de una reserva...)</p>
               <div className="buttons-container-1 d-flex flex-column gap-3">
                 <button 
                   className="panel-button-gest panel-button-hover"
-                  onClick={() => navigate('/admin/users')}
+                  onClick={()=>navigate('/admin/admins')}
+                  >Gestionar Administradores</button>
+                <button 
+                  className="panel-button-gest-light panel-button-hover"
+                  onClick={()=>navigate('/admin/users')}
                 >Gestionar Usuarios</button>
-                <button className="panel-button-gest-light panel-button-hover">Gestionar Reservas</button>
-                <button className="panel-button-gest panel-button-hover">Gestionar Servicios</button>
-                <button className="panel-button-gest-light panel-button-hover">Gestionar Eventos y talleres</button>
-                <button className="panel-button-gest panel-button-hover">Gestionar Salas</button>
+                <button className="panel-button-gest panel-button-hover">Gestionar Reservas</button>
               </div>
             </article>
           </Col>
           <Col xs={12} lg={6}>
             <article className="p-4">
-              <h2 className="fs-4 text-center">Creación/Edición de contenido:</h2>
-              <p>(Añadir servicios, eventos/talleres, salas... o Editar los ya creados.)</p>
+              <h2 className="fs-4 text-center">Creación/Edición/Borrado de contenidos:</h2>
+              <p>(Añadir servicios, eventos/talleres, salas... o Editar/Borrar los ya creados.)</p>
               <div className="buttons-container-1 d-flex flex-column gap-3">
                 <button 
                     className="panel-button-create panel-button-hover"
-                    onClick={()=>navigate('/admin/createServCoop')}>Crear Nuevo Servicio de la Cooperativa</button>
+                    onClick={()=>navigate('/admin/createServCoop')}>Servicios de la Cooperativa</button>
                 <button 
                     className="panel-button-create-light panel-button-hover"
-                    onClick={()=>navigate('/admin/editServCoop')}>Editar Serivicios de la Cooperativa</button>
-                <button className="panel-button-create panel-button-hover">Crear Nuevo Evento o Taller</button>
-                <button className="panel-button-create-light panel-button-hover">Editar Eventos y Talleres</button>
+                    onClick={()=>navigate('/admin/editServCoop')}>Eventos y Talleres</button>
                 <button 
                     className="panel-button-create panel-button-hover"
-                    onClick={()=>navigate('/admin/createRoom')}>Crea Nueva Sala/Espacio</button>
-                <button className="panel-button-create-light panel-button-hover">Editar Sala/Espacio</button>
+                    onClick={()=>navigate('/admin/createRoom')}>Salas/Espacios</button>
+               
               </div>
             </article>
           </Col>
