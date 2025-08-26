@@ -105,8 +105,27 @@
   text-align: center;
   color: var(--color-primary-electric-blue);
   text-decoration: none;
+  border: none;
+  background-color: none;
 }
 
 .delete-link:hover {
   text-decoration: underline;
+}
+
+.delete-link {
+  background: none;
+  color: #dc3545;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s ease-in-out;
+}
+
+.delete-link:hover,
+.delete-link:focus {
+  color: #c82333;
+  text-decoration: none;
 }

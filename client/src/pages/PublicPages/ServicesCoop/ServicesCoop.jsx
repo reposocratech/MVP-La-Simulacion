@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { fetchData } from "../../../helpers/axiosHelper";
 import { formCoopSchema } from "../../../schemas/formCoopSchema"
-import "./servicesCoop.css"
 import { validateForms } from "../../../helpers/validateForms";
+import "./servicesCoop.css"
+
 
 const initialValues = {
   user_name: "",
@@ -23,18 +24,12 @@ const ServicesCoop = () => {
   const [active, setActive] = useState()
 
   useEffect(() => {
-    const servicesCoopData = async () => {
-      try {
+    const servicesCoopData = async () => {    
         //LLamada a bd para recorger los datos
         const res = await fetchData("/services/servicescoop", "get");
         setServicesCoop(res.data); 
-      } 
-      catch (error) {
-        throw error; 
-      }
-  };
-
-    servicesCoopData();
+      };
+  servicesCoopData();
   }, []);
   
   const handleChange = (e) =>{
@@ -57,17 +52,16 @@ const ServicesCoop = () => {
   }}
 
   return (
-     <section className="marg-top" >
+     <section  >
       <Container>
-        <Row >
+        <Row className="row-full-height">
           <Col md={12} lg={3} className="sticky-col-sect ">
-              <div >
+              <div className="stickyLeft marg-top">
                 {servicesCoop.result?.map(service => (        
                 <div 
                 key={service.service_id}
                 className={`textblack p-2   ${active === service.service_id ? "active" : ""} `}>                 
                   <a className="textblack"  href={`#${service.service_name}`}
-                  key={service.service_id}
                   onClick={() => setActive(service.service_id)}
                   >
                   {service.service_name}
@@ -77,7 +71,7 @@ const ServicesCoop = () => {
               </div>
           </Col>
 
-          <Col md={12} lg={6}>
+          <Col md={12} lg={6} className="marg-top">
                 <h1 className="text-center"><span className='span-servcoop accent-text align-middle'>S</span> Nuestros servicios:</h1>
                 {servicesCoop.result?.map(service => (      
                 <section 
@@ -87,12 +81,12 @@ const ServicesCoop = () => {
                   <div className="text-center"> 
                     <img className="i-width mb-4 mt-4" src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/servCoop/${service.image}`} alt="" />
                   </div>
-                  <p>{service.service_description} </p>
+                  <p className="p-4">{service.service_description} </p>
                 </section>
                 ))}  
           </Col>
 
-          <Col md={12} lg={3} className="sticky-col ">
+          <Col md={12} lg={3} className="sticky-col marg-top ">
             <h5 className="mb-1"  >¿Quieres más información?</h5>
             <Form className="border border-1 rounded-2 p-2 ">
               <Form.Group className="m_form_group"  controlId="formBasicName">

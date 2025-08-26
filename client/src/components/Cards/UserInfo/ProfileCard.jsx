@@ -1,25 +1,105 @@
-import { useContext } from 'react'
+import { useContext, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom' // Importa useNavigate
 import { AuthContext } from '../../../context/AuthContextProvider'
-import userPlaceholder from '../../../assets/icons/user-placeholder.png'
+import { fetchData } from '../../../helpers/axiosHelper'
+import userPlaceholder from '../../../../../server/public/images/users/default-avatar.svg'
 import './ProfileCard.css'
 
 export const ProfileCard = ({ setActiveComponent }) => {
-  const { user } = useContext(AuthContext)
+  const { user, setUser, token, logout } = useContext(AuthContext)
+  const navigate = useNavigate()
+  const fileInputRef = useRef(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  if (!user) {
-    return <p className="lead">Cargando datos del usuario...</p>
+  const handleImageClick = () => {
+    fileInputRef.current.click()
+  }
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0]
+    if (!file) return
+
+    setError('')
+    setLoading(true)
+
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('user_id', user.user_id)
+
+    try {
+      const res = await fetchData('/users/editUser', 'put', formData, token)
+      setUser({ ...user, avatar: res.data.avatar })
+      alert('Imagen de perfil actualizada con éxito.')
+    } catch (err) {
+      console.error('Error al subir la imagen:', err)
+      setError('Hubo un error al subir la imagen. Inténtalo de nuevo.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleDeleteAccount = async () => {
+    if (
+      !window.confirm(
+        '¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.'
+      )
+    ) {
+      return
+    }
+
+    setLoading(true)
+    try {
+      const res = await fetchData(
+        `/deleteUser/${user.user_id}`,
+        'delete',
+        null,
+        token
+      )
+      alert(res.data.message)
+      logout()
+      navigate('/')
+    } catch (err) {
+      console.error('Error al dar de baja la cuenta:', err)
+      setError(
+        err.response?.data?.message ||
+          'Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo más tarde.'
+      )
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
     <>
       <div className="profile-card pt-5">
-        <figure className="profile-image-container">
+        <figure
+          className="profile-image-container"
+          onClick={handleImageClick}
+          style={{ cursor: 'pointer' }}
+        >
           <img
-            src={userPlaceholder}
+            src={
+              user.avatar
+                ? `${import.meta.env.VITE_SERVER_URL_PUBLIC}images/users/${
+                    user.avatar
+                  }`
+                : userPlaceholder
+            }
             alt="Ícono de usuario"
             className="profile-image"
           />
         </figure>
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          accept="image/*"
+          style={{ display: 'none' }}
+        />
+        {loading && <p>Subiendo imagen...</p>}
+        {error && <p className="text-danger fw-bold mt-5">{error}</p>}
+
         <div className="profile-card-body mt-3">
           <h3>¡Hola! Estos son tus datos de usuario:</h3>
           <ul className="profile-data-list">
@@ -73,9 +153,13 @@ export const ProfileCard = ({ setActiveComponent }) => {
         >
           Cambiar email
         </button>
-        <a href="#" className="delete-link">
-          Darme de baja
-        </a>
+        <button
+          onClick={handleDeleteAccount}
+          className="delete-link"
+          disabled={loading}
+        >
+          {loading ? 'Eliminando...' : 'Eliminar perfil'}
+        </button>
       </div>
     </>
   )
