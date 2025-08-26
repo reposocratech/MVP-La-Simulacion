@@ -52,7 +52,7 @@ const Profile = () => {
   }
 
   return (
-    <main className="profile-page-wrapper pt-3 mt-4">
+    <section className="profile-page-wrapper pt-3 mt-4">
       <Container fluid>
         <Row className="justify-content-center">
           <h1 className="h1-profile text-center mb-3">
@@ -90,7 +90,7 @@ const Profile = () => {
           </Col>
         </Row>
       </Container>
-    </main>
+    </section>
   )
 }
 
