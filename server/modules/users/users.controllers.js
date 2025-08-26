@@ -37,6 +37,7 @@ class UserController {
 
             const emailResult = await sendConfirmationMail.sendMail(mailOptions);
 
+
             res.status(200).json("usuario creado")
              } catch (error) {
 

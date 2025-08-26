@@ -28,7 +28,7 @@ const cardsData = [
     title: "Set de Grabación",
     textButton: "Más info",
     color: "#D890EA",
-    urlButton: "/rooms",
+    urlButton: "/oneRoom/2",
     textBody: "Some quick example text to build on the card title and make up the bulk of the card's content.",
     accentLetter: "G"
   }

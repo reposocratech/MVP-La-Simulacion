@@ -29,6 +29,8 @@ const EditRoom = lazy(()=>import('../pages/AdminPages/EditRoom/EditRoom'));
 const CreateServCoop = lazy(()=>import('../pages/AdminPages/CreateServCoop/CreateServCoop'));
 const EditServCoop = lazy(()=>import('../pages/AdminPages/EditServCoop/EditServCoop'))
 const AdminUsers = lazy(() => import('../pages/AdminPages/AdminUsers/AdminUsers'));
+const UserProfile = lazy(() => import('../pages/AdminPages/UserProfile/UserProfile'));
+const AdminAdmins = lazy(() => import('../pages/AdminPages/AdminAdmins/AdminAdmins'));
 
   // Componentes de Usuario:
 const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'));
@@ -64,33 +66,36 @@ export const AppRoutes = () => {
               </Route>
             </Route>
 
-          {/* Rutas Privadas de Administrador: */}
-          <Route element={< PrivateRoutes userType={user?.type} requiredUser={1}/>}>
-            <Route element={< AdminLayout />}>
-            <Route path='/admin/createRoom' element={< CreateRoom />}/>
-            <Route path='/admin/editRoom/:id' element={< EditRoom />}/>
-            <Route path='/admin/createServCoop' element={< CreateServCoop />}/>
-            <Route path='/admin/editServCoop' element={< EditServCoop />}/>
-            <Route path='/admin/adminPanel' element={< AdminPanel />}/>
-            <Route path='/admin/users' element={<AdminUsers />}/>
-            </Route>
-          </Route>
 
-          {/* Rutas Privadas de Usuario: */}
-          <Route
-            element={<PrivateRoutes userType={user?.type} requiredUser={2} />}
-          >
-            <Route element={<UserLayout />}>
-              <Route path="/user/profile" element={<Profile />} />
-              <Route path="/user/roomReservation" element={<RoomReservation />}/>
-            </Route>
-          </Route>
+            {/* Rutas Privadas de Administrador: */}
+            <Route element={< PrivateRoutes userType={user?.type} requiredUser={1}/>}>
+              <Route element={< AdminLayout />}>
+                <Route path='/admin/createRoom' element={< CreateRoom />}/>
+                <Route path='/admin/editRoom/:id' element={< EditRoom />}/>
+                <Route path='/admin/createServCoop' element={< CreateServCoop />}/>
+                <Route path='/admin/editServCoop' element={< EditServCoop />}/>
+                <Route path='/admin/adminPanel' element={< AdminPanel />}/>
+                <Route path='/admin/users' element={<AdminUsers />}/>
+                <Route path='/admin/userProfile/:id' element={<UserProfile />}/>
+                <Route path='/admin/admins' element={<AdminAdmins />}/>
+              </Route>
 
-          {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
-          <Route path='*' element={<ErrorPage />}/>
-        </Routes>
-      </BrowserRouter>)
-      } 
+
+            {/* Rutas Privadas de Usuario: */}
+            <Route
+              element={<PrivateRoutes userType={user?.type} requiredUser={2} />}
+            >
+              <Route element={<UserLayout />}>
+                <Route path="/user/profile" element={<Profile />} />
+                <Route path="/user/roomReservation" element={<RoomReservation />}/>
+              </Route>
+            </Route>
+
+            {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
+            <Route path='*' element={<ErrorPage />}/>
+          </Routes>
+        </BrowserRouter>
+      )} 
     </>
   )
 }

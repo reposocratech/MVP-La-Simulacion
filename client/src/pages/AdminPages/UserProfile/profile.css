@@ -1,0 +1,18 @@
+.profile-page-wrapper {
+  padding-block: 3.75rem;
+
+  h1 {
+    span {
+      color: var(--color-secondary-medium-lavender);
+    }
+  }
+}
+
+.profile-decoration-container {
+  background-image: url('../../../assets/decorative/Group 24.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  min-height: 30rem;
+  width: 100%;
+}

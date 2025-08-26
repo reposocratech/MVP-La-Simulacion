@@ -22,7 +22,10 @@ const AdminPanel = () => {
               <h2 className="fs-4 text-center">Gestiones:</h2>
               <p>(Bloquear/activar usuarios, cambiar el estado de una reserva, mostrar u ocultar los contenidos publicados...)</p>
               <div className="buttons-container-1 d-flex flex-column gap-3">
-                <button className="panel-button-gest panel-button-hover">Gestionar Usuarios</button>
+                <button 
+                  className="panel-button-gest panel-button-hover"
+                  onClick={() => navigate('/admin/users')}
+                >Gestionar Usuarios</button>
                 <button className="panel-button-gest-light panel-button-hover">Gestionar Reservas</button>
                 <button className="panel-button-gest panel-button-hover">Gestionar Servicios</button>
                 <button className="panel-button-gest-light panel-button-hover">Gestionar Eventos y talleres</button>

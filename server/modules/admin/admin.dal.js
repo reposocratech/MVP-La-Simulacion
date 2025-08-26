@@ -8,7 +8,58 @@ class AdminDal {
       let result = await executeQuery(sql);
       return result;
     } catch (error) {
-      throw { message: "Error en bd" };
+      throw { message: "Error en base de datos" };
+    }
+  }
+
+  //actualizar el usuario a bloqueado desbloqueado 
+  enableDisableUser = async(id, user_is_disabled) => {
+    try {
+      let sql = 'UPDATE user SET user_is_disabled = ? WHERE user_id = ?';
+      await executeQuery(sql, [user_is_disabled, id]);
+    } catch (error) {
+      throw { message: "Error en base de datos" };
+    }
+  }
+
+  getUserById = async(id) => {
+    try {
+      let sql = 'SELECT user_id, user_name, lastname, email, phone_number, avatar, specialty FROM user WHERE type = 2 AND user_id = ?';
+      let result = await executeQuery(sql, [id]);
+      return result;
+    } catch (error) {
+      throw { message: "Error en base de datos" };
+    }
+  }
+
+  getAdminsData = async() => {
+    try {
+      let sql = 'SELECT user_id, user_name, email FROM user WHERE type = 1';
+      let result = await executeQuery(sql);
+      return result;
+    } catch (error) {
+      throw { message: "Error en base de datos" };
+    }
+  }
+
+  //consulta para comprobar que no existe el email para el registro
+  findUserEmail = async(email) => {
+    try {
+      let sql = 'SELECT user_id FROM user WHERE email = ?';
+      let result = await executeQuery(sql, [email]);
+      return result;
+    } catch (error) {
+      throw { message: "Error en base de datos" };
+    }
+  }
+
+  registerAdmin = async(data) => {
+    try {
+      let sql = 'INSERT INTO user (user_name, email, password, type) VALUES (?, ?, ?, ?)';
+      const result = await executeQuery(sql, data);
+      return result;
+    } catch (error) {
+      throw { message: "Error en base de datos" };
     }
   }
 }

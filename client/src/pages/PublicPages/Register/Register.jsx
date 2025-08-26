@@ -7,7 +7,6 @@ import { validateForms } from "../../../helpers/validateForms"
 import { LuEye, LuEyeClosed } from "react-icons/lu"
 import "./register.css"
 
-
 const initialValue = {
   user_name: "",
   email: "",
@@ -15,22 +14,20 @@ const initialValue = {
   repPassword: ""
 }
 
-
 const Register = () => {
   const [register, setRegister] = useState(initialValue)
   const [valErrors, setValErrors] = useState({})
   const [msgError, setMsgError] = useState()
-  const [seePass, setseePass] = useState(false) 
-  const [seePassRep, setseePassRep] = useState(false) 
+  const [seePass, setseePass] = useState(false)
+  const [seePassRep, setseePassRep] = useState(false)
   const [msgRembr, setMsgRembr] = useState("")
-  const navigate = useNavigate() 
-    
+  const navigate = useNavigate()
   
   const handleChange = (e)=>{
     const {name , value} = e.target
     setRegister({...register, [name] : value})
   }
-   
+  
   const onSubmit = async (e)=>{
     e.preventDefault();
     try {
@@ -43,13 +40,13 @@ const Register = () => {
         setMsgRembr("Te hemos enviado un email de confirmación , Verificalo")
         //navigate("/login")
         }
-  } 
-    catch (error) {        
+  }
+    catch (error) {
         setValErrors({});
         setMsgError(error.response.data);
   }}
-
-  return (    
+  
+  return (
      <section className='section-register d-flex  justify-content-center ' >
       <Container fluid>
         <Row>
@@ -89,7 +86,7 @@ const Register = () => {
                     name="password"
                     />
                     <InputGroup.Text id="basic-addon2"><span onClick={()=>setseePass(!seePass)}>{seePass === true ? <LuEyeClosed /> : <LuEye />}</span></InputGroup.Text>
-                  </InputGroup>                  
+                  </InputGroup>
                       {valErrors.password && <Form.Text className="text-error">{valErrors.password}</Form.Text>}
                 </Form.Group>
                 <Form.Group className="form-group-custom" controlId="formBasicRepPassword">
@@ -103,7 +100,7 @@ const Register = () => {
                     name="repPassword"
                     />
                     <InputGroup.Text id="basic-addon2"><span onClick={()=>setseePassRep(!seePassRep)}>{seePassRep === true ? <LuEyeClosed /> : <LuEye />}</span></InputGroup.Text>
-                   </InputGroup>                  
+                   </InputGroup>
                     {valErrors.repPassword && <Form.Text className="text-error">{valErrors.repPassword}</Form.Text>}
                 </Form.Group>
                     {msgError && <p className="text-danger fw-bold">{msgError}</p>}
@@ -119,5 +116,5 @@ const Register = () => {
     </section>
     )
     }
-
+                     
 export default Register;
