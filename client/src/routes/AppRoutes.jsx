@@ -23,6 +23,7 @@ const OneRoom = lazy(() => import('../pages/PublicPages/oneRoom/OneRoom'))
 const Register = lazy(() => import('../pages/PublicPages/Register/Register'))
 const Login = lazy(() => import('../pages/PublicPages/Login/Login'))
 const ErrorPage = lazy(() => import('../pages/PublicPages/ErrorPage/ErrorPage'))
+const Calendar = lazy(() => import('../pages/PublicPages/Calendar/Calendar'))
 
 // Componentes Administrador:
 const AdminPanel = lazy(() =>
@@ -88,6 +89,7 @@ export const AppRoutes = () => {
                   <Route path="/oneRoom/:id" element={<OneRoom />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/login" element={<Login />} />
+                  <Route path="/calendar" element={<Calendar />} />
                 </Route>
               </Route>
 
