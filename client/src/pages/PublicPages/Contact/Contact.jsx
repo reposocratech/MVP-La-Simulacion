@@ -6,7 +6,7 @@ import { validateForms } from "../../../helpers/validateForms";
 import { fetchData } from "../../../helpers/axiosHelper";
 import { contactSchema } from "../../../schemas/contactSchema";
 import logoGenkoa from '../../../assets/logos/logo_genkoa_insta.png';
-import logoSimu from '../../../assets/logos/web-favicon-la-simulacion.svg';
+import SvgLogoSimu from '../../../assets/logos/SvgLogoSimu.jsx';
 import { useState } from "react";
 import './contact.css';
 
@@ -22,6 +22,7 @@ const Contact = () => {
   const [formData, setFormData] = useState(initialValue);
   const [valErrors, setValErrors] = useState({});
   const [msgError, setMsgError] = useState();
+  const [successMsg, setSuccessMsg] = useState("");
 
   const handleChange = (e) =>{
     const {name, value} = e.target;
@@ -38,7 +39,7 @@ const Contact = () => {
 
       if (valid){
         const res = await fetchData("/users/contact", "post", formData);
-        console.log(res);
+        setSuccessMsg("Mensaje enviado, nos pondremos en contacto contigo lo antes posible");
         setFormData(initialValue);
       }
 
@@ -50,10 +51,10 @@ const Contact = () => {
   }
 
   return (
-    <section>
+    <section className="section-contact">
       <Container>
-        <Row className="justify-content-center section-contact flex-wrap d-flex align-items-stretch">
-          <Col lg={4} className="d-flex flex-column h-100">
+        <Row className="justify-content-center align-items-stretch gy-5">
+          <Col lg={4} className="h-100">
             <h1 className="text-center mb-3 fs-3">¿Hablamos? Rellena el siguiente formulario</h1>
             <Form className="border border-2 rounded-4 p-3">
               <Form.Group className="mb-3" controlId="formBasicName">
@@ -119,40 +120,39 @@ const Contact = () => {
                   onClick={onSubmit}
                 >Enviar</button>
               </div>
+              {successMsg && <p className="msg-ok-form">{successMsg}</p>}
             </Form>
           </Col>
 
 
-          <Col lg={8} className="d-flex flex-column h-100">
+          <Col lg={8} className="h-100">
             <address>
               <h2 className="text-center mb-5 fs-3">Puedes encontrarnos en</h2>
               <div className="row gy-4 align-items-stretch">
                 {getMiniCardsData().map(card => (
-                  <div className="col-lg-4">
+                  <div className="col-lg-4" key={card.id}>
                     <MiniCardContact
                       card={card}
-                      key={card.id}
                     />
                   </div>
                 ))}
               </div>
             </address>
-            <section className="mt-3">
-              <div className="text-center  ">
-                <div className="p-3 bg-color-secondary-pink rounded-4 d-flex justify-content-center gap-3 align-items-center">
-                  <div className="fs-5 fw-bold text-white">
-                    <a
-                      href="https://lasimulacion.escenaonline.com/par-public/rest/evento/listado"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    ><img src={logoSimu} alt="Enlace a comprar entradas" className="logo-simu me-3"/>Consulta nuestros eventos y consigue tus entradas</a>
-                  </div>
-                  {/* <p className=" mb-0 fs-5 fw-bold text-white">Consulta nuestros eventos y consigue tus entradas</p> */}
+
+            <section className="mt-4 text-center">
+              <div className="p-3 bg-color-secondary-pink rounded-4">
+                <div className="fs-5 fw-bold text-white">
+                  <a
+                    href="https://lasimulacion.escenaonline.com/par-public/rest/evento/listado"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  ><SvgLogoSimu /><svg className="icon-simu"><use xlinkHref="#web-favicon-la-simulacion"></use></svg>
+                  Consulta nuestros eventos y consigue tus entradas</a>
                 </div>
               </div>
-              <div className="mt-4 d-flex gap-5">
-                <div className="text-center">
-                  <p className="my-4 fs-5 fw-bold">También estamos en redes sociales</p>
+              <div className="mt-2 row justify-content-between gy-5">
+                <article className="col-lg-5">
+                  <h3 className="my-4 fs-4">También estamos en redes sociales</h3>
                   <div className="d-flex justify-content-center gap-4">
                     <a
                       href="https://www.linkedin.com/company/lasimulacion/"
@@ -179,16 +179,16 @@ const Contact = () => {
                     ><FaTiktok color="#000" size={32} title="TikTok" />
                     </a>
                   </div>
-                </div>
-                <div className="py-4 text-center">
-                  <p className="mb-2 fs-5 fw-bold">Descubre nuestra comunidad, Genkoa</p>
+                </article>
+                <article className="col-lg-5 py-4 ">
+                  <h3 className="mb-2 fs-4">Descubre nuestra comunidad, Genkoa</h3>
                   <a
                     href="https://genkoa.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                   ><img src={logoGenkoa} alt="Enlace externo a web Genkoa" className="logo-genkoa"/>
                   </a>
-                </div>
+                </article>
               </div>
             </section>
           </Col>

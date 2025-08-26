@@ -6,6 +6,13 @@
   width: 2.5rem;
 }
 
+.icon-simu {
+  margin-right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  fill: #FFF;
+}
+
 a {
   text-decoration: none;
   color: inherit;

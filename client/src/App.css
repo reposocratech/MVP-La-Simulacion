@@ -114,12 +114,13 @@ body {
     padding: .6rem 1.5rem;
   }
 
-  .bg-color-secondary-green {
-    background-color: var(--color-secondary-medium-green);
-  }
-
   .bg-color-secondary-pink {
     background-color: var(--color-secondary-medium-pink);
+  }
+
+  .msg-ok-form {
+    color: var(--color-primary-orange);
+    font-weight: bold;
   }
 
 }
