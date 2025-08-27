@@ -111,7 +111,7 @@ const About = () => {
             <h4>Cooperativa</h4>
             <Row className="justify-content-center gx-5 gy-customsize">
               {coopTeam.map(elem => (
-                <Col lg={4} key={elem.id}>
+                <Col lg={5} key={elem.id}>
                   <CardTeamProfile data={elem}/>
                 </Col>
               ))}
