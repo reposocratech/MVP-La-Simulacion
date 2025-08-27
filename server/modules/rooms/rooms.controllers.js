@@ -69,9 +69,20 @@ class RoomController {
       const result = await roomsDal.imagesByRoomId(id);
       res.status(200).json(result)
     } catch (error) {
-      console.log("error del controler", error);
       res.status(500).json({message: "error de server"})
     }
+  }
+
+  deleteImg = async(req,res)=> {
+    const {id, room_image_id, file} = req.body;
+    
+    try {
+      await roomsDal.deleteImg(id, room_image_id, file);
+      res.status(200).json({message: "delete ok"})
+    } catch (error) {
+      res.status(500).json({message: "error de server"})
+    }
+    
   }
 
 }

@@ -152,6 +152,8 @@ class UserController {
       res.status(200).json({message: "Solicitud de reserva enviada correctamente."})
     } catch (error) {
       res.status(500).json({message: "server error"});
+    }
+  }
 
   deleteUser = async (req, res) => {
     try {
@@ -170,7 +172,7 @@ class UserController {
     }
   };
 
-    editUser = async (req, res) => {
+  editUser = async (req, res) => {
     try {
       const { simulacion_user_id } = req;
       const { user_name, lastname, phone_number, specialty } = req.body;

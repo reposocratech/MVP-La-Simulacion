@@ -1,4 +1,5 @@
 import executeQuery, { dbPool } from "../../config/db.js";
+import { deleteFile } from "../../helpers/fileSystem.js";
 
 class RoomDal {
   createRoom = async(data)=>{
@@ -86,6 +87,16 @@ class RoomDal {
       let sql = "SELECT * FROM room_image WHERE room_id = ?";
       const result = await executeQuery(sql,[id]);
       return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  deleteImg = async (room_id, room_image_id, file) =>{
+    try {
+      let sql = 'DELETE FROM room_image WHERE room_id = ? AND room_image_id = ?';
+      await executeQuery(sql, [room_id, room_image_id]);
+      await deleteFile(file, "rooms")
     } catch (error) {
       console.log("error del dal", error);
       throw error;
