@@ -84,6 +84,7 @@ export const AppRoutes = () => {
                 <Route path='/admin/userProfile/:id' element={<UserProfile />}/>
                 <Route path='/admin/admins' element={<AdminAdmins />}/>
               </Route>
+            </Route>
 
             {/* Rutas Privadas de Usuario: */}
             <Route
