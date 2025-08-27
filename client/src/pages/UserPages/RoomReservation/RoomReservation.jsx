@@ -26,7 +26,7 @@ const RoomReservation = () => {
   const [reservationData, setReservationData] = useState(initialValue);
   const [showForm, setShowForm] = useState(1);
 
-  const {user} = useContext(AuthContext);
+  const {user, token} = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -34,8 +34,6 @@ const RoomReservation = () => {
     const {name, value} = e.target;
     setReservationData({...reservationData, [name]: value});
   }
-
-  console.log("Handle reservationData", reservationData);
 
   const goNext = (e, numberForm) => {
     e.preventDefault();
@@ -51,12 +49,14 @@ const RoomReservation = () => {
   const onSubmit = async(e) => {
     e.preventDefault()
     try {
-      await fetchData("/users/roomReservation", "post", data, token);
+      const res = await fetchData("/users/roomReservation", "post", reservationData, token);
+      console.log(res);
 
     } catch (error) {
       console.log(error);
     }
-  }
+  } 
+  console.log("ReservationData", reservationData);
 
   return (
     <section className="section-reservation">
@@ -87,7 +87,8 @@ const RoomReservation = () => {
               <ReservationForm3
                 reservationData={reservationData}
                 handleChange={handleChange} 
-                cancel={cancel}/>
+                cancel={cancel}
+                onSubmit={onSubmit}/>
             }
           </Col>
         </Row>

@@ -1,7 +1,7 @@
 import { Form } from "react-bootstrap";
 
 
-export const ReservationForm3 = ({reservationData, handleChange, cancel}) => {
+export const ReservationForm3 = ({reservationData, handleChange, cancel, onSubmit}) => {
 
   return (
     <Form className="border border-2 rounded rounded-3 mb-2 mt-3 p-4">
@@ -69,7 +69,11 @@ export const ReservationForm3 = ({reservationData, handleChange, cancel}) => {
             onClick={cancel}
         >Cancelar
         </button>
-        <button className="submit-button">Enviar Solicitud</button>
+        <button 
+            className="submit-button"
+            onClick={onSubmit}
+        >Enviar Solicitud
+        </button>
       </div>
     </Form>
   )
