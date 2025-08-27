@@ -38,12 +38,12 @@ const AdminEvents = () => {
     {key: "duration", label: "Duración"},
     {key: "start_date", label: "Comienza"},
     {key: "end_date", label: "Finaliza"},
-    {key: "number_of_attendees", label: "Personas?"},
+    {key: "number_of_attendees", label: "Personas"},
     {key: "price", label: "Precio"},
     /* {key: "ticket_link", label: "Ticket link"}, */
     {
-      key: "actions", 
-      label: "Acciones",
+      key: "delete", 
+      label: "Eliminar",
       render: (row) => (
         <button
           className="btn-table block"
