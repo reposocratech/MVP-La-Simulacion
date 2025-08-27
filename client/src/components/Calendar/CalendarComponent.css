@@ -100,6 +100,13 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   min-height: 7rem;
 }
+
+.react-calendar__navigation__label__labelText {
+text-transform: uppercase;
+}
+.react-calendar__year-view__months__month {
+  text-transform: uppercase;
+}
 /* ------- Desktop ------- */
 @media (min-width: 992px) {
   .calendar-section {
@@ -111,3 +118,24 @@
 
 
 }
+
+.events-panel {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  max-height: 65vh;
+}
+
+.events-scroll {
+  overflow-y: auto;
+  max-height: 0%;
+}
+
+.react-calendar__month-view__weekdays {
+  margin-bottom: 1rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+
+}
+
+

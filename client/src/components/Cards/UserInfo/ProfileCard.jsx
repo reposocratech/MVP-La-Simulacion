@@ -103,7 +103,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
         {loading && <p>Subiendo imagen...</p>}
         {error && <p className="text-danger fw-bold mt-5">{error}</p>}
 
-        <div className="profile-card-body mt-3">
+        <div className="profile-card-body mt-5">
           <h3>¡Hola! Estos son tus datos de usuario:</h3>
           <ul className="profile-data-list">
             <li>
