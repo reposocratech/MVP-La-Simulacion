@@ -29,7 +29,10 @@ const AdminPanel = () => {
                   className="panel-button-gest-light panel-button-hover"
                   onClick={()=>navigate('/admin/users')}
                 >Gestionar Usuarios</button>
-                <button className="panel-button-gest panel-button-hover">Gestionar Reservas</button>
+                <button 
+                  className="panel-button-gest panel-button-hover"
+                  onClick={()=>navigate('/admin/reservations')}
+                  >Gestionar Reservas</button>
               </div>
             </article>
           </Col>

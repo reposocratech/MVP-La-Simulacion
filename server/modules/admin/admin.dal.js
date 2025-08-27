@@ -101,6 +101,21 @@ class AdminDal {
       throw { message: "Error en base de datos" };
     }
   }
+
+  getReservationsData = async() => {
+    try {
+      let sql = 'SELECT * FROM reservation';
+
+      const result = await executeQuery(sql);
+      return result;
+
+    } catch (error) {
+      throw {message: "Error en base de datos"};
+    }
+  }
+
+
+
 }
 
 export default new AdminDal();

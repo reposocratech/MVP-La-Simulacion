@@ -130,9 +130,9 @@ class UserDal {
         const {user_id, room_id} = data;
         const {phone_number, date, start_hour, end_hour, proyect_description, proyect_type, socialmedia_link, ilumination_material, number_of_attendees, aditional_requirement, user_policy_confirmation} = data.reservationData;
 
-        const sql = 'INSERT INTO reservation (user_id, room_id, phone_number, date, start_hour, end_hour, proyect_description, proyect_type, socialmedia_link, ilumination_material, number_of_attendees, aditional_requirement, user_policy_confirmation) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
+        let sql = 'INSERT INTO reservation (user_id, room_id, phone_number, date, start_hour, end_hour, proyect_description, proyect_type, socialmedia_link, ilumination_material, number_of_attendees, aditional_requirement, user_policy_confirmation) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
 
-        const values = [user_id, room_id, phone_number, date, start_hour, end_hour, proyect_description, proyect_type, socialmedia_link, ilumination_material, number_of_attendees, aditional_requirement, user_policy_confirmation];
+        let values = [user_id, room_id, phone_number, date, start_hour, end_hour, proyect_description, proyect_type, socialmedia_link, ilumination_material, number_of_attendees, aditional_requirement, user_policy_confirmation];
 
         await executeQuery(sql, values);
 
