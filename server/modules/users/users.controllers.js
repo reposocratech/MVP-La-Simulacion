@@ -4,6 +4,7 @@ import { hashPassword , compareHash } from '../../helpers/hashUtils.js';
 import jwt from 'jsonwebtoken';
 import sendConfirmationMail from '../../utils/nodemailer.js';
 import emailVerify from '../../utils/emailVerify.js';
+import deleteFile from '../../helpers/deleteFile.js';
 
 dotenv.config();
 
@@ -149,13 +150,16 @@ class UserController {
 
   makeRoomReservation = async(req, res) =>{
     try {
+      console.log("REQ BODY reservation", req.body);
+      await usersDal.makeRoomReservation(req.body);
+
       res.status(200).json({message: "Solicitud de reserva enviada correctamente."})
     } catch (error) {
       res.status(500).json({message: "server error"});
     }
-  }
+  };
 
-  deleteUser = async (req, res) => {
+   deleteUser = async (req, res) => {
     try {
       const { id } = req.params;
       const { simulacion_user_id } = req;
@@ -260,26 +264,32 @@ class UserController {
     }
   }
 
-  editAvatar = async(req, res) => {
-    try {
-        const { user_id } = req.body;
-        const user = await usersDal.userById(user_id);
-
-        if (req.file && user[0].avatar) {
-            deleteFile(user[0].avatar, "users");
-        }
-
-        const avatarFileName = req.file ? req.file.filename : null;
-        await usersDal.editAvatar(user_id, avatarFileName);
-
-        const userEdited = await usersDal.userById(user_id);
-
-        res.status(200).json({ message: "Avatar actualizado", avatar: userEdited[0].avatar });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Error del servidor" });
+editAvatar = async (req, res) => {
+  try {
+    const { simulacion_user_id } = req;
+    if (!req.file) {
+      return res.status(400).json({ message: "No se recibió ninguna imagen" });
     }
+    const user = await usersDal.userById(simulacion_user_id);
+    if (user[0]?.avatar) {
+
+      deleteFile(user[0].avatar, "users");
+    }
+    const avatarFileName = req.file.filename;
+    await usersDal.editAvatar(simulacion_user_id, avatarFileName);
+
+    const userEdited = await usersDal.userById(simulacion_user_id);
+    return res.status(200).json({
+      message: "Avatar actualizado",
+      user: userEdited[0],
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Error del servidor" });
   }
+};
+
+
 }
 
 

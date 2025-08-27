@@ -1,26 +1,29 @@
-import { lazy, Suspense, useContext } from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router';
-import { PublicLayout } from '../layouts/PublicLayout';
-import { AuthContext } from '../context/AuthContextProvider';
-import { PublicRoutes } from './PublicRoutes';
-import { PrivateRoutes } from './PrivateRoutes';
-import { AdminLayout } from '../layouts/AdminLayout';
+import { lazy, Suspense, useContext } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router'
+import { PublicLayout } from '../layouts/PublicLayout'
+import { AuthContext } from '../context/AuthContextProvider'
+import { PublicRoutes } from './PublicRoutes'
+import { PrivateRoutes } from './PrivateRoutes'
+import { AdminLayout } from '../layouts/AdminLayout'
 import { UserLayout } from '../layouts/UserLayout'
-import { SpinnerLoading } from '../components/SpinnerLoading/SpinnerLoading';
+import { SpinnerLoading } from '../components/SpinnerLoading/SpinnerLoading'
 
 // Importaciones "carga perezosa":
-  // Componentes públicos:
-const Home = lazy(()=>import('../pages/PublicPages/Home/Home'));
-const About = lazy(()=>import('../pages/PublicPages/About/About'));
-const Contact = lazy(()=>import('../pages/PublicPages/Contact/Contact'));
-const Services = lazy(()=>import('../pages/PublicPages/Services/Services'));
-const ServicesCoop = lazy(()=>import('../pages/PublicPages/ServicesCoop/ServicesCoop'));
-const Events = lazy(()=>import('../pages/PublicPages/Events/Events'));
-const Rooms = lazy(()=>import('../pages/PublicPages/Rooms/Rooms'));
-const OneRoom = lazy(() => import('../pages/PublicPages/oneRoom/OneRoom'));
-const Register = lazy(()=>import('../pages/PublicPages/Register/Register'));
-const Login = lazy(()=>import('../pages/PublicPages/Login/Login'));
-const ErrorPage = lazy(()=>import('../pages/PublicPages/ErrorPage/ErrorPage'));
+// Componentes públicos:
+const Home = lazy(() => import('../pages/PublicPages/Home/Home'))
+const About = lazy(() => import('../pages/PublicPages/About/About'))
+const Contact = lazy(() => import('../pages/PublicPages/Contact/Contact'))
+const Services = lazy(() => import('../pages/PublicPages/Services/Services'))
+const ServicesCoop = lazy(() =>
+  import('../pages/PublicPages/ServicesCoop/ServicesCoop')
+)
+const Events = lazy(() => import('../pages/PublicPages/Events/Events'))
+const Rooms = lazy(() => import('../pages/PublicPages/Rooms/Rooms'))
+const OneRoom = lazy(() => import('../pages/PublicPages/oneRoom/OneRoom'))
+const Register = lazy(() => import('../pages/PublicPages/Register/Register'))
+const Login = lazy(() => import('../pages/PublicPages/Login/Login'))
+const ErrorPage = lazy(() => import('../pages/PublicPages/ErrorPage/ErrorPage'))
+const Calendar = lazy(() => import('../pages/PublicPages/Calendar/Calendar'))
 
   // Componentes Administrador:
 const AdminPanel = lazy(()=>import('../pages/AdminPages/AdminPanel/AdminPanel'));
@@ -40,23 +43,25 @@ const RoomReservation = lazy(()=>import('../pages/UserPages/RoomReservation/Room
 
 
 export const AppRoutes = () => {
-  const { user, loading } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext)
 
   return (
     <>
       {loading ? (
-         <div className="d-flex flex-column mt-5 align-items-center">
+        <div className="d-flex flex-column mt-5 align-items-center">
           <SpinnerLoading />
           <h1 className="fs-5 mt-3">Ya casi estamos...</h1>
         </div>
       ) : (
         <BrowserRouter>
-          <Suspense fallback={
-                      <div className="d-flex flex-column mt-5 align-items-center">
-                        <SpinnerLoading />
-                        <h1 className="fs-5 mt-3">Ya casi estamos...</h1>
-                      </div>
-                    }>
+          <Suspense
+            fallback={
+              <div className="d-flex flex-column mt-5 align-items-center">
+                <SpinnerLoading />
+                <h1 className="fs-5 mt-3">Ya casi estamos...</h1>
+              </div>
+            }
+          >
             <Routes>
               {/* Rutas Públicas: */}
               <Route element={<PublicRoutes />}>
@@ -71,6 +76,7 @@ export const AppRoutes = () => {
                   <Route path="/oneRoom/:id" element={<OneRoom />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/login" element={<Login />} />
+                  <Route path="/calendar" element={<Calendar />} />
                 </Route>
               </Route>
 

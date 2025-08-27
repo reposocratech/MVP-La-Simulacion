@@ -52,6 +52,18 @@ sendMailServCoop = async (req , res)=>{
     res.status(500).json({ message: "server error" });
   }
 }
+    servCoopDel = async(req, res) => {
+        const {service_id} = req.body;
+        try {
+            await servicesDal.servCoopDel(service_id);
+            res.status(200).json("borrraarr")
+        } catch (error) {
+           console.error("Error en servCoopDel:", error);
+            res.status(500).json({message:"error de server"})
+        }
+        
+    } 
+
 
 }
 

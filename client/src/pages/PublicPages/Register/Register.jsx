@@ -1,6 +1,6 @@
 import { useState } from "react"
 import {Col, Container, Form, InputGroup, Row} from "react-bootstrap"
-import { Link, useNavigate } from "react-router"
+import { Link} from "react-router"
 import { fetchData } from "../../../helpers/axiosHelper"
 import { registerSchema } from "../../../schemas/registerSchema"
 import { validateForms } from "../../../helpers/validateForms"
@@ -21,7 +21,7 @@ const Register = () => {
   const [seePass, setseePass] = useState(false)
   const [seePassRep, setseePassRep] = useState(false)
   const [msgRembr, setMsgRembr] = useState("")
-  const navigate = useNavigate()
+  
   
   const handleChange = (e)=>{
     const {name , value} = e.target
