@@ -137,12 +137,11 @@ class UserDal {
         await executeQuery(sql, values);
 
       } catch (error) {
-        console.log("ERROR RESERV DAL", error);
         throw {message: "Error en BD"};
       }
 
 
-      
+
     }
 
 }
