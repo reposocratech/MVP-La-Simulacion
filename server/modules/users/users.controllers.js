@@ -50,27 +50,28 @@ class UserController {
     }
 
     verifyEmail = async (req, res) => {
-  try {
-      const { token } = req.query;
-      //Ver si se ha recibido el token
-    if (!token) {
-      return res.status(400).json({ message: 'Token no proporcionado' });
+      try {
+        const { token } = req.query;
+        //Ver si se ha recibido el token
+      if (!token) {
+        return res.status(400).json({ message: 'Token no proporcionado' });
+      }
+        //Verificacion de email y codificación
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const email = decoded.email;
+      //Verificar relacion Email tokon
+      if (!email) {
+        return res.status(400).json({ message: 'Token inválido' });
+      }
+        await usersDal.verifyEmail(email);
+        //Pagina de confirmacion de registro satisfactorio
+        const sendConfirmation = emailVerify(`${process.env.FRONTEND_URL}login`);
+        res.status(200).send(sendConfirmation)
+      }
+      catch (error) {
+        res.status(400).send('Token inválido o expirado');
+      }
     }
-      //Verificacion de email y codificación
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const email = decoded.email;
-    //Verificar relacion Email tokon
-    if (!email) {
-      return res.status(400).json({ message: 'Token inválido' });
-    }
-      await usersDal.verifyEmail(email);
-      //Pagina de confirmacion de registro satisfactorio
-      const sendConfirmation = emailVerify(`${process.env.FRONTEND_URL}login`);
-      res.status(200).send(sendConfirmation)
-    }
-    catch (error) {
-    res.status(400).send('Token inválido o expirado');
-    }}
 
   login = async(req, res) => {
 
