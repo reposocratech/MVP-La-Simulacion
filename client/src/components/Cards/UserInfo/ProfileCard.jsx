@@ -1,5 +1,5 @@
 import { useContext, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom' // Importa useNavigate
+import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../context/AuthContextProvider'
 import { fetchData } from '../../../helpers/axiosHelper'
 import userPlaceholder from '../../../../../server/public/images/users/default-avatar.svg'
@@ -13,7 +13,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
   const [error, setError] = useState('')
 
   const handleImageClick = () => {
-    fileInputRef.current.click()
+    fileInputRef.current?.click()
   }
 
   const handleFileChange = async (event) => {
@@ -25,17 +25,20 @@ export const ProfileCard = ({ setActiveComponent }) => {
 
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('user_id', user.user_id)
 
     try {
-      const res = await fetchData('/users/editUser', 'put', formData, token)
-      setUser({ ...user, avatar: res.data.avatar })
+      const res = await fetchData('/users/editAvatar', 'put', formData, token)
+      setUser(res.data.user)
       alert('Imagen de perfil actualizada con éxito.')
     } catch (err) {
       console.error('Error al subir la imagen:', err)
-      setError('Hubo un error al subir la imagen. Inténtalo de nuevo.')
+      setError(
+        err.response?.data?.message ||
+          'Hubo un error al subir la imagen. Inténtalo de nuevo.'
+      )
     } finally {
       setLoading(false)
+      if (fileInputRef.current) fileInputRef.current.value = ''
     }
   }
 
@@ -80,14 +83,14 @@ export const ProfileCard = ({ setActiveComponent }) => {
         >
           <img
             src={
-              user.avatar
+              user?.avatar
                 ? `${import.meta.env.VITE_SERVER_URL_PUBLIC}images/users/${
                     user.avatar
                   }`
                 : userPlaceholder
             }
             alt="Ícono de usuario"
-            className="profile-image"
+            className="profile-image rounded-circle"
           />
         </figure>
         <input
@@ -134,6 +137,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
           </ul>
         </div>
       </div>
+
       <div className="profile-buttons-container">
         <button
           onClick={() => setActiveComponent('editProfile')}
@@ -153,14 +157,12 @@ export const ProfileCard = ({ setActiveComponent }) => {
         >
           Cambiar email
         </button>
-        <button
-          onClick={handleDeleteAccount}
-          className="delete-link"
-          disabled={loading}
-        >
-          {loading ? 'Eliminando...' : 'Eliminar perfil'}
+        <button onClick={handleDeleteAccount} className="delete-link">
+          Darme de baja
         </button>
       </div>
     </>
   )
 }
+
+export default ProfileCard

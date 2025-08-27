@@ -1,0 +1,113 @@
+.calendar-section {
+  background-color: #e0defa;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+.calendar-grid {
+  height: auto;
+}
+.calendar-date-heading {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.events-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.events-scroll {
+  overflow-y: auto;
+}
+.react-calendar {
+  border: none;
+  width: auto;
+  background: transparent;
+}
+.react-calendar__navigation {
+  display: flex;
+  margin-bottom: 1rem;
+}
+.react-calendar__navigation button {
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 1rem;
+  margin: 0 0.25rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #555;
+}
+.react-calendar__tile {
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+.react-calendar__tile--active {
+  background-color: var(--color-primary-orange)!important;
+  color: #fff !important;
+  border-radius: 0.5rem;
+}
+.event-day {
+  background-color: #8557e4 !important;
+  color: #fff !important;
+  border-radius: 0.5rem;
+}
+/* ------- Cards ------- */
+.event-card {
+  background-color: #f7f5ff;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.event-card h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.event-card p {
+  margin: 0.25rem 0;
+}
+.event-ticket-link {
+  padding: 6px 17px;
+  background-color: var(--color-secondary-medium-lavender);
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #000000;
+  border-radius: 12px;
+}
+.events-panel {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  max-height: none;
+}
+.events-scroll {
+  overflow-y: auto;
+  max-height: 32rem;
+}
+.event-card {
+  background-color: #f7f5ff;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  min-height: 7rem;
+}
+/* ------- Desktop ------- */
+@media (min-width: 992px) {
+  .calendar-section {
+    height: 70vh;
+  }
+  .calendar-grid {
+    height: 100%;
+  }
+
+
+}

@@ -1,0 +1,12 @@
+.h1-profile {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.span-profile {
+  font-size: 2.2rem;
+}
+
+.accent-text {
+  color: var(--color-secondary-medium-green)
+}
