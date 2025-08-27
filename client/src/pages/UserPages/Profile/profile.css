@@ -60,6 +60,11 @@
 }
 
 
+
+.titulo {
+  padding-top: 2.1rem;
+}
+
 @media (min-width: 768px) {
   .titulo {
     padding-top: 3.75rem;

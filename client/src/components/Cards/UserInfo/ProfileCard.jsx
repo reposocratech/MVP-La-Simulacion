@@ -29,7 +29,6 @@ export const ProfileCard = ({ setActiveComponent }) => {
     try {
       const res = await fetchData('/users/editAvatar', 'put', formData, token)
       setUser(res.data.user)
-      alert('Imagen de perfil actualizada con éxito.')
     } catch (err) {
       console.error('Error al subir la imagen:', err)
       setError(
