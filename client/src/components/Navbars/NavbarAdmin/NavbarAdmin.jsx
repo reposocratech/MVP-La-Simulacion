@@ -10,7 +10,7 @@ export const NavbarAdmin = () => {
 
   // Sacamos el user y la función para desloguearse del contexto "AuthContext":
   const {user, logout} = useContext(AuthContext);
-
+  
   // función navegar para utilizarla en el onClick del logout:
   const navigate = useNavigate();
 

@@ -14,6 +14,7 @@ router.get('/', function(req, res, next) {
 router.post('/servicescoop', validateForm(formCoopSchema) , servicesControllers.sendMailServCoop);
 router.get('/servicescoop', servicesControllers.getDataServCoop)
 router.post('/createservicecoop', verifyToken , uploadImageSingle("servCoop") ,validateForm(createCoopSchema) , servicesControllers.createServCoop);
+router.put('/delservcoop', verifyToken  , servicesControllers.servCoopDel);
 
 
 export default router;
