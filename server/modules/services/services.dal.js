@@ -25,6 +25,17 @@ class ServiceDal {
   }
 };
 
+  servCoopDel = async(service_id) =>{
+        try {
+            let sql = 'UPDATE service SET service_is_deleted = 1 WHERE service_id = ?';
+          const result =  await executeQuery(sql, [service_id]);
+            console.log('Resultado update:', result);
+        } catch (error) {
+          console.error("Error en la consulta SQL:", error);
+            throw ("Error de bd")
+        }
+    }
+
 }
 
 export default new ServiceDal();

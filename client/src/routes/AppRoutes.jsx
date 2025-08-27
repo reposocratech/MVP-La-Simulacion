@@ -73,7 +73,7 @@ export const AppRoutes = () => {
               </Route>
 
             {/* Rutas Privadas de Administrador: */}
-            <Route element={< PrivateRoutes userType={user?.type} requiredUser={1}/>}>
+            <Route element={< PrivateRoutes userType={user?.type} requiredUser={1}/>}/>
               <Route element={< AdminLayout />}>
                 <Route path='/admin/createRoom' element={< CreateRoom />}/>
                 <Route path='/admin/editRoom/:id' element={< EditRoom />}/>
@@ -101,7 +101,7 @@ export const AppRoutes = () => {
           </Routes>
         </Suspense>
       </BrowserRouter>)
-      } 
+      }
     </>
   )
 }
