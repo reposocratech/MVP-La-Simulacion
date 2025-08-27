@@ -94,9 +94,19 @@ class AdminDal {
 
   getRoomsData = async() => {
     try {
-      let sql = 'SELECT * FROM room;'
+      let sql = 'SELECT * FROM room WHERE room_is_deleted = 0';
       const result = await executeQuery(sql);
       return result;
+    } catch (error) {
+      throw { message: "Error en base de datos" };
+    }
+  }
+
+  //borrado lógico de room
+  deleteRoom = async(id) => {
+    try {
+      let sql = 'UPDATE room SET room_is_deleted = 1 WHERE room_id = ?';
+      await executeQuery(sql, [id]);
     } catch (error) {
       throw { message: "Error en base de datos" };
     }
