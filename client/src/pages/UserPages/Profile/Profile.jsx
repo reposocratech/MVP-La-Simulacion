@@ -55,12 +55,12 @@ const Profile = () => {
     <section className="profile-page-wrapper pt-3 mt-4">
       <Container fluid>
         <Row className="justify-content-center">
-          <h1 className="h1-profile text-center mb-3">
-            Tu Perfil{' '}
-            <span className="span-profile accent-text align-middle ">P</span>
+          <h1 className="h1-profile titulo text-center mb-3">
+            <span className="span-profile accent-text align-middle ">P</span> Tu
+            Perfil
           </h1>
           <Col xs={12} lg={6} className="d-flex justify-content-center">
-            <section className="profile-card-section">
+            <section className="profile-card-section ">
               <ProfileCard setActiveComponent={setActiveComponent} />
             </section>
           </Col>
