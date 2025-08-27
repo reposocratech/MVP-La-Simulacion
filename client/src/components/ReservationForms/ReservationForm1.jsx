@@ -1,7 +1,7 @@
 import { Col, Form, Row } from "react-bootstrap";
 
 
-export const ReservationForm1 = ({userName, userLastname, reservationData, handleChange, goNext, cancel}) => {
+export const ReservationForm1 = ({roomName, userName, userLastname, reservationData, handleChange, goNext, cancel}) => {
 
   return (
     <Form className="border border-2 rounded rounded-3 mb-2 mt-3 p-4">
@@ -9,7 +9,7 @@ export const ReservationForm1 = ({userName, userLastname, reservationData, handl
         <Form.Label>Espacio a reservar:</Form.Label>
         <Form.Control
           type="text"
-          placeholder="Set de Grabación"
+          placeholder={roomName}
           aria-label="Sala a reservar"
           disabled
           readOnly

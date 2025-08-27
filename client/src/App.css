@@ -89,6 +89,14 @@ body {
     border: none;
     border-radius: 12px;
     padding: .6rem 1.5rem;
+
+    &:disabled {
+      color: #9c9c9c;
+      background: 
+        linear-gradient(to right, rgba(224, 224, 224, 0.6), rgba(240, 240, 240, 0.6)),
+        var(--color-primary-green);
+
+    }
   }
 
   .cancel-button {

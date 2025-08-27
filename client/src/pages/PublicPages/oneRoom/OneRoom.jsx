@@ -68,7 +68,7 @@ const OneRoom = () => {
           <div className="text-center my-5">
             <button 
               className="btn-violet"
-              onClick={() => navigate('/user/roomReservation')}
+              onClick={() => navigate(`/user/roomReservation/${id}/${room.room_name}`)}
             >Solicitud de reserva</button>
           </div>
           <article >
@@ -98,7 +98,7 @@ const OneRoom = () => {
           <div className="text-center mt-5">
             <button 
               className="btn-violet"
-              onClick={() => navigate('/user/roomReservation')}
+              onClick={() => navigate(`/user/roomReservation/${id}/${room.room_name}`)}
             >Solicitud de reserva</button>
           </div>
         </section>

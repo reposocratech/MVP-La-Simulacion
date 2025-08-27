@@ -102,7 +102,7 @@ export const AppRoutes = () => {
               >
                 <Route element={<UserLayout />}>
                   <Route path="/user/profile" element={<Profile />} />
-                  <Route path="/user/roomReservation" element={<RoomReservation />}/>
+                  <Route path="/user/roomReservation/:id/:room_name" element={<RoomReservation />}/>
                 </Route>
               </Route>
 

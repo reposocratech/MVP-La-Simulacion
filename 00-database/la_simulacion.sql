@@ -53,6 +53,7 @@ CREATE TABLE reservation (
 	reservation_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT UNSIGNED NOT NULL,
     room_id TINYINT UNSIGNED NOT NULL,
+    phone_number VARCHAR(30) NOT NULL,
 	date DATE NOT NULL,
     start_hour TIME NOT NULL,
     end_hour TIME NOT NULL,
@@ -142,6 +143,7 @@ CREATE TABLE section_key_point (
 SELECT * FROM user;   
 SELECT * FROM room;
 SELECT * FROM service;
+SELECT * FROM reservation;
 
 
 

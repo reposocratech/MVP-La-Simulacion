@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Form } from "react-bootstrap";
 
 
@@ -14,8 +15,8 @@ export const ReservationForm3 = ({reservationData, handleChange, cancel, onSubmi
             onChange={handleChange}
             name="ilumination_material"
             label="Sí"
-            value={1}
-            checked={reservationData.ilumination_material === 1}
+            value="1"
+            checked={reservationData.ilumination_material === "1"}
           />
           <Form.Check
             type="radio"
@@ -23,8 +24,8 @@ export const ReservationForm3 = ({reservationData, handleChange, cancel, onSubmi
             onChange={handleChange}
             name="ilumination_material"
             label="No"
-            value={0}
-            checked={reservationData.ilumination_material === 0}
+            value="0"
+            checked={reservationData.ilumination_material === "0"}
           />
         </div>
       </Form.Group>
@@ -72,6 +73,7 @@ export const ReservationForm3 = ({reservationData, handleChange, cancel, onSubmi
         <button 
             className="submit-button"
             onClick={onSubmit}
+            disabled={reservationData.user_policy_confirmation === 1 ? false : true}
         >Enviar Solicitud
         </button>
       </div>
