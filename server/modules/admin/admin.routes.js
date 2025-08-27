@@ -10,5 +10,9 @@ router.put('/enableDisableUser', verifyToken, adminControllers.enableDisableUser
 router.get('/userProfile/:id', verifyToken, adminControllers.getUserById);
 router.get('/admins', verifyToken, adminControllers.getAdminsData);
 router.post('/registerAdmin', verifyToken, validateForm(registerSchema), adminControllers.registerAdmin);
+router.put('/removeAdmin', verifyToken, adminControllers.removeAdmin);
+router.get('/events', verifyToken, adminControllers.getEventsData);
+router.put('/deleteEvent', verifyToken, adminControllers.deleteEvent);
+router.get('/rooms', verifyToken, adminControllers.getRoomsData);
 
 export default router;

@@ -58,7 +58,7 @@ class UserDal {
       }
   }
 
-editUser = async (data) => {
+  editUser = async (data) => {
     try {
       const { user_name, lastname, phone_number, specialty, user_id, avatar } = data;
       let sql = 'UPDATE user SET user_name = ?, lastname = ?, phone_number = ?, specialty = ? WHERE user_id = ?';

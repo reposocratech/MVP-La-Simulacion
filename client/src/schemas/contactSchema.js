@@ -10,8 +10,6 @@ export const contactSchema = z.object({
     .nonempty({ message: "El apellido es obligatorio" }),
 
   email: z
-    .string({ message: "El email es obligatorio" })
-    .nonempty({ message: "El email es obligatorio" })
     .email({ message: "Formato de email no válido" }),
 
   phone_number: z

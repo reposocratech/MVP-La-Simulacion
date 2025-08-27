@@ -7,7 +7,13 @@ export const MiniCardContact = ({ card }) => {
     >
       <span>{card.icon}</span>
       <span className="fs-5 fw-bold">{card.title}</span>
-      <span>{card.subtitle}</span>
+      <span>
+        <a 
+          href={card.href} 
+          target="_blank" 
+          rel="noopener noreferrer"
+        >{card.subtitle}</a>
+      </span>
     </div>
   )
 }

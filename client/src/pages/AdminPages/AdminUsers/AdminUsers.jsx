@@ -62,7 +62,7 @@ const AdminUsers = () => {
     {key: "lastname", label: "Apellidos"},
     {key: "email", label: "Email"},
     {
-      key: "user_is_confirmed", 
+      key: "user_is_confirmed",
       label: "Confirmado", 
       render: (row) => row.user_is_confirmed === 1 ? "Sí" : "No"
     },

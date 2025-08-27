@@ -163,7 +163,7 @@ const ServicesCoop = () => {
                 <button className="submit-button mt-1 w-100" onClick={sendMail}>
                 Enviar
                </button>
-               {successMsg && <p className="text-success">{successMsg}</p>}
+               {successMsg && <p className="msg-ok-form">{successMsg}</p>}
             </Form>           
           </Col>
         </Row>

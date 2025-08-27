@@ -25,35 +25,22 @@ const Login = lazy(() => import('../pages/PublicPages/Login/Login'))
 const ErrorPage = lazy(() => import('../pages/PublicPages/ErrorPage/ErrorPage'))
 const Calendar = lazy(() => import('../pages/PublicPages/Calendar/Calendar'))
 
-// Componentes Administrador:
-const AdminPanel = lazy(() =>
-  import('../pages/AdminPages/AdminPanel/AdminPanel')
-)
-const CreateRoom = lazy(() =>
-  import('../pages/AdminPages/CreateRoom/CreateRoom')
-)
-const EditRoom = lazy(() => import('../pages/AdminPages/EditRoom/EditRoom'))
-const CreateServCoop = lazy(() =>
-  import('../pages/AdminPages/CreateServCoop/CreateServCoop')
-)
-const EditServCoop = lazy(() =>
-  import('../pages/AdminPages/EditServCoop/EditServCoop')
-)
-const AdminUsers = lazy(() =>
-  import('../pages/AdminPages/AdminUsers/AdminUsers')
-)
-const UserProfile = lazy(() =>
-  import('../pages/AdminPages/UserProfile/UserProfile')
-)
-const AdminAdmins = lazy(() =>
-  import('../pages/AdminPages/AdminAdmins/AdminAdmins')
-)
+  // Componentes Administrador:
+const AdminPanel = lazy(()=>import('../pages/AdminPages/AdminPanel/AdminPanel'));
+const CreateRoom = lazy(()=>import('../pages/AdminPages/CreateRoom/CreateRoom'));
+const EditRoom = lazy(()=>import('../pages/AdminPages/EditRoom/EditRoom'));
+const CreateServCoop = lazy(()=>import('../pages/AdminPages/CreateServCoop/CreateServCoop'));
+const EditServCoop = lazy(()=>import('../pages/AdminPages/EditServCoop/EditServCoop'))
+const AdminUsers = lazy(() => import('../pages/AdminPages/AdminUsers/AdminUsers'));
+const UserProfile = lazy(() => import('../pages/AdminPages/UserProfile/UserProfile'));
+const AdminAdmins = lazy(() => import('../pages/AdminPages/AdminAdmins/AdminAdmins'));
+const AdminEvents = lazy(() => import('../pages/AdminPages/AdminEvents/AdminEvents'));
+const AdminRooms = lazy(() => import('../pages/AdminPages/AdminRooms/AdminRooms'));
 
-// Componentes de Usuario:
-const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'))
-const RoomReservation = lazy(() =>
-  import('../pages/UserPages/RoomReservation/RoomReservation')
-)
+  // Componentes de Usuario:
+const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'));
+const RoomReservation = lazy(()=>import('../pages/UserPages/RoomReservation/RoomReservation'));
+
 
 export const AppRoutes = () => {
   const { user, loading } = useContext(AuthContext)
@@ -93,44 +80,39 @@ export const AppRoutes = () => {
                 </Route>
               </Route>
 
-
-            {/* Rutas Privadas de Administrador: */}
-            <Route element={< PrivateRoutes userType={user?.type} requiredUser={1}/>}/>
-              <Route element={< AdminLayout />}>
-                <Route path='/admin/createRoom' element={< CreateRoom />}/>
-                <Route path='/admin/editRoom/:id' element={< EditRoom />}/>
-                <Route path='/admin/createServCoop' element={< CreateServCoop />}/>
-                <Route path='/admin/editServCoop' element={< EditServCoop />}/>
-                <Route path='/admin/adminPanel' element={< AdminPanel />}/>
-                <Route path='/admin/users' element={<AdminUsers />}/>
-                <Route path='/admin/userProfile/:id' element={<UserProfile />}/>
-                <Route path='/admin/admins' element={<AdminAdmins />}/>
-
+              {/* Rutas Privadas de Administrador: */}
+              <Route element={< PrivateRoutes userType={user?.type} requiredUser={1}/>}>
+                <Route element={< AdminLayout />}>
+                  <Route path='/admin/createRoom' element={< CreateRoom />}/>
+                  <Route path='/admin/editRoom/:id' element={< EditRoom />}/>
+                  <Route path='/admin/createServCoop' element={< CreateServCoop />}/>
+                  <Route path='/admin/editServCoop' element={< EditServCoop />}/>
+                  <Route path='/admin/adminPanel' element={< AdminPanel />}/>
+                  <Route path='/admin/users' element={<AdminUsers />}/>
+                  <Route path='/admin/userProfile/:id' element={<UserProfile />}/>
+                  <Route path='/admin/admins' element={<AdminAdmins />}/>
+                  <Route path='/admin/events' element={<AdminEvents />}/>
+                  <Route path='/admin/rooms' element={<AdminRooms />}/>
+                </Route>
               </Route>
-            </Route>
 
               {/* Rutas Privadas de Usuario: */}
               <Route
-                element={
-                  <PrivateRoutes userType={user?.type} requiredUser={2} />
-                }
+                element={<PrivateRoutes userType={user?.type} requiredUser={2} />}
               >
                 <Route element={<UserLayout />}>
                   <Route path="/user/profile" element={<Profile />} />
-                  <Route
-                    path="/user/roomReservation"
-                    element={<RoomReservation />}
-                  />
+                  <Route path="/user/roomReservation" element={<RoomReservation />}/>
                 </Route>
               </Route>
 
               {/* Ruta a la página de error (cuando la ruta del navegador no exista, entrará aquí ): */}
-              <Route path="*" element={<ErrorPage />} />
+              <Route path='*' element={<ErrorPage />}/>
             </Routes>
           </Suspense>
         </BrowserRouter>
-      )}
-
+      )
+      } 
     </>
   )
 }
