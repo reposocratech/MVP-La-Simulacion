@@ -93,21 +93,32 @@ export const AppRoutes = () => {
                 </Route>
               </Route>
 
-
-            {/* Rutas Privadas de Administrador: */}
-            <Route element={< PrivateRoutes userType={user?.type} requiredUser={1}/>}/>
-              <Route element={< AdminLayout />}>
-                <Route path='/admin/createRoom' element={< CreateRoom />}/>
-                <Route path='/admin/editRoom/:id' element={< EditRoom />}/>
-                <Route path='/admin/createServCoop' element={< CreateServCoop />}/>
-                <Route path='/admin/editServCoop' element={< EditServCoop />}/>
-                <Route path='/admin/adminPanel' element={< AdminPanel />}/>
-                <Route path='/admin/users' element={<AdminUsers />}/>
-                <Route path='/admin/userProfile/:id' element={<UserProfile />}/>
-                <Route path='/admin/admins' element={<AdminAdmins />}/>
-
+              {/* Rutas Privadas de Administrador: */}
+              <Route
+                element={
+                  <PrivateRoutes userType={user?.type} requiredUser={1} />
+                }
+              >
+                <Route element={<AdminLayout />}>
+                  <Route path="/admin/createRoom" element={<CreateRoom />} />
+                  <Route path="/admin/editRoom/:id" element={<EditRoom />} />
+                  <Route
+                    path="/admin/createServCoop"
+                    element={<CreateServCoop />}
+                  />
+                  <Route
+                    path="/admin/editServCoop"
+                    element={<EditServCoop />}
+                  />
+                  <Route path="/admin/adminPanel" element={<AdminPanel />} />
+                  <Route path="/admin/users" element={<AdminUsers />} />
+                  <Route
+                    path="/admin/userProfile/:id"
+                    element={<UserProfile />}
+                  />
+                  <Route path="/admin/admins" element={<AdminAdmins />} />
+                </Route>
               </Route>
-            </Route>
 
               {/* Rutas Privadas de Usuario: */}
               <Route
@@ -130,7 +141,6 @@ export const AppRoutes = () => {
           </Suspense>
         </BrowserRouter>
       )}
-
     </>
   )
 }
