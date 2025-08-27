@@ -125,6 +125,10 @@ editUser = async (data) => {
         }
     };
 
+    makeRoomReservation = async(data) =>{
+      
+    }
+
 }
 
 export default new UserDal();
