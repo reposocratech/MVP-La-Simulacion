@@ -15,6 +15,8 @@ router.post('/servicescoop', validateForm(formCoopSchema) , servicesControllers.
 router.get('/servicescoop', servicesControllers.getDataServCoop)
 router.post('/createservicecoop', verifyToken , uploadImageSingle("servCoop") ,validateForm(createCoopSchema) , servicesControllers.createServCoop);
 router.put('/delservcoop', verifyToken  , servicesControllers.servCoopDel);
+router.get('/editservcoop/:id',verifyToken , servicesControllers.getDataEditServCoop)
+router.put('/editservcoop/:id',verifyToken , servicesControllers.getDataEditServCoop)
 
 
 export default router;

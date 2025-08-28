@@ -114,6 +114,15 @@ body {
     padding: .6rem 1.5rem;
   }
 
+  .edit-button {
+    background-color: var(--color-primary-electric-blue);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
+  }
+
+
   .create-button {
     background-color: var(--color-primary-green);
     font-weight: 600;
@@ -123,7 +132,7 @@ body {
     &:hover {
       filter: brightness(1.1);
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      transform: translateY(-2px); 
+      transform: translateY(-2px);
     }
   }
 
