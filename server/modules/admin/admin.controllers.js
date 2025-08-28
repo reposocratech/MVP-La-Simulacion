@@ -113,6 +113,15 @@ class AdminController {
     }
   }
 
+  getReservationsData = async(req, res) => {
+    try {
+      const result = await adminDal.getReservationsData();
+      res.status(200).json(result);
+      } catch (error) {
+      res.status(500).json({message: "Error de servidor"});
+    }
+  }
+      
   deleteRoom = async(req, res) => {
     try {
       const { id } = req.body;
@@ -122,6 +131,7 @@ class AdminController {
       res.status(500).json({message: "Error de servidor"});
     }
   }
+
 }
 
 export default new AdminController();

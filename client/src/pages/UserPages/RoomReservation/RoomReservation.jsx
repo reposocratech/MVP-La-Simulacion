@@ -1,7 +1,7 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { ReservationForm1 } from "../../../components/ReservationForms/ReservationForm1";
 import { useContext, useState } from "react";
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { ReservationForm2 } from "../../../components/ReservationForms/ReservationForm2";
 import { ReservationForm3 } from "../../../components/ReservationForms/ReservationForm3";
@@ -27,12 +27,20 @@ const RoomReservation = () => {
   const [showForm, setShowForm] = useState(1);
 
   const {user, token} = useContext(AuthContext);
+  const {id, room_name} = useParams();
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const {name, value} = e.target;
-    setReservationData({...reservationData, [name]: value});
+
+    if (e.target.type === "checkbox") {
+      const {name, checked} = e.target;
+      setReservationData({...reservationData, [name]: checked ? 1 : 0});
+    }
+    else {
+      const {name, value} = e.target;
+      setReservationData({...reservationData, [name]: value});
+    }
   }
 
   const goNext = (e, numberForm) => {
@@ -43,20 +51,26 @@ const RoomReservation = () => {
   const cancel = (e) => {
     e.preventDefault();
     setReservationData(initialValue);
-    navigate("/oneRoom/2");
+    navigate(`/oneRoom/${id}`);
   }
 
   const onSubmit = async(e) => {
-    e.preventDefault()
+    e.preventDefault();
+
+    const allData = {
+      user_id: user.user_id,
+      room_id: id,
+      reservationData: reservationData
+    }
+
     try {
-      const res = await fetchData("/users/roomReservation", "post", reservationData, token);
-      console.log(res);
+      const res = await fetchData(`/users/roomReservation/${id}/${room_name}`, "post", allData, token);
+      console.log("RES DEL FETCHDATA SUBMIT", res);
 
     } catch (error) {
       console.log(error);
     }
   } 
-  console.log("ReservationData", reservationData);
 
   return (
     <section className="section-reservation">
@@ -69,6 +83,7 @@ const RoomReservation = () => {
           <Col xs={12} lg={6}>
             {showForm === 1 &&
               <ReservationForm1 
+                roomName={room_name}
                 userName={user.user_name}
                 userLastname={user.lastname}
                 reservationData={reservationData}
