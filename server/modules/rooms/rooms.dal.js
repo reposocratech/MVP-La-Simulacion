@@ -82,7 +82,6 @@ class RoomDal {
   }
 
   imagesByRoomId = async(id)=>{
-    console.log("iddddddddddd del Dal", id)
     try {
       let sql = "SELECT * FROM room_image WHERE room_id = ?";
       const result = await executeQuery(sql,[id]);
@@ -100,6 +99,32 @@ class RoomDal {
     } catch (error) {
       console.log("error del dal", error);
       throw error;
+    }
+  }
+
+  addImages = async(room_id, imgs)=>{
+    console.log("room_id del dalllllllllllllllllll", room_id)
+    const connection = await dbPool.getConnection();
+    try {
+      await connection.beginTransaction();
+        let sqlId = "SELECT IFNULL(MAX(room_image_id), 0) AS max_id FROM room_image WHERE room_id = ?";
+        let [result] = await connection.query(sqlId, [room_id]);
+        let maxId = result[0].max_id;
+
+        imgs.forEach(async(elem)=>{
+          maxId++;
+          let sqlImg = 'INSERT INTO room_image (room_id, room_image_id, file) VALUES (?,?,?)'
+          let values = [room_id, maxId, elem.filename]
+          await connection.query(sqlImg, values);    
+        })
+        
+      await connection.commit();
+      return { success: true, message: "Imágenes añadidas correctamente." };
+    } catch (error) {
+      await connection.rollback();
+      throw error; // ¡Añade esta línea!
+    } finally {
+      connection.release();
     }
   }
 

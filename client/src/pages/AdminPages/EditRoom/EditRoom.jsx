@@ -98,7 +98,7 @@ const EditRoom = () => {
       />}
       {showForm === 3 && <ManageRoomPics
         room={roomData}
-        files={files}
+        handleFile={handleFile}
         id={id}
        />}
     </>
