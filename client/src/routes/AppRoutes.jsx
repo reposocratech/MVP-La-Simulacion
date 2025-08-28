@@ -36,7 +36,7 @@ const UserProfile = lazy(() => import('../pages/AdminPages/UserProfile/UserProfi
 const AdminAdmins = lazy(() => import('../pages/AdminPages/AdminAdmins/AdminAdmins'));
 const AdminEvents = lazy(() => import('../pages/AdminPages/AdminEvents/AdminEvents'));
 const AdminRooms = lazy(() => import('../pages/AdminPages/AdminRooms/AdminRooms'));
-
+const AdminServCoop = lazy(() => import("../pages/AdminPages/AdminServCoop/AdminServCoop"))
   // Componentes de Usuario:
 const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'));
 const RoomReservation = lazy(()=>import('../pages/UserPages/RoomReservation/RoomReservation'));
@@ -86,13 +86,14 @@ export const AppRoutes = () => {
                   <Route path='/admin/createRoom' element={< CreateRoom />}/>
                   <Route path='/admin/editRoom/:id' element={< EditRoom />}/>
                   <Route path='/admin/createServCoop' element={< CreateServCoop />}/>
-                  <Route path='/admin/editServCoop' element={< EditServCoop />}/>
+                  <Route path='/admin/editServCoop/:id' element={<EditServCoop />}/>
                   <Route path='/admin/adminPanel' element={< AdminPanel />}/>
                   <Route path='/admin/users' element={<AdminUsers />}/>
                   <Route path='/admin/userProfile/:id' element={<UserProfile />}/>
                   <Route path='/admin/admins' element={<AdminAdmins />}/>
                   <Route path='/admin/events' element={<AdminEvents />}/>
                   <Route path='/admin/rooms' element={<AdminRooms />}/>
+                  <Route path='/admin/servCoop' element={< AdminServCoop />}/>
                 </Route>
               </Route>
 

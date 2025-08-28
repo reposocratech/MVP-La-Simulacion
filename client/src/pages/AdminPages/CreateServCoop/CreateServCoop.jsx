@@ -8,9 +8,9 @@ import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContextProvider";
 
 const initialValues = {
-  title: "",
-  description: "",
-  fimg: "",
+  service_name: "",
+  service_description: "",
+  image: "",
 };
 export const CreateServCoop = () => {
   const [datosForm, setDatosForm] = useState(initialValues);
@@ -30,7 +30,7 @@ export const CreateServCoop = () => {
 
   const cancel = (e) => {
     e.preventDefault();
-    navigate("/admin/AdminPanel")
+    navigate("/admin/editServCoop")
   }
 
   const onSubmit = async (e) => {

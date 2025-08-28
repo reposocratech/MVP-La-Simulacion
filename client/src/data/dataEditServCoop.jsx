@@ -1,23 +1,22 @@
-export const columns = (servCoopEdit, servCoopDelete) => [
-  { key: "service_name", label: "Servicio" },
-
+export const columns = (servCoopDelete , navigate) => [
+  { key: "service_name", label: "Servicio" },  
   
+  {key:"Editar",
+    label:"Editar",
+    render:(row) => (
+       <button className="edit-button" onClick={() => navigate(`/admin/editServCoop/${row.service_id}`)}>
+        Editar
+      </button>
+    )
+  },
   {key:"Eliminar",
     label:"Borrar",
     render:(row) => (
-      <button className="submit-button" onClick={() => servCoopDelete(row )}
+      <button className="cancel-button" onClick={() => servCoopDelete(row)}
       type="button"
       >
         Borrar
       </button>
     ),
-  },
-  {key:"Editar",
-    label:"Editar",
-    render:(row) => (
-       <button className="cancel-button" onClick={() => servCoopEdit(row )}>
-        Editar
-      </button>
-    )
   }
 ];
