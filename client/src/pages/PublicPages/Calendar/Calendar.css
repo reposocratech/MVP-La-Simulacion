@@ -10,3 +10,7 @@
 .accent-text {
   color: var(--color-secondary-medium-green)
 }
+
+.calendar-page-wrapper{
+  padding-block: 3.7rem;
+}
