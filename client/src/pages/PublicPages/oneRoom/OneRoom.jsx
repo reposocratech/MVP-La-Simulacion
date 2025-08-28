@@ -72,7 +72,7 @@ const OneRoom = () => {
               <div className="text-center my-5">
                 <button 
                   className="btn-violet"
-                  onClick={() => navigate('/user/roomReservation')}
+                  onClick={() => navigate(`/user/roomReservation/${id}/${room.room_name}`)}
                 >Solicitud de reserva</button>
               </div>
              : null // si es tipo 1 no se renderiza nada
@@ -115,7 +115,7 @@ const OneRoom = () => {
               <div className="text-center mt-5">
                 <button 
                   className="btn-violet"
-                  onClick={() => navigate('/user/roomReservation')}
+                  onClick={() => navigate(`/user/roomReservation/${id}/${room.room_name}`)}
                 >Solicitud de reserva</button>
               </div>
              : null // si es tipo 1 no se renderiza nada
