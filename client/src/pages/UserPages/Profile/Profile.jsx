@@ -52,7 +52,7 @@ const Profile = () => {
   }
 
   return (
-    <section className="profile-page-wrapper pt-3 mt-4">
+    <section className="profile-page-wrapper ">
       <Container fluid>
         <Row className="justify-content-center">
           <h1 className="h1-profile titulo text-center mb-3">

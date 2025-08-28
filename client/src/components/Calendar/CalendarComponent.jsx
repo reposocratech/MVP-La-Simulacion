@@ -75,8 +75,8 @@ const CalendarComponent = () => {
 
   return (
     <section className="container mt-5 my-4 pt-3 calendar-section">
-      <div className="row g-4 calendar-grid m-auto">
-        <div className="col-12 col-lg-5">
+      <div className="row g-4 calendar-grid ">
+        <div className="col-12 col-lg-5 pt-5">
           <Calendar
             onClickDay={handleDateChange}
             value={selectedDate}
@@ -88,8 +88,8 @@ const CalendarComponent = () => {
         </div>
 
         {/* Columna de la lista de eventos */}
-        <div className="col-12 col-lg-7">
-          <div className="events-panel p-3 bg-white rounded shadow-sm ">
+        <div className="col-12 col-lg-7 ">
+          <div className="events-panel p-3 bg-white rounded shadow-sm">
             <h3 className="calendar-date-heading mb-3 text-uppercase text-center">
               {selectedDate.toLocaleDateString('es-ES', {
                 weekday: 'long',
