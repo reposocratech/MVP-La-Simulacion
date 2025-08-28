@@ -35,7 +35,8 @@ CREATE TABLE room (
 	room_description VARCHAR(2000),  -- sala de grabacion de audio con micros, auriculares
     who_can_use_it VARCHAR(2000),  -- ¿Quién puede solicitar el uso del espacio?
 	pricing VARCHAR(500),  -- precios
-	usage_policy VARCHAR(2000) --  politica de uso
+	usage_policy VARCHAR(2000), --  politica de uso
+    room_is_deleted BOOLEAN NOT NULL DEFAULT 0
 );
 
 
@@ -144,6 +145,20 @@ SELECT * FROM user;
 SELECT * FROM room;
 SELECT * FROM service;
 SELECT * FROM reservation;
+SELECT * FROM event;
 
+INSERT INTO event (
+  event_title, event_description, location, duration, start_date, end_date, 
+  number_of_attendees, price, ticket_link
+) VALUES (
+  'Mercadillo artesanal', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita dolorem rerum voluptates repellat porro, autem, illo ullam exercitationem sapiente nisi facilis pariatur architecto consequatur, dicta error quibusdam aut unde. Mollitia.', 'Espacio creativo', '8h', 
+  '2025-09-10', '2025-09-10', 
+  350, 0.00, 'https://entradas.mercadilloartesanal.com'
+),
+(
+  'Festival de Teatro Urbano', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita dolorem rerum voluptates repellat porro, autem, illo ullam exercitationem sapiente nisi facilis pariatur architecto consequatur, dicta error quibusdam aut unde. Mollitia.', 'Barcelona - Plaza Mayor', '4h', 
+  '2025-10-05', '2025-10-05', 
+  1200, 0.00, 'https://festivalteatro.barcelona'
+);
 
 

@@ -1,6 +1,7 @@
 import { Col, Container, Row } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import { AuthContext } from "../../../context/AuthContextProvider";
 import { fetchData } from "../../../helpers/axiosHelper";
 import flowerCircle from '../../../assets/decorative/circulo-con-flor.svg';
 import pinkShine from '../../../assets/decorative/brillo-rosa.png';
@@ -8,6 +9,7 @@ import greenFlower from '../../../assets/decorative/trebol-verde.svg';
 import './oneRoom.css';
 
 const OneRoom = () => {
+  const { user } = useContext(AuthContext)
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -65,12 +67,24 @@ const OneRoom = () => {
 
 
         <section className="section-room-info">
-          <div className="text-center my-5">
-            <button 
-              className="btn-violet"
-              onClick={() => navigate(`/user/roomReservation/${id}/${room.room_name}`)}
-            >Solicitud de reserva</button>
-          </div>
+          {user ? (
+            user.type === 2 ?
+              <div className="text-center my-5">
+                <button 
+                  className="btn-violet"
+                  onClick={() => navigate(`/user/roomReservation/${id}/${room.room_name}`)}
+                >Solicitud de reserva</button>
+              </div>
+             : null // si es tipo 1 no se renderiza nada
+          ) : (
+            <div className="text-center my-5">
+              <button 
+                className="btn-violet"
+                onClick={() => navigate('/register')}
+              >Regístrate para reservar</button>
+            </div>
+          )}
+
           <article >
             <h2>Características de este espacio</h2>
             <p>
@@ -95,12 +109,24 @@ const OneRoom = () => {
               {room?.usage_policy}
             </p>
           </article>
-          <div className="text-center mt-5">
-            <button 
-              className="btn-violet"
-              onClick={() => navigate(`/user/roomReservation/${id}/${room.room_name}`)}
-            >Solicitud de reserva</button>
-          </div>
+
+          {user ? (
+            user.type === 2 ?
+              <div className="text-center mt-5">
+                <button 
+                  className="btn-violet"
+                  onClick={() => navigate(`/user/roomReservation/${id}/${room.room_name}`)}
+                >Solicitud de reserva</button>
+              </div>
+             : null // si es tipo 1 no se renderiza nada
+          ) : (
+            <div className="text-center mt-5">
+              <button 
+                className="btn-violet"
+                onClick={() => navigate('/register')}
+              >Regístrate para reservar</button>
+            </div>
+          )}
         </section>
       </Container>
     </section>

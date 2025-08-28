@@ -1,12 +1,14 @@
 import { Container } from "react-bootstrap";
 import { CustomTable } from "../../../components/Table/CustomTable";
-import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { fetchData } from "../../../helpers/axiosHelper";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import './adminEvents.css';
 
 const AdminEvents = () => {
   const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [eventsData, setEventsData] = useState([]);
 
@@ -42,6 +44,15 @@ const AdminEvents = () => {
     {key: "price", label: "Precio"},
     /* {key: "ticket_link", label: "Ticket link"}, */
     {
+      key: "edit",
+      label: "Editar",
+      render: (row) => (
+        <button
+          className="btn-table edit"
+        >Editar</button>
+      )
+    },
+    {
       key: "delete", 
       label: "Eliminar",
       render: (row) => (
@@ -57,6 +68,9 @@ const AdminEvents = () => {
     <section className="section-admin-events">
       <Container>
         <h1><span>ET</span>Gestión de eventos y talleres</h1>
+        <div className="text-center">
+          <button className="create-button">Crear evento/ taller</button>
+        </div>
 
         <CustomTable
           columns={columns}

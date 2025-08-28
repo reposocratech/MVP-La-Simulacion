@@ -2,7 +2,7 @@ import { Col, Container, Form, Row } from 'react-bootstrap';
 import { RiUpload2Fill } from "react-icons/ri";
 import './formRoom.css';
 
-export const FormRoom2 = ({room, handleChange, cancel, previous, handleFile, onSubmit, valError, msgError}) => {
+export const FormRoom2 = ({room, handleChange, cancel, previous, handleFile, onSubmit, valError, msgError, fileError}) => {
 
   return (
     <section className='section-createRoom'>
@@ -12,7 +12,7 @@ export const FormRoom2 = ({room, handleChange, cancel, previous, handleFile, onS
               <Form className='w-75 border border-2 p-4 rounded rounded-3'>
                 <Form.Group className="mb-3" controlId="formBasicPricing">
                   <Form.Label>Precios:</Form.Label>
-                  <Form.Control
+                  <Form.Control as="textarea" rows={3}
                     type="text"
                     placeholder="Precios del alquiler de la sala y de los extras que pueda tener"
                     onChange={handleChange}
@@ -24,7 +24,7 @@ export const FormRoom2 = ({room, handleChange, cancel, previous, handleFile, onS
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicUsage_Policy">
                   <Form.Label>Política y condiciones de uso:</Form.Label>
-                  <Form.Control
+                  <Form.Control as="textarea" rows={3}
                     type="text"
                     placeholder="Política, condiciones, normas..."
                     onChange={handleChange}
@@ -43,6 +43,7 @@ export const FormRoom2 = ({room, handleChange, cancel, previous, handleFile, onS
                     name="file"
                     hidden
                   />
+                  {fileError && <Form.Text className="text-danger fw-bold ms-3">{fileError}</Form.Text>}
                 </Form.Group>
                   <div className='d-flex flex-column flex-md-row gap-2'>
                     <button className='prev-button w-auto' onClick={previous}>Anterior</button>

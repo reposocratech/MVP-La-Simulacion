@@ -12,4 +12,5 @@ router.get('/room/:id', roomsControllers.getRoomWithImagesById);
 router.put('/editRoom/:id', verifyToken, uploadImageMulti("rooms"), roomsControllers.editRoom);
 router.get('/imagesByRoomId/:id', verifyToken, roomsControllers.imagesByRoomId);
 router.delete ('/deleteImg', verifyToken, roomsControllers.deleteImg);
+router.post('/addImages', verifyToken, uploadImageMulti("rooms"), roomsControllers.addImages);
 export default router;

@@ -24,7 +24,7 @@ export const FormRoom1 = ({room, handleChange, next, cancel, valError, msgError}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicRoom_Description">
                   <Form.Label>Decripción de la sala:</Form.Label>
-                  <Form.Control
+                  <Form.Control as="textarea" rows={3}
                     type="text"
                     placeholder="Características y resumen de la sala"
                     onChange={handleChange}
@@ -36,7 +36,7 @@ export const FormRoom1 = ({room, handleChange, next, cancel, valError, msgError}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicWho_Can_Use_It">
                   <Form.Label>¿Quién puede utilizarla?</Form.Label>
-                  <Form.Control
+                  <Form.Control as="textarea" rows={3}
                     type="text"
                     placeholder="Requisitos de los usuarios para poder usar la sala"
                     onChange={handleChange}

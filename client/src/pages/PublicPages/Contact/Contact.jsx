@@ -128,9 +128,9 @@ const Contact = () => {
           <Col lg={8} className="h-100">
             <address>
               <h2 className="text-center mb-5 fs-3">Puedes encontrarnos en</h2>
-              <div className="row gy-4 align-items-stretch">
+              <div className="row flex-wrap gy-4 align-items-stretch">
                 {getMiniCardsData().map(card => (
-                  <div className="col-lg-4" key={card.id}>
+                  <div className="col-xl-4" key={card.id}>
                     <MiniCardContact
                       card={card}
                     />

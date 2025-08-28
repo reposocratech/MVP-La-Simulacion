@@ -3,7 +3,7 @@ import CalendarComponent from '../../../components/Calendar/CalendarComponent'
 import './Calendar.css'
 const Calendar = () => {
   return (
-    <section className="calendar-page-wrapper py-5">
+    <section className="calendar-page-wrapper ">
       <Container fluid>
         <Row className="justify-content-center">
           <h1 className="h1-profile text-center">

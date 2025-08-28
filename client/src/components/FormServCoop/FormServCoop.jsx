@@ -21,10 +21,10 @@ export const FormServCoop = ({ handleChange, onSubmit , datosForm ,handleFile , 
                   type="text"
                   placeholder="Titulo del Servicio"
                   onChange={handleChange}
-                  name="title"
-                  value={datosForm.title}
+                  name="service_name"
+                  value={datosForm.service_name}
                 />
-                {valErrors.title && <Form.Text className="text-error">{valErrors.title}</Form.Text>}
+                {valErrors.service_name && <Form.Text className="text-error">{valErrors.service_name}</Form.Text>}
               </Form.Group>
               <Form.Group controlId="formBasicDescription">
                 <Form.Label className="fw-bold">Descripción:</Form.Label>
@@ -33,10 +33,10 @@ export const FormServCoop = ({ handleChange, onSubmit , datosForm ,handleFile , 
                   as={"textarea"}
                   placeholder="Caracteristicas del Servicio"
                   onChange={handleChange}
-                  name="description"
-                   value={datosForm.description}
+                  name="service_description"
+                   value={datosForm.service_description}
                 />
-                {valErrors.description && <Form.Text className="text-error">{valErrors.description}</Form.Text>}
+                {valErrors.service_description && <Form.Text className="text-error">{valErrors.service_description}</Form.Text>}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicFile">
                 <Form.Label>
@@ -46,7 +46,7 @@ export const FormServCoop = ({ handleChange, onSubmit , datosForm ,handleFile , 
                 <Form.Control
                  onChange={handleFile}
                  type="file" 
-                 name="fimg" 
+                 name="image" 
                  hidden
                  />
                  {fileError && <Form.Text className="text-error">{fileError}</Form.Text>}

@@ -43,7 +43,7 @@ const AdminPanel = () => {
               <div className="buttons-container-1 d-flex flex-column gap-3">
                 <button 
                     className="panel-button-create panel-button-hover"
-                    onClick={()=>navigate('/admin/services')}>Servicios de la Cooperativa</button>
+                    onClick={()=>navigate('/admin/servCoop')}>Servicios de la Cooperativa</button>
                 <button 
                     className="panel-button-create-light panel-button-hover"
                     onClick={()=>navigate('/admin/events')}>Eventos y Talleres</button>
