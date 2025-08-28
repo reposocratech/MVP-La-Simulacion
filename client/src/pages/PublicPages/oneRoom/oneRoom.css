@@ -41,7 +41,9 @@
     padding: .6rem 1.5rem;
   
     &:hover {
-      filter: brightness(85%);
+      filter: brightness(1.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transform: translateY(-2px); 
     }
   }
   
@@ -49,6 +51,10 @@
     margin: 0 auto;
     max-width: 900px;
 
+    article:first-child {
+      margin-top: 3rem;
+    }
+    
     article:not(:last-child) {
       margin-bottom: 3rem;
     }

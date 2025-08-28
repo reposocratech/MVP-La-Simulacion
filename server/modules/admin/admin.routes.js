@@ -14,5 +14,6 @@ router.put('/removeAdmin', verifyToken, adminControllers.removeAdmin);
 router.get('/events', verifyToken, adminControllers.getEventsData);
 router.put('/deleteEvent', verifyToken, adminControllers.deleteEvent);
 router.get('/rooms', verifyToken, adminControllers.getRoomsData);
+router.put('/deleteRoom', verifyToken, adminControllers.deleteRoom);
 
 export default router;

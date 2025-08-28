@@ -112,6 +112,16 @@ class AdminController {
       res.status(500).json({message: "Error de servidor"});
     }
   }
+
+  deleteRoom = async(req, res) => {
+    try {
+      const { id } = req.body;
+      await adminDal.deleteRoom(id);
+      res.status(200).json({message: "Cambio realizado"});
+    } catch (error) {
+      res.status(500).json({message: "Error de servidor"});
+    }
+  }
 }
 
 export default new AdminController();

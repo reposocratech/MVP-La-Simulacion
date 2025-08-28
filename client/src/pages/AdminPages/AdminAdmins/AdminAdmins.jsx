@@ -115,7 +115,7 @@ const AdminAdmins = () => {
           <Col lg={4}>
             <div className="my-5">
               <button
-                className="babypink-button w-100"
+                className="create-button w-100"
                 onClick={handleShowForm}
               >Crear Administradora</button>
             </div>
