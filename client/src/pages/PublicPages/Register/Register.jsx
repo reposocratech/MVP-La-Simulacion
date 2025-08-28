@@ -107,7 +107,7 @@ const Register = () => {
                     <button className="submit-button w-100" onClick={onSubmit}>
                       Aceptar
                     </button>
-                    {msgRembr? <p className="mailsend">{msgRembr} </p> : ""}
+                    {msgRembr? <p className="msg-ok-form">{msgRembr} </p> : ""}
                     <p className="mt-3"> <Link to="/login"> ¿Ya tienes una cuenta?Inicia sesión aqui</Link> </p>
               </Form>
           </Col>
@@ -115,6 +115,6 @@ const Register = () => {
       </Container>
     </section>
     )
-    }
+}
                      
 export default Register;

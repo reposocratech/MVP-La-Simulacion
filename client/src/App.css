@@ -114,12 +114,59 @@ body {
     padding: .6rem 1.5rem;
   }
 
-  .bg-color-secondary-green {
-    background-color: var(--color-secondary-medium-green);
+  .edit-button {
+    background-color: var(--color-primary-electric-blue);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
+  }
+
+
+  .create-button {
+    background-color: var(--color-primary-green);
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
+    &:hover {
+      filter: brightness(1.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transform: translateY(-2px);
+    }
+  }
+
+  .btn-table {
+    border: none;
+    color: white;
+    border-radius: 8px;
+    padding: 0.2rem 0.4rem;
+    background-color: var(--color-secondary-medium-lavender);
+
+    &:hover {
+      filter: brightness(85%);
+    }
+  }
+
+  .edit {
+    background-color: var(--color-primary-electric-blue);
+  }
+
+  .block {
+    background-color: var(--color-primary-orange);
+  }
+
+  .unblock {
+    background-color: var(--color-primary-green);
   }
 
   .bg-color-secondary-pink {
     background-color: var(--color-secondary-medium-pink);
+  }
+
+  .msg-ok-form {
+    color: var(--color-primary-orange);
+    font-weight: bold;
   }
 
 }

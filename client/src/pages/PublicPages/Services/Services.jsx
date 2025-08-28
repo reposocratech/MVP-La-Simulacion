@@ -5,12 +5,12 @@ import './services.css';
 
 const Services = () => {
   return (
-    <section className="section-services">
+    <section className="section-services overflow-hidden">
       <Container>
         <h1><span>O</span>Conoce nuestra oferta cultural</h1>
-        <Row className="justify-content-center gy-4 gx-5">
+        <Row className="justify-content-center align-items-stretch g-5 overflow-hidden">
           {services.map(service => (
-            <Col  lg={6} xl={4} key={service.id}>
+            <Col  lg={6} xl={4} key={service.id} className="overflow-hidden">
               <CardServicios service={service}/>
             </Col>
           ))}

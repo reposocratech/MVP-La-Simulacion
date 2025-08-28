@@ -1,0 +1,17 @@
+.span-formEditServCoop{
+  color: var(--color-primary-baby-pink);  
+  font-weight: normal;
+  text-decoration: none;
+  }
+  .text-error{
+    color: red;
+    font-weight: bold;
+  }
+  .textareah{
+    height: 10rem;
+    margin-bottom: 1rem;
+  }
+
+  .imgup{
+    margin-top: -0.3rem;
+  }

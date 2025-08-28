@@ -69,6 +69,59 @@ class AdminController {
       res.status(500).json({message: "Error de servidor"});
     }
   }
+
+  //método para deshabilitar un admin
+  removeAdmin = async(req, res) => {
+    try {
+      const { id } = req.body;
+      if (id !== 1){
+        await adminDal.removeAdmin(id);
+        res.status(200).json({message: "Cambio realizado"});
+      } else {
+        res.status(403).json({message: "No se puede deshabilitar al superadmin"});
+      }
+    } catch (error) {
+      res.status(500).json({message: "Error de servidor"});
+    }
+  }
+
+  getEventsData = async(req, res) => {
+    try {
+      const result = await adminDal.getEventsData();
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({message: "Error de servidor"});
+    }
+  }
+
+  deleteEvent = async(req, res) => {
+    try {
+      const { id } = req.body;
+      await adminDal.deleteEvent(id);
+      res.status(200).json({message: "Cambio realizado"});
+    } catch (error) {
+      res.status(500).json({message: "Error de servidor"});
+    }
+  }
+
+  getRoomsData = async(req, res) => {
+    try {
+      const result = await adminDal.getRoomsData();
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({message: "Error de servidor"});
+    }
+  }
+
+  deleteRoom = async(req, res) => {
+    try {
+      const { id } = req.body;
+      await adminDal.deleteRoom(id);
+      res.status(200).json({message: "Cambio realizado"});
+    } catch (error) {
+      res.status(500).json({message: "Error de servidor"});
+    }
+  }
 }
 
 export default new AdminController();
