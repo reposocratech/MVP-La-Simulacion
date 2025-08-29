@@ -1,4 +1,4 @@
-import executeQuery from "../../config/db";
+import executeQuery from "../../config/db.js";
 
 class ReviewDal {
   createReview = async(comment, rating) => {
