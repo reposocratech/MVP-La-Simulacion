@@ -2,7 +2,7 @@ import { Col, Container, Form, Row } from "react-bootstrap";
 import { RiUpload2Fill } from "react-icons/ri";
 import "./formServCoop.css";
 
-export const FormServCoop = ({ handleChange, onSubmit , datosForm ,handleFile , fileError , valErrors , cancel}) => {
+export const FormServCoop = ({ handleChange, onSubmit , datesForm ,handleFile , fileError , valErrors , cancel}) => {
   return (
     <section className="d-flex  justify-content-center ">
       <Container fluid>
@@ -15,14 +15,14 @@ export const FormServCoop = ({ handleChange, onSubmit , datosForm ,handleFile , 
           </h1>
           <Col className="d-flex justify-content-center">
             <Form className="w-50 border border-2 rounded rounded-3 mb-2 mt-5 p-4">
-              <Form.Group  controlId="formBasicTitle">
+              <Form.Group  controlId="formBasicServiceName">
                 <Form.Label className="fw-bold">Titulo:</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Titulo del Servicio"
                   onChange={handleChange}
                   name="service_name"
-                  value={datosForm.service_name}
+                  value={datesForm.service_name}
                 />
                 {valErrors.service_name && <Form.Text className="text-error">{valErrors.service_name}</Form.Text>}
               </Form.Group>
@@ -34,7 +34,7 @@ export const FormServCoop = ({ handleChange, onSubmit , datosForm ,handleFile , 
                   placeholder="Caracteristicas del Servicio"
                   onChange={handleChange}
                   name="service_description"
-                   value={datosForm.service_description}
+                   value={datesForm.service_description}
                 />
                 {valErrors.service_description && <Form.Text className="text-error">{valErrors.service_description}</Form.Text>}
               </Form.Group>

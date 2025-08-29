@@ -13,7 +13,7 @@ const initialValues = {
 };
 
 export const EditServCoop = () => {
-    const [datosForm, setDatosForm] = useState(initialValues);
+    const [datesForm, setdatesForm] = useState(initialValues);
   const [valErrors, setValErrors] = useState({});
   const [fileError, setFileError] = useState("");
   const [file, setFile] = useState();
@@ -26,7 +26,7 @@ export const EditServCoop = () => {
   try {      
       const res = await fetchData(`/services/editservcoop/${id}`, "get" , null , token);
       console.log(res);
-      setDatosForm(res.data.result?.[0]);
+      setdatesForm(res.data.result?.[0]);
       
     } catch (error) {
       console.log(error);
@@ -37,7 +37,7 @@ export const EditServCoop = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setDatosForm({ ...datosForm, [name]: value });
+    setdatesForm({ ...datesForm, [name]: value });
   };
   const handleFile = (e) => {
     setFile(e.target.files[0]);
@@ -51,11 +51,11 @@ export const EditServCoop = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { valid, errors } = validateForms(createCoopSchema, datosForm);
+      const { valid, errors } = validateForms(createCoopSchema, datesForm);
       setValErrors(errors);
       if (valid) {
         const newFormData = new FormData();
-        newFormData.append("data", JSON.stringify(datosForm));
+        newFormData.append("data", JSON.stringify(datesForm));
         if (file) {
           if (file.name.length > 200) {
             setFileError(
@@ -66,10 +66,14 @@ export const EditServCoop = () => {
             newFormData.append("file", file);
           }
         }
-        let res = await fetchData("/services/editservicecoop","put",newFormData,token);
+        let res = await fetchData(`/services/editservcoop/${id}`,"put",newFormData,token);
+        console.log(res);
+        
         navigate("/servicesCoop");
       }
     } catch (error) {
+      console.log(error);
+      
       setValErrors({});
     }
   };
@@ -77,7 +81,7 @@ export const EditServCoop = () => {
     <FormEditServCoop
     handleChange={handleChange}
       onSubmit={onSubmit}
-      datosForm={datosForm}
+      datesForm={datesForm}
       handleFile={handleFile}
       fileError={fileError}
       valErrors={valErrors}

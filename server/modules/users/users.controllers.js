@@ -2,9 +2,9 @@ import dotenv from 'dotenv';
 import usersDal from './users.dal.js';
 import { hashPassword , compareHash } from '../../helpers/hashUtils.js';
 import jwt from 'jsonwebtoken';
-import sendConfirmationMail from '../../utils/nodemailer.js';
 import emailVerify from '../../utils/emailVerify.js';
 import deleteFile from '../../helpers/deleteFile.js';
+import transporter from '../../utils/nodemailer.js';
 
 dotenv.config();
 
@@ -36,15 +36,16 @@ class UserController {
                 html: `<h2>Link para confirmar registro</h2><p>${verificationLink}</p>`,
             };
 
-            const emailResult = await sendConfirmationMail.sendMail(mailOptions);
+            const emailResult = await transporter.sendMail(mailOptions);
 
-            res.status(200).json("usuario creado")
+            res.status(200).json({message:"usuario creado"})
         } catch (error) {
-
+           console.log("erorrrrrr" , error);
             if(error.isLogged){
                 res.status(401).json(error.message);
             }else{
-
+               
+                
                 res.status(500).json({message: "server error"});
             }
         }
@@ -141,7 +142,7 @@ class UserController {
         `
       };
 
-      const info = await sendConfirmationMail.sendMail(mailOptions);
+      const info = await transporter.sendMail(mailOptions);
       res.status(200).json({ message: 'Correo enviado correctamente' });
     } catch (error) {
       res.status(500).json({ message: 'Error al enviar el correo' });
