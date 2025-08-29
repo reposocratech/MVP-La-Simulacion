@@ -31,7 +31,7 @@ export const EditServCoop = () => {
   useEffect(() => {
     const fetchServCoop = async() => {
       try {
-        const res = await fetchData("/services/servicescoop", "get", null, token);
+        const res = await fetchData("/services/adminservicescoop", "get", null, token);
         const servCoop = res.data.result;
               setServCoopData(servCoop);
       } catch (error) {
