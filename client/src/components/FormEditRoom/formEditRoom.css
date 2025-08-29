@@ -1,5 +1,5 @@
 .section-createRoom {
-    padding-block-start: 3.75rem;
+    /* padding-block-start: 3.75rem; */
     
     .h1-createRoom {
         font-size: 26px;
@@ -10,6 +10,11 @@
         margin-right: .5rem;
         font-weight: normal;
         color: var(--color-primary-baby-pink);
+    }
+
+    .custom-border {
+        border: 1px solid #ced4da;
+        border-radius: .375rem;           
     }
 }
 

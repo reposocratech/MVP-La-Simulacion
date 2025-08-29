@@ -103,7 +103,6 @@ class RoomDal {
   }
 
   addImages = async(room_id, imgs)=>{
-    console.log("room_id del dalllllllllllllllllll", room_id)
     const connection = await dbPool.getConnection();
     try {
       await connection.beginTransaction();
