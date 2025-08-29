@@ -37,7 +37,12 @@ const AdminAdmins = lazy(() => import('../pages/AdminPages/AdminAdmins/AdminAdmi
 const AdminEvents = lazy(() => import('../pages/AdminPages/AdminEvents/AdminEvents'));
 const AdminRooms = lazy(() => import('../pages/AdminPages/AdminRooms/AdminRooms'));
 const AdminReservations = lazy(()=>import('../pages/AdminPages/AdminReservations/AdminReservations'));
-const AdminServCoop = lazy(() => import("../pages/AdminPages/AdminServCoop/AdminServCoop"))
+const AdminServCoop = lazy(() => import("../pages/AdminPages/AdminServCoop/AdminServCoop"));
+const CreateEvent = lazy(()=>import("../pages/AdminPages/CreateEvent/CreateEvent"));
+const Step1 = lazy(()=>import("../components/FormsCreateEvent/Step1"));
+const Step2 = lazy(()=>import("../components/FormsCreateEvent/Step2"));
+const Step3 = lazy(()=>import("../components/FormsCreateEvent/Step3"));
+const NewSection = lazy(()=>import("../components/FormsCreateEvent/NewSection"));
 
   // Componentes de Usuario:
 const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'));
@@ -97,6 +102,12 @@ export const AppRoutes = () => {
                   <Route path='/admin/rooms' element={<AdminRooms />}/>
                   <Route path='/admin/reservations' element={<AdminReservations />}/>
                   <Route path='/admin/servCoop' element={< AdminServCoop />}/>
+                  <Route path='/admin/createEvent' element={< CreateEvent />}>
+                      <Route index element={<Step1 />}/>
+                      <Route path='step2' element={<Step2 />}/>
+                      <Route path='step3' element={<Step3 />}/>
+                      <Route path='newSection' element={<NewSection />}/>
+                  </Route>
                 </Route>
               </Route>
 

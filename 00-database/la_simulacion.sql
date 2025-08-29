@@ -88,11 +88,11 @@ CREATE TABLE event (
     number_of_attendees MEDIUMINT UNSIGNED,
     price DECIMAL(6,2),  -- 9999.99  o  0  o  NULL
     ticket_link VARCHAR(200),
-    event_is_deleted BOOLEAN NOT NULL DEFAULT 0
+    event_is_deleted BOOLEAN NOT NULL DEFAULT 0,
+    type_event TINYINT UNSIGNED NOT NULL
     -- CONSTRAINT fk_user_2 FOREIGN KEY (user_id) 
     -- REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 CREATE TABLE review (
 	review_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
