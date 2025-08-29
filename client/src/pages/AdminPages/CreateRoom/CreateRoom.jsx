@@ -15,8 +15,7 @@ const initialValue = {
   room_description: "",
   who_can_use_it: "",
   pricing: "",
-  usage_policy: "",
-  file: ""
+  usage_policy: ""
 }
 
 const CreateRoom = () => {
