@@ -5,13 +5,14 @@ class RoomController {
   // Método para crear una nueva sala:
   createRoom = async(req,res)=>{
     try {
-      const {room_name, room_description, who_can_use_it, pricing, usage_policy} = req.body;
+      const {room_name, room_description, who_can_use_it, pricing, usage_policy} = req.body
+;
 
       // Creamos un array para almacenar los nombres de los archivos.
-      let files = [];
+      let file = [];
 
       if (req.files) {
-        req.files.forEach(e => files.push(e.filename)); 
+        req.files.forEach(e => file.push(e.filename)); 
       }
 
       // reducer

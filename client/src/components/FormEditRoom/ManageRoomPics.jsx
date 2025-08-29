@@ -22,9 +22,26 @@ export const ManageRoomPics = ({room, id}) => {
     fetchPic();
   },[]);
 
-  const handleFile = (e)=>{
-    setSelectedFiles(e.target.files);
-  }
+  const handleFile = (e) => {
+    // Convertimos FileList a un array real con spread
+    const files = [...e.target.files];  
+
+    // Número total de imágenes: las que ya hay + las nuevas
+    const total = images.length + files.length;
+
+    if (total > 3) {
+      alert("Solo puedes tener un máximo de 3 imágenes en la sala.");
+
+      // Calculamos cuántas imágenes nuevas se pueden aceptar
+      const allowed = 3 - images.length;
+
+      // Nos quedamos solo con las permitidas
+      setSelectedFiles(files.slice(0, allowed));
+    } else {
+      // Si no pasa el límite, aceptamos todas las seleccionadas
+      setSelectedFiles(files);
+    }
+  };
 
   const onSubmit = async(e)=>{
     e.preventDefault();
