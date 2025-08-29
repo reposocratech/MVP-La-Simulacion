@@ -14,9 +14,7 @@ const Home = lazy(() => import('../pages/PublicPages/Home/Home'))
 const About = lazy(() => import('../pages/PublicPages/About/About'))
 const Contact = lazy(() => import('../pages/PublicPages/Contact/Contact'))
 const Services = lazy(() => import('../pages/PublicPages/Services/Services'))
-const ServicesCoop = lazy(() =>
-  import('../pages/PublicPages/ServicesCoop/ServicesCoop')
-)
+const ServicesCoop = lazy(() => import('../pages/PublicPages/ServicesCoop/ServicesCoop'))
 const Events = lazy(() => import('../pages/PublicPages/Events/Events'))
 const Rooms = lazy(() => import('../pages/PublicPages/Rooms/Rooms'))
 const OneRoom = lazy(() => import('../pages/PublicPages/oneRoom/OneRoom'))
@@ -24,6 +22,7 @@ const Register = lazy(() => import('../pages/PublicPages/Register/Register'))
 const Login = lazy(() => import('../pages/PublicPages/Login/Login'))
 const ErrorPage = lazy(() => import('../pages/PublicPages/ErrorPage/ErrorPage'))
 const Calendar = lazy(() => import('../pages/PublicPages/Calendar/Calendar'))
+const Prueba = lazy(() => import('../pages/PublicPages/prueba/Prueba'));
 
   // Componentes Administrador:
 const AdminPanel = lazy(()=>import('../pages/AdminPages/AdminPanel/AdminPanel'));
@@ -84,6 +83,7 @@ export const AppRoutes = () => {
                   <Route path="/register" element={<Register />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/calendar" element={<Calendar />} />
+                  <Route path='/prueba' element={<Prueba />} />
                 </Route>
               </Route>
 
