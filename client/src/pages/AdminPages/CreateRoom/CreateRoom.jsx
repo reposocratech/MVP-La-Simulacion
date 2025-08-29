@@ -126,7 +126,6 @@ const CreateRoom = () => {
           next={next}
           cancel={cancel1}
           valError={valError}
-          msgError={msgError}
         />}
       {showForm === 2 && <FormRoom2 
           room={roomData}

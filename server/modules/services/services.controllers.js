@@ -1,4 +1,4 @@
-import sendConfirmationMail from "../../utils/nodemailer.js";
+import transporter from "../../utils/nodemailer.js";
 import servicesDal from "./services.dal.js";
 
 class ServiceController {
@@ -22,15 +22,15 @@ sendMailServCoop = async (req , res)=>{
         to: process.env.EMAIL_USER,
         subject: "Consulta Servicios Cooperativa",
         text: `
-          Nombre: ${user_name} ${lastName}
-          Email: ${email}
-          Teléfono: ${phone}
-          Tipo de servicio: ${type}
-          Consulta:
-          ${description}
+          <h2>Consulta de Servicios Cooperativa</h2>
+          <p><strong>Nombre:</strong> ${user_name} ${lastName}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Teléfono:</strong> ${phone}</p>
+          <p><strong>Tipo de servicio:</strong> ${type}</p>
+          <p><strong>Consulta:</strong> ${description} </p>          
             `,
         };
-        const emailResult = await sendConfirmationMail.sendMail(mailsend);
+        const emailResult = await transporter.sendMail(mailsend);
          res.status(200).json("Mensaje Enviado") 
     } catch (error) {
          res.status(500).json({message: "server error"});
@@ -66,14 +66,23 @@ sendMailServCoop = async (req , res)=>{
     }
 
     editDataServCoop = async (req , res) =>{
-      try {
-        console.log("bienvenido al server");
-        
-      } catch (error) {
-        console.log("error server" , error);
-        
-      }
-    }
+     try {
+    const { id } = req.params;
+    const {service_name,service_description } = JSON.parse(req.body.data); 
+    const data = {
+                service_name,
+                service_description,
+                id,            
+                image: req.file?req.file.filename:null
+            }
+    const result = await servicesDal.editDataServCoop(data);
+    console.log(result);
+    
+    res.status(200).json("Servicio Modificado");
+  } catch (error) {    
+    res.status(500).json({ message: "server error" });
+  }
+}
 
 
 
