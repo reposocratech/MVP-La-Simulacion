@@ -59,46 +59,51 @@ export const ManageRoomPics = ({room, id}) => {
   }
 
   return (
-    <section>
+    <section className='section-createRoom'>
       <Container>
-        <Row>
-          <Col>
-            {images.map((img) => {
-              return (
-                <div className="list-img" key={img.room_image_id}>
-                  <div className="room-img">
-                    <img 
-                      src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/rooms/${img.file}`} 
-                      alt="" 
-                    />
-                    <FaTrash 
-                      className="fatrash" 
-                      onClick={() => deleteImg(img.room_image_id, img.file)} 
-                    />
+        <Row className="d-flex flex-column">
+          <h1 className='h1-createRoom  text-center p-2 my-5'><span className='span-createRoom accent-text align-middle'>ES</span>Editar sala (Paso 3):</h1>
+          <div className="custom-border p-4">
+            <Col >
+            <p className="fw-bold text-center">Borrar imágenes</p>
+              <div className="d-flex justify-content-center p-5 gap-2">
+                {images.map((img) => {
+                  return (
+                    <div className="list-img" key={img.room_image_id}>
+                      <div className="room-img">
+                        <img
+                          src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/rooms/${img.file}`}
+                          alt=""
+                        />
+                        <FaTrash
+                          className="fatrash"
+                          onClick={() => deleteImg(img.room_image_id, img.file)}
+                        />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </Col>
+            <Col className="d-flex justify-content-center">
+            <Form>
+                  <Form.Group className="mb-3 text-center" controlId="formBasicFile">
+                    <Form.Label>Subir imágenes a la sala <RiUpload2Fill className='ms-2 align-text-top'/></Form.Label>
+                      <Form.Control
+                        type="file"
+                        onChange={handleFile}
+                        multiple
+                        name="file"
+                        hidden
+                      />
+                    </Form.Group>
+                  <div className='d-flex flex-column flex-md-row gap-2'>
+                    <button className='cancel-button w-auto'>Cancelar</button>
+                    <button className='submit-button w-auto' onClick={onSubmit}>Guardar y finalizar</button>
                   </div>
-                </div>
-              )
-            })}
-          </Col>
-          <Col>
-          <Form>
-                <Form.Group className="mb-3" controlId="formBasicFile">
-                  <Form.Label>Subir imágenes a la sala <RiUpload2Fill className='ms-2 align-text-top'/></Form.Label>
-                    <Form.Control
-                      type="file"
-                      onChange={handleFile}
-                      multiple
-                      name="file"
-                      hidden
-                    />
-                  </Form.Group>
-                <div className='d-flex flex-column flex-md-row gap-2'>
-  
-                  <button className='cancel-button w-auto'>Cancelar</button>
-                  <button className='submit-button w-auto' onClick={onSubmit}>Guardar y finalizar</button>
-                </div>
-              </Form>
-          </Col>
+                </Form>
+            </Col>
+          </div>
         </Row>
       </Container>
     </section>

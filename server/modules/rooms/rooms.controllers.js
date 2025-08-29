@@ -8,10 +8,10 @@ class RoomController {
       const {room_name, room_description, who_can_use_it, pricing, usage_policy} = req.body;
 
       // Creamos un array para almacenar los nombres de los archivos.
-      let file = [];
+      let files = [];
 
       if (req.files) {
-        req.files.forEach(e => file.push(e.filename)); 
+        req.files.forEach(e => files.push(e.filename)); 
       }
 
       // reducer
