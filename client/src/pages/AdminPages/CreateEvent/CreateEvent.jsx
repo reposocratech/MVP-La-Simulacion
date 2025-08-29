@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Outlet, useNavigate } from "react-router";
 import { Sections } from "../../../components/FormsCreateEvent/Sections";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContextProvider";
+import { fetchData } from "../../../helpers/axiosHelper";
 
 const initialValue = {
   event_title: "",
@@ -27,6 +30,8 @@ const CreateEvent = () => {
   const [coverImg, setCoverImg] = useState();
   const [sectionsImages, setSectionsImages] = useState([]);
 
+  const {token} = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const handleFile = (e) => {
@@ -46,8 +51,10 @@ const CreateEvent = () => {
     navigate('/admin/events');
   }
 
-  const terminar = () =>{
-      console.log("mando el objeto: ", dataTotal);
+  const terminar = async() =>{
+
+    try {
+      //console.log("mando el objeto: ", dataTotal);
       let sections = dataTotal.sections;
       let prueba = [];
       let sectionsFinal = sections.map((elem, i)=>{
@@ -60,28 +67,36 @@ const CreateEvent = () => {
               {...elem, sec_id: i+1, key_points:ptosFinal}
           )
       })
-      console.log("PRUEBAAAAAAAAA", prueba)
-      let datamandar = {...dataTotal, sections:sectionsFinal}
-      console.log(datamandar);
+      
+      let sendData = {...dataTotal, sections:sectionsFinal}
       
       const newFormData = new FormData();
-      newFormData.append("dataTotal", datamandar);
+      newFormData.append("dataTotal", JSON.stringify(sendData));
       prueba.forEach((elem)=>{
-        newFormData.append(elem.sec_id, elem.files);
+        console.log("ELEM", elem)
+        
+        if (elem.files !== undefined){
+          let prueba2 = Array.from(elem.files);
+          prueba2.forEach((e)=>{
+          newFormData.append(elem.sec_id, e);
+        })
+        }
       })
-      newFormData.append("cover_image", coverImg)
-      for (const [key, value] of newFormData.entries()) {
-        console.log("***********************", key, value);
-      }
+      newFormData.append("cover_image", coverImg);
+
+      let res = await fetchData("/events/CreateEvent", "post", newFormData, token);
+      console.log("RESSS TERMINAR", res);
 
       //navigate('/')
       //setDataTotal(initialValue);
+      
+    } catch (error) {
+      console.log(error);
+    }
 
-
-      //axion
   }
 
-  console.log("DATTAAAA", dataTotal);
+  //console.log("DATTAAAA", dataTotal);
 
   return (
       <section className="section-create-event">
@@ -139,4 +154,3 @@ const CreateEvent = () => {
 }
 
 export default CreateEvent;
-
