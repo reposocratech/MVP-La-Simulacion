@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { Outlet, useNavigate } from "react-router";
+import { Outlet, useLocation, useNavigate } from "react-router";
 import { Sections } from "../../../components/FormsCreateEvent/Sections";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { fetchData } from "../../../helpers/axiosHelper";
+import './createEvent.css';
 
 const initialValue = {
   event_title: "",
@@ -34,6 +35,10 @@ const CreateEvent = () => {
 
   const navigate = useNavigate();
 
+  const location = useLocation();
+  const showSectionPublic = location.pathname.endsWith("/step3") || location.pathname.endsWith("/newSection");
+  const showSectionsComponent = location.pathname.endsWith("/newSection");
+
   const handleFile = (e) => {
     setCoverImg(e.target.files[0]);
   }
@@ -42,7 +47,7 @@ const CreateEvent = () => {
     setSectionsImages([...sectionsImages, {sec_id, files}]);
   }
 
-  console.log("SECTION IMGS", sectionsImages);
+  //console.log("SECTION IMGS", sectionsImages);
 
   const cancel = (e) => {
     e.preventDefault();
@@ -59,7 +64,7 @@ const CreateEvent = () => {
       let prueba = [];
       let sectionsFinal = sections.map((elem, i)=>{
           let fotos = sectionsImages.find(e=>e.sec_id === elem.sec_id);
-          prueba.push({sec_id: `section${i+1}`, files: fotos.files});
+          prueba.push({sec_id: `section${i+1}`, files: fotos.files}); // quizá este id se puede quitar?
           let ptosFinal = elem.key_points.map((pto, ix)=>{
               return({...pto, pto_id:ix+1 })
           })
@@ -78,8 +83,8 @@ const CreateEvent = () => {
         if (elem.files !== undefined){
           let prueba2 = Array.from(elem.files);
           prueba2.forEach((e)=>{
-          newFormData.append(elem.sec_id, e);
-        })
+            newFormData.append(elem.sec_id, e);
+          })
         }
       })
       newFormData.append("cover_image", coverImg);
@@ -93,35 +98,55 @@ const CreateEvent = () => {
     } catch (error) {
       console.log(error);
     }
-
   }
 
   //console.log("DATTAAAA", dataTotal);
 
   return (
       <section className="section-create-event">
+        <h1><span>ET</span>Crear un evento/ taller</h1>
         <Container>
-          <Row>
-            <Col>
-              <article>
-                <p>Tipo: {dataTotal.type_event}</p>
-                <p>Título: {dataTotal.event_title}</p>
-                <p>Descripción: {dataTotal.event_description}</p>
-                <p>Localización: {dataTotal.location}</p>
-                <p>Imagen: {coverImg?.name}</p>
-                <p>Duración Total: {dataTotal.duration}</p>
-                <p>Fecha de inicio: {dataTotal.start_date}</p>
-                <p>Fecha de fin: {dataTotal.end_date}</p>
-                <p>Hora de inicio: {dataTotal.start_hour}</p>
-                <p>Hora de fin: {dataTotal.end_hour}</p>
-                <p>Número de asistentes: {dataTotal.number_of_attendees}</p>
-                <p>Coste Total: {dataTotal.price}</p>
-                <p>Enlace ticketera: {dataTotal.ticket_link}</p>
+          <Row className="justify-content-between">
+            <Col lg={4}>
+              <article className="p-3 border border-1 rounded-4">
+                <p><span>Tipo:</span> {Number(dataTotal.type_event) === 1 ? "Evento" : "Taller"}</p>
+                <p><span>Título:</span> {dataTotal.event_title}</p>
+                <p><span>Descripción:</span> {dataTotal.event_description}</p>
+                <p><span>Localización:</span> {dataTotal.location}</p>
+                <p><span>Imagen:</span> {coverImg?.name}</p>
+                <p><span>Duración Total:</span> {dataTotal.duration}</p>
+                <p><span>Fecha de inicio:</span> {dataTotal.start_date}</p>
+                <p><span>Fecha de fin:</span> {dataTotal.end_date}</p>
+                <p><span>Hora de inicio:</span> {dataTotal.start_hour}</p>
+                <p><span>Hora de fin:</span> {dataTotal.end_hour}</p>
+                <p><span>Número de asistentes:</span> {dataTotal.number_of_attendees}</p>
+                <p><span>Coste Total:</span> {dataTotal.price}</p>
+                <p><span>Enlace ticketera:</span> {dataTotal.ticket_link}</p>
               </article>
             </Col>
-            <Col>
+            <Col lg={7}>
               <div>
-                {dataTotal.section_public.key_points.length !== 0 &&
+                {/* SOLO SE RENDERIZA SI ESTAS EN EL STEP3 Y EN NEWSECTION, NO SIEMPRE EN TODOS LOS PASOS */}
+                {showSectionPublic &&
+                <>
+                  <div>
+                    <h2>Sección 1: {dataTotal.section_public.section_title}</h2>
+                    {dataTotal.section_public.key_points.map((elem, index) => (
+                      <div key={index}>
+                        <p>{elem.key_point_title}</p>
+                        <p>{elem.key_point_description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </>
+                }
+                {/* SOLO SE RENDERIZA EN NEWSECTION */}
+                {showSectionsComponent &&
+                  <Sections dataTotal={dataTotal} setDataTotal={setDataTotal} />
+                }
+
+                {/* ESTO ERA LOQUE TENÍAMOS PERO HE PROBADO LO ANTERIOR PARA QUE SE RENDERICEN LAS SECCIONES SOLO EN EL STEP3 Y NEWSECTION */}
+                {/* {dataTotal.section_public.key_points.length !== 0 &&
                 <div>
                   <h2>Sección 1: {dataTotal.section_public.section_title}</h2>
                   {dataTotal.section_public.key_points.map((elem, index)=>{
@@ -132,8 +157,10 @@ const CreateEvent = () => {
                       </div>
                     )
                   })}
-                </div> }
-                <Sections dataTotal={dataTotal} setDataTotal={setDataTotal}/>
+                </div> 
+                }
+                <Sections dataTotal={dataTotal} setDataTotal={setDataTotal}/> */}
+
               </div>
               <Outlet context={{
                 dataTotal, 
@@ -145,7 +172,8 @@ const CreateEvent = () => {
                 navigate,
                 handleFile, 
                 terminar,
-                handleSectionFile}}/>
+                handleSectionFile
+              }}/>
             </Col>
           </Row>
         </Container>
