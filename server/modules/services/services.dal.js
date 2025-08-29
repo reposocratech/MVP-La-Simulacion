@@ -12,17 +12,17 @@ class ServiceDal {
   }
 
   createServCoop = async (service_name, service_description ,filename) => {
-  const connection = await dbPool.getConnection();
   try {
-    const sql = "INSERT INTO service (service_name, service_description ,image) VALUES (?, ? ,?)";
-    const values = [service_name, service_description , filename];
-    const [result] = await connection.query(sql, values);
-    return result;
+    let sql = "INSERT INTO service (service_name, service_description ) VALUES (?, ?)";
+    let values = [service_name, service_description ];
+    if(filename){
+     sql = "INSERT INTO service (service_name, service_description ,image) VALUES (?, ? ,?)"  
+     values = [service_name, service_description , filename]
+    }
+    await executeQuery(sql, values);
   } catch (error) {
     throw { message: "Error en bd" };
-  } finally {
-    connection.release(); 
-  }
+  }   
 };
 
   getDataEditServCoop = async (id) => {
