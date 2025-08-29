@@ -74,9 +74,9 @@ const CalendarComponent = () => {
   }
 
   return (
-    <section className="container mt-5 my-4 pt-3 calendar-section">
-      <div className="row g-4 calendar-grid ">
-        <div className="col-12 col-lg-5 pt-5">
+    <section className="container mt-5 my-4 pt-3 calendar-section ">
+      <div className="row g-4 calendar-grid p-3 mb-5">
+        <div className="col-12 col-lg-5 pt-3 bg-white border rounded-3 mb-5">
           <Calendar
             onClickDay={handleDateChange}
             value={selectedDate}
