@@ -44,10 +44,11 @@ const ServicesCoop = () => {
     setValErrors(errors)
     if(valid){
       let res = await fetchData("/services/servicescoop" , "post" , sendInfo)
+      console.log(res);    
       setSuccessMsg("Formulario enviado");
       setSendInfo(initialValues);   
   }} catch (error) {
-    
+    console.log(error);    
     setValErrors({})
   }}
 

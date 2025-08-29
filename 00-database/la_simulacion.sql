@@ -146,6 +146,9 @@ SELECT * FROM room;
 SELECT * FROM service;
 SELECT * FROM reservation;
 SELECT * FROM event;
+SELECT * FROM section;
+SELECT * FROM section_image;
+SELECT * FROM section_key_point;
 
 INSERT INTO event (
   event_title, event_description, location, duration, start_date, end_date, 

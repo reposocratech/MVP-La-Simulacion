@@ -16,7 +16,7 @@ export const SortableItem = ({ item, addPoInt, delPunto,  deleteSection }) => {
   };
 
   return (
-    <div className="seccion" ref={setNodeRef} style={style} {...attributes}>
+    <div className="section-sortable bg-warning" ref={setNodeRef} style={style} {...attributes}>
       <div
         className="drag-handle"
         {...listeners}

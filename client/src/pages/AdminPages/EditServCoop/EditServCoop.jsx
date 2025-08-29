@@ -13,7 +13,7 @@ const initialValues = {
 };
 
 export const EditServCoop = () => {
-    const [datesForm, setdatesForm] = useState(initialValues);
+  const [datesForm, setdatesForm] = useState(initialValues);
   const [valErrors, setValErrors] = useState({});
   const [fileError, setFileError] = useState("");
   const [file, setFile] = useState();
@@ -66,7 +66,7 @@ export const EditServCoop = () => {
             newFormData.append("file", file);
           }
         }
-        let res = await fetchData(`/services/editservcoop/${id}`,"put",newFormData,token);
+        let res = await fetchData(`/services/editservcoop/${id}/${datesForm.image}`,"put",newFormData,token);
         console.log(res);
         
         navigate("/servicesCoop");

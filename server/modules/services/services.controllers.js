@@ -1,3 +1,4 @@
+import { deleteFile } from "../../helpers/fileSystem.js";
 import transporter from "../../utils/nodemailer.js";
 import servicesDal from "./services.dal.js";
 
@@ -21,7 +22,7 @@ sendMailServCoop = async (req , res)=>{
         from: `"Servicios Cooperativa" <${process.env.EMAIL_USER}>`,
         to: process.env.EMAIL_USER,
         subject: "Consulta Servicios Cooperativa",
-        text: `
+        html: `
           <h2>Consulta de Servicios Cooperativa</h2>
           <p><strong>Nombre:</strong> ${user_name} ${lastName}</p>
           <p><strong>Email:</strong> ${email}</p>
@@ -44,7 +45,6 @@ sendMailServCoop = async (req , res)=>{
     let filename = null;
     if (req.file) {
       filename = req.file.filename;
-      console.log("Archivo subido:", filename);
     }
     const result = await servicesDal.createServCoop(service_name, service_description, filename);
     res.status(200).json("Servicio Añadido");
@@ -67,7 +67,7 @@ sendMailServCoop = async (req , res)=>{
 
     editDataServCoop = async (req , res) =>{
      try {
-    const { id } = req.params;
+    const { id ,img } = req.params;
     const {service_name,service_description } = JSON.parse(req.body.data); 
     const data = {
                 service_name,
@@ -75,11 +75,19 @@ sendMailServCoop = async (req , res)=>{
                 id,            
                 image: req.file?req.file.filename:null
             }
+          
     const result = await servicesDal.editDataServCoop(data);
+
+      if (req.file) {
+      if (img !== "null") {
+        await deleteFile(img, "servCoop"); 
+      }
+    }
     console.log(result);
     
     res.status(200).json("Servicio Modificado");
-  } catch (error) {    
+  } catch (error) {  
+    console.error(error);  
     res.status(500).json({ message: "server error" });
   }
 }
