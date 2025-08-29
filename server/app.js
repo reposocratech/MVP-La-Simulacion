@@ -12,6 +12,7 @@ import servicesRoutes from './modules/services/services.routes.js';
 import roomsRoutes from './modules/rooms/rooms.routes.js';
 import eventsRoutes from './modules/events/events.routes.js';
 import adminRoutes from './modules/admin/admin.routes.js';
+import reviewsRoutes from './modules/reviews/reviews.routes.js';
 
 
 const __filename = fileURLToPath(import.meta.url); 
@@ -33,6 +34,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/services', servicesRoutes);
 app.use('/api/events', eventsRoutes);
 app.use('/api/rooms', roomsRoutes);
+app.use('/api/reviews', reviewsRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

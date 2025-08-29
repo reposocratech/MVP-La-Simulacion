@@ -30,11 +30,13 @@ const Prueba = () => {
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat illo eligendi amet fugit placeat quod ex autem quibusdam nisi cum fuga iusto, illum reiciendis, fugiat iste nam veritatis tempora dicta! Praesentium minus iusto culpa temporibus in illum, distinctio et? Perferendis quibusdam veniam minus incidunt. Voluptatum repellendus ratione iure eius mollitia, sunt earum est, corporis hic dicta, perspiciatis ipsam qui reiciendis. Dolor expedita velit corrupti veniam, pariatur officiis, inventore, veritatis saepe reiciendis suscipit labore accusantium deserunt provident quis quod et. Blanditiis.
           </p>
         </section>
-        <Row className="justify-content-center">
-          <Col lg={8}>
-            <FormReview />
-          </Col>
-        </Row>
+        <section className="py-5">
+          <Row className="justify-content-center">
+            <Col lg={7}>
+              <FormReview />
+            </Col>
+          </Row>
+        </section>
       </Container>
     </div>
   )
