@@ -33,7 +33,7 @@ const Prueba = () => {
         <section className="py-5">
           <Row className="justify-content-center">
             <Col lg={7}>
-              <FormReview />
+              <FormReview event_id={2}/>
             </Col>
           </Row>
         </section>

@@ -1,27 +1,14 @@
-<<<<<<< HEAD
 import dotenv from 'dotenv'
 import usersDal from './users.dal.js'
 import { hashPassword, compareHash } from '../../helpers/hashUtils.js'
 import jwt from 'jsonwebtoken'
-import sendConfirmationMail from '../../utils/nodemailer.js'
 import emailVerify from '../../utils/emailVerify.js'
-import deleteFile from '../../helpers/fileSystem.js'
-=======
-import dotenv from 'dotenv';
-import usersDal from './users.dal.js';
-import { hashPassword , compareHash } from '../../helpers/hashUtils.js';
-import jwt from 'jsonwebtoken';
-import emailVerify from '../../utils/emailVerify.js';
-import deleteFile from '../../helpers/deleteFile.js';
+import { deleteFile } from '../../helpers/fileSystem.js'
 import transporter from '../../utils/nodemailer.js';
->>>>>>> 8128cfe594eb81ae838cc5c876b30e558064a9ce
 
 dotenv.config()
 
 class UserController {
-<<<<<<< HEAD
-  register = async (req, res) => {
-=======
     register = async (req, res) => {
         try {
             const {user_name, email, password} = req.body;
@@ -36,11 +23,9 @@ class UserController {
             const hashedPassword = await hashPassword(password);
             const data = [user_name, email, hashedPassword];
             await usersDal.register(data);
-
             //Crear token verificacion de correo
             const token = jwt.sign({email} , process.env.JWT_SECRET, {expiresIn: "1h"})
             const verificationLink = `${process.env.SERVER_URL_PUBLIC}api/users/verify-email?token=${token}`
-
             //Lo que se manda en el email
             const mailOptions = {
                 from: `"La Simulación" <${process.env.EMAIL_USER}>`,
@@ -48,18 +33,14 @@ class UserController {
                 subject: "Confirma tu cuenta",
                 html: `<h2>Link para confirmar registro</h2><p>${verificationLink}</p>`,
             };
-
             const emailResult = await transporter.sendMail(mailOptions);
-
             res.status(200).json({message:"usuario creado"})
         } catch (error) {
            console.log("erorrrrrr" , error);
             if(error.isLogged){
                 res.status(401).json(error.message);
             }else{
-               
-                
-                res.status(500).json({message: "server error"});
+              res.status(500).json({message: "server error"});
             }
         }
     }
@@ -88,86 +69,17 @@ class UserController {
       }
     }
 
-  login = async(req, res) => {
-
->>>>>>> 8128cfe594eb81ae838cc5c876b30e558064a9ce
-    try {
-      const { user_name, email, password } = req.body
-      //Verificacion de que el email no este registrado
-      const result = await usersDal.findUserEmail(email)
-      if (result.length !== 0) {
-        throw {
-          isLogged: true,
-          message: 'usuario ya existe',
-        }
-      }
-      //Encriptar la contraseña
-      const hashedPassword = await hashPassword(password)
-      const data = [user_name, email, hashedPassword]
-      await usersDal.register(data)
-
-      //Crear token verificacion de correo
-      const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-        expiresIn: '1h',
-      })
-      const verificationLink = `${process.env.SERVER_URL_PUBLIC}api/users/verify-email?token=${token}`
-
-      //Lo que se manda en el email
-      const mailOptions = {
-        from: `"La Simulación" <${process.env.EMAIL_USER}>`,
-        to: email,
-        subject: 'Confirma tu cuenta',
-        html: `<h2>Link para confirmar registro</h2><p>${verificationLink}</p>`,
-      }
-
-      const emailResult = await sendConfirmationMail.sendMail(mailOptions)
-
-      res.status(200).json('usuario creado')
-    } catch (error) {
-      if (error.isLogged) {
-        res.status(401).json(error.message)
-      } else {
-        res.status(500).json({ message: 'server error' })
-      }
-    }
-  }
-
-  verifyEmail = async (req, res) => {
-    try {
-      const { token } = req.query
-      //Ver si se ha recibido el token
-      if (!token) {
-        return res.status(400).json({ message: 'Token no proporcionado' })
-      }
-      //Verificacion de email y codificación
-      const decoded = jwt.verify(token, process.env.JWT_SECRET)
-      const email = decoded.email
-      //Verificar relacion Email tokon
-      if (!email) {
-        return res.status(400).json({ message: 'Token inválido' })
-      }
-      await usersDal.verifyEmail(email)
-      //Pagina de confirmacion de registro satisfactorio
-      const sendConfirmation = emailVerify(`${process.env.FRONTEND_URL}login`)
-      res.status(200).send(sendConfirmation)
-    } catch (error) {
-      res.status(400).send('Token inválido o expirado')
-    }
-  }
-
   login = async (req, res) => {
     try {
       const { email, password } = req.body
       // Se llama a la función findUserByEmailLogin en el Dal para buscar al usuario por email
       const result = await usersDal.findUserByEmailLogin(email)
-
       // Se verifica si el resultado de la consulta está vacío. Si no se encontró un usuario, se devuelve un error
       if (result.length === 0) {
         res.status(401).json({ message: 'Credenciales incorrectas' })
       } else {
         // Si el usuario existe, se compara la contraseña enviada con la contraseña hasheada en la base de datos con la funcion compareHash
         let match = await compareHash(password, result[0].password)
-
         if (!match) {
           res.status(401).json({ message: 'Credenciales incorrectas' })
         } else {
@@ -189,9 +101,7 @@ class UserController {
     try {
       // Conseguimos el id de la solicitud
       const { simulacion_user_id } = req
-
       const result = await usersDal.userById(simulacion_user_id)
-
       if (result.length === 0) {
         res.status(401).json({ message: 'No autorizado' })
       } else {
@@ -205,7 +115,6 @@ class UserController {
   contactEmail = async (req, res) => {
     try {
       const { name, lastname, email, phone_number, consult } = req.body
-
       const mailOptions = {
         from: `"Formulario contacto Web" <${process.env.EMAIL_USER}>`,
         to: process.env.EMAIL_USER,
@@ -218,14 +127,8 @@ class UserController {
           <p><strong>Consulta:</strong> ${consult}</p>
         `,
       }
-
-<<<<<<< HEAD
-      const info = await sendConfirmationMail.sendMail(mailOptions)
-      res.status(200).json({ message: 'Correo enviado correctamente' })
-=======
       const info = await transporter.sendMail(mailOptions);
       res.status(200).json({ message: 'Correo enviado correctamente' });
->>>>>>> 8128cfe594eb81ae838cc5c876b30e558064a9ce
     } catch (error) {
       res.status(500).json({ message: 'Error al enviar el correo' })
     }
@@ -235,7 +138,6 @@ class UserController {
     try {
       console.log('REQ BODY reservation', req.body)
       await usersDal.makeRoomReservation(req.body)
-
       res
         .status(200)
         .json({ message: 'Solicitud de reserva enviada correctamente.' })
@@ -248,13 +150,11 @@ class UserController {
     try {
       const { id } = req.params
       const { simulacion_user_id } = req
-
       if (parseInt(id) !== simulacion_user_id) {
         return res
           .status(401)
           .json({ message: 'No autorizado para eliminar este usuario.' })
       }
-
       await usersDal.deleteUser(id)
       res.status(200).json({ message: 'Usuario eliminado correctamente' })
     } catch (error) {
@@ -267,13 +167,10 @@ class UserController {
     try {
       const { simulacion_user_id } = req
       const { user_name, lastname, phone_number, specialty } = req.body
-
       const user = await usersDal.userById(simulacion_user_id)
-
       if (req.file && user[0].avatar) {
         deleteFile(user[0].avatar, 'users')
       }
-
       const data = {
         user_name,
         lastname,
@@ -282,10 +179,8 @@ class UserController {
         user_id: simulacion_user_id,
         avatar: req.file ? req.file.filename : user[0].avatar,
       }
-
       await usersDal.editUser(data)
       const userEdited = await usersDal.userById(simulacion_user_id)
-
       res.status(200).json({ message: 'update ok', user: userEdited[0] })
     } catch (error) {
       console.log(error)
@@ -297,23 +192,18 @@ class UserController {
     try {
       const { simulacion_user_id } = req
       const { email, newEmail } = req.body
-
       const result = await usersDal.findUserEmail(email)
-
       if (result.length === 0 || result[0].user_id !== simulacion_user_id) {
         return res
           .status(401)
           .json({ message: 'El email actual no es correcto' })
       }
-
       const existEmail = await usersDal.findUserEmail(newEmail)
       if (existEmail.length !== 0) {
         return res.status(401).json({ message: 'El nuevo email ya existe' })
       }
-
       await usersDal.changeEmail(simulacion_user_id, newEmail)
       const userEdited = await usersDal.userById(simulacion_user_id)
-
       res
         .status(200)
         .json({
@@ -329,20 +219,14 @@ class UserController {
   changePass = async (req, res) => {
     const { simulacion_user_id } = req
     const { prevPass, newPass } = req.body
-
     try {
       const result = await usersDal.passwordById(simulacion_user_id)
-
       const match = await compareHash(prevPass, result)
-
       if (!match) {
         return res.status(401).json({ message: 'Contraseña actual incorrecta' })
       }
-
       let newHashedPass = await hashPassword(newPass)
-
       await usersDal.changePass(newHashedPass, simulacion_user_id)
-
       res.status(200).json({ message: 'Contraseña actualizada correctamente' })
     } catch (error) {
       console.log(error)
@@ -362,7 +246,6 @@ class UserController {
       }
       const avatarFileName = req.file.filename
       await usersDal.editAvatar(simulacion_user_id, avatarFileName)
-
       const userEdited = await usersDal.userById(simulacion_user_id)
       return res.status(200).json({
         message: 'Avatar actualizado',
@@ -374,5 +257,4 @@ class UserController {
     }
   }
 }
-
-export default new UserController()
+export default new UserController();
