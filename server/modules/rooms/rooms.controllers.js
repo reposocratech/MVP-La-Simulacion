@@ -8,10 +8,10 @@ class RoomController {
       const {room_name, room_description, who_can_use_it, pricing, usage_policy} = req.body;
 
       // Creamos un array para almacenar los nombres de los archivos.
-      let file = [];
+      let files = [];
 
       if (req.files) {
-        req.files.forEach(e => file.push(e.filename)); 
+        req.files.forEach(e => files.push(e.filename)); 
       }
 
       // reducer
@@ -64,7 +64,6 @@ class RoomController {
   imagesByRoomId = async(req,res)=> {
     try {
       const {id} = req.params;
-      console.log("iiiiiiiiiiiiiiiiid del controller", id);
       
       const result = await roomsDal.imagesByRoomId(id);
       res.status(200).json(result)
@@ -78,11 +77,28 @@ class RoomController {
     
     try {
       await roomsDal.deleteImg(id, room_image_id, file);
-      res.status(200).json({message: "delete ok"})
+      res.status(200).json({message: "delete ok"});
     } catch (error) {
-      res.status(500).json({message: "error de server"})
+      res.status(500).json({message: "error de server"});
     }
+  }
+
+  addImages = async(req,res)=> {
+    console.log("bodyyyyyyyyyyyy", req.body);
     
+    const { id } = JSON.parse(req.body.room_id);
+    const room_id = id;
+
+    try {
+      const result = await roomsDal.addImages(room_id, req.files);
+      res.status(200).json({message:"inserción ok"});
+      console.log("controllerrrrrrrrrrrrrrr result", result);
+      
+    } catch (error) {
+      console.error("Error en el controlador:", error);
+      
+      res.status(500).json({message: "error de server"});
+    }
   }
 
 }

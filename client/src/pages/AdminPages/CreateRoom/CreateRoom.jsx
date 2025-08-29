@@ -25,6 +25,7 @@ const CreateRoom = () => {
   const [showForm, setShowForm] = useState(1);
   const [valError, setValError] = useState({});
   const [msgError, setMsgError] = useState();
+  const [fileError, setFileError] = useState();
 
   const {token} = useContext(AuthContext);
   const navigate = useNavigate();
@@ -35,7 +36,16 @@ const CreateRoom = () => {
   }
 
   const handleFile = (e) => {
-    setFiles(e.target.files);
+    const selectedFiles = e.target.files;
+
+    if (selectedFiles.length > 3) {
+      setFileError('Solo puedes subir un máximo de 3 imágenes.');
+      e.target.value = null; 
+      return; 
+    }
+
+    setMsgError(null); 
+    setFiles(selectedFiles);
   }
 
   const next = (e)=>{
@@ -116,7 +126,6 @@ const CreateRoom = () => {
           next={next}
           cancel={cancel1}
           valError={valError}
-          msgError={msgError}
         />}
       {showForm === 2 && <FormRoom2 
           room={roomData}
@@ -127,6 +136,7 @@ const CreateRoom = () => {
           onSubmit={onSubmit}
           valError={valError}
           msgError={msgError}
+          fileError={fileError}
         />}
           
     </>

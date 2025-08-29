@@ -102,6 +102,18 @@ class AdminDal {
     }
   }
 
+  getReservationsData = async() => {
+    try {
+      let sql = 'SELECT * FROM reservation';
+
+      const result = await executeQuery(sql);
+      return result;
+
+    } catch (error) {
+      throw {message: "Error en base de datos"};
+    }
+  }
+
   //borrado lógico de room
   deleteRoom = async(id) => {
     try {

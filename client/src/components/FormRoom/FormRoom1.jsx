@@ -1,7 +1,7 @@
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import './formRoom.css';
 
-export const FormRoom1 = ({room, handleChange, next, cancel, valError, msgError}) => {
+export const FormRoom1 = ({room, handleChange, next, cancel, valError}) => {
 
   return (
     <section className='section-createRoom'>
@@ -20,11 +20,10 @@ export const FormRoom1 = ({room, handleChange, next, cancel, valError, msgError}
                     name="room_name"
                   />
                   {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>}
-                  {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicRoom_Description">
                   <Form.Label>Decripción de la sala:</Form.Label>
-                  <Form.Control
+                  <Form.Control as="textarea" rows={3}
                     type="text"
                     placeholder="Características y resumen de la sala"
                     onChange={handleChange}
@@ -32,11 +31,10 @@ export const FormRoom1 = ({room, handleChange, next, cancel, valError, msgError}
                     name="room_description"
                   />
                   {valError.room_description && <Form.Text className="text-danger fw-bold">{valError.room_description}</Form.Text>}
-                  {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicWho_Can_Use_It">
                   <Form.Label>¿Quién puede utilizarla?</Form.Label>
-                  <Form.Control
+                  <Form.Control as="textarea" rows={3}
                     type="text"
                     placeholder="Requisitos de los usuarios para poder usar la sala"
                     onChange={handleChange}
@@ -44,7 +42,6 @@ export const FormRoom1 = ({room, handleChange, next, cancel, valError, msgError}
                     name="who_can_use_it"
                   />
                   {valError.who_can_use_it && <Form.Text className="text-danger fw-bold">{valError.who_can_use_it}</Form.Text>}
-                  {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
                 </Form.Group>
                   <div className='d-flex flex-column flex-md-row gap-2'>
                     <button className='cancel-button' onClick={cancel}>Cancelar</button>

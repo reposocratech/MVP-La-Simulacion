@@ -29,7 +29,10 @@ const AdminPanel = () => {
                   className="panel-button-gest-light panel-button-hover"
                   onClick={()=>navigate('/admin/users')}
                 >Gestionar Usuarios</button>
-                <button className="panel-button-gest panel-button-hover">Gestionar Reservas</button>
+                <button 
+                  className="panel-button-gest panel-button-hover"
+                  onClick={()=>navigate('/admin/reservations')}
+                  >Gestionar Reservas</button>
               </div>
             </article>
           </Col>
@@ -43,10 +46,10 @@ const AdminPanel = () => {
                     onClick={()=>navigate('/admin/servCoop')}>Servicios de la Cooperativa</button>
                 <button 
                     className="panel-button-create-light panel-button-hover"
-                    onClick={()=>navigate('/admin/editServCoop')}>Eventos y Talleres</button>
+                    onClick={()=>navigate('/admin/events')}>Eventos y Talleres</button>
                 <button 
                     className="panel-button-create panel-button-hover"
-                    onClick={()=>navigate('/admin/createRoom')}>Salas/Espacios</button>
+                    onClick={()=>navigate('/admin/rooms')}>Salas/Espacios</button>
                
               </div>
             </article>

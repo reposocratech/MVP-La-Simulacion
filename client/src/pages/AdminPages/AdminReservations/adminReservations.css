@@ -1,0 +1,25 @@
+.section-reservations {
+  padding-block-start: 3.75rem;
+
+  .h1-reservations {
+    font-size: 2.25rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  h2 + span {
+    font-size: 1.4rem;
+    font-weight: bold;
+    border-top: 2px solid var(--color-primary-baby-pink);
+  }
+
+  /* Estilo de las letras de acento en el h1: */
+  .spanLetter-adReservs {
+    font-size: 40px;
+    margin-inline-end: .5rem;
+    font-weight: normal;
+    color: var(--color-primary-violet);
+  }
+}

@@ -14,9 +14,7 @@ const Home = lazy(() => import('../pages/PublicPages/Home/Home'))
 const About = lazy(() => import('../pages/PublicPages/About/About'))
 const Contact = lazy(() => import('../pages/PublicPages/Contact/Contact'))
 const Services = lazy(() => import('../pages/PublicPages/Services/Services'))
-const ServicesCoop = lazy(() =>
-  import('../pages/PublicPages/ServicesCoop/ServicesCoop')
-)
+const ServicesCoop = lazy(() => import('../pages/PublicPages/ServicesCoop/ServicesCoop'))
 const Events = lazy(() => import('../pages/PublicPages/Events/Events'))
 const Rooms = lazy(() => import('../pages/PublicPages/Rooms/Rooms'))
 const OneRoom = lazy(() => import('../pages/PublicPages/oneRoom/OneRoom'))
@@ -24,6 +22,7 @@ const Register = lazy(() => import('../pages/PublicPages/Register/Register'))
 const Login = lazy(() => import('../pages/PublicPages/Login/Login'))
 const ErrorPage = lazy(() => import('../pages/PublicPages/ErrorPage/ErrorPage'))
 const Calendar = lazy(() => import('../pages/PublicPages/Calendar/Calendar'))
+const Prueba = lazy(() => import('../pages/PublicPages/prueba/Prueba'));
 
   // Componentes Administrador:
 const AdminPanel = lazy(()=>import('../pages/AdminPages/AdminPanel/AdminPanel'));
@@ -36,7 +35,14 @@ const UserProfile = lazy(() => import('../pages/AdminPages/UserProfile/UserProfi
 const AdminAdmins = lazy(() => import('../pages/AdminPages/AdminAdmins/AdminAdmins'));
 const AdminEvents = lazy(() => import('../pages/AdminPages/AdminEvents/AdminEvents'));
 const AdminRooms = lazy(() => import('../pages/AdminPages/AdminRooms/AdminRooms'));
-const AdminServCoop = lazy(() => import("../pages/AdminPages/AdminServCoop/AdminServCoop"))
+const AdminReservations = lazy(()=>import('../pages/AdminPages/AdminReservations/AdminReservations'));
+const AdminServCoop = lazy(() => import("../pages/AdminPages/AdminServCoop/AdminServCoop"));
+const CreateEvent = lazy(()=>import("../pages/AdminPages/CreateEvent/CreateEvent"));
+const Step1 = lazy(()=>import("../components/FormsCreateEvent/Step1"));
+const Step2 = lazy(()=>import("../components/FormsCreateEvent/Step2"));
+const Step3 = lazy(()=>import("../components/FormsCreateEvent/Step3"));
+const NewSection = lazy(()=>import("../components/FormsCreateEvent/NewSection"));
+
   // Componentes de Usuario:
 const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'));
 const RoomReservation = lazy(()=>import('../pages/UserPages/RoomReservation/RoomReservation'));
@@ -77,6 +83,7 @@ export const AppRoutes = () => {
                   <Route path="/register" element={<Register />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/calendar" element={<Calendar />} />
+                  <Route path='/prueba' element={<Prueba />} />
                 </Route>
               </Route>
 
@@ -93,7 +100,14 @@ export const AppRoutes = () => {
                   <Route path='/admin/admins' element={<AdminAdmins />}/>
                   <Route path='/admin/events' element={<AdminEvents />}/>
                   <Route path='/admin/rooms' element={<AdminRooms />}/>
+                  <Route path='/admin/reservations' element={<AdminReservations />}/>
                   <Route path='/admin/servCoop' element={< AdminServCoop />}/>
+                  <Route path='/admin/createEvent' element={< CreateEvent />}>
+                      <Route index element={<Step1 />}/>
+                      <Route path='step2' element={<Step2 />}/>
+                      <Route path='step3' element={<Step3 />}/>
+                      <Route path='newSection' element={<NewSection />}/>
+                  </Route>
                 </Route>
               </Route>
 
@@ -103,7 +117,7 @@ export const AppRoutes = () => {
               >
                 <Route element={<UserLayout />}>
                   <Route path="/user/profile" element={<Profile />} />
-                  <Route path="/user/roomReservation" element={<RoomReservation />}/>
+                  <Route path="/user/roomReservation/:id/:room_name" element={<RoomReservation />}/>
                 </Route>
               </Route>
 
