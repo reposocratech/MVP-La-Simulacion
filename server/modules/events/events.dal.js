@@ -46,81 +46,190 @@ class EventDal {
     }
   }
 
-  createEvent = async(data) => {
-    console.log("DATA SECT IMGS", data.sections[1].images);
+  createEvent = async (data) => {
+    console.log('DATA SECT IMGS', data.sections[1].images)
 
-    const {event_title, event_description, location, duration, start_date, end_date, start_hour, end_hour, number_of_attendees, price, ticket_link, type_event, cover_image, sections} = data;
+    const {
+      event_title,
+      event_description,
+      location,
+      duration,
+      start_date,
+      end_date,
+      start_hour,
+      end_hour,
+      number_of_attendees,
+      price,
+      ticket_link,
+      type_event,
+      cover_image,
+      sections,
+    } = data
 
-    const connection = await dbPool.getConnection();
+    const connection = await dbPool.getConnection()
 
     try {
-      await connection.beginTransaction();
+      await connection.beginTransaction()
 
-      let sql = "INSERT INTO event (event_title, event_description, location, duration, start_date, end_date, start_hour, end_hour, number_of_attendees, price, ticket_link, type_event) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+      let sql =
+        'INSERT INTO event (event_title, event_description, location, duration, start_date, end_date, start_hour, end_hour, number_of_attendees, price, ticket_link, type_event) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)'
 
-      let values = [event_title, event_description, location, duration, start_date, end_date, start_hour, end_hour, number_of_attendees, price, ticket_link, type_event];
+      let values = [
+        event_title,
+        event_description,
+        location,
+        duration,
+        start_date,
+        end_date,
+        start_hour,
+        end_hour,
+        number_of_attendees,
+        price,
+        ticket_link,
+        type_event,
+      ]
 
-      if (cover_image){
-        sql = "INSERT INTO event (event_title, event_description, location, duration, start_date, end_date, start_hour, end_hour, number_of_attendees, price, ticket_link, type_event, cover_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        
-        values = [event_title, event_description, location, duration, start_date, end_date, start_hour, end_hour, number_of_attendees, price, ticket_link, type_event, cover_image];
+      if (cover_image) {
+        sql =
+          'INSERT INTO event (event_title, event_description, location, duration, start_date, end_date, start_hour, end_hour, number_of_attendees, price, ticket_link, type_event, cover_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)'
+
+        values = [
+          event_title,
+          event_description,
+          location,
+          duration,
+          start_date,
+          end_date,
+          start_hour,
+          end_hour,
+          number_of_attendees,
+          price,
+          ticket_link,
+          type_event,
+          cover_image,
+        ]
       }
 
-      let resultEvent = await connection.query(sql, values);
-      let event_id = resultEvent[0].insertId;
+      let resultEvent = await connection.query(sql, values)
+      let event_id = resultEvent[0].insertId
 
-      if (sections){
+      if (sections) {
+        for (const sect of sections) {
+          const {
+            section_id,
+            section_title,
+            section_subtitle,
+            section_description,
+            section_duration,
+            key_points,
+            images,
+          } = sect
 
-        for (const sect of sections){
-          const {section_id, section_title, section_subtitle, section_description, section_duration, key_points, images} = sect;
+          let sqlSections =
+            'INSERT INTO section (section_id, section_title, section_subtitle, section_description, section_duration, event_id) VALUES (?,?,?,?,?,?)'
 
-          let sqlSections = "INSERT INTO section (section_id, section_title, section_subtitle, section_description, section_duration, event_id) VALUES (?,?,?,?,?,?)";
+          let valuesSections = [
+            section_id,
+            section_title,
+            section_subtitle,
+            section_description,
+            section_duration,
+            event_id,
+          ]
 
-          let valuesSections = [section_id, section_title, section_subtitle, section_description, section_duration, event_id];
+          await connection.query(sqlSections, valuesSections)
 
-          await connection.query(sqlSections, valuesSections);
+          if (key_points) {
+            for (const point of key_points) {
+              const {
+                key_point_title,
+                key_point_description,
+                section_key_point_id,
+              } = point
 
-          if (key_points){
+              let sqlKeyPoint =
+                'INSERT INTO section_key_point (key_point_title, key_point_description, section_key_point_id, section_id, event_id) VALUES (?,?,?,?,?)'
 
-            for (const point of key_points){
-              
-              const {key_point_title, key_point_description, section_key_point_id} = point;
+              let valuesKeyPoint = [
+                key_point_title,
+                key_point_description,
+                section_key_point_id,
+                section_id,
+                event_id,
+              ]
 
-              let sqlKeyPoint = "INSERT INTO section_key_point (key_point_title, key_point_description, section_key_point_id, section_id, event_id) VALUES (?,?,?,?,?)";
-
-              let valuesKeyPoint = [key_point_title, key_point_description, section_key_point_id, section_id, event_id];
-
-              let res = await connection.query(sqlKeyPoint, valuesKeyPoint);
+              let res = await connection.query(sqlKeyPoint, valuesKeyPoint)
               //console.log("RESSSSS", res);
             }
           }
 
-         if (images) {
-            let imgId = 0;
-            for (const img of images){
-              imgId++;
+          if (images) {
+            let imgId = 0
+            for (const img of images) {
+              imgId++
 
-              let sqlImg = "INSERT INTO section_image (event_id, section_id, section_image_id, file) VALUES (?,?,?,?)";
-              let valuesImg = [event_id, section_id, imgId, img];
+              let sqlImg =
+                'INSERT INTO section_image (event_id, section_id, section_image_id, file) VALUES (?,?,?,?)'
+              let valuesImg = [event_id, section_id, imgId, img]
 
-              let resImg = await connection.query(sqlImg, valuesImg);
-              console.log("RES IMG", resImg);
+              let resImg = await connection.query(sqlImg, valuesImg)
+              console.log('RES IMG', resImg)
             }
-         }
-
+          }
         }
-
       }
 
-      await connection.commit();
-
+      await connection.commit()
     } catch (error) {
-      console.log("ERORRRRRROOOORRR", error);
-      await connection.rollback();
-      throw {message: "Error en base de datos"};
-
+      console.log('ERORRRRRROOOORRR', error)
+      await connection.rollback()
+      throw { message: 'Error en base de datos' }
     } finally {
-      connection.release();
+      connection.release()
+    }
+  }
+
+  getEventById = async (id) => {
+    try {
+      const sqlEvent = `
+      SELECT event_id, event_title, event_description, location, cover_image,
+             duration, start_date, end_date, start_hour, end_hour,
+             number_of_attendees, price, ticket_link
+      FROM event
+      WHERE event_is_deleted = 0 AND event_id = ?
+    `
+      const eventResult = await executeQuery(sqlEvent, [id])
+      if (eventResult.length === 0) return null
+      const event = eventResult[0]
+
+      const sections = await executeQuery(
+        'SELECT section_id, section_title, section_subtitle, section_description, section_duration FROM section WHERE event_id = ? ORDER BY section_id',
+        [id]
+      )
+
+      const images = await executeQuery(
+        'SELECT section_id, section_image_id, file FROM section_image WHERE event_id = ? AND section_image_is_deleted = 0 ORDER BY section_image_id',
+        [id]
+      )
+
+      const keyPoints = await executeQuery(
+        'SELECT section_id, section_key_point_id, key_point_title, key_point_description FROM section_key_point WHERE event_id = ?',
+        [id]
+      )
+
+      const enrichedSections = sections.map((sec) => {
+        sec.images = images
+          .filter((img) => img.section_id === sec.section_id)
+          .map((img) => img.file)
+        sec.key_points = keyPoints.filter(
+          (kp) => kp.section_id === sec.section_id
+        )
+        return sec
+      })
+
+      return { event, sections: enrichedSections }
+    } catch (error) {
+      throw { message: 'Error en base de datos' }
     }
   }
 }
