@@ -190,44 +190,54 @@ class EventDal {
   }
 
   getEventById = async (id) => {
+    // try {
+    //   const sqlEvent = `
+    //   SELECT event_id, event_title, event_description, location, cover_image,
+    //          duration, start_date, end_date, start_hour, end_hour,
+    //          number_of_attendees, price, ticket_link
+    //   FROM event
+    //   WHERE event_is_deleted = 0 AND event_id = ?
+    // `
+    //   const eventResult = await executeQuery(sqlEvent, [id])
+    //   if (eventResult.length === 0) return null
+    //   const event = eventResult[0]
+
+    //   const sections = await executeQuery(
+    //     'SELECT section_id, section_title, section_subtitle, section_description, section_duration FROM section WHERE event_id = ? ORDER BY section_id',
+    //     [id]
+    //   )
+
+    //   const images = await executeQuery(
+    //     'SELECT section_id, section_image_id, file FROM section_image WHERE event_id = ? AND section_image_is_deleted = 0 ORDER BY section_image_id',
+    //     [id]
+    //   )
+
+    //   const keyPoints = await executeQuery(
+    //     'SELECT section_id, section_key_point_id, key_point_title, key_point_description FROM section_key_point WHERE event_id = ?',
+    //     [id]
+    //   )
+
+    //   const enrichedSections = sections.map((sec) => {
+    //     sec.images = images
+    //       .filter((img) => img.section_id === sec.section_id)
+    //       .map((img) => img.file)
+    //     sec.key_points = keyPoints.filter(
+    //       (kp) => kp.section_id === sec.section_id
+    //     )
+    //     return sec
+    //   })
+
+    //   return { event, sections: enrichedSections }
+    // } catch (error) {
+    //   throw { message: 'Error en base de datos' }
+    // }
+
     try {
-      const sqlEvent = `
-      SELECT event_id, event_title, event_description, location, cover_image,
-             duration, start_date, end_date, start_hour, end_hour,
-             number_of_attendees, price, ticket_link
-      FROM event
-      WHERE event_is_deleted = 0 AND event_id = ?
-    `
-      const eventResult = await executeQuery(sqlEvent, [id])
-      if (eventResult.length === 0) return null
-      const event = eventResult[0]
+      let sql = "SELECT event.*, section.*, section_image.*, section_key_point.* FROM event LEFT JOIN section ON event.event_id = section.event_id LEFT JOIN section_image ON section.event_id = section_image.event_id AND section.section_id = section_image.section_id LEFT JOIN section_key_point ON section.event_id = section_key_point.event_id AND section.section_id = section_key_point.section_id WHERE event.event_id = ? AND event.event_is_deleted = 0";
 
-      const sections = await executeQuery(
-        'SELECT section_id, section_title, section_subtitle, section_description, section_duration FROM section WHERE event_id = ? ORDER BY section_id',
-        [id]
-      )
+      let result = await executeQuery(sql, [id]);
+      return result;
 
-      const images = await executeQuery(
-        'SELECT section_id, section_image_id, file FROM section_image WHERE event_id = ? AND section_image_is_deleted = 0 ORDER BY section_image_id',
-        [id]
-      )
-
-      const keyPoints = await executeQuery(
-        'SELECT section_id, section_key_point_id, key_point_title, key_point_description FROM section_key_point WHERE event_id = ?',
-        [id]
-      )
-
-      const enrichedSections = sections.map((sec) => {
-        sec.images = images
-          .filter((img) => img.section_id === sec.section_id)
-          .map((img) => img.file)
-        sec.key_points = keyPoints.filter(
-          (kp) => kp.section_id === sec.section_id
-        )
-        return sec
-      })
-
-      return { event, sections: enrichedSections }
     } catch (error) {
       throw { message: 'Error en base de datos' }
     }
