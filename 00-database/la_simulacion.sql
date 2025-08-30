@@ -39,7 +39,6 @@ CREATE TABLE room (
     room_is_deleted BOOLEAN NOT NULL DEFAULT 0
 );
 
-
 CREATE TABLE room_image (
 	room_id TINYINT UNSIGNED NOT NULL,
 	room_image_id TINYINT UNSIGNED NOT NULL,
