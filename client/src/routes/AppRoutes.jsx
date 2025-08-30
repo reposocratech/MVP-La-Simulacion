@@ -14,9 +14,7 @@ const Home = lazy(() => import('../pages/PublicPages/Home/Home'))
 const About = lazy(() => import('../pages/PublicPages/About/About'))
 const Contact = lazy(() => import('../pages/PublicPages/Contact/Contact'))
 const Services = lazy(() => import('../pages/PublicPages/Services/Services'))
-const ServicesCoop = lazy(() =>
-  import('../pages/PublicPages/ServicesCoop/ServicesCoop')
-)
+const ServicesCoop = lazy(() => import('../pages/PublicPages/ServicesCoop/ServicesCoop'))
 const Events = lazy(() => import('../pages/PublicPages/Events/Events'))
 const Rooms = lazy(() => import('../pages/PublicPages/Rooms/Rooms'))
 const OneRoom = lazy(() => import('../pages/PublicPages/oneRoom/OneRoom'))
@@ -28,55 +26,27 @@ const Prueba = lazy(() => import('../pages/PublicPages/prueba/Prueba'))
 const OneEvent = lazy(() => import('../pages/PublicPages/oneEvent/OneEvent'))
 
 // Componentes Administrador:
-const AdminPanel = lazy(() =>
-  import('../pages/AdminPages/AdminPanel/AdminPanel')
-)
-const CreateRoom = lazy(() =>
-  import('../pages/AdminPages/CreateRoom/CreateRoom')
-)
+const AdminPanel = lazy(() => import('../pages/AdminPages/AdminPanel/AdminPanel'))
+const CreateRoom = lazy(() => import('../pages/AdminPages/CreateRoom/CreateRoom'))
 const EditRoom = lazy(() => import('../pages/AdminPages/EditRoom/EditRoom'))
-const CreateServCoop = lazy(() =>
-  import('../pages/AdminPages/CreateServCoop/CreateServCoop')
-)
-const EditServCoop = lazy(() =>
-  import('../pages/AdminPages/EditServCoop/EditServCoop')
-)
-const AdminUsers = lazy(() =>
-  import('../pages/AdminPages/AdminUsers/AdminUsers')
-)
-const UserProfile = lazy(() =>
-  import('../pages/AdminPages/UserProfile/UserProfile')
-)
-const AdminAdmins = lazy(() =>
-  import('../pages/AdminPages/AdminAdmins/AdminAdmins')
-)
-const AdminEvents = lazy(() =>
-  import('../pages/AdminPages/AdminEvents/AdminEvents')
-)
-const AdminRooms = lazy(() =>
-  import('../pages/AdminPages/AdminRooms/AdminRooms')
-)
-const AdminReservations = lazy(() =>
-  import('../pages/AdminPages/AdminReservations/AdminReservations')
-)
-const AdminServCoop = lazy(() =>
-  import('../pages/AdminPages/AdminServCoop/AdminServCoop')
-)
-const CreateEvent = lazy(() =>
-  import('../pages/AdminPages/CreateEvent/CreateEvent')
-)
+const CreateServCoop = lazy(() => import('../pages/AdminPages/CreateServCoop/CreateServCoop'))
+const EditServCoop = lazy(() => import('../pages/AdminPages/EditServCoop/EditServCoop'))
+const AdminUsers = lazy(() => import('../pages/AdminPages/AdminUsers/AdminUsers'))
+const UserProfile = lazy(() => import('../pages/AdminPages/UserProfile/UserProfile'))
+const AdminAdmins = lazy(() => import('../pages/AdminPages/AdminAdmins/AdminAdmins'))
+const AdminEvents = lazy(() => import('../pages/AdminPages/AdminEvents/AdminEvents'))
+const AdminRooms = lazy(() => import('../pages/AdminPages/AdminRooms/AdminRooms'))
+const AdminReservations = lazy(() => import('../pages/AdminPages/AdminReservations/AdminReservations'))
+const AdminServCoop = lazy(() => import('../pages/AdminPages/AdminServCoop/AdminServCoop'))
+const CreateEvent = lazy(() => import('../pages/AdminPages/CreateEvent/CreateEvent'))
 const Step1 = lazy(() => import('../components/FormsCreateEvent/Step1'))
 const Step2 = lazy(() => import('../components/FormsCreateEvent/Step2'))
 const Step3 = lazy(() => import('../components/FormsCreateEvent/Step3'))
-const NewSection = lazy(() =>
-  import('../components/FormsCreateEvent/NewSection')
-)
+const NewSection = lazy(() => import('../components/FormsCreateEvent/NewSection'))
 
 // Componentes de Usuario:
 const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'))
-const RoomReservation = lazy(() =>
-  import('../pages/UserPages/RoomReservation/RoomReservation')
-)
+const RoomReservation = lazy(() => import('../pages/UserPages/RoomReservation/RoomReservation'))
 
 export const AppRoutes = () => {
   const { user, loading } = useContext(AuthContext)
@@ -119,35 +89,19 @@ export const AppRoutes = () => {
               </Route>
 
               {/* Rutas Privadas de Administrador: */}
-              <Route
-                element={
-                  <PrivateRoutes userType={user?.type} requiredUser={1} />
-                }
-              >
+              <Route element={<PrivateRoutes userType={user?.type} requiredUser={1} />}>
                 <Route element={<AdminLayout />}>
                   <Route path="/admin/createRoom" element={<CreateRoom />} />
                   <Route path="/admin/editRoom/:id" element={<EditRoom />} />
-                  <Route
-                    path="/admin/createServCoop"
-                    element={<CreateServCoop />}
-                  />
-                  <Route
-                    path="/admin/editServCoop/:id"
-                    element={<EditServCoop />}
-                  />
+                  <Route path="/admin/createServCoop" element={<CreateServCoop />} />
+                  <Route path="/admin/editServCoop/:id" element={<EditServCoop />} />
                   <Route path="/admin/adminPanel" element={<AdminPanel />} />
                   <Route path="/admin/users" element={<AdminUsers />} />
-                  <Route
-                    path="/admin/userProfile/:id"
-                    element={<UserProfile />}
-                  />
+                  <Route path="/admin/userProfile/:id" element={<UserProfile />} />
                   <Route path="/admin/admins" element={<AdminAdmins />} />
                   <Route path="/admin/events" element={<AdminEvents />} />
                   <Route path="/admin/rooms" element={<AdminRooms />} />
-                  <Route
-                    path="/admin/reservations"
-                    element={<AdminReservations />}
-                  />
+                  <Route path="/admin/reservations" element={<AdminReservations />} />
                   <Route path="/admin/servCoop" element={<AdminServCoop />} />
                   <Route path="/admin/createEvent" element={<CreateEvent />}>
                     <Route index element={<Step1 />} />
@@ -159,17 +113,10 @@ export const AppRoutes = () => {
               </Route>
 
               {/* Rutas Privadas de Usuario: */}
-              <Route
-                element={
-                  <PrivateRoutes userType={user?.type} requiredUser={2} />
-                }
-              >
+              <Route element={<PrivateRoutes userType={user?.type} requiredUser={2} />}>
                 <Route element={<UserLayout />}>
                   <Route path="/user/profile" element={<Profile />} />
-                  <Route
-                    path="/user/roomReservation/:id/:room_name"
-                    element={<RoomReservation />}
-                  />
+                  <Route path="/user/roomReservation/:id/:room_name" element={<RoomReservation />} />
                 </Route>
               </Route>
 
