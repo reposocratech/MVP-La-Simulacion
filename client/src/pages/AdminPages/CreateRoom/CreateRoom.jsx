@@ -62,7 +62,6 @@ const CreateRoom = () => {
  
     } catch (error) {
       console.log(error);
-      setValError({});
       setMsgError('Algo salío mal, inténtelo de nuevo');
     }
   }
@@ -111,7 +110,6 @@ const CreateRoom = () => {
       }
     } catch (error) {
         console.log(error);
-        setValError({});
         setMsgError('Algo salío mal, inténtelo de nuevo');
       }
     

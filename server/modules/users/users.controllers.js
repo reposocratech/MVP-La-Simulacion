@@ -6,9 +6,7 @@ import emailVerify from '../../utils/emailVerify.js'
 import { deleteFile } from '../../helpers/fileSystem.js'
 import transporter from '../../utils/nodemailer.js';
 
-
 dotenv.config()
-
 class UserController {
     register = async (req, res) => {
         try {
@@ -24,11 +22,9 @@ class UserController {
             const hashedPassword = await hashPassword(password);
             const data = [user_name, email, hashedPassword];
             await usersDal.register(data);
-
             //Crear token verificacion de correo
             const token = jwt.sign({email} , process.env.JWT_SECRET, {expiresIn: "1h"})
             const verificationLink = `${process.env.SERVER_URL_PUBLIC}api/users/verify-email?token=${token}`
-
             //Lo que se manda en el email
             const mailOptions = {
                 from: `"La Simulación" <${process.env.EMAIL_USER}>`,
@@ -36,9 +32,7 @@ class UserController {
                 subject: "Confirma tu cuenta",
                 html: `<h2>Link para confirmar registro</h2><p>${verificationLink}</p>`,
             };
-
             const emailResult = await transporter.sendMail(mailOptions);
-
             res.status(200).json({message:"usuario creado"})
         } catch (error) {
            console.log("erorrrrrr" , error);
@@ -49,7 +43,6 @@ class UserController {
             }
         }
     }
-
     verifyEmail = async (req, res) => {
       try {
         const { token } = req.query;
@@ -79,14 +72,12 @@ class UserController {
       const { email, password } = req.body
       // Se llama a la función findUserByEmailLogin en el Dal para buscar al usuario por email
       const result = await usersDal.findUserByEmailLogin(email)
-
       // Se verifica si el resultado de la consulta está vacío. Si no se encontró un usuario, se devuelve un error
       if (result.length === 0) {
         res.status(401).json({ message: 'Credenciales incorrectas' })
       } else {
         // Si el usuario existe, se compara la contraseña enviada con la contraseña hasheada en la base de datos con la funcion compareHash
         let match = await compareHash(password, result[0].password)
-
         if (!match) {
           res.status(401).json({ message: 'Credenciales incorrectas' })
         } else {
@@ -103,14 +94,11 @@ class UserController {
       res.status(500).json({ message: 'server error' })
     }
   }
-
   userById = async (req, res) => {
     try {
       // Conseguimos el id de la solicitud
       const { simulacion_user_id } = req
-
       const result = await usersDal.userById(simulacion_user_id)
-
       if (result.length === 0) {
         res.status(401).json({ message: 'No autorizado' })
       } else {
@@ -120,11 +108,9 @@ class UserController {
       res.status(500).json({ message: 'server error' })
     }
   }
-
   contactEmail = async (req, res) => {
     try {
       const { name, lastname, email, phone_number, consult } = req.body
-
       const mailOptions = {
         from: `"Formulario contacto Web" <${process.env.EMAIL_USER}>`,
         to: process.env.EMAIL_USER,
@@ -140,17 +126,14 @@ class UserController {
 
       const info = await transporter.sendMail(mailOptions);
       res.status(200).json({ message: 'Correo enviado correctamente' });
-
     } catch (error) {
       res.status(500).json({ message: 'Error al enviar el correo' })
     }
   }
-
   makeRoomReservation = async (req, res) => {
     try {
       console.log('REQ BODY reservation', req.body)
       await usersDal.makeRoomReservation(req.body)
-
       res
         .status(200)
         .json({ message: 'Solicitud de reserva enviada correctamente.' })
@@ -158,18 +141,15 @@ class UserController {
       res.status(500).json({ message: 'server error' })
     }
   }
-
   deleteUser = async (req, res) => {
     try {
       const { id } = req.params
       const { simulacion_user_id } = req
-
       if (parseInt(id) !== simulacion_user_id) {
         return res
           .status(401)
           .json({ message: 'No autorizado para eliminar este usuario.' })
       }
-
       await usersDal.deleteUser(id)
       res.status(200).json({ message: 'Usuario eliminado correctamente' })
     } catch (error) {
@@ -177,18 +157,14 @@ class UserController {
       res.status(500).json({ message: 'Error del servidor' })
     }
   }
-
   editUser = async (req, res) => {
     try {
       const { simulacion_user_id } = req
       const { user_name, lastname, phone_number, specialty } = req.body
-
       const user = await usersDal.userById(simulacion_user_id)
-
       if (req.file && user[0].avatar) {
         deleteFile(user[0].avatar, 'users')
       }
-
       const data = {
         user_name,
         lastname,
@@ -197,38 +173,30 @@ class UserController {
         user_id: simulacion_user_id,
         avatar: req.file ? req.file.filename : user[0].avatar,
       }
-
       await usersDal.editUser(data)
       const userEdited = await usersDal.userById(simulacion_user_id)
-
       res.status(200).json({ message: 'update ok', user: userEdited[0] })
     } catch (error) {
       console.log(error)
       res.status(500).json({ message: 'server error' })
     }
   }
-
   changeEmail = async (req, res) => {
     try {
       const { simulacion_user_id } = req
       const { email, newEmail } = req.body
-
       const result = await usersDal.findUserEmail(email)
-
       if (result.length === 0 || result[0].user_id !== simulacion_user_id) {
         return res
           .status(401)
           .json({ message: 'El email actual no es correcto' })
       }
-
       const existEmail = await usersDal.findUserEmail(newEmail)
       if (existEmail.length !== 0) {
         return res.status(401).json({ message: 'El nuevo email ya existe' })
       }
-
       await usersDal.changeEmail(simulacion_user_id, newEmail)
       const userEdited = await usersDal.userById(simulacion_user_id)
-
       res
         .status(200)
         .json({
@@ -240,31 +208,23 @@ class UserController {
       res.status(500).json({ message: 'server error' })
     }
   }
-
   changePass = async (req, res) => {
     const { simulacion_user_id } = req
     const { prevPass, newPass } = req.body
-
     try {
       const result = await usersDal.passwordById(simulacion_user_id)
-
       const match = await compareHash(prevPass, result)
-
       if (!match) {
         return res.status(401).json({ message: 'Contraseña actual incorrecta' })
       }
-
       let newHashedPass = await hashPassword(newPass)
-
       await usersDal.changePass(newHashedPass, simulacion_user_id)
-
       res.status(200).json({ message: 'Contraseña actualizada correctamente' })
     } catch (error) {
       console.log(error)
       res.status(500).json({ message: 'server error' })
     }
   }
-
   editAvatar = async (req, res) => {
     try {
       const { simulacion_user_id } = req
@@ -277,7 +237,6 @@ class UserController {
       }
       const avatarFileName = req.file.filename
       await usersDal.editAvatar(simulacion_user_id, avatarFileName)
-
       const userEdited = await usersDal.userById(simulacion_user_id)
       return res.status(200).json({
         message: 'Avatar actualizado',
@@ -291,3 +250,4 @@ class UserController {
 }
 
 export default new UserController();
+

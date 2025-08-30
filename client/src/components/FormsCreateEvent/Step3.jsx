@@ -9,7 +9,7 @@ const initialValue = {
 
 const Step3 = () => {
 
-  const {cancel, navigate, dataTotal, setDataTotal, setFormOk} = useOutletContext();
+  const {cancel, navigate, dataTotal, setDataTotal} = useOutletContext();
 
   const [data, setData] = useState(initialValue);
   const [showForm, setShowForm] = useState(false);
@@ -54,7 +54,8 @@ const Step3 = () => {
   return (
     <>
       <div>
-      <h1>Lista puntos de interés:</h1>
+        {/* creo que este div sobra porque es repetitivo con lo que hay en el createEvent */}
+      <h3>Lista puntos de interés:</h3>
       {dataTotal.section_public.key_points.map(elem=>{
         return (
           <div>

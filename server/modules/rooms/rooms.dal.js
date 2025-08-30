@@ -77,7 +77,6 @@ class RoomDal {
 
     } catch (error) {
       throw error;
-
     }
   }
 
@@ -86,6 +85,7 @@ class RoomDal {
       let sql = "SELECT * FROM room_image WHERE room_id = ?";
       const result = await executeQuery(sql,[id]);
       return result;
+
     } catch (error) {
       throw error;
     }
@@ -95,9 +95,10 @@ class RoomDal {
     try {
       let sql = 'DELETE FROM room_image WHERE room_id = ? AND room_image_id = ?';
       await executeQuery(sql, [room_id, room_image_id]);
-      await deleteFile(file, "rooms")
+      // Llama a la función deleteFile para eliminar el archivo del server
+      await deleteFile(file, "rooms");
+
     } catch (error) {
-      console.log("error del dal", error);
       throw error;
     }
   }
@@ -106,11 +107,13 @@ class RoomDal {
     const connection = await dbPool.getConnection();
     try {
       await connection.beginTransaction();
+        // Obtengo el id más alto ya que no tengo autoincrement
         let sqlId = "SELECT IFNULL(MAX(room_image_id), 0) AS max_id FROM room_image WHERE room_id = ?";
         let [result] = await connection.query(sqlId, [room_id]);
         let maxId = result[0].max_id;
-
+      
         imgs.forEach(async(elem)=>{
+          // Por cada imágen incremento el id
           maxId++;
           let sqlImg = 'INSERT INTO room_image (room_id, room_image_id, file) VALUES (?,?,?)'
           let values = [room_id, maxId, elem.filename]
@@ -119,9 +122,11 @@ class RoomDal {
         
       await connection.commit();
       return { success: true, message: "Imágenes añadidas correctamente." };
+
     } catch (error) {
       await connection.rollback();
-      throw error; // ¡Añade esta línea!
+      throw error;
+
     } finally {
       connection.release();
     }

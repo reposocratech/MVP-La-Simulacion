@@ -5,8 +5,7 @@ class RoomController {
   // Método para crear una nueva sala:
   createRoom = async(req,res)=>{
     try {
-      const {room_name, room_description, who_can_use_it, pricing, usage_policy} = req.body
-;
+      const {room_name, room_description, who_can_use_it, pricing, usage_policy} = req.body;
 
       // Creamos un array para almacenar los nombres de los archivos.
       let file = [];
@@ -30,8 +29,6 @@ class RoomController {
       res.status(200).json({message:"inserción ok", room_id});
 
     } catch (error) {
-      console.log(error);
-      
       res.status(500).json({message:"error de server"})
     }
 
@@ -51,6 +48,7 @@ class RoomController {
     }
   }
 
+  // Método para editar la información de una sala existente:
   editRoom = async(req,res)=> {
     try {
       const {room_id, room_name, room_description, who_can_use_it, pricing, usage_policy} = req.body; 
@@ -62,17 +60,19 @@ class RoomController {
     }
   }
 
+  // Método para obtener todas las imágenes de una sala específica:
   imagesByRoomId = async(req,res)=> {
     try {
       const {id} = req.params;
       
       const result = await roomsDal.imagesByRoomId(id);
-      res.status(200).json(result)
+      res.status(200).json(result);
     } catch (error) {
-      res.status(500).json({message: "error de server"})
+      res.status(500).json({message: "error de server"});
     }
   }
 
+   // Método para borrar una sala:
   deleteImg = async(req,res)=> {
     const {id, room_image_id, file} = req.body;
     
@@ -84,8 +84,8 @@ class RoomController {
     }
   }
 
+  // Método para añadir nuevas imágenes a una sala:
   addImages = async(req,res)=> {
-    console.log("bodyyyyyyyyyyyy", req.body);
     
     const { id } = JSON.parse(req.body.room_id);
     const room_id = id;
@@ -93,11 +93,7 @@ class RoomController {
     try {
       const result = await roomsDal.addImages(room_id, req.files);
       res.status(200).json({message:"inserción ok"});
-      console.log("controllerrrrrrrrrrrrrrr result", result);
-      
     } catch (error) {
-      console.error("Error en el controlador:", error);
-      
       res.status(500).json({message: "error de server"});
     }
   }

@@ -1,0 +1,19 @@
+.section-create-event {
+  padding-block: 3.75rem;
+
+  h1 {
+    text-align: center;
+    font-size: 2.25rem;
+    margin-block-end: 2.5rem;
+
+    span {
+      margin-inline-end: .5rem;
+      font-family: 'Pilowlava';
+      color: var(--color-secondary-medium-lavender);
+    }
+  }
+
+  article p span {
+    font-weight: bold;
+  }
+}

@@ -5,6 +5,9 @@ import { useNavigate, useParams } from "react-router";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { fetchData } from "../../../helpers/axiosHelper";
 import { ManageRoomPics } from "../../../components/FormEditRoom/ManageRoomPics";
+import { validateForms } from "../../../helpers/validateForms";
+import { createRoomSchema1 } from "../../../schemas/createRoomSchema1";
+import { createRoomSchema2 } from "../../../schemas/createRoomSchema2";
 
 const initialValue = {
   room_name: "",
@@ -21,8 +24,6 @@ const EditRoom = () => {
   const [valError, setValError] = useState({});
   const [msgError, setMsgError] = useState();
   
-  
-
   const navigate = useNavigate();
   const { token } = useContext(AuthContext);
   const { id } = useParams();
@@ -50,7 +51,20 @@ const EditRoom = () => {
 
   const next = (e)=>{
     e.preventDefault();
-    setShowForm(2);
+    
+    try {
+      const {valid, errors} = validateForms(createRoomSchema1, roomData);
+      setValError(errors);
+
+      if(valid){
+        setShowForm(2);
+        setValError({});
+      }
+
+    } catch (error) {
+      console.log(error);
+      setMsgError('Algo salío mal, inténtelo de nuevo');
+    }
   }
 
   const previous = (e)=>{
@@ -72,8 +86,21 @@ const EditRoom = () => {
   
   const onSubmit = async(e)=>{
     e.preventDefault();
-    await fetchData(`/rooms/editRoom/${id}`, 'put', roomData, token);
-    setShowForm(3);
+
+    try {
+      const { valid, errors } = validateForms(createRoomSchema2, roomData);
+      setValError(errors);
+
+      if(valid){
+        await fetchData(`/rooms/editRoom/${id}`, 'put', roomData, token);
+        setShowForm(3);
+        setValError({});    
+      }
+      
+    } catch (error) {
+      console.log(error);
+      setMsgError('Algo salío mal, inténtelo de nuevo');
+    }
   }
 
   return (
@@ -97,9 +124,9 @@ const EditRoom = () => {
         msgError={msgError} 
       />}
       {showForm === 3 && <ManageRoomPics
-        room={roomData}
-        handleFile={handleFile}
         id={id}
+        msgError={msgError}
+        setMsgError={setMsgError}
        />}
     </>
 
