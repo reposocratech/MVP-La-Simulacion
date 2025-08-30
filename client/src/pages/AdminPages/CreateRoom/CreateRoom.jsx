@@ -4,7 +4,6 @@ import { FormRoom2 } from "../../../components/FormRoom/FormRoom2";
 import { fetchData } from "../../../helpers/axiosHelper";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContextProvider";
-import { ZodError } from "zod";
 import { useNavigate } from "react-router";
 import { createRoomSchema2 } from "../../../schemas/createRoomSchema2";
 import { createRoomSchema1 } from "../../../schemas/createRoomSchema1";
