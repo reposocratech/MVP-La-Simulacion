@@ -40,6 +40,7 @@ export const FormRoom2 = ({room, handleChange, cancel, previous, handleFile, onS
                     multiple
                     name="file"
                     hidden
+                    accept="image/*"
                   />
                   {fileError && <Form.Text className="text-danger fw-bold ms-3">{fileError}</Form.Text>}
                 </Form.Group>
