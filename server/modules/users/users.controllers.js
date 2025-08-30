@@ -123,6 +123,7 @@ class UserController {
           <p><strong>Consulta:</strong> ${consult}</p>
         `,
       }
+
       const info = await transporter.sendMail(mailOptions);
       res.status(200).json({ message: 'Correo enviado correctamente' });
     } catch (error) {
@@ -247,4 +248,6 @@ class UserController {
     }
   }
 }
+
 export default new UserController();
+

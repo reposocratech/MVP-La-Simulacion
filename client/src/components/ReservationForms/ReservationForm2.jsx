@@ -46,7 +46,7 @@ export const ReservationForm2 = ({reservationData, handleChange, goNext, cancel}
         <button 
             type="button"
             className="submit-button"
-            onClick={(e)=>goNext(e, 2)}
+            onClick={goNext}
         >Siguiente
         </button>
       </div>

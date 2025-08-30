@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { Form } from "react-bootstrap";
 
 
-export const ReservationForm3 = ({reservationData, handleChange, cancel, onSubmit}) => {
+export const ReservationForm3 = ({reservationData, handleChange, cancel, onSubmit, sendFormOk}) => {
 
   return (
     <Form className="border border-2 rounded rounded-3 mb-2 mt-3 p-4">
@@ -62,7 +61,11 @@ export const ReservationForm3 = ({reservationData, handleChange, cancel, onSubmi
             checked={reservationData.user_policy_confirmation === 1}
           />
       </Form.Group>
-      
+      {sendFormOk &&
+        <p className="msg-ok-form"
+        >Solicitud enviada, ¡gracias! Nuestro equipo procederá a evaluarla para darte una respuesta lo antes posible.
+        </p>
+      }
       
       <div className="d-flex gap-2">
         <button 

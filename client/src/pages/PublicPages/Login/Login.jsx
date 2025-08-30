@@ -2,14 +2,13 @@ import { useContext, useEffect, useState } from 'react';
 import { Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../../context/AuthContextProvider';
-import { ZodError } from 'zod';
 import { loginSchema } from '../../../schemas/loginSchema';
 import flor from '../../../assets/decorative/flor-redondeada.svg';
 import destellos from '../../../assets/decorative/pareja-destellos.svg';
 import { LuEye } from "react-icons/lu";
 import { LuEyeClosed } from "react-icons/lu";
-import './login.css';
 import { validateForms } from '../../../helpers/validateForms';
+import './login.css';
 
 const initialValue = {
   email:"",
@@ -28,7 +27,7 @@ const Login = () => {
 
   // Hook que al cargar el componente comprueba si hay usuario en el contexto,
   // de manera que si alguién se logueó, no se le deja ir al login y 
-  // se le redirige a una págimna concreta dependiendo del tipo de user:
+  // se le redirige a una página concreta dependiendo del tipo de user:
   useEffect(()=>{
     if (user){
       if(user.type === 1) navigate("/admin/adminPanel"); //redirección del admin
@@ -52,7 +51,6 @@ const Login = () => {
         await login(userLogin);
 
         setValError({});
-        navigate('/admin/createroom')
       }
 
     } catch (error) {
@@ -76,7 +74,7 @@ const Login = () => {
           <Col className="d-flex justify-content-center">
             <div className='form-container p-2'>
               <img src={flor} alt="" className='flor-login' />
-              <Form xs={9} lg={3} className='login-form border border-2 p-4 mt-3 rounded rounded-3'>
+              <Form className='login-form border border-2 p-4 mt-3 rounded rounded-3'>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label>Email:</Form.Label>
                   <Form.Control
