@@ -35,44 +35,9 @@ class EventController {
     }
   }
 
-  // Crear nuevo evento o taller
-  // createEvent = async(req, res) => {
-  //   try {
-  //     console.log("REQQQQ FILES", req.files);
-  //     console.log("REQQQQ BODY", req.body.dataTotal);
-  //     const dataTotal = JSON.parse(req.body.dataTotal);
-
-  //     const { event_title, event_description, location, cover_image, duration, start_date, end_date, start_hour, end_hour, number_of_attendees, price, ticket_link, type_event, sections} = dataTotal;
-
-  //     let parsedSections = [];
-
-  //     if (dataTotal.sections){
-  //       dataTotal.sections.forEach((sect)=>{
-
-  //         // let key_points = [];
-
-  //         // if (req.body.dataTotal.sections.key_points){
-  //         //   req.body.dataTotal.sections.key_points.forEeach((kPoint)=>{
-  //         //     key_points.push(kPoint);
-  //         //   })
-  //         // }
-  //         parsedSections.push(sect);
-
-  //       });
-  //     }
-  //     console.log("SECTIONSSS", sections);
-  //     console.log("SECTIONSSS", key_points);
-
-  //     //const result = await eventsDal.createEvent();
-  //     res.status(200).json("Evento Creado OK");
-  //   } catch (error) {
-  //     res.status(500).json({message: "Error de servidor", error});
-  //   }
-  // }
-
   createEvent = async (req, res) => {
     try {
-      // :uno: Extraer datos del body con destructuring
+      // Extraer datos del body con destructuring
       const {
         event_title,
         event_description,
@@ -91,7 +56,7 @@ class EventController {
         sections = [],
       } = JSON.parse(req.body.dataTotal)
 
-      // :dos: Manejo de imágenes
+      // Manejo de imágenes
       let cover = cover_image || null
       const sectionImgs = {}
       if (req.files && req.files.length > 0) {
@@ -107,7 +72,7 @@ class EventController {
           }
         })
       }
-      // :tres: Procesar secciones (section_public + sections normales)
+      // Procesar secciones (section_public + sections normales)
       const allSections = []
       if (section_public) {
         allSections.push({
@@ -132,7 +97,7 @@ class EventController {
             })) || [],
         })
       })
-      // :cuatro: Armar objeto final
+      // Armar objeto final
       const data = {
         event_title,
         event_description,
@@ -150,7 +115,7 @@ class EventController {
         sections: allSections,
       }
 
-      // :cinco: Insertar en la BD usando DAL
+      // Insertar en la BD usando DAL
       const result = await eventsDal.createEvent(data)
       res.status(200).json({ message: 'Inserción OK', result })
     } catch (error) {
@@ -161,14 +126,74 @@ class EventController {
 
   getEventById = async (req, res) => {
     try {
-      const { id } = req.params
-      const result = await eventsDal.getEventById(Number(id))
-      if (!result) {
-        return res.status(404).json({ message: 'Evento no encontrado' })
+      const { id } = req.params;
+
+      const result = await eventsDal.getEventById(id);
+      console.log("result de controllerrrrr", result);
+      let data = {
+        event_id: result[0].event_id,
+        event_title: result[0].event_title,
+        event_description: result[0].event_description,
+        location: result[0].location,
+        cover_image: result[0].cover_image,
+        duration: result[0].duration,
+        start_date: result[0].start_date,
+        end_date: result[0].end_date,
+        start_hour: result[0].start_hour,
+        end_hour: result[0].end_hour,
+        number_of_attendees: result[0].number_of_attendees,
+        ticket_link: result[0].ticket_link,
+        type_event: result[0].type_event,
+        sections: []
       }
-      res.status(200).json(result)
+
+      result.forEach(elem => {
+        if (!elem.section_id) return; // si no hay sección, saltamos
+
+        // buscamos si la sección ya existe en data.sections
+        let section = data.sections.find(s => s.section_id === elem.section_id);
+
+        if (!section) {
+          // si no existe, la creamos
+          section = {
+            section_id: elem.section_id,
+            section_title: elem.section_title,
+            section_subtitle: elem.section_subtitle,
+            section_description: elem.section_description,
+            section_duration: elem.section_duration,
+            event_id: elem.event_id,
+            section_images: [],
+            section_key_points: []
+          };
+          data.sections.push(section);
+        }
+
+        // si hay imagen, la añadimos a la sección existente
+        if (elem.section_image_id) {
+          section.section_images.push({
+            event_id: elem.event_id,
+            section_id: elem.section_id,
+            section_image_id: elem.section_image_id,
+            file: elem.file
+          });
+        }
+
+        // si hay key_point, lo añadimos también
+        if (elem.section_key_point_id) {
+          section.section_key_points.push({
+            event_id: elem.event_id,
+            section_id: elem.section_id,
+            section_key_point_id: elem.section_key_point_id,
+            key_point_title: elem.key_point_title,
+            key_point_description: elem.key_point_description
+          });
+        }
+      });
+      console.log("dataaaaaaaaaaaaaaaa", data);
+      res.status(200).json(data);
+
     } catch (error) {
-      res.status(500).json({ message: 'Error de servidor' })
+      res.status(500).json({ message: 'Error de servidor' });
     }
   }
 }
