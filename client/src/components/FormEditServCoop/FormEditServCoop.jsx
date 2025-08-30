@@ -46,6 +46,7 @@ export const FormEditServCoop = ({ handleChange, onSubmit , datesForm ,handleFil
                  type="file" 
                  name="image" 
                  hidden
+                 accept="image/*"
                  />
                  {fileError && <Form.Text className="text-error">{fileError}</Form.Text>}
                  <div className="d-flex flex-column flex-md-row gap-2 mt-3">

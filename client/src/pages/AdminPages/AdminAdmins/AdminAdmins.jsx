@@ -3,7 +3,6 @@ import { CustomTable } from "../../../components/Table/CustomTable";
 import { useContext, useEffect, useState } from "react";
 import { fetchData } from "../../../helpers/axiosHelper";
 import { AuthContext } from "../../../context/AuthContextProvider";
-import { PiEyeClosed , PiEye } from "react-icons/pi";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import { motion, AnimatePresence } from "framer-motion";
 import { validateForms } from "../../../helpers/validateForms";

@@ -35,7 +35,6 @@ class UserController {
             const emailResult = await transporter.sendMail(mailOptions);
             res.status(200).json({message:"usuario creado"})
         } catch (error) {
-           console.log("erorrrrrr" , error);
             if(error.isLogged){
                 res.status(401).json(error.message);
             }else{
