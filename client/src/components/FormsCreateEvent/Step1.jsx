@@ -89,7 +89,7 @@ const Step1 = () => {
         {/* {valError.location && <Form.Text className="text-danger fw-bold">{valError.location}</Form.Text>} */}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCoverFile">
-        <Form.Label>Subir imagen de portada:</Form.Label>
+        <Form.Label className="text-decoration-underline">Subir imagen de portada</Form.Label>
         <Form.Control 
           type="file"
           onChange={handleFile}

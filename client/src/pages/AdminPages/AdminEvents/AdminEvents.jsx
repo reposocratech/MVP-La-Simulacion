@@ -69,7 +69,10 @@ const AdminEvents = () => {
       <Container>
         <h1><span>ET</span>Gestión de eventos y talleres</h1>
         <div className="text-center">
-          <button className="create-button">Crear evento/ taller</button>
+          <button 
+            className="create-button"
+            onClick={() => navigate('/admin/createEvent')}
+          >Crear evento/ taller</button>
         </div>
 
         <CustomTable

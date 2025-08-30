@@ -10,7 +10,7 @@ const Events = () => {
   useEffect(() => {
     const fetchEvents = async() => {
       try {
-        const res = await fetchData("/events/futures", "get");
+        const res = await fetchData("/events/events", "get");
         setEvents(res.data);
       } catch (error) {
         console.log(error);

@@ -37,7 +37,7 @@ class EventController {
 
   createEvent = async (req, res) => {
     try {
-      // Extraer datos del body con destructuring
+      //extraer datos del body con destructuring
       const {
         event_title,
         event_description,
@@ -57,23 +57,25 @@ class EventController {
       } = JSON.parse(req.body.dataTotal)
 
       // Manejo de imágenes
-      let cover = cover_image || null
-      const sectionImgs = {}
+      let cover = cover_image || null;
+      const sectionImgs = {};
       if (req.files && req.files.length > 0) {
         req.files.forEach((file) => {
           if (file.fieldname === 'cover_image') {
-            cover = file.filename
+            cover = file.filename;
           } else {
             // fieldname = "section1", "section2", etc.
             if (!sectionImgs[file.fieldname]) {
-              sectionImgs[file.fieldname] = []
+              sectionImgs[file.fieldname] = [];
             }
-            sectionImgs[file.fieldname].push(file.filename)
+            sectionImgs[file.fieldname].push(file.filename);
           }
-        })
+        });
       }
+
       // Procesar secciones (section_public + sections normales)
-      const allSections = []
+      const allSections = [];
+
       if (section_public) {
         allSections.push({
           ...section_public,
@@ -83,8 +85,9 @@ class EventController {
               ...kp,
               section_key_point_id: idx + 1,
             })) || [],
-        })
+        });
       }
+
       sections.forEach((section, idx) => {
         allSections.push({
           ...section,
@@ -95,8 +98,9 @@ class EventController {
               ...kp,
               section_key_point_id: kIdx + 1,
             })) || [],
-        })
-      })
+        });
+      });
+
       // Armar objeto final
       const data = {
         event_title,
@@ -113,14 +117,13 @@ class EventController {
         ticket_link,
         type_event,
         sections: allSections,
-      }
+      };
 
-      // Insertar en la BD usando DAL
-      const result = await eventsDal.createEvent(data)
-      res.status(200).json({ message: 'Inserción OK', result })
+      const eventId = await eventsDal.createEvent(data);
+      res.status(200).json({ message: 'Inserción OK', eventId });
     } catch (error) {
       console.log(error)
-      res.status(500).json({ message: 'Error de servidor' })
+      res.status(500).json({ message: 'Error de servidor' });
     }
   }
 

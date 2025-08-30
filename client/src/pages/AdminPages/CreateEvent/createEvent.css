@@ -13,7 +13,19 @@
     }
   }
 
-  article p span {
-    font-weight: bold;
+  article {
+    padding: 1rem;
+    border: 3px solid var(--color-primary-lavender);
+    border-radius: 1rem;
+
+    p span {
+      font-weight: bold;
+    }
+  }
+
+  .p-list {
+    display: list-item;
+    list-style-type: disc;
+    margin-left: 1rem;
   }
 }

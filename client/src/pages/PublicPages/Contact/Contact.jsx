@@ -66,7 +66,7 @@ const Contact = () => {
                   value={formData.name}
                   name="name"
                 />
-                {valErrors.name && <Form.Text className="text-danger">{valErrors.name}</Form.Text>}
+                {valErrors.name && <Form.Text className="text-danger fw-bold">{valErrors.name}</Form.Text>}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicLastname">
                 <Form.Label className="fw-bold">Apellidos:</Form.Label>
@@ -77,7 +77,7 @@ const Contact = () => {
                   value={formData.lastname}
                   name="lastname"
                 />
-                {valErrors.lastname && <Form.Text className="text-danger">{valErrors.lastname}</Form.Text>}
+                {valErrors.lastname && <Form.Text className="text-danger fw-bold">{valErrors.lastname}</Form.Text>}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label className="fw-bold">Email:</Form.Label>
@@ -88,7 +88,7 @@ const Contact = () => {
                   value={formData.email}
                   name="email"
                 />
-                {valErrors.email && <Form.Text className="text-danger">{valErrors.email}</Form.Text>}
+                {valErrors.email && <Form.Text className="text-danger fw-bold">{valErrors.email}</Form.Text>}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPhone">
                 <Form.Label className="fw-bold">Teléfono:</Form.Label>
@@ -99,7 +99,7 @@ const Contact = () => {
                   value={formData.phone_number}
                   name="phone_number"
                 />
-                {valErrors.phone_number && <Form.Text className="text-danger">{valErrors.phone_number}</Form.Text>}
+                {valErrors.phone_number && <Form.Text className="text-danger fw-bold">{valErrors.phone_number}</Form.Text>}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicConsult">
                 <Form.Label className="fw-bold">Escribe tu consulta:</Form.Label>
@@ -111,9 +111,9 @@ const Contact = () => {
                   value={formData.consult}
                   name="consult"
                 />
-                {valErrors.consult && <Form.Text className="text-danger">{valErrors.consult}</Form.Text>}
+                {valErrors.consult && <Form.Text className="text-danger fw-bold">{valErrors.consult}</Form.Text>}
               </Form.Group>
-              {msgError && <p className="text-danger">{msgError}</p>}
+              {msgError && <p className="text-danger fw-bold">{msgError}</p>}
               <div className="w-100">
                 <button 
                   className="submit-button w-100"

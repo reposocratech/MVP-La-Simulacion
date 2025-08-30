@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useOutletContext } from "react-router";
+import { Sections } from "./Sections";
 
 const initialValue = {
   section_title: "",
@@ -11,7 +12,6 @@ const initialValue = {
 }
 
 const NewSection = () => {
-
   const {cancel, navigate, dataTotal, setDataTotal, handleSectionFile, terminar} = useOutletContext();
 
   const [newSection, setNewSection] = useState(initialValue);
@@ -27,7 +27,6 @@ const NewSection = () => {
     setSectionImages(e.target.files);
   }
 
-
   const addSection = (e) => {
     e.preventDefault();
     let sec_id = Date.now();
@@ -37,7 +36,7 @@ const NewSection = () => {
     setShowForm(false);
   }
 
-  console.log("DATATOTAL SECT", dataTotal);
+  //console.log("DATATOTAL SECT", dataTotal);
 
   const cancelAddSection = (e) => {
     e.preventDefault();
@@ -45,38 +44,40 @@ const NewSection = () => {
     setShowForm(false);
   }
 
-
   return (
-    <>
-      <div>
-        {showForm ?
-         <Form className='w-75 border border-2 p-4 rounded rounded-3'>
-          <Form.Group className="mb-3" controlId="formBasicSectTitle">
-            <Form.Label>Título:</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Título de sección"
-              onChange={handleChange}
-              value={newSection.section_title}
-              name="section_title"
-            />
-            {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicSectSubTitle">
-            <Form.Label>Subtítulo:</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Subtítulo de sección"
-              onChange={handleChange}
-              value={newSection.section_subtitle}
-              name="section_subtitle"
-            />
-            {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
-          </Form.Group>
+    <div>
+      {showForm ?
+        <Form className='border border-2 p-3 rounded-4'>
+          <h4>Nueva sección</h4>
+          <div className="d-flex justify-content-center gap-3">
+            <Form.Group className="mb-3 w-100" controlId="formBasicSectTitle">
+              <Form.Label>Título:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Título de sección"
+                onChange={handleChange}
+                value={newSection.section_title}
+                name="section_title"
+              />
+              {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
+            </Form.Group>
+            <Form.Group className="mb-3 w-100" controlId="formBasicSectSubTitle">
+              <Form.Label>Subtítulo:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Subtítulo de sección"
+                onChange={handleChange}
+                value={newSection.section_subtitle}
+                name="section_subtitle"
+              />
+              {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
+            </Form.Group>
+          </div>
           <Form.Group className="mb-3" controlId="formBasicSectDesc">
             <Form.Label>Descripción:</Form.Label>
             <Form.Control
-              type="text"
+              as="textarea"
+              rows={3}
               placeholder="Descripción de sección"
               onChange={handleChange}
               value={newSection.section_description}
@@ -95,7 +96,7 @@ const NewSection = () => {
             />
             {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
           </Form.Group>
-           <Form.Group className="mb-3" controlId="formBasicSectFiles">
+            <Form.Group className="mb-3" controlId="formBasicSectFiles">
             <Form.Label>Subir Imágenes</Form.Label>
             <Form.Control
               type="file"
@@ -105,20 +106,44 @@ const NewSection = () => {
             />
             {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
           </Form.Group>
-        <button onClick={addSection}>Aceptar</button>
-        <button onClick={cancelAddSection}>Cancelar</button>
-      </Form>
-      : 
-      <button onClick={()=>setShowForm(true)}>Añadir Sección</button>
-}
-      <div className='d-flex flex-column flex-md-row gap-2'>
-            <button className='submit-button' disabled={showForm} onClick={()=>navigate('step3')} >Anterior</button>
-            <button className='cancel-button' disabled={showForm} onClick={cancel}>Cancelar</button>
-            <button className='submit-button' disabled={showForm} onClick={terminar}>Terminar</button>
+          <div className="d-flex gap-3">
+            <button
+              className="btn-table unblock"
+              onClick={addSection}
+            >Aceptar</button>
+            <button
+              className="btn-table block"
+              onClick={cancelAddSection}
+            >Cancelar</button>
           </div>
-      </div>
-    </>
-   
+        </Form>
+        :
+        <>
+          <div className='mb-5 d-flex flex-column flex-md-row gap-2'>
+            <button 
+              className='submit-button' 
+              disabled={showForm} 
+              onClick={()=>navigate('step3')} 
+            >Anterior</button>
+            <button
+              className="lavender-button"
+              onClick={()=>setShowForm(true)}
+            >Añadir Sección</button>
+            <button 
+              className='cancel-button' 
+              disabled={showForm} 
+              onClick={cancel}
+            >Cancelar</button>
+            <button 
+              className='submit-button' 
+              disabled={showForm} 
+              onClick={terminar}
+            >Terminar</button>
+          </div>
+          <Sections dataTotal={dataTotal} setDataTotal={setDataTotal}/>
+        </>
+      }
+    </div>
   )
 }
 

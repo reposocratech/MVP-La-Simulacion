@@ -61,46 +61,50 @@ const Step2 = () => {
         />
         {/* {valError.duration && <Form.Text className="text-danger fw-bold">{valError.duration}</Form.Text>} */}
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicStartDate">
-        <Form.Label>Fecha de inicio:</Form.Label>
-        <Form.Control 
-          type="date"
-          onChange={handleChange}
-          value={dataStep2.start_date}
-          name="start_date"
-        />
-        {/* {valError.start_date && <Form.Text className="text-danger fw-bold">{valError.start_date}</Form.Text>} */}
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicEndDate">
-        <Form.Label>Fecha de fin:</Form.Label>
-        <Form.Control 
-          type="date"
-          onChange={handleChange}
-          value={dataStep2.end_date}
-          name="end_date"
-        />
-        {/* {valError.end_date && <Form.Text className="text-danger fw-bold">{valError.end_date}</Form.Text>} */}
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicStartHour">
-        <Form.Label>Hora de inicio:</Form.Label>
-        <Form.Control 
-          type="time"
-          onChange={handleChange}
-          value={dataStep2.start_hour}
-          name="start_hour"
-        />
-        {/* {valError.start_hour && <Form.Text className="text-danger fw-bold">{valError.start_hour}</Form.Text>} */}
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicEndHour">
-        <Form.Label>Hora de fin:</Form.Label>
-        <Form.Control 
-          type="time"
-          onChange={handleChange}
-          value={dataStep2.end_hour}
-          name="end_hour"
-        />
-        {/* {valError.end_hour && <Form.Text className="text-danger fw-bold">{valError.end_hour}</Form.Text>} */}
-      </Form.Group>
+      <div className="d-flex justify-content-center gap-3">
+        <Form.Group className="mb-3 w-100" controlId="formBasicStartDate">
+          <Form.Label>Fecha de inicio:</Form.Label>
+          <Form.Control
+            type="date"
+            onChange={handleChange}
+            value={dataStep2.start_date}
+            name="start_date"
+          />
+          {/* {valError.start_date && <Form.Text className="text-danger fw-bold">{valError.start_date}</Form.Text>} */}
+        </Form.Group>
+        <Form.Group className="mb-3 w-100" controlId="formBasicEndDate">
+          <Form.Label>Fecha de fin:</Form.Label>
+          <Form.Control
+            type="date"
+            onChange={handleChange}
+            value={dataStep2.end_date}
+            name="end_date"
+          />
+          {/* {valError.end_date && <Form.Text className="text-danger fw-bold">{valError.end_date}</Form.Text>} */}
+        </Form.Group>
+      </div>
+      <div className="d-flex justify-content-center gap-3">
+        <Form.Group className="mb-3 w-100" controlId="formBasicStartHour">
+          <Form.Label>Hora de inicio:</Form.Label>
+          <Form.Control
+            type="time"
+            onChange={handleChange}
+            value={dataStep2.start_hour}
+            name="start_hour"
+          />
+          {/* {valError.start_hour && <Form.Text className="text-danger fw-bold">{valError.start_hour}</Form.Text>} */}
+        </Form.Group>
+        <Form.Group className="mb-3 w-100" controlId="formBasicEndHour">
+          <Form.Label>Hora de fin:</Form.Label>
+          <Form.Control
+            type="time"
+            onChange={handleChange}
+            value={dataStep2.end_hour}
+            name="end_hour"
+          />
+          {/* {valError.end_hour && <Form.Text className="text-danger fw-bold">{valError.end_hour}</Form.Text>} */}
+        </Form.Group>
+      </div>
         <Form.Group className="mb-3" controlId="formBasicAttendees">
         <Form.Label>Número de asistentes:</Form.Label>
         <Form.Control
