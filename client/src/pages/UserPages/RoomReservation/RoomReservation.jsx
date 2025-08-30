@@ -5,8 +5,9 @@ import { useNavigate, useParams } from 'react-router';
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { ReservationForm2 } from "../../../components/ReservationForms/ReservationForm2";
 import { ReservationForm3 } from "../../../components/ReservationForms/ReservationForm3";
-import './roomReservation.css';
 import { fetchData } from "../../../helpers/axiosHelper";
+import { validateForms } from "../../../helpers/validateForms";
+import './roomReservation.css';
 
 const initialValue = {
   phone_number: "",
@@ -25,6 +26,9 @@ const initialValue = {
 const RoomReservation = () => {
   const [reservationData, setReservationData] = useState(initialValue);
   const [showForm, setShowForm] = useState(1);
+  const [sendFormOk, setSendFormOk] = useState(false);
+  const [valError, setValError] = useState({});
+  const [msgError, setMsgError] = useState();
 
   const {user, token} = useContext(AuthContext);
   const {id, room_name} = useParams();
@@ -43,9 +47,27 @@ const RoomReservation = () => {
     }
   }
 
-  const goNext = (e, numberForm) => {
+  const goNext = (e) => {
     e.preventDefault();
-    setShowForm(numberForm + 1);
+
+    try {
+      let chosenSchema;
+      if (showForm === 1) chosenSchema = reservationSchema1;
+      if (showForm === 2) chosenSchema = reservationSchema2;
+    
+      const {valid, errors} = validateForms(chosenSchema, reservationData);
+      setValError(errors);
+
+      if (valid){
+        setShowForm(showForm + 1);
+        setValError({});
+      }
+
+    } catch (error) {
+        console.log(error);
+        setValError({});
+        setMsgError('Algo salío mal, inténtelo de nuevo');
+      }
   }
 
   const cancel = (e) => {
@@ -65,7 +87,7 @@ const RoomReservation = () => {
 
     try {
       const res = await fetchData(`/users/roomReservation/${id}/${room_name}`, "post", allData, token);
-      console.log("RES DEL FETCHDATA SUBMIT", res);
+      setSendFormOk(true);
 
     } catch (error) {
       console.log(error);
@@ -103,7 +125,8 @@ const RoomReservation = () => {
                 reservationData={reservationData}
                 handleChange={handleChange} 
                 cancel={cancel}
-                onSubmit={onSubmit}/>
+                onSubmit={onSubmit}
+                sendFormOk={sendFormOk}/>
             }
           </Col>
         </Row>

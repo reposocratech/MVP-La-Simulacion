@@ -79,7 +79,7 @@ export const ReservationForm1 = ({roomName, userName, userLastname, reservationD
         <button 
             className="submit-button"
             type="button"
-            onClick={(e)=>goNext(e, 1)}
+            onClick={goNext}
             >Siguiente
         </button>
       </div>
