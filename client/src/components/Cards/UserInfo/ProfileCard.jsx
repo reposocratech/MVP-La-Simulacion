@@ -53,7 +53,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
     setLoading(true)
     try {
       const res = await fetchData(
-        `/deleteUser/${user.user_id}`,
+        `/users/deleteUser/${user.user_id}`,
         'delete',
         null,
         token

@@ -7,11 +7,12 @@ import { fetchData } from "../../helpers/axiosHelper";
 import { AuthContext } from "../../context/AuthContextProvider";
 import './formReview.css';
 
-export const FormReview = () => {
+export const FormReview = ({event_id}) => {
   const { token } = useContext(AuthContext);
 
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [ratingReset, setRatingReset] = useState();
   const [valError, setValError] = useState({});
   const [msgError, setMsgError] = useState();
 
@@ -23,11 +24,12 @@ export const FormReview = () => {
       setValError(errors);
   
       if (valid){
-        const data = {comment, rating};
+        const data = {comment, rating, event_id};
         const res = await fetchData("/reviews/createReview", "post", data, token);
         console.log(res);
         setRating(0);
         setComment("");
+        setRatingReset(prev => prev + 1);
       }
     } catch (error) {
       console.log(error);
@@ -40,6 +42,7 @@ export const FormReview = () => {
     <Form className='form-review shadow'>
       <div className="mb-3">
         <Rating
+          key={ratingReset}
           onClick={setRating}
           ratingValue={rating}
           size={30}

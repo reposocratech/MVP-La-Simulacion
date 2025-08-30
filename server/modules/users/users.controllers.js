@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 import emailVerify from '../../utils/emailVerify.js'
 import { deleteFile } from '../../helpers/fileSystem.js'
 import transporter from '../../utils/nodemailer.js';
+
 dotenv.config()
 class UserController {
     register = async (req, res) => {
@@ -65,6 +66,7 @@ class UserController {
         res.status(400).send('Token inválido o expirado');
       }
     }
+
   login = async (req, res) => {
     try {
       const { email, password } = req.body
