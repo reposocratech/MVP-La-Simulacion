@@ -1,5 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { FormReview } from "../../../components/FormReview/FormReview";
+import { Review } from "../../../components/Review/Review";
 
 
 const Prueba = () => {
@@ -35,6 +36,9 @@ const Prueba = () => {
             <Col lg={7}>
               <FormReview event_id={2}/>
             </Col>
+             <Col>
+                <Review />
+              </Col>
           </Row>
         </section>
       </Container>
