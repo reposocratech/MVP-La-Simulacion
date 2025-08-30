@@ -46,7 +46,8 @@ export const FormServCoop = ({ handleChange, onSubmit , datesForm ,handleFile , 
                 <Form.Control
                  onChange={handleFile}
                  type="file" 
-                 name="image" 
+                 name="image"
+                 accept="image/*" 
                  hidden
                  />
                  {fileError && <Form.Text className="text-error">{fileError}</Form.Text>}
