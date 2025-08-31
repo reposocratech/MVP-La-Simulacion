@@ -52,6 +52,8 @@ const RoomReservation = () => {
 
   const goPrev = (e) => {
     e.preventDefault();
+    setValError({});
+    setMsgError();
     setShowForm(showForm - 1);
   }
 
@@ -69,6 +71,7 @@ const RoomReservation = () => {
       if (valid){
         setShowForm(showForm + 1);
         setValError({});
+        setMsgError();
       }
 
     } catch (error) {
@@ -81,6 +84,8 @@ const RoomReservation = () => {
   const cancel = (e) => {
     e.preventDefault();
     setReservationData(initialValue);
+    setValError({});
+    setMsgError();
     navigate(`/oneRoom/${id}`);
   }
 
@@ -95,9 +100,13 @@ const RoomReservation = () => {
         setValError({});
 
         const allData = {
+          room_name: room_name,
+          user_name: user.user_name,
+          lastname: user.lastname,
+          email: user.email,
           user_id: user.user_id,
           room_id: id,
-          reservationData: reservationData
+          ...reservationData
         }
         
         const res = await fetchData(`/users/roomReservation/${id}/${room_name}`, "post", allData, token);

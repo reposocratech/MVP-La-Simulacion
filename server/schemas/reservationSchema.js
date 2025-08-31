@@ -35,11 +35,14 @@ export const reservationSchema = z.object({
     .max(150, {message: "El tipo de proyecto no puede tener más de 150 caracteres"}),
   socialmedia_link: z
     .string()
-    .max(200)
-    .refine(
-      val => val === "" || /^https?:\/\/([\w-]+\.)+[\w-]+(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/.test(val),
-      { message: "No has introducido una URL válida" }
-    ),
+    .optional()
+    .nullable()
+    .refine(val => {
+      if (!val || val === "") return true;
+      return /^https?:\/\/([\w-]+\.)+[\w-]+(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/.test(val);
+    }, {
+      message: "No has introducido una URL válida"
+    }),
   ilumination_material: z
     .string()
     .nonempty({message: "Debes marcar si necesitas o no el material de iluminación"})

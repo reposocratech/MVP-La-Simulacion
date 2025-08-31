@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 import emailVerify from '../../utils/emailVerify.js'
 import { deleteFile } from '../../helpers/fileSystem.js'
 import transporter from '../../utils/nodemailer.js';
+import { generateReservationEmailHTML } from '../../utils/emailReservation.js'
 
 dotenv.config()
 class UserController {
@@ -133,32 +134,28 @@ class UserController {
       res.status(500).json({ message: 'Error al enviar el correo' })
     }
   }
-  
+
   makeRoomReservation = async (req, res) => {
     console.log("REQBODY PARA BD e EMAIL RESEV", req.body);
     try {
       // envío los datos de reserva del form a la BD:
       await usersDal.makeRoomReservation(req.body);
 
-      // se manda un email al admin con la reserva del user:
-      const {phone_number, date, start_hour, end_hour, proyect_description, proyect_type, socialmedia_link, ilumination_material, number_of_attendees, aditional_requirement, user_policy_confirmation} = req.body;
+      //se manda un email al admin con la reserva del user:
+      const emailReservationHTML = generateReservationEmailHTML(req.body);
 
-      const emailFields = {
-        from: `"Formulario contacto Web" <${process.env.EMAIL_USER}>`,
+      const mailOptions = {
+        from: `"Reservas La Simulación" <${process.env.EMAIL_USER}>`,
         to: "laezne@gmail.com",
-        subject: `Nueva reserva`,
-        html: `
-          <h2>Nuevo mensaje de contacto</h2>
-          <p><strong>Fecha:</strong> ${date}</p>
-          <p><strong>Teléfono:</strong> ${phone_number}</p>
-          <p><strong>start_hour:</strong> ${start_hour}</p>
-        `,
+        subject: `Nueva solicitud de reserva`,
+        html: emailReservationHTML
       }
 
-      const sendingEmail = await transporter.sendMail(emailFields);
+      const sendingEmail = await transporter.sendMail(mailOptions);
 
       // res para indicar que todo fue correcto:
       res.status(200).json({ message: 'Solicitud de reserva enviada correctamente.' })
+
     } catch (error) {
       console.log("ERRROR CONTROLLLER RESERV", error);
       res.status(500).json({ message: 'server error' })
