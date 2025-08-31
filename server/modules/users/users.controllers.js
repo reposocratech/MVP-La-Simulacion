@@ -43,6 +43,7 @@ class UserController {
             }
         }
     }
+
     verifyEmail = async (req, res) => {
       try {
         const { token } = req.query;
@@ -94,6 +95,7 @@ class UserController {
       res.status(500).json({ message: 'server error' })
     }
   }
+
   userById = async (req, res) => {
     try {
       // Conseguimos el id de la solicitud
@@ -108,6 +110,7 @@ class UserController {
       res.status(500).json({ message: 'server error' })
     }
   }
+
   contactEmail = async (req, res) => {
     try {
       const { name, lastname, email, phone_number, consult } = req.body
@@ -130,17 +133,38 @@ class UserController {
       res.status(500).json({ message: 'Error al enviar el correo' })
     }
   }
+  
   makeRoomReservation = async (req, res) => {
+    console.log("REQBODY PARA BD e EMAIL RESEV", req.body);
     try {
-      console.log('REQ BODY reservation', req.body)
-      await usersDal.makeRoomReservation(req.body)
-      res
-        .status(200)
-        .json({ message: 'Solicitud de reserva enviada correctamente.' })
+      // envío los datos de reserva del form a la BD:
+      await usersDal.makeRoomReservation(req.body);
+
+      // se manda un email al admin con la reserva del user:
+      const {phone_number, date, start_hour, end_hour, proyect_description, proyect_type, socialmedia_link, ilumination_material, number_of_attendees, aditional_requirement, user_policy_confirmation} = req.body;
+
+      const emailFields = {
+        from: `"Formulario contacto Web" <${process.env.EMAIL_USER}>`,
+        to: "laezne@gmail.com",
+        subject: `Nueva reserva`,
+        html: `
+          <h2>Nuevo mensaje de contacto</h2>
+          <p><strong>Fecha:</strong> ${date}</p>
+          <p><strong>Teléfono:</strong> ${phone_number}</p>
+          <p><strong>start_hour:</strong> ${start_hour}</p>
+        `,
+      }
+
+      const sendingEmail = await transporter.sendMail(emailFields);
+
+      // res para indicar que todo fue correcto:
+      res.status(200).json({ message: 'Solicitud de reserva enviada correctamente.' })
     } catch (error) {
+      console.log("ERRROR CONTROLLLER RESERV", error);
       res.status(500).json({ message: 'server error' })
     }
   }
+
   deleteUser = async (req, res) => {
     try {
       const { id } = req.params
@@ -157,6 +181,7 @@ class UserController {
       res.status(500).json({ message: 'Error del servidor' })
     }
   }
+
   editUser = async (req, res) => {
     try {
       const { simulacion_user_id } = req
@@ -181,6 +206,7 @@ class UserController {
       res.status(500).json({ message: 'server error' })
     }
   }
+
   changeEmail = async (req, res) => {
     try {
       const { simulacion_user_id } = req
@@ -208,6 +234,7 @@ class UserController {
       res.status(500).json({ message: 'server error' })
     }
   }
+
   changePass = async (req, res) => {
     const { simulacion_user_id } = req
     const { prevPass, newPass } = req.body
@@ -225,6 +252,7 @@ class UserController {
       res.status(500).json({ message: 'server error' })
     }
   }
+
   editAvatar = async (req, res) => {
     try {
       const { simulacion_user_id } = req

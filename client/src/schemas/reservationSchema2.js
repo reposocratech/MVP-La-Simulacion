@@ -10,11 +10,10 @@ export const reservationSchema2 = z.object({
     .nonempty({message: "El tipo de proyecto es obligatorio"})
     .max(150, {message: "El tipo de proyecto no puede tener más de 150 caracteres"}),
   socialmedia_link: z
-    .union([
-      z.string().max(200).refine(
-        val => val === "" || /^https?:\/\/.+\..+/.test(val),
-        { message: "Debes introducir una URL válida" }
-      ),
-      z.literal(null)
-    ])
+    .string()
+    .max(200)
+    .refine(
+      val => val === "" || /^https?:\/\/([\w-]+\.)+[\w-]+(\/[\w\-._~:/?#[\]@!$&'()*+,;=]*)?$/.test(val),
+      { message: "No has introducido una URL válida" }
+    )
 });

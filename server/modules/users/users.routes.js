@@ -6,6 +6,7 @@ import { loginSchema } from '../../schemas/loginSchema.js';
 import { registerSchema } from '../../schemas/registerSchema.js';
 import { contactSchema } from '../../schemas/contactSchema.js';
 import { uploadImageSingle } from '../../middlewares/multerSingle.js';
+import { reservationSchema } from '../../schemas/reservationSchema.js';
 
 const router = express.Router();
 
@@ -22,7 +23,7 @@ router.put('/changeEmail', verifyToken, usersController.changeEmail);
 router.put('/changePass', verifyToken, usersController.changePass);
 router.delete("/deleteUser/:id", verifyToken, usersController.deleteUser);
 router.put("/editAvatar", verifyToken, uploadImageSingle("users"), usersController.editAvatar);
-router.post('/roomReservation/:id/:room_name', verifyToken, usersController.makeRoomReservation);
+router.post('/roomReservation/:id/:room_name', verifyToken, validateForm(reservationSchema), usersController.makeRoomReservation);
 
 
 export default router;

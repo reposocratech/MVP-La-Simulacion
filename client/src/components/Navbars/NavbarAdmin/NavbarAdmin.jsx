@@ -45,8 +45,8 @@ export const NavbarAdmin = () => {
              <NavDropdown.Item as={Link} to="/services">Servicios</NavDropdown.Item>
            </NavDropdown>
            <NavDropdown title="Servicios" id="basic-nav-dropdown">
-             <NavDropdown.Item as={Link} to="/admin/events">Gestionar Servicios</NavDropdown.Item>
-             <NavDropdown.Item as={Link} to="/admin/services">Gestionar Eventos/Talleres</NavDropdown.Item>
+             <NavDropdown.Item as={Link} to="/admin/servCoop">Gestionar Servicios</NavDropdown.Item>
+             <NavDropdown.Item as={Link} to="/admin/events">Gestionar Eventos/Talleres</NavDropdown.Item>
              <NavDropdown.Item as={Link} to="/admin/rooms">Gestionar Salas</NavDropdown.Item>
            </NavDropdown>
             <Nav.Link as={Link} to="/admin/users">Usuarios</Nav.Link>
