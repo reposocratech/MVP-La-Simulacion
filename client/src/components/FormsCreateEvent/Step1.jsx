@@ -13,6 +13,8 @@ const Step1 = () => {
   const {cancel, navigate, dataTotal, setDataTotal, handleFile} = useOutletContext();
 
   const [dataStep1, setDataStep1] = useState(initialValue);
+  // const [valError, setValError] = useState({});
+  //const [msgError, setMsgError] = useState();
 
   useEffect(()=>{
     setDataStep1({event_title: dataTotal.event_title, event_description:dataTotal.event_description, location: dataTotal.location, type_event: dataTotal.type_event})
@@ -55,6 +57,7 @@ const Step1 = () => {
               checked={dataStep1.type_event === "2"}
             />
           </div>
+          {/* {valError.type_event && <Form.Text className="text-danger fw-bold">{valError.type_event}</Form.Text>} */}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEventTitle">
           <Form.Label>Título del Evento/Taller:</Form.Label>
@@ -97,6 +100,7 @@ const Step1 = () => {
             onChange={handleFile}
             hidden
             name="cover_image"
+            accept="image/*"
           />
         </Form.Group>
         {/* {msgError && <p className="text-danger">{msgError}</p>} */}

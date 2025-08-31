@@ -13,6 +13,8 @@ const Step3 = () => {
 
   const [data, setData] = useState(initialValue);
   const [showForm, setShowForm] = useState(false);
+  // const [valError, setValError] = useState({});
+  //const [msgError, setMsgError] = useState();
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -93,7 +95,7 @@ const Step3 = () => {
 
       <div className="p-3 bg-color-secondary-light-pink rounded-4">
         <h2 className="fs-3 mb-3">{dataTotal.section_public.section_title}</h2>
-        <Row className="justify-content-between">
+        <Row className="justify-content-between gy-4">
           <Col lg={5}>
             {showForm ?
               <form>
@@ -105,6 +107,7 @@ const Step3 = () => {
                     value={data.key_point_title}
                     name="key_point_title"
                   />
+                  {/* {valError.key_point_title && <p className="text-danger fw-bold">{valError.key_point_title}</p>} */}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicKeyDesc">
                   <Form.Control
@@ -115,8 +118,9 @@ const Step3 = () => {
                     value={data.key_point_description}
                     name="key_point_description"
                   />
-                  {/* {valError.duration && <Form.Text className="text-danger fw-bold">{valError.duration}</Form.Text>} */}
+                  {/* {valError.key_point_description && <p className="text-danger fw-bold">{valError.key_point_description}</p>} */}
                 </Form.Group>
+                {/* {msgError && <p className="text-danger">{msgError}</p>} */}
                 <button
                   className="btn-table me-3"
                   type="button"

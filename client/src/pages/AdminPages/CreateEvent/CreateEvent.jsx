@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { Outlet, useLocation, useNavigate } from "react-router";
-import { Sections } from "../../../components/FormsCreateEvent/Sections";
+import { Outlet, useNavigate } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { fetchData } from "../../../helpers/axiosHelper";
@@ -34,10 +33,6 @@ const CreateEvent = () => {
   const {token} = useContext(AuthContext);
 
   const navigate = useNavigate();
-
-  //const location = useLocation();
-  //const showSectionPublic = location.pathname.endsWith("/step3") || location.pathname.endsWith("/newSection");
-  //const showSectionsComponent = location.pathname.endsWith("/newSection");
 
   const handleFile = (e) => {
     setCoverImg(e.target.files[0]);
@@ -96,7 +91,7 @@ const CreateEvent = () => {
     <section className="section-create-event">
       <Container>
         <h1><span>ET</span>Crear un evento/ taller</h1>
-        <Row className="justify-content-between">
+        <Row className="justify-content-between gy-4">
           <Col lg={4}>
             <article className="border-info-form shadow-sm">
               <p><span>Tipo:</span> {dataTotal.type_event ? (Number(dataTotal.type_event) === 1 ? "Evento" : "Taller") : ""}</p>
@@ -115,27 +110,6 @@ const CreateEvent = () => {
             </article>
           </Col>
           <Col lg={8}>
-            <div>
-              {/* SOLO SE RENDERIZA SI ESTAS EN EL STEP3 Y EN NEWSECTION, NO SIEMPRE EN TODOS LOS PASOS */}
-              {/* {showSectionPublic &&
-              <>
-                <div>
-                  <h2>Sección 1: {dataTotal.section_public.section_title}</h2>
-                  {dataTotal.section_public.key_points.map((elem, index) => (
-                    <div key={index}>
-                      <p>{elem.key_point_title}</p>
-                      <p>{elem.key_point_description}</p>
-                    </div>
-                  ))}
-                </div>
-              </>
-              } */}
-              {/* SOLO SE RENDERIZA EN NEWSECTION */}
-              {/* {showSectionsComponent &&
-                <Sections dataTotal={dataTotal} setDataTotal={setDataTotal} />
-              } */}
-
-            </div>
             <Outlet context={{
               dataTotal, 
               setDataTotal,

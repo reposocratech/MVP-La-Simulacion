@@ -17,6 +17,8 @@ const NewSection = () => {
   const [newSection, setNewSection] = useState(initialValue);
   const [sectionImages, setSectionImages] = useState();
   const [showForm, setShowForm] = useState(false);
+  // const [valError, setValError] = useState({});
+  //const [msgError, setMsgError] = useState();
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -58,7 +60,7 @@ const NewSection = () => {
                 value={newSection.section_title}
                 name="section_title"
               />
-              {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
+              {/* {valError.section_title && <Form.Text className="text-danger fw-bold">{valError.section_title}</Form.Text>} */}
             </Form.Group>
             <Form.Group className="mb-3 w-100" controlId="formBasicSectSubTitle">
               <Form.Label>Subtítulo:</Form.Label>
@@ -69,7 +71,7 @@ const NewSection = () => {
                 value={newSection.section_subtitle}
                 name="section_subtitle"
               />
-              {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
+              {/* {valError.section_subtitle && <Form.Text className="text-danger fw-bold">{valError.section_subtitle}</Form.Text>} */}
             </Form.Group>
           </div>
           <Form.Group className="mb-3" controlId="formBasicSectDesc">
@@ -82,7 +84,7 @@ const NewSection = () => {
               value={newSection.section_description}
               name="section_description"
             />
-            {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
+            {/* {valError.section_description && <Form.Text className="text-danger fw-bold">{valError.section_description}</Form.Text>} */}
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicSectDuration">
             <Form.Label>Duración:</Form.Label>
@@ -93,7 +95,7 @@ const NewSection = () => {
               value={newSection.section_duration}
               name="section_duration"
             />
-            {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
+            {/* {valError.section_duration && <Form.Text className="text-danger fw-bold">{valError.section_duration}</Form.Text>} */}
           </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicSectFiles">
             <Form.Label>Subir Imágenes</Form.Label>
@@ -102,9 +104,10 @@ const NewSection = () => {
               multiple
               onChange={handleFile}
               name="sectionImages"
+              accept="image/*"
             />
-            {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
           </Form.Group>
+          {/* {msgError && <p className="text-danger">{msgError}</p>} */}
           <div className="d-flex gap-3">
             <button
               className="btn-table unblock"
