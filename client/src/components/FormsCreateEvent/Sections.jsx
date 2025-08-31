@@ -42,7 +42,6 @@ export const Sections = ({dataTotal, setDataTotal}) => {
   };
 
   const delPunto =  (id, sec_id) => {
-    //console.log(id, sec_id);
     const newSections = dataTotal.sections.map((e) => {
       if (e.sec_id === sec_id) {
         return { ...e, key_points: e.key_points.filter(e=>e.pto_id != id)};
@@ -73,10 +72,8 @@ export const Sections = ({dataTotal, setDataTotal}) => {
     }
   };
 
-  //console.log(items);
-
   return (
-    <div className="secciones">
+    <div>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}

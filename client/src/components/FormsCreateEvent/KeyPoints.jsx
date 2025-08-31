@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ModalKeyPoints } from "./ModalKeyPoints";
+import { HiTrash } from "react-icons/hi";
 
 const initialValue = {
   pto_int_name:"",
@@ -30,18 +31,27 @@ export const KeyPoints = ({sec, addPoInt, delPunto}) => {
   }
   
   return (
-    <div className="bg-primary p-3">
-      <button 
-        className="lavender-button"
-        onClick={() => setShowForm(true)}
-      >Añadir punto clave</button>
+    <div>
+      <div className=" mb-3">
+        <button
+          className="lavender-button"
+          onClick={() => setShowForm(true)}
+        >Añadir punto clave</button>
+      </div>
       {sec.key_points.map(e=>{
         return(
-          <div className="bg-info p-2" key={e.pto_id}>
-            <p className="mb-0 fw-bold p-list">{e.key_point_title}</p>
-            <p className="mb-0">{e.key_point_description}</p>
-            <div className="text-end">
-              <button onClick={()=>delPunto(e.pto_id, sec.sec_id)}>del</button>
+          <div className="rounded-4 p-2 mb-2 bg-light" key={e.pto_id}>
+            <div className="d-flex justify-content-between gap-3">
+              <div>
+                <p className="mb-0 fw-bold p-list">{e.key_point_title}</p>
+                <p className="mb-0">{e.key_point_description}</p>
+              </div>
+              <div>
+                <button
+                  className="delete-button-icon"
+                  onClick={()=>delPunto(e.pto_id, sec.sec_id)}
+                ><HiTrash size={20} /></button>
+              </div>
             </div>
           </div>
         )

@@ -149,6 +149,9 @@ body {
     border: none;
     border-radius: 12px;
     padding: .5rem 1rem;
+    &:hover {
+      filter: brightness(85%);
+    }
   }
 
   .btn-table {

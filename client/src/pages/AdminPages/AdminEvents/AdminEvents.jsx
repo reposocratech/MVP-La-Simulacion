@@ -38,10 +38,18 @@ const AdminEvents = () => {
     {key: "event_title", label: "Título"},
     {key: "location", label: "Lugar"},
     {key: "duration", label: "Duración"},
-    {key: "start_date", label: "Comienza"},
-    {key: "end_date", label: "Finaliza"},
+    {
+      key: "start_date", 
+      label: "Comienza",
+      render: (row) => new Date(row.start_date).toLocaleDateString("es-ES")
+    },
+    {
+      key: "end_date", 
+      label: "Finaliza",
+      render: (row) => new Date(row.end_date).toLocaleDateString("es-ES")
+    },
     {key: "number_of_attendees", label: "Personas"},
-    {key: "price", label: "Precio"},
+    {key: "price", label: "Coste"},
     /* {key: "ticket_link", label: "Ticket link"}, */
     {
       key: "edit",

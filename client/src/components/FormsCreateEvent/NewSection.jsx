@@ -36,8 +36,6 @@ const NewSection = () => {
     setShowForm(false);
   }
 
-  //console.log("DATATOTAL SECT", dataTotal);
-
   const cancelAddSection = (e) => {
     e.preventDefault();
     setNewSection(initialValue);
@@ -46,8 +44,9 @@ const NewSection = () => {
 
   return (
     <div>
+      
       {showForm ?
-        <Form className='border border-2 p-3 rounded-4'>
+        <Form className='border-forms'>
           <h4>Nueva sección</h4>
           <div className="d-flex justify-content-center gap-3">
             <Form.Group className="mb-3 w-100" controlId="formBasicSectTitle">
@@ -119,14 +118,14 @@ const NewSection = () => {
         </Form>
         :
         <>
-          <div className='mb-5 d-flex flex-column flex-md-row gap-2'>
+          <div className='mb-4 d-flex flex-column flex-md-row gap-3'>
             <button 
               className='submit-button' 
               disabled={showForm} 
               onClick={()=>navigate('step3')} 
             >Anterior</button>
             <button
-              className="lavender-button"
+              className="lavender-button fw-bold"
               onClick={()=>setShowForm(true)}
             >Añadir Sección</button>
             <button 
@@ -135,11 +134,12 @@ const NewSection = () => {
               onClick={cancel}
             >Cancelar</button>
             <button 
-              className='submit-button' 
+              className='submit-button fw-bold' 
               disabled={showForm} 
               onClick={terminar}
             >Terminar</button>
           </div>
+          <h2 className="fs-3 mb-3">Secciones del evento/ taller</h2>
           <Sections dataTotal={dataTotal} setDataTotal={setDataTotal}/>
         </>
       }

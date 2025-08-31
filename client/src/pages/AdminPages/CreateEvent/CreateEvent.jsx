@@ -35,9 +35,9 @@ const CreateEvent = () => {
 
   const navigate = useNavigate();
 
-  const location = useLocation();
-  const showSectionPublic = location.pathname.endsWith("/step3") || location.pathname.endsWith("/newSection");
-  const showSectionsComponent = location.pathname.endsWith("/newSection");
+  //const location = useLocation();
+  //const showSectionPublic = location.pathname.endsWith("/step3") || location.pathname.endsWith("/newSection");
+  //const showSectionsComponent = location.pathname.endsWith("/newSection");
 
   const handleFile = (e) => {
     setCoverImg(e.target.files[0]);
@@ -75,8 +75,6 @@ const CreateEvent = () => {
       const newFormData = new FormData();
       newFormData.append("dataTotal", JSON.stringify(sendData));
       prueba.forEach((elem)=>{
-        //console.log("ELEM", elem)
-        
         if (elem.files !== undefined){
           let prueba2 = Array.from(elem.files);
           prueba2.forEach((e)=>{
@@ -96,11 +94,11 @@ const CreateEvent = () => {
 
   return (
     <section className="section-create-event">
-      <h1><span>ET</span>Crear un evento/ taller</h1>
       <Container>
+        <h1><span>ET</span>Crear un evento/ taller</h1>
         <Row className="justify-content-between">
           <Col lg={4}>
-            <article className="shadow-sm">
+            <article className="border-info-form shadow-sm">
               <p><span>Tipo:</span> {dataTotal.type_event ? (Number(dataTotal.type_event) === 1 ? "Evento" : "Taller") : ""}</p>
               <p><span>Título:</span> {dataTotal.event_title}</p>
               <p><span>Descripción:</span> {dataTotal.event_description}</p>
@@ -116,7 +114,7 @@ const CreateEvent = () => {
               <p><span>Enlace ticketera:</span> {dataTotal.ticket_link}</p>
             </article>
           </Col>
-          <Col lg={7}>
+          <Col lg={8}>
             <div>
               {/* SOLO SE RENDERIZA SI ESTAS EN EL STEP3 Y EN NEWSECTION, NO SIEMPRE EN TODOS LOS PASOS */}
               {/* {showSectionPublic &&
