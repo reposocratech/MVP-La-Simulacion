@@ -1,4 +1,5 @@
 import executeQuery, { dbPool } from '../../config/db.js'
+import { cleanInputs } from '../../utils/cleanInputs.js'
 
 class EventDal {
   //traer todos los eventos que no estén borrados
@@ -47,7 +48,8 @@ class EventDal {
   }
 
   createEvent = async (data) => {
-    console.log('DATA SECT IMGS', data.sections[1].images)
+
+    const cleanedData = cleanInputs(data);
 
     const {
       event_title,
@@ -64,7 +66,7 @@ class EventDal {
       type_event,
       cover_image,
       sections,
-    } = data
+    } = cleanedData;
 
     const connection = await dbPool.getConnection()
 

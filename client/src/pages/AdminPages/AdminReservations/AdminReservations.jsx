@@ -18,7 +18,7 @@ const AdminReservations = () => {
     const fetchReservations = async() => {
       try {
         const res = await fetchData("/admin/reservations", "get", null, token);
-        console.log("RES TABLA RESERVAS", res);
+        setReservationsData(res.data);
         
       } catch (error) {
         console.log(error);
@@ -31,10 +31,27 @@ const AdminReservations = () => {
   // La key debe llamarse como el campo de la base de datos, para que la tabla la identifique y la rellene con los datos que llegan.
   // label es el nombre que recibe el "título" de cada columna.
   const columns = [
-    {key: "reservation_id", label: "ID Reserva"},
-    {key: "room_id", label: "ID Sala"},
-    {key: "user_id", label: "ID Usuario"},
-    {key: "status", label: "Estado"}
+    { 
+      key: "reservation_id", 
+      label: "ID Reserva",
+      render: (row) => (reservationsData.reservation_id)
+    },
+      
+    {
+      key: "room_id", 
+      label: "ID Sala",
+      render: (row) => (reservationsData.room_id)
+    },
+    {
+      key: "user_id", 
+      label: "ID Usuario",
+      render: (row) => (reservationsData.user_id)
+    },
+    {
+      key: "status", 
+      label: "Estado",
+      render: (row) => (reservationsData.status)
+    }
   ]
 
   return (
@@ -71,6 +88,7 @@ const AdminReservations = () => {
         <Row>
           <CustomTable 
             columns={columns}
+            data={reservationsData}
             /> {/* Pasar la data aquí tb*/}
         </Row>
 

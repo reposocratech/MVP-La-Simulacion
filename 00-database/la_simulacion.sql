@@ -149,6 +149,7 @@ SELECT * FROM section;
 SELECT * FROM section_image;
 SELECT * FROM section_key_point;
 
+
 INSERT INTO event (
   event_title, event_description, location, duration, start_date, end_date, 
   number_of_attendees, price, ticket_link
@@ -162,5 +163,6 @@ INSERT INTO event (
   '2025-10-05', '2025-10-05', 
   1200, 0.00, 'https://festivalteatro.barcelona'
 );
+
 
 
