@@ -1,0 +1,31 @@
+.section-error {
+  height: 100dvh;
+
+  .error-cont {
+    width: min(100%, 673px);
+
+    .img-error-page {
+      width: fit-content;
+    }
+
+    .error-page-text {
+      color: var(--color-primary-orange);
+      font-size: 1.15rem;
+    }
+    
+    .error-page-button {
+      background-color: var(--color-primary-electric-blue);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: .6rem 1.5rem;
+
+      &:hover {
+        filter: brightness(1.1); /* Aumenta el brillo en un 10% */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Añade una sombra sutil */
+        transform: translateY(-2px); /* Mueve el botón ligeramente hacia arriba */
+      }
+    }
+  }
+
+}

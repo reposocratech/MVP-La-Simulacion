@@ -39,7 +39,6 @@ CREATE TABLE room (
     room_is_deleted BOOLEAN NOT NULL DEFAULT 0
 );
 
-
 CREATE TABLE room_image (
 	room_id TINYINT UNSIGNED NOT NULL,
 	room_image_id TINYINT UNSIGNED NOT NULL,
@@ -150,6 +149,7 @@ SELECT * FROM reservation;
 SELECT * FROM event;
 SELECT * FROM section_image;
 
+
 INSERT INTO event (
   event_title, event_description, location, duration, start_date, end_date, 
   number_of_attendees, price, ticket_link
@@ -164,7 +164,7 @@ INSERT INTO event (
   1200, 0.00, 'https://festivalteatro.barcelona'
 );
 
+
 ALTER TABLE event ADD type_event TINYINT UNSIGNED NOT NULL;
 ALTER TABLE room ADD room_is_deleted BOOLEAN NOT NULL DEFAULT 0;
-ALTER TABLE event MODIFY COLUMN start_date DATE;
-ALTER TABLE event MODIFY COLUMN end_date DATE;
+
