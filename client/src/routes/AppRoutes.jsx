@@ -22,23 +22,46 @@ const Register = lazy(() => import('../pages/PublicPages/Register/Register'))
 const Login = lazy(() => import('../pages/PublicPages/Login/Login'))
 const ErrorPage = lazy(() => import('../pages/PublicPages/ErrorPage/ErrorPage'))
 const Calendar = lazy(() => import('../pages/PublicPages/Calendar/Calendar'))
-const Prueba = lazy(() => import('../pages/PublicPages/prueba/Prueba'))
+const Review = lazy(() => import('../pages/PublicPages/Review/Review'))
 const OneEvent = lazy(() => import('../pages/PublicPages/oneEvent/OneEvent'))
 
 // Componentes Administrador:
 const AdminPanel = lazy(() => import('../pages/AdminPages/AdminPanel/AdminPanel'))
 const CreateRoom = lazy(() => import('../pages/AdminPages/CreateRoom/CreateRoom'))
 const EditRoom = lazy(() => import('../pages/AdminPages/EditRoom/EditRoom'))
-const CreateServCoop = lazy(() => import('../pages/AdminPages/CreateServCoop/CreateServCoop'))
-const EditServCoop = lazy(() => import('../pages/AdminPages/EditServCoop/EditServCoop'))
-const AdminUsers = lazy(() => import('../pages/AdminPages/AdminUsers/AdminUsers'))
-const UserProfile = lazy(() => import('../pages/AdminPages/UserProfile/UserProfile'))
-const AdminAdmins = lazy(() => import('../pages/AdminPages/AdminAdmins/AdminAdmins'))
-const AdminEvents = lazy(() => import('../pages/AdminPages/AdminEvents/AdminEvents'))
-const AdminRooms = lazy(() => import('../pages/AdminPages/AdminRooms/AdminRooms'))
-const AdminReservations = lazy(() => import('../pages/AdminPages/AdminReservations/AdminReservations'))
-const AdminServCoop = lazy(() => import('../pages/AdminPages/AdminServCoop/AdminServCoop'))
-const CreateEvent = lazy(() => import('../pages/AdminPages/CreateEvent/CreateEvent'))
+const CreateServCoop = lazy(() =>
+  import('../pages/AdminPages/CreateServCoop/CreateServCoop')
+)
+const EditServCoop = lazy(() =>
+  import('../pages/AdminPages/EditServCoop/EditServCoop')
+)
+const AdminUsers = lazy(() =>
+  import('../pages/AdminPages/AdminUsers/AdminUsers')
+)
+const UserProfile = lazy(() =>
+  import('../pages/AdminPages/UserProfile/UserProfile')
+)
+const AdminAdmins = lazy(() =>
+  import('../pages/AdminPages/AdminAdmins/AdminAdmins')
+)
+const AdminEvents = lazy(() =>
+  import('../pages/AdminPages/AdminEvents/AdminEvents')
+)
+const AdminRooms = lazy(() =>
+  import('../pages/AdminPages/AdminRooms/AdminRooms')
+)
+const AdminReservations = lazy(() =>
+  import('../pages/AdminPages/AdminReservations/AdminReservations')
+)
+const AdminServCoop = lazy(() =>
+  import('../pages/AdminPages/AdminServCoop/AdminServCoop')
+)
+const AdminReview = lazy (() =>
+  import('../pages/AdminPages/AdminReview/AdminReview')
+)
+const CreateEvent = lazy(() =>
+  import('../pages/AdminPages/CreateEvent/CreateEvent')
+)
 const Step1 = lazy(() => import('../components/FormsCreateEvent/Step1'))
 const Step2 = lazy(() => import('../components/FormsCreateEvent/Step2'))
 const Step3 = lazy(() => import('../components/FormsCreateEvent/Step3'))
@@ -83,7 +106,7 @@ export const AppRoutes = () => {
                   <Route path="/register" element={<Register />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/calendar" element={<Calendar />} />
-                  <Route path="/prueba" element={<Prueba />} />
+                  <Route path="/review/:id" element={<Review />} />
                   <Route path="/event/:id" element={<OneEvent />} />
                 </Route>
               </Route>
@@ -103,6 +126,7 @@ export const AppRoutes = () => {
                   <Route path="/admin/rooms" element={<AdminRooms />} />
                   <Route path="/admin/reservations" element={<AdminReservations />} />
                   <Route path="/admin/servCoop" element={<AdminServCoop />} />
+                  <Route path="/admin/review" element={<AdminReview />} />
                   <Route path="/admin/createEvent" element={<CreateEvent />}>
                     <Route index element={<Step1 />} />
                     <Route path="step2" element={<Step2 />} />

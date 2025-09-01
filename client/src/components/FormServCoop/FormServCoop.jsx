@@ -57,8 +57,7 @@ export const FormServCoop = ({ handleChange, onSubmit , datesForm ,handleFile , 
                   Aceptar
                 </button>
               </div>
-              </Form.Group>
-              
+              </Form.Group>              
             </Form>
           </Col>
         </Row>

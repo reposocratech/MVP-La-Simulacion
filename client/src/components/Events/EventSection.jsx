@@ -1,4 +1,4 @@
-const EventSection = ({ section, index }) => {
+const EventSection = ({ section, index , timeEvent }) => {
   if (!section) return null
 
   const isFirst = index === 0

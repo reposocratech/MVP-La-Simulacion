@@ -1,9 +1,10 @@
 import brilloRosa from '../../assets/decorative/brillo-rosa.png'
 import trebolVerde from '../../assets/decorative/trebol-verde.svg'
 import florRedondeada from '../../assets/decorative/flor-redondeada.svg'
+import "./eventheader.css"
 
 //evento foto cabecera titulo e informacion basica del evento con boton de ticketera
-const EventHeader = ({ event }) => {
+const EventHeader = ({ event , timeEvent }) => {
   if (!event) return null
 
   const formatDate = (d) => (d ? new Date(d).toLocaleDateString() : '')
@@ -31,7 +32,8 @@ const EventHeader = ({ event }) => {
       : ''
 
   return (
-    <header className="event-header">
+    <section className="event-header">
+      <h1 className="event-title"><span className='span-eventheader accent-text align-middle'>ET</span> {event.event_title}</h1>
       <div className="cover-container">
         {event.cover_image && (
           <img
@@ -46,7 +48,6 @@ const EventHeader = ({ event }) => {
         <img src={trebolVerde} alt="" className="decor decor-trebol" />
         <img src={florRedondeada} alt="" className="decor decor-flor" />
       </div>
-      <h2 className="event-title">{event.event_title}</h2>
       <div className="event-info">
         <ul className="event-info-list">
           {dateText && (
@@ -81,19 +82,21 @@ const EventHeader = ({ event }) => {
           )}
         </ul>
       </div>
-      {event.ticket_link && (
-        <div className="cta-wrapper">
-          <a
-            href={event.ticket_link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="submit-button text-decoration-none"
-          >
-            Apúntate al evento
-          </a>
+      <div className="cta-wrapper">
+          {timeEvent ? (
+            <a
+              href={event.ticket_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="submit-button text-decoration-none"
+            >
+              Apúntate al evento
+            </a>
+          ) : null
+          }
         </div>
-      )}
-    </header>
+      
+    </section>
   )
 }
 

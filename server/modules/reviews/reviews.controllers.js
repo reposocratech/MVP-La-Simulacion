@@ -1,12 +1,45 @@
 import reviewsDal from "./reviews.dal.js";
 
 class ReviewController {
+  seeReview = async(req , res) => {
+    try {
+    const {id} = req.params
+    const result = await reviewsDal.seeReview(id);          
+    res.status(200).json({message: "Datos Ok" , result }); 
+    } catch (error) {            
+      res.status(500).json({message: "server error"});
+    }
+  }
+
+  seeAllReview = async(req , res) => {
+    try {
+    const result = await reviewsDal.seeAllReview();          
+    res.status(200).json({message: "Datos Ok" , result }); 
+    } catch (error) {            
+      res.status(500).json({message: "server error"});
+    }
+  }
+
+  delReview = async (req , res) =>{
+    try {
+        const {review_id} = req.body
+        await reviewsDal.delReview( review_id )
+        res.status(200).json({message: "Borrado Ok" });  
+    } catch (error) {
+      console.log(error);
+       res.status(500).json({message: "server error"});        
+    }
+  }
+
+
   createReview = async(req, res) => {
     try {
-      const { comment, rating, event_id } = req.body;
-      await reviewsDal.createReview(comment, rating, event_id);
+      const {id} = req.params
+      const { comment, rating } = req.body;
+      await reviewsDal.createReview(comment, rating, id);
       res.status(200).json({ message: "Reseña enviada correctamente" });
     } catch (error) {
+      console.log(error);  
       res.status(500).json({ message:"Error de server" });
     }
   }

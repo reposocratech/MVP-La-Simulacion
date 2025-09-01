@@ -31,7 +31,7 @@ sendMailServCoop = async (req , res)=>{
           <p><strong>Consulta:</strong> ${description} </p>          
             `,
         };
-        const emailResult = await transporter.sendMail(mailsend);
+         await transporter.sendMail(mailsend);
          res.status(200).json("Mensaje Enviado") 
     } catch (error) {
          res.status(500).json({message: "server error"});
@@ -55,9 +55,7 @@ sendMailServCoop = async (req , res)=>{
 
     getDataEditServCoop = async (req , res) => {
       try {
-        const {id} = req.params
-        console.log(id);
-        
+      const {id} = req.params              
       const result = await servicesDal.getDataEditServCoop(id);
       res.status(200).json({message: "Datos Ok" , result }) 
       } catch (error) {
@@ -74,16 +72,15 @@ sendMailServCoop = async (req , res)=>{
                 service_description,
                 id,            
                 image: req.file?req.file.filename:null
-            }
-          
-    const result = await servicesDal.editDataServCoop(data);
+            }         
+        await servicesDal.editDataServCoop(data);
 
       if (req.file) {
       if (img !== "null") {
         await deleteFile(img, "servCoop"); 
       }
     }
-    console.log(result);
+    
     
     res.status(200).json("Servicio Modificado");
   } catch (error) {  
@@ -98,9 +95,8 @@ sendMailServCoop = async (req , res)=>{
         const {service_id} = req.body;
         try {
             await servicesDal.servCoopDel(service_id);
-            res.status(200).json("borrraarr")
-        } catch (error) {
-           console.error("Error en servCoopDel:", error);
+            res.status(200).json("Servicio Borrado")
+        } catch (error) {         
             res.status(500).json({message:"error de server"})
         }
         

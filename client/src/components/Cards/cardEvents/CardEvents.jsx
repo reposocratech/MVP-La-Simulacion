@@ -1,6 +1,6 @@
 import './cardEvents.css';
 
-export const CardEvents = ({event}) => {
+export const CardEvents = ({event , navigate}) => {
   return (
     <article className='card-event rounded-4 overflow-hidden'>
         <div className="row ">
@@ -14,7 +14,7 @@ export const CardEvents = ({event}) => {
                 {event.location}
               </p>
               <div>
-                <button className='info-button'>Mas información</button>
+                <button onClick={() => navigate(`/event/${event.event_id}`)} className='info-button'>Mas información</button>
               </div>
             </div>
           </div>

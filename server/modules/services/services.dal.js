@@ -38,7 +38,6 @@ class ServiceDal {
   editDataServCoop = async (data) => {
     try {
     const {service_name , service_description , image , id} = data
-
     let sql = "UPDATE service SET service_name = ? , service_description = ?   WHERE service_id = ?  "
     let values = [service_name , service_description , id]
     if(image){
@@ -52,15 +51,12 @@ class ServiceDal {
   }
   
 
-
-
   servCoopDel = async(service_id) =>{
         try {
             let sql = 'UPDATE service SET service_is_deleted = 1 WHERE service_id = ?';
-          const result =  await executeQuery(sql, [service_id]);
-        } catch (error) {
-          console.error("Error bd ", error);
-            throw ("Error de bd")
+          await executeQuery(sql, [service_id]);
+        } catch (error) {          
+          throw ("Error de bd")
         }
     }
 

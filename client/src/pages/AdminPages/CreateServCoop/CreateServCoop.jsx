@@ -30,7 +30,7 @@ export const CreateServCoop = () => {
 
   const cancel = (e) => {
     e.preventDefault();
-    navigate("/admin/editServCoop")
+    navigate("/admin/servCoop")
   }
 
   const onSubmit = async (e) => {
@@ -52,10 +52,11 @@ export const CreateServCoop = () => {
             newFormData.append("file", file);
           }
         }
+        //LLamada al back para la creación de un servicio
         let res = await fetchData("/services/createservicecoop","post",newFormData,token);
         console.log(res);
         
-        navigate("/");
+        navigate("/admin/servCoop");
       }
     } catch (error) {
       console.log(error);

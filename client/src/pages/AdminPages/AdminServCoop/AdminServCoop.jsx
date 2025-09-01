@@ -16,6 +16,7 @@ export const EditServCoop = () => {
   const servCoopDelete = async (data ) => {
  
   try {
+    //LLamada al back para hacer borrado logico del servicio
     const res = await fetchData("/services/delservcoop", "put", {service_id: data.service_id}, token);
     setServCoopData(servCoopData.filter(e=>e.service_id !== data.service_id));
         
@@ -31,6 +32,7 @@ export const EditServCoop = () => {
   useEffect(() => {
     const fetchServCoop = async() => {
       try {
+        //LLamada al back para que se muestren todos los Servicios
         const res = await fetchData("/services/adminservicescoop", "get", null, token);
         const servCoop = res.data.result;
               setServCoopData(servCoop);

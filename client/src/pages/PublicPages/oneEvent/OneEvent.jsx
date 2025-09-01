@@ -1,5 +1,5 @@
 import { Container } from 'react-bootstrap'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { useState, useEffect } from 'react'
 import { fetchData } from '../../../helpers/axiosHelper'
 import EventHeader from '../../../components/Events/EventHeader'
@@ -10,6 +10,8 @@ const OneEvent = () => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
   const [sections, setSections] = useState([]);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     const loadEvent = async () => {
@@ -28,36 +30,36 @@ const OneEvent = () => {
 
 
   return (
-     <section className="section-one-event">
-       <Container>
-         <EventHeader event={event} />
-         {event.event_description && (
-           <div className="event-description">
-             <p>{event.event_description}</p>
-           </div>
-         )}
-         {sections.map((section, idx) => (
-           <EventSection
-             key={`${section.section_id}-${idx}`}
-             section={section}
-             index={idx}
-           />
-         ))}
+    <section className="section-one-event">
+      <Container>
+        <EventHeader event={event} />
+        {event.event_description && (
+          <div className="event-description">
+            <p>{event.event_description}</p>
+          </div>
+        )}
+        {sections.map((section, idx) => (
+          <EventSection
+            key={`${section.section_id}-${idx}`}
+            section={section}
+            index={idx}
+          />
+        ))}
 
-         {event.ticket_link && (
-           <div className="text-center my-4">
-             <a
-               href={event.ticket_link}
-               target="_blank"
-               rel="noopener noreferrer"
-               className="submit-button text-decoration-none"
-             >
-               Apúntate al evento
-             </a>
-           </div>
-         )}
-       </Container>
-     </section>
+        {event.ticket_link && (
+          <div className="text-center my-4">
+            <a
+              href={event.ticket_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="submit-button text-decoration-none"
+            >
+              Apúntate al evento
+            </a>
+          </div>
+        )}
+      </Container>
+    </section>
   )
 }
 
