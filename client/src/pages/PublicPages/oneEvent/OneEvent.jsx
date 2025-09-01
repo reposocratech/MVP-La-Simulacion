@@ -26,39 +26,39 @@ const OneEvent = () => {
     loadEvent()
   }, [id]);
 
-  return (
-    <div><h1>holi</h1></div>
-    // <section className="section-one-event">
-    //   <Container>
-    //     <EventHeader event={event} />
-    //     {event.event_description && (
-    //       <div className="event-description">
-    //         <p>{event.event_description}</p>
-    //       </div>
-    //     )}
-    //     {sections.map((section, idx) => (
-    //       <EventSection
-    //         key={`${section.section_id}-${idx}`}
-    //         section={section}
-    //         index={idx}
-    //       />
-    //     ))}
 
-    //     {event.ticket_link && (
-    //       <div className="text-center my-4">
-    //         <a
-    //           href={event.ticket_link}
-    //           target="_blank"
-    //           rel="noopener noreferrer"
-    //           className="submit-button text-decoration-none"
-    //         >
-    //           Apúntate al evento
-    //         </a>
-    //       </div>
-    //     )}
-    //   </Container>
-    // </section>
+  return (
+     <section className="section-one-event">
+       <Container>
+         <EventHeader event={event} />
+         {event.event_description && (
+           <div className="event-description">
+             <p>{event.event_description}</p>
+           </div>
+         )}
+         {sections.map((section, idx) => (
+           <EventSection
+             key={`${section.section_id}-${idx}`}
+             section={section}
+             index={idx}
+           />
+         ))}
+
+         {event.ticket_link && (
+           <div className="text-center my-4">
+             <a
+               href={event.ticket_link}
+               target="_blank"
+               rel="noopener noreferrer"
+               className="submit-button text-decoration-none"
+             >
+               Apúntate al evento
+             </a>
+           </div>
+         )}
+       </Container>
+     </section>
   )
 }
 
-export default OneEvent
+export default OneEvent;

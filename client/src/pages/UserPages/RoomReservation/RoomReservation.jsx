@@ -7,6 +7,9 @@ import { ReservationForm2 } from "../../../components/ReservationForms/Reservati
 import { ReservationForm3 } from "../../../components/ReservationForms/ReservationForm3";
 import { fetchData } from "../../../helpers/axiosHelper";
 import { validateForms } from "../../../helpers/validateForms";
+import { reservationSchema1 } from "../../../schemas/reservationSchema1";
+import { reservationSchema2 } from "../../../schemas/reservationSchema2";
+import { reservationSchema3 } from "../../../schemas/reservationSchema3";
 import './roomReservation.css';
 
 const initialValue = {
@@ -20,7 +23,7 @@ const initialValue = {
   ilumination_material: "",
   number_of_attendees: "",
   aditional_requirement: "",
-  user_policy_confirmation: ""
+  user_policy_confirmation: null
 }
 
 const RoomReservation = () => {
@@ -47,6 +50,13 @@ const RoomReservation = () => {
     }
   }
 
+  const goPrev = (e) => {
+    e.preventDefault();
+    setValError({});
+    setMsgError();
+    setShowForm(showForm - 1);
+  }
+
   const goNext = (e) => {
     e.preventDefault();
 
@@ -61,36 +71,52 @@ const RoomReservation = () => {
       if (valid){
         setShowForm(showForm + 1);
         setValError({});
+        setMsgError();
       }
 
     } catch (error) {
         console.log(error);
         setValError({});
-        setMsgError('Algo salío mal, inténtelo de nuevo');
+        setMsgError('Algo salió mal, inténtelo de nuevo');
       }
   }
 
   const cancel = (e) => {
     e.preventDefault();
     setReservationData(initialValue);
+    setValError({});
+    setMsgError();
     navigate(`/oneRoom/${id}`);
   }
 
   const onSubmit = async(e) => {
     e.preventDefault();
 
-    const allData = {
-      user_id: user.user_id,
-      room_id: id,
-      reservationData: reservationData
-    }
-
     try {
-      const res = await fetchData(`/users/roomReservation/${id}/${room_name}`, "post", allData, token);
-      setSendFormOk(true);
+      const {valid, errors} = validateForms(reservationSchema3, reservationData);
+      setValError(errors);
+
+      if (valid){
+        setValError({});
+
+        const allData = {
+          room_name: room_name,
+          user_name: user.user_name,
+          lastname: user.lastname,
+          email: user.email,
+          user_id: user.user_id,
+          room_id: id,
+          ...reservationData
+        }
+        
+        const res = await fetchData(`/users/roomReservation/${id}/${room_name}`, "post", allData, token);
+        setSendFormOk(true);
+      }
 
     } catch (error) {
       console.log(error);
+      setValError({});
+      setMsgError('Algo salió mal, inténtelo de nuevo');
     }
   } 
 
@@ -111,22 +137,28 @@ const RoomReservation = () => {
                 reservationData={reservationData}
                 handleChange={handleChange}
                 goNext={goNext}
-                cancel={cancel}/>
+                cancel={cancel}
+                valError={valError}/>
             }
             {showForm === 2 &&
               <ReservationForm2
                 reservationData={reservationData}
                 handleChange={handleChange}
+                goPrev={goPrev}
                 goNext={goNext} 
-                cancel={cancel}/>
+                cancel={cancel}
+                valError={valError}/>
             }
             {showForm === 3 &&
               <ReservationForm3
                 reservationData={reservationData}
                 handleChange={handleChange} 
+                goPrev={goPrev}
                 cancel={cancel}
                 onSubmit={onSubmit}
-                sendFormOk={sendFormOk}/>
+                sendFormOk={sendFormOk}
+                valError={valError}
+                msgError={msgError}/>
             }
           </Col>
         </Row>
