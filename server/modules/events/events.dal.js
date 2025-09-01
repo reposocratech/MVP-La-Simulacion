@@ -48,7 +48,6 @@ class EventDal {
   }
 
   createEvent = async (data) => {
-    // console.log('DATA SECT IMGS', data.sections[1].images)
     
     const cleanedData = cleanInputs(data);
 
