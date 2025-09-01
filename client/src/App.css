@@ -160,16 +160,22 @@ body {
     background-color: var(--color-primary-electric-blue);
   }
 
-  .block {
+  .block, .cancelRes {
     background-color: var(--color-primary-orange);
   }
 
-  .unblock {
+  .unblock, .confirmRes {
     background-color: var(--color-primary-green);
+    color: black;
   }
 
   .bg-color-secondary-pink {
     background-color: var(--color-secondary-medium-pink);
+  }
+
+  .bg-color-light-green {
+    background-color: var(--color-secondary-light-green);
+    color: black;
   }
 
   .msg-ok-form {

@@ -132,6 +132,18 @@ class AdminController {
     }
   }
 
+  changeStatusReservation = async(req, res) => {
+    try {
+      const {id, status} = req.body;
+      await adminDal.changeStatusReservation(id, status);
+
+      res.status(200).json({message: "Cambio de estado realizado"});
+
+    } catch (error) {
+      res.status(500).json({message: "Error de servidor"});
+    }
+  }
+
 }
 
 export default new AdminController();
