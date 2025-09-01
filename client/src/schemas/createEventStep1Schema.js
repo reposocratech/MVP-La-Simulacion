@@ -1,22 +1,22 @@
-import { z } from "zod";
+import {z} from 'zod';
 
 export const createEventStep1Schema = z.object({
   type_event: z
     .string()
-    .nonempty("Debes seleccionar si es Evento o Taller"),
-
+    .nonempty({message: "Debes marcar si es Evento o Taller"})
+    .refine(val => val === "1" || val === "2", {
+      message: "Debes marcar si es Evento o Taller" }),
   event_title: z
-    .string()
-    .nonempty("El título no puede estar vacío")
-    .max(100, "El título no puede superar los 100 caracteres"),
-
+    .string({message: "Este campo es obligatorio"})
+    .nonempty({message: "Este campo es obligatorio"})
+    .max(100, {message: "Este campo tiene que tener un máximo de 100 caracteres"}),
   event_description: z
-    .string()
-    .nonempty("La descripción no puede estar vacía")
-    .max(350, "La descripción no puede superar los 350 caracteres"),
-
+    .string({message: "Este campo es obligatorio"})
+    .nonempty({message: "Este campo es obligatorio"})
+    .max(350, {message: "Este campo tiene que tener un máximo de 350 caracteres"}),
   location: z
     .string()
-    .max(150, "La localización no puede superar los 150 caracteres")
-    .optional(),
-});
+    .max(150, {message: "Este campo tiene que tener un máximo de 150 caracteres"})
+    .optional()
+    .nullable(),
+})

@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useOutletContext } from "react-router";
+import { validateForms } from "../../helpers/validateForms";
+import { createEventSectionSchema } from "../../schemas/createEventSectionSchema";
 import { Sections } from "./Sections";
+
 
 const initialValue = {
   section_title: "",
@@ -12,28 +15,59 @@ const initialValue = {
 }
 
 const NewSection = () => {
-  const {cancel, navigate, dataTotal, setDataTotal, handleSectionFile, terminar, valError, msgError, fileError} = useOutletContext();
+  const {cancel, navigate, dataTotal, setDataTotal, handleSectionFile, terminar, valError, setValError, msgError, setMsgError, fileError, setFileError} = useOutletContext();
 
   const [newSection, setNewSection] = useState(initialValue);
   const [sectionImages, setSectionImages] = useState();
   const [showForm, setShowForm] = useState(false);
+  const [fileError, setFileError] = useState();
+
 
   const handleChange = (e) => {
     const {name, value} = e.target;
     setNewSection({...newSection, [name]: value});
   }
 
-  const handleFile = (e) => {
-    setSectionImages(e.target.files);
+  const handleFile =(e)=>{
+    const selectedFiles = e.target.files;
+
+    if (selectedFiles.length > 3) {
+      setFileError('Solo puedes subir un máximo de 3 imágenes.');
+      e.target.value = null; 
+      return; 
+    }
+
+    for (const file of selectedFiles) {
+        if (file.name.length > 200) {
+            setFileError(`El nombre de alguno de tus archivos es demasiado largo (máximo 200 caracteres).`);
+            e.target.value = null;
+            return;
+        }
+    }
+
+    setFileError(null);
+    setSectionImages(selectedFiles);
   }
 
   const addSection = (e) => {
     e.preventDefault();
-    let sec_id = Date.now();
-    setDataTotal({...dataTotal, sections: [...dataTotal.sections, {...newSection, sec_id}]});
-    setNewSection(initialValue);
-    handleSectionFile(sec_id, sectionImages);
-    setShowForm(false);
+
+    try {
+      const { valid, errors} = validateForms(createEventSectionSchema, newSection);
+      setValError(errors);
+
+      if(valid) {
+        let sec_id = Date.now();
+        setDataTotal({...dataTotal, sections: [...dataTotal.sections, {...newSection, sec_id}]});
+        setNewSection(initialValue);
+        handleSectionFile(sec_id, sectionImages);
+        setShowForm(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setMsgError('Algo  mal, inténtelo de nuevo');
+    }
+
   }
 
   const cancelAddSection = (e) => {
@@ -44,7 +78,6 @@ const NewSection = () => {
 
   return (
     <div>
-      
       {showForm ?
         <Form className='border-forms'>
           <h4>Nueva sección</h4>
@@ -72,6 +105,7 @@ const NewSection = () => {
               {valError.section_subtitle && <Form.Text className="text-danger fw-bold">{valError.section_subtitle}</Form.Text>}
             </Form.Group>
           </div>
+
           <Form.Group className="mb-3" controlId="formBasicSectDesc">
             <Form.Label>Descripción:</Form.Label>
             <Form.Control
@@ -106,6 +140,7 @@ const NewSection = () => {
             />
             {fileError && <Form.Text className="text-danger fw-bold ms-3">{fileError}</Form.Text>}
           </Form.Group>
+
           {msgError && <p className="text-danger">{msgError}</p>}
           <div className="d-flex gap-3">
             <button
@@ -140,6 +175,7 @@ const NewSection = () => {
               disabled={showForm} 
               onClick={terminar}
             >Terminar</button>
+
           </div>
           <h2 className="fs-3 mb-3">Secciones del evento/ taller</h2>
           <Sections dataTotal={dataTotal} setDataTotal={setDataTotal}/>

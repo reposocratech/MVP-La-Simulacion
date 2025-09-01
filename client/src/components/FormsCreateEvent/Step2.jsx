@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useOutletContext } from "react-router";
+import { validateForms } from "../../helpers/validateForms";
+import { eventStep2Schema } from "../../schemas/createEventStep2Schema";
 
 const initialValue = {
   duration: "",
@@ -14,8 +16,7 @@ const initialValue = {
 }
 
 const Step2 = () => {
-  const {cancel, navigate, dataTotal, setDataTotal, valError, msgError} = useOutletContext();
-
+  const {cancel, navigate, dataTotal, setDataTotal, valError, setValError, msgError, setMsgError} = useOutletContext();
   const [dataStep2, setDataStep2] = useState(initialValue);
   
   useEffect(()=>{
@@ -34,7 +35,8 @@ const Step2 = () => {
   const handleChange = (e) => {
     const {name, value} = e.target;
     setDataStep2({...dataStep2, [name]: value});
-  }
+  };
+
 
   const prevForm = (e) => {
     e.preventDefault();
@@ -44,8 +46,20 @@ const Step2 = () => {
 
   const nextForm = (e) => {
     e.preventDefault();
-    setDataTotal({...dataTotal, ...dataStep2});
-    navigate('step3');
+
+    try {
+      const { valid, errors } = validateForms(eventStep2Schema, dataStep2);
+      setValError(errors);
+
+      if(valid) {
+        setDataTotal({...dataTotal, ...dataStep2});
+        navigate('step3');  
+      }
+    } catch (error) {
+      console.log(error);
+      setMsgError('Algo  mal, inténtelo de nuevo');
+    }
+
   }
 
   return (

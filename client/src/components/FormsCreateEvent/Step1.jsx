@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useOutletContext } from "react-router";
+import { validateForms } from "../../helpers/validateForms";
+import { createEventStep1Schema } from "../../schemas/createEventStep1Schema";
 
 const initialValue = {
   event_title: "",
@@ -10,7 +12,8 @@ const initialValue = {
 }
 
 const Step1 = () => {
-  const {cancel, navigate, dataTotal, setDataTotal, handleFile, valError, msgError, fileError} = useOutletContext();
+  const {cancel, navigate, dataTotal, setDataTotal, handleFile, fileError, valError, setValError, msgError, setMsgError} = useOutletContext();
+
 
   const [dataStep1, setDataStep1] = useState(initialValue);
 
@@ -25,8 +28,20 @@ const Step1 = () => {
 
   const nextForm = (e) => {
     e.preventDefault();
-    setDataTotal({...dataTotal, ...dataStep1});
-    navigate('step2');
+
+    try {
+      const { valid, errors } = validateForms(createEventStep1Schema, dataStep1);
+      setValError(errors);
+
+      if(valid) {
+        setDataTotal({...dataTotal, ...dataStep1});
+        navigate('step2');  
+      }
+
+    } catch (error) {
+      console.log(error);
+      setMsgError('Algo  mal, inténtelo de nuevo');
+    }
   }
 
   return (

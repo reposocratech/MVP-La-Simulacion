@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Col, Container, Form, Row } from 'react-bootstrap';
+import { Alert, Col, Container, Form, Row } from 'react-bootstrap';
 import { fetchData } from "../../helpers/axiosHelper";
 import { AuthContext } from "../../context/AuthContextProvider";
 import { FaTrash } from "react-icons/fa";
@@ -8,7 +8,7 @@ import './formEditRoom.css'
 import { useNavigate } from "react-router";
 
 
-export const ManageRoomPics = ({id, msgError, setMsgError}) => {
+export const ManageRoomPics = ({id, msgError, setMsgError, setFileError, setSuccessMessage, fileError, successMessage}) => {
   const [images, setImages] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
 
@@ -38,24 +38,40 @@ export const ManageRoomPics = ({id, msgError, setMsgError}) => {
     }
   }
 
-
   const handleFile = (e) => {
     const files = [...e.target.files];  
+    
+    setMsgError("");
+    setFileError(null);
+    setSuccessMessage(null);
 
     // Número total de imágenes: las que ya hay + las nuevas
     const total = images.length + files.length;
 
     if (total > 3) {
-      setMsgError("Solo puedes tener un máximo de 3 imágenes en la sala.");
+      setFileError("Solo puedes tener un máximo de 3 imágenes en la sala.");
 
       // Calculamos cuántas imágenes nuevas se pueden aceptar
       const allowed = 3 - images.length;
 
       // Nos quedamos solo con las permitidas
       setSelectedFiles(files.slice(0, allowed));
-    } else {
-      setSelectedFiles(files);
-      setMsgError(""); 
+      return;
+    }
+
+    for (const file of files) {
+      if (file.name.length > 200) {
+        setFileError("El nombre de alguno de tus archivos es demasiado largo (máximo 200 caracteres).");
+        e.target.value = null; // reseteamos input
+        return;
+      }
+    }
+
+    // Si no hay error, actualizamos archivos seleccionados
+    setSelectedFiles(files);
+
+    if (files.length > 0) {
+      setSuccessMessage("¡Imágenes seleccionadas correctamente!");
     }
   };
 
@@ -119,10 +135,12 @@ export const ManageRoomPics = ({id, msgError, setMsgError}) => {
                         hidden
                         accept="image/*"
                       />
+                      {fileError && <p className="text-danger fw-bold ms-3">{fileError}</p>}
                     </Form.Group>
                     {msgError && <p className="text-danger fw-bold m-2">{msgError}</p>}
+                    {successMessage && <Alert variant="success">{successMessage}</Alert>}
                   <div className='d-flex flex-column flex-md-row gap-2 justify-content-center'>
-                    <button className='cancel-button w-auto'>Cancelar</button>
+                    <button className='cancel-button w-auto' onClick={()=>navigate('/admin/adminPanel')}>Cancelar</button>
                     <button className='submit-button w-auto' onClick={onSubmit}>Guardar y finalizar</button>
                   </div>
                 </Form>

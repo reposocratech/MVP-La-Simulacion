@@ -49,7 +49,6 @@ class EventDal {
   }
 
   createEvent = async (data) => {
-
     const cleanedData = cleanInputs(data);
 
     const {
@@ -67,7 +66,8 @@ class EventDal {
       type_event,
       cover_image,
       sections,
-    } = cleanedData;
+    } = cleanedData; 
+
 
     const connection = await dbPool.getConnection();
 

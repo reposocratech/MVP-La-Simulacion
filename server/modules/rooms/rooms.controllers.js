@@ -52,7 +52,7 @@ class RoomController {
   editRoom = async(req,res)=> {
     try {
       const {room_id, room_name, room_description, who_can_use_it, pricing, usage_policy} = req.body; 
-
+      
       await roomsDal.editRoom(req.body);
       res.status(200).json({message:"inserción ok"})
     } catch (error) {

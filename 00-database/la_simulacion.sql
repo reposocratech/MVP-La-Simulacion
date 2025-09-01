@@ -93,6 +93,7 @@ CREATE TABLE event (
     -- REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+
 CREATE TABLE review (
 	review_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     event_id INT UNSIGNED NOT NULL,
@@ -142,12 +143,11 @@ CREATE TABLE section_key_point (
     
 SELECT * FROM user;   
 SELECT * FROM room;
+SELECT * FROM room_image;
 SELECT * FROM service;
 SELECT * FROM reservation;
 SELECT * FROM event;
-SELECT * FROM section;
 SELECT * FROM section_image;
-SELECT * FROM section_key_point;
 
 
 INSERT INTO event (
@@ -165,4 +165,6 @@ INSERT INTO event (
 );
 
 
+ALTER TABLE event ADD type_event TINYINT UNSIGNED NOT NULL;
+ALTER TABLE room ADD room_is_deleted BOOLEAN NOT NULL DEFAULT 0;
 

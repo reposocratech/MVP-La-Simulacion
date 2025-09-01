@@ -19,7 +19,6 @@ export const FormEditRoom2 = ({room, handleChange, cancel, previous, onSubmit, v
                     name="pricing"
                   />
                   {valError.pricing && <Form.Text className="text-danger fw-bold">{valError.pricing}</Form.Text>}
-                  {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicUsage_Policy">
                   <Form.Label>Política y condiciones de uso:</Form.Label>
@@ -30,8 +29,8 @@ export const FormEditRoom2 = ({room, handleChange, cancel, previous, onSubmit, v
                     name="usage_policy"
                   />
                   {valError.usage_policy && <Form.Text className="text-danger fw-bold">{valError.usage_policy}</Form.Text>}
-                  {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
                 </Form.Group>
+                {msgError && <p className="text-danger fw-bold">{msgError}</p>}
                   <div className='d-flex flex-column flex-md-row gap-2'>
                     <button className='prev-button w-auto' onClick={previous}>Anterior</button>
                     <button className='cancel-button w-auto' onClick={cancel}>Cancelar</button>

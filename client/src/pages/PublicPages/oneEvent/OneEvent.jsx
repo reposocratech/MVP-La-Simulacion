@@ -17,8 +17,8 @@ const OneEvent = () => {
         const res = await fetchData(`/events/event/${id}`, 'get')
         console.log("res", res);
         
-        // setEvent(res.data.event)
-        // setSections(res.data.sections || [])
+        setEvent(res.data.event)
+        setSections(res.data.sections || [])
       } catch (error){
         console.log(error);
       }

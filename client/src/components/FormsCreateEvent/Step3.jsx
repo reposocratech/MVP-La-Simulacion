@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import { useOutletContext } from "react-router";
+import { validateForms } from "../../helpers/validateForms";
+import { createEventKeyPointSchema } from "../../schemas/createEventKeyPointSchema";
 import { HiTrash } from "react-icons/hi";
+
 
 const initialValue = {
   key_point_title: "",
@@ -9,7 +12,7 @@ const initialValue = {
 }
 
 const Step3 = () => {
-  const {cancel, navigate, dataTotal, setDataTotal, valError, msgError} = useOutletContext();
+  const {cancel, navigate, dataTotal, setDataTotal, valError, setValError, msgError, setMsgError} = useOutletContext();
 
   const [data, setData] = useState(initialValue);
   const [showForm, setShowForm] = useState(false);
@@ -20,22 +23,32 @@ const Step3 = () => {
   }
 
   const addKeyPoint = () =>{
-    let keyPoints = [...dataTotal.section_public.key_points];
 
-    //añadir id al keypoint para poder luego borrarlo
-    const newPoint = {
-      ...data,
-      pto_id: Date.now()
-    };
-    keyPoints.push(newPoint);
+    try {
+      const { valid, errors} = validateForms(createEventKeyPointSchema, data);
+      setValError(errors);
 
-    let section = {
-      ...dataTotal.section_public, 
-      key_points: keyPoints
-    };
-    setDataTotal({...dataTotal, section_public: section});
-    setShowForm(false);
-    setData(initialValue);
+      if(valid) {
+        let keyPoints = [...dataTotal.section_public.key_points];
+            //añadir id al keypoint para poder luego borrarlo
+        const newPoint = {
+          ...data,
+          pto_id: Date.now()
+        };
+        keyPoints.push(newPoint);
+       
+        let section = {
+          ...dataTotal.section_public, 
+          key_points: keyPoints
+        }
+        setDataTotal({...dataTotal, section_public: section});
+        setShowForm(false);
+        setData(initialValue);
+      }
+    } catch (error) {
+      console.log(error);
+      setMsgError('Algo  mal, inténtelo de nuevo');
+    }
   }
 
   const cancelKeyPoint = () => {

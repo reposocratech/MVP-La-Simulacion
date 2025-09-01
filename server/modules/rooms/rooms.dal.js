@@ -73,8 +73,8 @@ class RoomDal {
     try {
       let sql = 'UPDATE room SET room_name = ?, room_description = ?, who_can_use_it = ?, pricing = ?, usage_policy = ? WHERE room_id =?';
       let values = [room_name, room_description, who_can_use_it, pricing, usage_policy, room_id];
-      await executeQuery(sql, values);
-
+      let result = await executeQuery(sql, values);
+      
     } catch (error) {
       throw error;
     }

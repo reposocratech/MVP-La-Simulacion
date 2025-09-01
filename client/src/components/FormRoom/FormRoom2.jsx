@@ -1,8 +1,8 @@
-import { Col, Container, Form, Row } from 'react-bootstrap';
+import { Alert, Col, Container, Form, Row } from 'react-bootstrap';
 import { RiUpload2Fill } from "react-icons/ri";
 import './formRoom.css';
 
-export const FormRoom2 = ({room, handleChange, cancel, previous, handleFile, onSubmit, valError, msgError, fileError}) => {
+export const FormRoom2 = ({room, handleChange, cancel, previous, handleFile, onSubmit, valError, msgError, fileError, successMessage}) => {
 
   return (
     <section className='section-createRoom'>
@@ -44,6 +44,7 @@ export const FormRoom2 = ({room, handleChange, cancel, previous, handleFile, onS
                   />
                   {fileError && <Form.Text className="text-danger fw-bold ms-3">{fileError}</Form.Text>}
                 </Form.Group>
+                {successMessage && <Alert variant="success">{successMessage}</Alert>}
                 {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
                   <div className='d-flex flex-column flex-md-row gap-2'>
                     <button className='prev-button w-auto' onClick={previous}>Anterior</button>

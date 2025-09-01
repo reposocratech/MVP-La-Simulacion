@@ -61,7 +61,7 @@ const Login = () => {
         
       }else{
         setValError({});
-        setMsgError('Algo salío mal, inténtelo de nuevo');
+        setMsgError('Algo salió mal, inténtelo de nuevo');
       }
     }
   };

@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post('/createRoom', verifyToken, uploadImageMulti("rooms"), validateForm(createRoomSchema), roomsControllers.createRoom);
 router.get('/room/:id', roomsControllers.getRoomWithImagesById);
-router.put('/editRoom/:id', verifyToken, uploadImageMulti("rooms"), roomsControllers.editRoom);
+router.put('/editRoom/:id', verifyToken, uploadImageMulti("rooms"), validateForm(createRoomSchema), roomsControllers.editRoom);
 router.get('/imagesByRoomId/:id', verifyToken, roomsControllers.imagesByRoomId);
 router.delete ('/deleteImg', verifyToken, roomsControllers.deleteImg);
 router.post('/addImages', verifyToken, uploadImageMulti("rooms"), roomsControllers.addImages);
