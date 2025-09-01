@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormRoom1 } from "../../../components/FormRoom/FormRoom1";
 import { FormRoom2 } from "../../../components/FormRoom/FormRoom2";
 import { fetchData } from "../../../helpers/axiosHelper";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContextProvider";
-import { ZodError } from "zod";
 import { useNavigate } from "react-router";
 import { createRoomSchema2 } from "../../../schemas/createRoomSchema2";
 import { createRoomSchema1 } from "../../../schemas/createRoomSchema1";
@@ -25,9 +24,19 @@ const CreateRoom = () => {
   const [valError, setValError] = useState({});
   const [msgError, setMsgError] = useState();
   const [fileError, setFileError] = useState();
+  const [successMessage, setSuccessMessage] = useState();
 
   const {token} = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => {
+        setSuccessMessage('')
+      }, 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [successMessage])
 
   const handleChange = (e)=> {
     const {name, value} = e.target;
@@ -43,8 +52,24 @@ const CreateRoom = () => {
       return; 
     }
 
+   //  Valido la longitud del nombre de cada archivo
+    for (const file of selectedFiles) {
+        if (file.name.length > 200) {
+            setFileError(`El nombre de alguno de tus archivos es demasiado largo (máximo 200 caracteres).`);
+            e.target.value = null;
+            return;
+        }
+    }
+
+    setFileError(null);
+    setSuccessMessage(null);
     setMsgError(null); 
     setFiles(selectedFiles);
+
+    // Establece el mensaje de éxito cuando la validación pasa
+    if (selectedFiles.length > 0) {
+        setSuccessMessage('¡Imágenes seleccionadas correctamente!');
+    }
   }
 
   const next = (e)=>{
@@ -62,7 +87,7 @@ const CreateRoom = () => {
  
     } catch (error) {
       console.log(error);
-      setMsgError('Algo salío mal, inténtelo de nuevo');
+      setMsgError('Algo  mal, inténtelo de nuevo');
     }
   }
 
@@ -85,6 +110,7 @@ const CreateRoom = () => {
 
   const onSubmit = async (e)=>{
     e.preventDefault();
+    
     try {
       //Validamos los datos del segundo formulario usando la función validateForm
       const { valid, errors } = validateForms(createRoomSchema2, roomData);
@@ -96,9 +122,9 @@ const CreateRoom = () => {
         newFormData.append("data", JSON.stringify(roomData));
 
         if(files){
-          for(const elem of files){
-            newFormData.append("file", elem)
-          }
+            for(const elem of files){
+              newFormData.append("file", elem)
+            }
         }
         
         let res = await fetchData("/rooms/createRoom", "post", newFormData, token);
@@ -106,11 +132,12 @@ const CreateRoom = () => {
         // Usamos el id que extraímos en el dal y que nos llega por el controlador
         let room_id = res.data.room_id;
         navigate(`/oneRoom/${room_id}`);
-        setValError({});    
-      }
+        setValError({});
+        setSuccessMessage('Imágenes subidas con éxito'); 
+      }   
     } catch (error) {
         console.log(error);
-        setMsgError('Algo salío mal, inténtelo de nuevo');
+        setMsgError('Algo salió mal, inténtelo de nuevo');
       }
     
   }
@@ -134,6 +161,7 @@ const CreateRoom = () => {
           valError={valError}
           msgError={msgError}
           fileError={fileError}
+          successMessage={successMessage}
         />}
           
     </>

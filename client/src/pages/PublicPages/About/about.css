@@ -12,6 +12,36 @@
     color: var(--color-secondary-superdark-pink);
     margin-inline-end: .5rem;
   }
+
+  .decor-images-1 {
+    position: absolute;
+    bottom: 0;
+    left: -70px;
+    display: flex;
+    flex-direction: column;
+
+    img {
+      max-width: 60px;
+    }
+  }
+
+  .decor-images-2 {
+    position: absolute;
+    top: -80px;
+    right: -40px;
+
+    .decor-3,
+    .decor-4 {
+      width: 80px;
+    }
+
+    .decor-5 {
+      width: 60px;
+      position: absolute;
+      top: 90px;
+      right: 50px;
+    }
+  }
 }
 
 .section-about-3 {

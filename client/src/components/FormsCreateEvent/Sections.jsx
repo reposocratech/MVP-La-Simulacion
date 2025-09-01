@@ -6,32 +6,28 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-
 import { SortableItem } from './SortableItem';
 import { useEffect, useState } from "react";
 
 export const Sections = ({dataTotal, setDataTotal}) => {
-
   const [items, setItems] = useState([]);
   
   useEffect(() => {
     setItems(dataTotal.sections);
   }, [dataTotal]);
 
-    const deleteSection = (i) => {
+  const deleteSection = (i) => {
     console.log(i);
     const newSections = items.filter((e)=>e.sec_id !== i);
 
     setItems(newSections);
     setDataTotal((prev)=>({...prev, sections:newSections}));
-
   };
 
   const addPoInt = (ptos, sec_id) => {
@@ -42,21 +38,17 @@ export const Sections = ({dataTotal, setDataTotal}) => {
         return e;
       }
     });
-
     setDataTotal({ ...dataTotal, sections: newSections });
   };
 
   const delPunto =  (id, sec_id) => {
-    console.log(id, sec_id);
-    
-     const newSections = dataTotal.sections.map((e) => {
+    const newSections = dataTotal.sections.map((e) => {
       if (e.sec_id === sec_id) {
         return { ...e, key_points: e.key_points.filter(e=>e.pto_id != id)};
       } else {
         return e;
       }
     });
-
     setDataTotal(prev=>({ ...prev, sections: newSections }));
   }
 
@@ -80,10 +72,8 @@ export const Sections = ({dataTotal, setDataTotal}) => {
     }
   };
 
-  console.log(items);
-
   return (
-    <div className="secciones">
+    <div>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -95,13 +85,14 @@ export const Sections = ({dataTotal, setDataTotal}) => {
         >
           {items.map((item) => {
             return (
-              <SortableItem
-                key={item.sec_id}
-                item={item}
-                deleteSection={deleteSection}
-                delPunto={delPunto}
-                addPoInt={addPoInt}
-              />
+              <div className="my-4" key={item.sec_id}>
+                <SortableItem
+                  item={item}
+                  deleteSection={deleteSection}
+                  delPunto={delPunto}
+                  addPoInt={addPoInt}
+                />
+              </div>
             );
           })}
         </SortableContext>

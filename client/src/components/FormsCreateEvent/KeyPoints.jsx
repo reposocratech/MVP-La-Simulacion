@@ -1,21 +1,31 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ModalKeyPoints } from "./ModalKeyPoints";
-// import './ptosInteres.css'
+import { validateForms } from "../../helpers/validateForms";
+import { createEventKeyPointSchema } from "../../schemas/createEventKeyPointSchema";
+import { HiTrash } from "react-icons/hi";
+
 const initialValue = {
-     pto_int_name:"",
-     pto_int_desc:""
-     
+  pto_int_name:"",
+  pto_int_desc:""
 }
+
 export const KeyPoints = ({sec, addPoInt, delPunto}) => {
-      const [showForm, setShowForm] = useState(false);
-      const [keyPoint, setKeyPoint] = useState(initialValue);
+  const [showForm, setShowForm] = useState(false);
+  const [keyPoint, setKeyPoint] = useState(initialValue);
+  const [valError, setValError] = useState({});
+  const [msgError, setMsgError] = useState();
 
-      const handleChange = (e) =>{ 
-        const {name, value} = e.target;
-        setKeyPoint({...keyPoint, [name]: value})
-      } 
+  const handleChange = (e) =>{ 
+    const {name, value} = e.target;
+    setKeyPoint({...keyPoint, [name]: value})
+  } 
 
-      const onSubmit = () =>{
+  const onSubmit = () =>{
+    try {
+      const { valid, errors } = validateForms(createEventKeyPointSchema, keyPoint);
+      setValError(errors);
+
+      if (valid) {
         const pto_id = Date.now();
         const ptoToSave = {...keyPoint , pto_id};
         const ptosFinal = [...sec.key_points, ptoToSave];
@@ -23,35 +33,55 @@ export const KeyPoints = ({sec, addPoInt, delPunto}) => {
         setKeyPoint(initialValue)
         setShowForm(false);
       }
+    } catch (error) {
+      console.log(error);
+      setMsgError('Algo  mal, inténtelo de nuevo');
+    }
 
-      const handleClose = () => {
-        setShowForm(false);
-        setKeyPoint(initialValue);
-      }
+  }
 
-  
+  const handleClose = () => {
+    setShowForm(false);
+    setKeyPoint(initialValue);
+  }
+
+ 
   return (
-    <div className="puntos-interes">
+    <div>
+      <div className=" mb-3">
+        <button
+          className="lavender-button"
+          onClick={() => setShowForm(true)}
+        >Añadir punto clave</button>
+      </div>
       {sec.key_points.map(e=>{
         return(
-          <div className="cont-pto-int" key={e.pto_id}>
-            <div className="option"><p>{e.key_point_title}</p></div>
-            <div className="option"><p>{e.key_point_description}</p></div>
-            <div>
-              <button onClick={()=>delPunto(e.pto_id, sec.sec_id)}>del</button>
+          <div className="rounded-4 p-2 mb-2 bg-light" key={e.pto_id}>
+            <div className="d-flex justify-content-between gap-3">
+              <div>
+                <p className="mb-0 fw-bold p-list">{e.key_point_title}</p>
+                <p className="mb-0">{e.key_point_description}</p>
+              </div>
+              <div>
+                <button
+                  className="delete-button-icon"
+                  onClick={()=>delPunto(e.pto_id, sec.sec_id)}
+                ><HiTrash size={20} /></button>
+              </div>
             </div>
           </div>
         )
       })}
-
-        <button onClick={() => setShowForm(true)}>Añadir Punto Interés</button>
   
        <ModalKeyPoints 
             show={showForm} 
             handleClose={handleClose}
             handleChange={handleChange}
             onSubmit={onSubmit}
-            keyPoint={keyPoint}/>
+            keyPoint={keyPoint}
+            valError={valError}
+            msgError={msgError}/>
+
     </div>
   );
 };

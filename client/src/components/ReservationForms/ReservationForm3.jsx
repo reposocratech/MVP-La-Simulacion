@@ -1,7 +1,7 @@
 import { Form } from "react-bootstrap";
 
 
-export const ReservationForm3 = ({reservationData, handleChange, cancel, onSubmit, sendFormOk}) => {
+export const ReservationForm3 = ({reservationData, handleChange, goPrev, cancel, onSubmit, sendFormOk, valError, msgError}) => {
 
   return (
     <Form className="border border-2 rounded rounded-3 mb-2 mt-3 p-4">
@@ -27,6 +27,7 @@ export const ReservationForm3 = ({reservationData, handleChange, cancel, onSubmi
             checked={reservationData.ilumination_material === "0"}
           />
         </div>
+        {valError.ilumination_material && <Form.Text className="text-danger fw-bold mt-2">{valError.ilumination_material}</Form.Text>}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPeople">
         <Form.Label>¿Cuántas personas estarán presentes en la sesión?</Form.Label>
@@ -37,6 +38,7 @@ export const ReservationForm3 = ({reservationData, handleChange, cancel, onSubmi
             value={reservationData.number_of_attendees}
             name="number_of_attendees"
             />
+        {valError.number_of_attendees && <Form.Text className="text-danger fw-bold mt-2">{valError.number_of_attendees}</Form.Text>}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicAdditionalReq">
         <Form.Label>¿Tienes algún requerimiento técnico o logístico adicional?</Form.Label>
@@ -48,6 +50,7 @@ export const ReservationForm3 = ({reservationData, handleChange, cancel, onSubmi
             value={reservationData.aditional_requirement}
             name="aditional_requirement"
           />
+        {valError.aditional_requirement && <Form.Text className="text-danger fw-bold mt-2">{valError.aditional_requirement}</Form.Text>}
       </Form.Group>
        <Form.Group className="mb-3" controlId="formBasicPolicy">
         <Form.Label>Confirmo que he leído y acepto las condiciones de uso:</Form.Label>
@@ -60,6 +63,8 @@ export const ReservationForm3 = ({reservationData, handleChange, cancel, onSubmi
             value={1}
             checked={reservationData.user_policy_confirmation === 1}
           />
+        {valError.user_policy_confirmation && <Form.Text className="text-danger fw-bold mt-2">{valError.user_policy_confirmation}</Form.Text>}
+        {msgError && <Form.Text className="text-danger fw-bold mt-2">{msgError}</Form.Text>}
       </Form.Group>
       {sendFormOk &&
         <p className="msg-ok-form"
@@ -68,6 +73,11 @@ export const ReservationForm3 = ({reservationData, handleChange, cancel, onSubmi
       }
       
       <div className="d-flex gap-2">
+         <button 
+            className="babypink-button"
+            onClick={goPrev}
+        >Anterior
+        </button>
         <button 
             className="cancel-button"
             onClick={cancel}

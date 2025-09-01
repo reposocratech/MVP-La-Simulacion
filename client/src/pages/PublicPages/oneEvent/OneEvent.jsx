@@ -7,11 +7,9 @@ import EventSection from '../../../components/Events/EventSection'
 import './oneEvent.css'
 
 const OneEvent = () => {
-  const { id } = useParams()
-  const [event, setEvent] = useState(null)
-  const [sections, setSections] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
+  const { id } = useParams();
+  const [event, setEvent] = useState(null);
+  const [sections, setSections] = useState([]);
 
   const navigate = useNavigate()
 
@@ -19,28 +17,22 @@ const OneEvent = () => {
     const loadEvent = async () => {
       try {
         const res = await fetchData(`/events/event/${id}`, 'get')
-        console.log(res);       
+        console.log("res", res);
+        
         setEvent(res.data.event)
         setSections(res.data.sections || [])
-      } catch {
-        setError('Error al cargar el evento')
-      } finally {
-        setLoading(false)
+      } catch (error){
+        console.log(error);
       }
     }
     loadEvent()
-  }, [id])
+  }, [id]);
 
-  if (loading) return <p className="text-center my-5">Cargando evento...</p>
-  if (error) return <p className="text-center my-5 text-danger">{error}</p>
-
-  const today = new Date()
-  const timeEvent = new Date(event.start_date) >= today
 
   return (
     <section className="section-one-event">
       <Container>
-        <EventHeader event={event} timeEvent={timeEvent} />
+        <EventHeader event={event} />
         {event.event_description && (
           <div className="event-description">
             <p>{event.event_description}</p>
@@ -54,8 +46,8 @@ const OneEvent = () => {
           />
         ))}
 
-          <div className="cta-wrapper">
-          {timeEvent ? (
+        {event.ticket_link && (
+          <div className="text-center my-4">
             <a
               href={event.ticket_link}
               target="_blank"
@@ -64,13 +56,11 @@ const OneEvent = () => {
             >
               Apúntate al evento
             </a>
-          ) : (
-            <button onClick={() => navigate(`/review/${id}`)}  className="submit-button">Ver reseña</button>
-          )}
-        </div>
+          </div>
+        )}
       </Container>
     </section>
   )
 }
 
-export default OneEvent
+export default OneEvent;

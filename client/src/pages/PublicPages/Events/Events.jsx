@@ -2,18 +2,20 @@ import { Container } from "react-bootstrap";
 import { CardEvents } from "../../../components/Cards/cardEvents/CardEvents";
 import "./events.css";
 import { useEffect, useState } from "react";
-import { fetchData } from "../../../helpers/axiosHelper";
 import { useNavigate } from "react-router";
+import { fetchData } from "../../../helpers/axiosHelper";
+import { ImCalendar } from "react-icons/im";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
   const [eventType, setEventType] = useState("future");
+ 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await fetchData("/events/futures", "get");
+        const res = await fetchData("/events/events", "get");
         setEvents(res.data);
       } catch (error) {
         console.log(error);

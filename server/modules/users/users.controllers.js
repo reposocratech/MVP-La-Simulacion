@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken'
 import emailVerify from '../../utils/emailVerify.js'
 import { deleteFile } from '../../helpers/fileSystem.js'
 import transporter from '../../utils/nodemailer.js';
+import { generateReservationEmailHTML } from '../../utils/emailReservation.js'
+import emailContact from '../../utils/emailContact.js'
 
 dotenv.config()
 class UserController {
@@ -42,6 +44,7 @@ class UserController {
             }
         }
     }
+
     verifyEmail = async (req, res) => {
       try {
         const { token } = req.query;
@@ -93,6 +96,7 @@ class UserController {
       res.status(500).json({ message: 'server error' })
     }
   }
+
   userById = async (req, res) => {
     try {
       // Conseguimos el id de la solicitud
@@ -107,39 +111,60 @@ class UserController {
       res.status(500).json({ message: 'server error' })
     }
   }
+
   contactEmail = async (req, res) => {
     try {
-      const { name, lastname, email, phone_number, consult } = req.body
+      const { name, lastname, email, phone_number, consult } = req.body;
+      const { html } = emailContact({ name, lastname, email, phone_number, consult });
       const mailOptions = {
         from: `"Formulario contacto Web" <${process.env.EMAIL_USER}>`,
         to: process.env.EMAIL_USER,
         subject: `Nuevo mensaje de contacto de ${name} ${lastname}`,
-        html: `
-          <h2>Nuevo mensaje de contacto</h2>
-          <p><strong>Nombre:</strong> ${name} ${lastname}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Teléfono:</strong> ${phone_number}</p>
-          <p><strong>Consulta:</strong> ${consult}</p>
+        text: `
+        Nuevo mensaje de contacto
+  
+        Nombre: ${name} ${lastname}
+        Email: ${email}
+        Teléfono: ${phone_number}
+        Consulta: ${consult}
         `,
+        html
       }
 
-      const info = await transporter.sendMail(mailOptions);
+      await transporter.sendMail(mailOptions);
       res.status(200).json({ message: 'Correo enviado correctamente' });
     } catch (error) {
-      res.status(500).json({ message: 'Error al enviar el correo' })
+      res.status(500).json({ message: 'Error al enviar el correo' });
     }
   }
+
   makeRoomReservation = async (req, res) => {
+    console.log("REQBODY PARA BD e EMAIL RESEV", req.body);
     try {
-      console.log('REQ BODY reservation', req.body)
-      await usersDal.makeRoomReservation(req.body)
-      res
-        .status(200)
-        .json({ message: 'Solicitud de reserva enviada correctamente.' })
+      // envío los datos de reserva del form a la BD:
+      await usersDal.makeRoomReservation(req.body);
+
+      //se manda un email al admin con la reserva del user:
+      const emailReservationHTML = generateReservationEmailHTML(req.body);
+
+      const mailOptions = {
+        from: `"Reservas La Simulación" <${process.env.EMAIL_USER}>`,
+        to: "laezne@gmail.com",
+        subject: `Nueva solicitud de reserva`,
+        html: emailReservationHTML
+      }
+
+      const sendingEmail = await transporter.sendMail(mailOptions);
+
+      // res para indicar que todo fue correcto:
+      res.status(200).json({ message: 'Solicitud de reserva enviada correctamente.' })
+
     } catch (error) {
+      console.log("ERRROR CONTROLLLER RESERV", error);
       res.status(500).json({ message: 'server error' })
     }
   }
+
   deleteUser = async (req, res) => {
     try {
       const { id } = req.params
@@ -156,6 +181,7 @@ class UserController {
       res.status(500).json({ message: 'Error del servidor' })
     }
   }
+
   editUser = async (req, res) => {
     try {
       const { simulacion_user_id } = req
@@ -180,6 +206,7 @@ class UserController {
       res.status(500).json({ message: 'server error' })
     }
   }
+
   changeEmail = async (req, res) => {
     try {
       const { simulacion_user_id } = req
@@ -207,6 +234,7 @@ class UserController {
       res.status(500).json({ message: 'server error' })
     }
   }
+
   changePass = async (req, res) => {
     const { simulacion_user_id } = req
     const { prevPass, newPass } = req.body
@@ -224,6 +252,7 @@ class UserController {
       res.status(500).json({ message: 'server error' })
     }
   }
+
   editAvatar = async (req, res) => {
     try {
       const { simulacion_user_id } = req

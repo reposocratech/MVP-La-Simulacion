@@ -18,7 +18,6 @@ export const FormEditRoom1 = ({room, handleChange, cancel, valError, msgError, n
                     name="room_name"
                   />
                   {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>}
-                  {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicRoom_Description">
                   <Form.Label>Decripción de la sala:</Form.Label>
@@ -29,7 +28,6 @@ export const FormEditRoom1 = ({room, handleChange, cancel, valError, msgError, n
                     name="room_description"
                   />
                   {valError.room_description && <Form.Text className="text-danger fw-bold">{valError.room_description}</Form.Text>}
-                  {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicWho_Can_Use_It">
                   <Form.Label>¿Quién puede utilizarla?</Form.Label>
@@ -40,8 +38,8 @@ export const FormEditRoom1 = ({room, handleChange, cancel, valError, msgError, n
                     name="who_can_use_it"
                   />
                   {valError.who_can_use_it && <Form.Text className="text-danger fw-bold">{valError.who_can_use_it}</Form.Text>}
-                  {msgError && <Form.Text className="text-danger fw-bold">{msgError}</Form.Text>}
                 </Form.Group>
+                {msgError && <p className="text-danger fw-bold">{msgError}</p>}
                   <div className='d-flex flex-column flex-md-row gap-2'>
                     <button className='cancel-button' onClick={cancel}>Cancelar</button>
                     <button className='submit-button' onClick={next}>Siguiente</button>

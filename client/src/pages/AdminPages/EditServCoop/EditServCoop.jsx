@@ -60,7 +60,7 @@ export const EditServCoop = () => {
         if (file) {
           if (file.name.length > 200) {
             setFileError(
-              "Los caracteres que admiten la imagen son 200 caracteres"
+              "El nombre del archivo es demasiado largo (máximo 200 caracteres)"
             );
             return;
           } else {
