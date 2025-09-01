@@ -10,8 +10,6 @@ const OneEvent = () => {
   const { id } = useParams()
   const [event, setEvent] = useState(null)
   const [sections, setSections] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
 
   useEffect(() => {
     const loadEvent = async () => {
@@ -27,9 +25,6 @@ const OneEvent = () => {
     }
     loadEvent()
   }, [id])
-
-  if (loading) return <p className="text-center my-5">Cargando evento...</p>
-  if (error) return <p className="text-center my-5 text-danger">{error}</p>
 
   return (
     <section className="section-one-event">
@@ -65,4 +60,4 @@ const OneEvent = () => {
   )
 }
 
-export default OneEvent
+export default OneEvent;
