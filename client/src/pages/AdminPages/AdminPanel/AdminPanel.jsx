@@ -38,7 +38,7 @@ const AdminPanel = () => {
                 </button>
                 <button 
                   className="panel-button-gest-light panel-button-hover"
-                  onClick={()=>navigate('/admin/reviews')}
+                  onClick={()=>navigate('/admin/review')}
                   >Gestionar Reseñas 
                 </button>
               </div>
