@@ -28,6 +28,8 @@ const OneEvent = () => {
     loadEvent()
   }, [id]);
 
+  console.log("+++++", event);
+
   const today = new Date();
   const timeEvent = event && new Date(event.start_date) >= today;
 
@@ -35,11 +37,13 @@ const OneEvent = () => {
     <section className="section-one-event">
       <Container>
         <EventHeader event={event} timeEvent={timeEvent} />
+
         {event?.event_description && (
           <div className="event-description">
             <p>{event.event_description}</p>
           </div>
         )}
+
         {sections.map((section, idx) => (
           <EventSection
             key={`${section.section_id}-${idx}`}
@@ -47,6 +51,7 @@ const OneEvent = () => {
             index={idx}
           />
         ))}
+        
         {event?.ticket_link && (
           <div className="text-center my-4">
            {timeEvent ? (
