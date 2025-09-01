@@ -13,3 +13,11 @@
     }
   }
 }
+.button-event {
+    background-color: var(--color-primary-green);
+    color: black;
+    border: none;
+    border-radius: 12px;
+    padding: .6rem 1.5rem;
+  }
+  

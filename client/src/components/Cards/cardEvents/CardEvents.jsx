@@ -1,6 +1,6 @@
 import './cardEvents.css';
 
-export const CardEvents = ({event}) => {
+export const CardEvents = ({event , navigate}) => {
   return (
     <article className='card-event rounded-4 overflow-hidden'>
         <div className="row ">
@@ -14,13 +14,12 @@ export const CardEvents = ({event}) => {
                 {event.location}
               </p>
               <div>
-                <button className='info-button'>Mas información</button>
+                <button onClick={() => navigate(`/event/${event.event_id}`)} className='info-button'>Mas información</button>
               </div>
             </div>
           </div>
           <div className="col-lg-5">
-            {/* <img src={event.cover_image} alt="" className='w-100 h-100 object-fit-cover'/> */}
-            <img src="/images/imgPruebas/img02.jpg" alt="" className='w-100 h-100 object-fit-cover'/>
+            <img src={event.cover_image} alt="" className='w-100 h-100 object-fit-cover'/>
           </div>
         </div>
     </article>

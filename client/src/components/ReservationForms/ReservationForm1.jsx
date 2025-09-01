@@ -1,7 +1,7 @@
 import { Col, Form, Row } from "react-bootstrap";
 
 
-export const ReservationForm1 = ({roomName, userName, userLastname, reservationData, handleChange, goNext, cancel}) => {
+export const ReservationForm1 = ({roomName, userName, userLastname, reservationData, handleChange, goNext, cancel, valError}) => {
 
   return (
     <Form className="border border-2 rounded rounded-3 mb-2 mt-3 p-4">
@@ -36,6 +36,7 @@ export const ReservationForm1 = ({roomName, userName, userLastname, reservationD
             name="phone_number"
           />
         </Col>
+        {valError.phone_number && <Form.Text className="text-danger fw-bold mt-2">{valError.phone_number}</Form.Text>}
       </Form.Group>
       <Form.Group as={Row} className="mb-3" controlId="formBasicDate">
         <Form.Label column sm="5">Fecha solicitada:</Form.Label>
@@ -47,6 +48,7 @@ export const ReservationForm1 = ({roomName, userName, userLastname, reservationD
             name="date"
           />
         </Col>
+      {valError.date && <Form.Text className="text-danger fw-bold mt-2">{valError.date}</Form.Text>}
       </Form.Group>
       <Form.Group as={Row} className="mb-3" controlId="formBasicStartHour">
         <Form.Label column sm="5">Hora de inicio:</Form.Label>
@@ -58,6 +60,7 @@ export const ReservationForm1 = ({roomName, userName, userLastname, reservationD
             name="start_hour"
           />
         </Col>
+        {valError.start_hour && <Form.Text className="text-danger fw-bold mt-2">{valError.start_hour}</Form.Text>}
       </Form.Group>
       <Form.Group as={Row} className="mb-4" controlId="formBasicEndHour">
         <Form.Label column sm="5">Hora de fin:</Form.Label>
@@ -69,6 +72,7 @@ export const ReservationForm1 = ({roomName, userName, userLastname, reservationD
             name="end_hour"
           />
         </Col>
+        {valError.end_hour && <Form.Text className="text-danger fw-bold mt-2">{valError.end_hour}</Form.Text>}
       </Form.Group>
       <div className="d-flex gap-2">
         <button 

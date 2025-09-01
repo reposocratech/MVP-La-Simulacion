@@ -1,12 +1,52 @@
 import executeQuery from "../../config/db.js";
 
 class ReviewDal {
-  createReview = async(comment, rating, event_id) => {
+  seeReview = async (id) => {
+    try {
+   let sql = "SELECT * FROM review WHERE event_id = ? "
+   let result = await executeQuery(sql , id)
+   return result;
+    } catch (error) {
+      throw { message: "Error en bd" }; 
+      
+    }
+  }
+
+  seeAllReview = async () => {
+    try {
+   let sql = `SELECT review_id , review.description, review.rating, event.event_title
+  FROM review
+  LEFT JOIN event ON review.event_id = event.event_id
+`;
+   let result = await executeQuery(sql)
+   return result;
+    } catch (error) {
+      throw { message: "Error en bd" }; 
+      
+    }
+  }
+
+    delReview = async (review_id) =>{
+    try {
+      let sql = "DELETE FROM review WHERE review_id = ?  "             
+      let values = [review_id]
+      await executeQuery(sql , values)
+    } catch (error) {
+      console.log(error);
+      
+       throw { message: "Error en bd" };         
+    }
+  }
+
+
+  createReview = async(comment, rating, id) => {
     try {
       let sql = "INSERT INTO review (rating, description, event_id) VALUES (?, ?, ?)";
-      let values = [rating, comment, event_id];
+      let values = [rating, comment, id];
       const result = await executeQuery(sql, values);
     } catch (error) {
+      console.log(error);
+      
       throw { message: "Error en base de datos" };
     }
   }

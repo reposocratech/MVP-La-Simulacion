@@ -1,7 +1,7 @@
 import { Form } from "react-bootstrap";
 
 
-export const ReservationForm2 = ({reservationData, handleChange, goNext, cancel}) => {
+export const ReservationForm2 = ({reservationData, handleChange, goPrev, goNext, cancel, valError}) => {
 
   return (
     <Form className="border border-2 rounded rounded-3 mb-2 mt-3 p-4">
@@ -15,6 +15,7 @@ export const ReservationForm2 = ({reservationData, handleChange, goNext, cancel}
             value={reservationData.proyect_description}
             name="proyect_description"
           />
+          {valError.proyect_description && <Form.Text className="text-danger fw-bold mt-2">{valError.proyect_description}</Form.Text>}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicTypeProyect">
         <Form.Label>¿Qué tipo de proyecto realizarás?</Form.Label>
@@ -26,6 +27,7 @@ export const ReservationForm2 = ({reservationData, handleChange, goNext, cancel}
             value={reservationData.proyect_type}
             name="proyect_type"
           />
+          {valError.proyect_type && <Form.Text className="text-danger fw-bold mt-2">{valError.proyect_type}</Form.Text>}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicSM">
         <Form.Label>Déjanos un enlace a tu red social profesional o de tu proyecto:</Form.Label>
@@ -36,8 +38,14 @@ export const ReservationForm2 = ({reservationData, handleChange, goNext, cancel}
             value={reservationData.socialmedia_link}
             name="socialmedia_link"
           />
+          {valError.socialmedia_link && <Form.Text className="text-danger fw-bold mt-2">{valError.socialmedia_link}</Form.Text>}
       </Form.Group>
       <div className="d-flex gap-2">
+        <button 
+            className="babypink-button"
+            onClick={goPrev}
+        >Anterior
+        </button>
         <button 
             className="cancel-button"
             onClick={cancel}

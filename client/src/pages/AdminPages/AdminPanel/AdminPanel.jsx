@@ -18,28 +18,36 @@ const AdminPanel = () => {
         <Row className="pt-0 pt-lg-3 pb-3 pb-lg-0">
           <Col xs={12} lg={6}>
             <article className="p-4 h-100">
-              <h2 className="fs-4 text-center">Gestión de usuarios y reservas:</h2>
+              <h2 className="fs-4 text-center">Gestión de usuarios, reservas y reseñas:</h2>
               <p>(Gestión de usuarios administradores, bloquear/activar usuarios, cambiar el estado de una reserva...)</p>
               <div className="buttons-container-1 d-flex flex-column gap-3">
                 <button 
                   className="panel-button-gest panel-button-hover"
                   onClick={()=>navigate('/admin/admins')}
-                  >Gestionar Administradores</button>
+                  >Gestionar Administradores
+                </button>
                 <button 
                   className="panel-button-gest-light panel-button-hover"
                   onClick={()=>navigate('/admin/users')}
-                >Gestionar Usuarios</button>
+                >Gestionar Usuarios
+                </button>
                 <button 
                   className="panel-button-gest panel-button-hover"
                   onClick={()=>navigate('/admin/reservations')}
-                  >Gestionar Reservas</button>
+                  >Gestionar Reservas
+                </button>
+                <button 
+                  className="panel-button-gest-light panel-button-hover"
+                  onClick={()=>navigate('/admin/review')}
+                  >Gestionar Reseñas 
+                </button>
               </div>
             </article>
           </Col>
           <Col xs={12} lg={6}>
             <article className="p-4">
               <h2 className="fs-4 text-center">Creación/Edición/Borrado de contenidos:</h2>
-              <p>(Añadir servicios, eventos/talleres, salas... o Editar/Borrar los ya creados.)</p>
+              <p>(Añadir servicios, nuevos eventos/talleres, nuevas salas... o Editar/Borrar los ya creados.)</p>
               <div className="buttons-container-1 d-flex flex-column gap-3">
                 <button 
                     className="panel-button-create panel-button-hover"
