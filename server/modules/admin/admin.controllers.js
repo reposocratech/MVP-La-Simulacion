@@ -66,7 +66,11 @@ class AdminController {
       };
       res.status(200).json(newInsert);
     } catch (error) {
-      res.status(500).json({message: "Error de servidor"});
+      if(error.isLogged){
+      res.status(401).json(error.message);
+      }else{
+      res.status(500).json({message: "Error Servidor"});
+      }
     }
   }
 

@@ -13,7 +13,41 @@
     }
   }
 
-  article p span {
-    font-weight: bold;
+  article {
+    p span {
+      font-weight: bold;
+    }
   }
+
+  .p-list {
+    display: list-item;
+    list-style-type: disc;
+    margin-left: 1rem;
+  }
+
+  .section-sections {
+    background-color: var(--color-secondary-light-pink);
+    cursor: default;
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  .border-forms {
+    padding: 1rem;
+    border: 3px solid var(--color-primary-lavender);
+    border-radius: 1rem;
+  }
+
+  .border-info-form {
+    padding: 1rem;
+    border: 3px solid var(--color-secondary-medium-lavender);
+    border-radius: 1rem;
+  }
+
+  .delete-button-icon {
+    border: none;
+    background-color: transparent;
+  }
+
+  
 }

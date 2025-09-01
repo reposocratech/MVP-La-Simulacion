@@ -130,7 +130,6 @@ body {
     padding: .6rem 1.5rem;
   }
 
-
   .create-button {
     background-color: var(--color-primary-green);
     font-weight: 600;
@@ -141,6 +140,17 @@ body {
       filter: brightness(1.1);
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       transform: translateY(-2px);
+    }
+  }
+
+  .lavender-button {
+    background-color: var(--color-secondary-medium-lavender);
+    color: #FFF;
+    border: none;
+    border-radius: 12px;
+    padding: .5rem 1rem;
+    &:hover {
+      filter: brightness(85%);
     }
   }
 
@@ -176,6 +186,10 @@ body {
   .bg-color-light-green {
     background-color: var(--color-secondary-light-green);
     color: black;
+  }
+
+   .bg-color-secondary-light-pink {
+    background-color: var(--color-secondary-light-pink);
   }
 
   .msg-ok-form {
