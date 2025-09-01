@@ -137,7 +137,7 @@ const AdminAdmins = () => {
                         value={register.user_name}
                         name="user_name"
                       />
-                      {valErrors.user_name && <Form.Text className="text-danger">{valErrors.user_name}</Form.Text>}
+                      {valErrors.user_name && <Form.Text className="text-danger fw-bold">{valErrors.user_name}</Form.Text>}
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label className="fw-bold">Email:</Form.Label>
@@ -148,7 +148,7 @@ const AdminAdmins = () => {
                         value={register.email}
                         name="email"
                       />
-                      {valErrors.email && <Form.Text className="text-danger">{valErrors.email}</Form.Text>}
+                      {valErrors.email && <Form.Text className="text-danger fw-bold">{valErrors.email}</Form.Text>}
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                       <Form.Label className="fw-bold">Contraseña:</Form.Label>
@@ -162,7 +162,7 @@ const AdminAdmins = () => {
                         />
                         <InputGroup.Text id="basic-addon2"><span onClick={()=>setSeePass(!seePass)}>{seePass === true ? <LuEyeClosed /> : <LuEye />}</span></InputGroup.Text>
                       </InputGroup>
-                      {valErrors.password && <Form.Text className="text-danger">{valErrors.password}</Form.Text>}
+                      {valErrors.password && <Form.Text className="text-danger fw-bold">{valErrors.password}</Form.Text>}
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicRepPassword">
                       <Form.Label className="fw-bold">Repite la contraseña:</Form.Label>
@@ -176,7 +176,7 @@ const AdminAdmins = () => {
                         />
                         <InputGroup.Text id="basic-addon2"><span onClick={()=>setSeePassRep(!seePassRep)}>{seePassRep === true ? <LuEyeClosed /> : <LuEye />}</span></InputGroup.Text>
                       </InputGroup>
-                      {valErrors.repPassword && <Form.Text className="text-danger">{valErrors.repPassword}</Form.Text>}
+                      {valErrors.repPassword && <Form.Text className="text-danger fw-bold">{valErrors.repPassword}</Form.Text>}
                     </Form.Group>
                     {msgError && <p className="text-danger">{msgError}</p>}
                     <div className="w-100">

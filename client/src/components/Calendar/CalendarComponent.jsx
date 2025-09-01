@@ -11,10 +11,12 @@ const dateKeyLocal = (d) => {
   const day = String(d.getDate()).padStart(2, '0')
   return `${y}-${m}-${day}`
 }
+
 const parseYMD = (ymd) => {
   const [y, m, d] = ymd.split('-').map(Number)
   return new Date(y, m - 1, d)
 }
+
 const groupEventsByDay = (events) => {
   const grouped = {}
   events.forEach((event) => {
@@ -30,6 +32,7 @@ const groupEventsByDay = (events) => {
   })
   return grouped
 }
+
 const CalendarComponent = () => {
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [eventsByDate, setEventsByDate] = useState({})
@@ -50,15 +53,18 @@ const CalendarComponent = () => {
       console.error('Error cargando eventos', error)
     }
   }
+
   useEffect(() => {
     const today = new Date()
     loadMonthEvents(today)
   }, [])
+
   const handleDateChange = (date) => {
     setSelectedDate(date)
     const iso = dateKeyLocal(date)
     setDailyEvents(eventsByDate[iso] || [])
   }
+
   const tileClassName = ({ date, view }) => {
     if (view === 'month') {
       const key = dateKeyLocal(date)
@@ -66,6 +72,7 @@ const CalendarComponent = () => {
     }
     return null
   }
+
   const handleActiveStartDateChange = ({ activeStartDate, view }) => {
     if (view === 'month') {
       setSelectedDate(activeStartDate)
@@ -141,4 +148,5 @@ const CalendarComponent = () => {
     </section>
   )
 }
+
 export default CalendarComponent

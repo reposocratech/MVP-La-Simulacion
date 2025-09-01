@@ -2,8 +2,10 @@ import { Col, Container, Row } from "react-bootstrap";
 import { coopTeam } from '../../../data/teamCoopData';
 import { juntaTeam } from '../../../data/teamJuntaData';
 import { sociaTeam } from '../../../data/teamSociaData';
-import './about.css';
 import { CardTeamProfile } from "../../../components/Cards/CardTeamProfile/CardTeamProfile";
+import purpleShine from '../../../assets/decorative/brillo-morado.png';
+import orangeFlower from '../../../assets/decorative/flor-naranja.png';
+import './about.css';
 
 const About = () => {
   return (
@@ -31,11 +33,11 @@ const About = () => {
       <section className="section-about-2 py-5">
         <Container>
           <h2 className="text-center mb-4">
-            <span className="spanLetter-2 accent-text">C 
+            <span className="spanLetter-2 accent-text">C
             </span>Historia de la Cooperativa
           </h2>
-          <Row className="gy-4 justify-content-between align-items-stretch">
-            <Col md={6} lg={4}>
+          <Row className="gy-4 justify-content-center justify-content-lg-between align-items-stretch">
+            <Col md={6} lg={4} className="position-relative">
               <p>
                 En 2025, tras varios años de experiencia con la asociación, nació la <strong>Cooperativa Cultural La Simulación.</strong>
               </p>
@@ -45,6 +47,10 @@ const About = () => {
               <p>
                 La cooperativa amplió el marco de acción a nivel regional y estatal, fortaleciendo redes con entidades, festivales y administraciones públicas.
               </p>
+              <div className="decor-images-1">
+                <img src={orangeFlower} alt="" className="decor-1"/>
+                <img src={purpleShine} alt="" className="decor-2"/>
+              </div>
             </Col>
             <Col md={6} lg={4}>
               <p>
@@ -57,9 +63,14 @@ const About = () => {
                 Todo ello bajo una misma convicción: que <strong>la cultura no sea un privilegio</strong>, sino un derecho al alcance de todas las personas.
               </p>
             </Col>
-            <Col md={6} lg={3}>
+            <Col md={6} lg={3} className="d-flex position-relative">
               <div>
-                <img src="/images/imagesAbout/img01.png" alt="" className="w-100 rounded-4 shadow"/>
+                <img src="/images/imagesAbout/img01.png" alt="" className="w-100 h-100 rounded-4 shadow object-fit-cover"/>
+              </div>
+              <div className="decor-images-2">
+                <img src={orangeFlower} alt="" className="decor-3"/>
+                <img src={purpleShine} alt="" className="decor-4"/>
+                <img src={purpleShine} alt="" className="decor-5"/>
               </div>
             </Col>
           </Row>
@@ -100,7 +111,7 @@ const About = () => {
           </Row>
         </Container>
       </section>
-      <section className="section-about-4 py-5">
+      <section className="section-about-4 py-5 overflow-hidden">
         <Container>
           <h2>
             <span className="spanLetter-4 accent-text">E
