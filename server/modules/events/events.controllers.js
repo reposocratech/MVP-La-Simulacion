@@ -36,8 +36,6 @@ class EventController {
   }
 
   createEvent = async (req, res) => {
-    console.log("es muy tempranoooooooooooooooooooooooo",req.body);
-    
     try {
       //extraer datos del body con destructuring
       const {
@@ -56,7 +54,7 @@ class EventController {
         type_event,
         section_public,
         sections = [],
-      } = JSON.parse(req.body.dataTotal)
+      } = JSON.parse(req.body.dataTotal);
 
       // Manejo de imágenes
       let cover = cover_image || null;

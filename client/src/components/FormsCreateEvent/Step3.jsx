@@ -5,7 +5,6 @@ import { validateForms } from "../../helpers/validateForms";
 import { createEventKeyPointSchema } from "../../schemas/createEventKeyPointSchema";
 import { HiTrash } from "react-icons/hi";
 
-
 const initialValue = {
   key_point_title: "",
   key_point_description: ""
@@ -23,14 +22,13 @@ const Step3 = () => {
   }
 
   const addKeyPoint = () =>{
-
     try {
       const { valid, errors} = validateForms(createEventKeyPointSchema, data);
       setValError(errors);
 
       if(valid) {
         let keyPoints = [...dataTotal.section_public.key_points];
-            //añadir id al keypoint para poder luego borrarlo
+        //añadir id al keypoint para poder luego borrarlo
         const newPoint = {
           ...data,
           pto_id: Date.now()
@@ -47,7 +45,7 @@ const Step3 = () => {
       }
     } catch (error) {
       console.log(error);
-      setMsgError('Algo  mal, inténtelo de nuevo');
+      setMsgError('Algo salió mal, inténtelo de nuevo');
     }
   }
 

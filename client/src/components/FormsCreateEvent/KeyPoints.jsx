@@ -17,7 +17,7 @@ export const KeyPoints = ({sec, addPoInt, delPunto}) => {
 
   const handleChange = (e) =>{ 
     const {name, value} = e.target;
-    setKeyPoint({...keyPoint, [name]: value})
+    setKeyPoint({...keyPoint, [name]: value});
   } 
 
   const onSubmit = () =>{
@@ -30,7 +30,7 @@ export const KeyPoints = ({sec, addPoInt, delPunto}) => {
         const ptoToSave = {...keyPoint , pto_id};
         const ptosFinal = [...sec.key_points, ptoToSave];
         addPoInt(ptosFinal, sec.sec_id);
-        setKeyPoint(initialValue)
+        setKeyPoint(initialValue);
         setShowForm(false);
       }
     } catch (error) {
@@ -45,7 +45,6 @@ export const KeyPoints = ({sec, addPoInt, delPunto}) => {
     setKeyPoint(initialValue);
   }
 
- 
   return (
     <div>
       <div className=" mb-3">
@@ -73,15 +72,15 @@ export const KeyPoints = ({sec, addPoInt, delPunto}) => {
         )
       })}
   
-       <ModalKeyPoints 
-            show={showForm} 
-            handleClose={handleClose}
-            handleChange={handleChange}
-            onSubmit={onSubmit}
-            keyPoint={keyPoint}
-            valError={valError}
-            msgError={msgError}/>
-
+      <ModalKeyPoints 
+        show={showForm} 
+        handleClose={handleClose}
+        handleChange={handleChange}
+        onSubmit={onSubmit}
+        keyPoint={keyPoint}
+        valError={valError}
+        msgError={msgError}
+      />
     </div>
   );
 };

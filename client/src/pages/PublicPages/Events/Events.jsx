@@ -59,6 +59,10 @@ const Events = () => {
           >
             Eventos pasados
           </button>
+          <button 
+            className="edit-button" 
+            onClick={()=>navigate('/calendar')}
+          ><ImCalendar className="me-2"/>Visita nuestro calendario</button>
         </div>
 
         <div className="d-flex flex-column align-items-center gap-4">

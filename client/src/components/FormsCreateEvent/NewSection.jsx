@@ -5,7 +5,6 @@ import { validateForms } from "../../helpers/validateForms";
 import { createEventSectionSchema } from "../../schemas/createEventSectionSchema";
 import { Sections } from "./Sections";
 
-
 const initialValue = {
   section_title: "",
   section_subtitle: "",
@@ -20,8 +19,6 @@ const NewSection = () => {
   const [newSection, setNewSection] = useState(initialValue);
   const [sectionImages, setSectionImages] = useState();
   const [showForm, setShowForm] = useState(false);
-  const [fileError, setFileError] = useState();
-
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -38,11 +35,11 @@ const NewSection = () => {
     }
 
     for (const file of selectedFiles) {
-        if (file.name.length > 200) {
-            setFileError(`El nombre de alguno de tus archivos es demasiado largo (máximo 200 caracteres).`);
-            e.target.value = null;
-            return;
-        }
+      if (file.name.length > 200) {
+        setFileError(`El nombre de alguno de tus archivos es demasiado largo (máximo 200 caracteres).`);
+        e.target.value = null;
+        return;
+      }
     }
 
     setFileError(null);
@@ -65,9 +62,8 @@ const NewSection = () => {
       }
     } catch (error) {
       console.log(error);
-      setMsgError('Algo  mal, inténtelo de nuevo');
+      setMsgError('Algo salió mal, inténtelo de nuevo');
     }
-
   }
 
   const cancelAddSection = (e) => {
