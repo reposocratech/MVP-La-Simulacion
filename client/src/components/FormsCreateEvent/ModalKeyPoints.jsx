@@ -1,9 +1,6 @@
-import { useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 
-export const ModalKeyPoints = ({show, handleClose, onSubmit, keyPoint, handleChange}) => {
-  //const [valError, setValError] = useState({});
-  //const [msgError, setMsgError] = useState();
+export const ModalKeyPoints = ({show, handleClose, onSubmit, keyPoint, handleChange, valError, msgError}) => {
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -20,7 +17,7 @@ export const ModalKeyPoints = ({show, handleClose, onSubmit, keyPoint, handleCha
                 value={keyPoint.key_point_title}
                 name="key_point_title"
               />
-              {/* {valError.key_point_title && <p className="text-danger fw-bold">{valError.key_point_title}</p>} */}
+              {valError.key_point_title && <p className="text-danger fw-bold">{valError.key_point_title}</p>}
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicKeyDesc">
               <Form.Control
@@ -31,9 +28,9 @@ export const ModalKeyPoints = ({show, handleClose, onSubmit, keyPoint, handleCha
                 value={keyPoint.key_point_description}
                 name="key_point_description"
               />
-              {/* {valError.key_point_description && <p className="text-danger fw-bold">{valError.key_point_description}</p>} */}
+              {valError.key_point_description && <p className="text-danger fw-bold">{valError.key_point_description}</p>}
             </Form.Group>
-            {/* {msgError && <p className="text-danger">{msgError}</p>} */}
+            {msgError && <p className="text-danger">{msgError}</p>}
           </form>
         </Modal.Body>
         <Modal.Footer>

@@ -29,6 +29,9 @@ const CreateEvent = () => {
   const [formOk, setFormOk] = useState(false);
   const [coverImg, setCoverImg] = useState();
   const [sectionsImages, setSectionsImages] = useState([]);
+  const [valError, setValError] = useState({});
+  const [msgError, setMsgError] = useState();
+  const [fileError, setFileError] = useState();
 
   const {token} = useContext(AuthContext);
 
@@ -120,7 +123,10 @@ const CreateEvent = () => {
               navigate,
               handleFile, 
               terminar,
-              handleSectionFile
+              handleSectionFile,
+              valError,
+              msgError,
+              fileError
             }}/>
           </Col>
         </Row>

@@ -9,12 +9,10 @@ const initialValue = {
 }
 
 const Step3 = () => {
-  const {cancel, navigate, dataTotal, setDataTotal} = useOutletContext();
+  const {cancel, navigate, dataTotal, setDataTotal, valError, msgError} = useOutletContext();
 
   const [data, setData] = useState(initialValue);
   const [showForm, setShowForm] = useState(false);
-  // const [valError, setValError] = useState({});
-  //const [msgError, setMsgError] = useState();
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -107,7 +105,7 @@ const Step3 = () => {
                     value={data.key_point_title}
                     name="key_point_title"
                   />
-                  {/* {valError.key_point_title && <p className="text-danger fw-bold">{valError.key_point_title}</p>} */}
+                  {valError.key_point_title && <p className="text-danger fw-bold">{valError.key_point_title}</p>}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicKeyDesc">
                   <Form.Control
@@ -118,9 +116,9 @@ const Step3 = () => {
                     value={data.key_point_description}
                     name="key_point_description"
                   />
-                  {/* {valError.key_point_description && <p className="text-danger fw-bold">{valError.key_point_description}</p>} */}
+                  {valError.key_point_description && <p className="text-danger fw-bold">{valError.key_point_description}</p>}
                 </Form.Group>
-                {/* {msgError && <p className="text-danger">{msgError}</p>} */}
+                {msgError && <p className="text-danger">{msgError}</p>}
                 <button
                   className="btn-table me-3"
                   type="button"

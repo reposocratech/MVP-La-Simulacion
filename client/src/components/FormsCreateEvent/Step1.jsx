@@ -10,11 +10,9 @@ const initialValue = {
 }
 
 const Step1 = () => {
-  const {cancel, navigate, dataTotal, setDataTotal, handleFile} = useOutletContext();
+  const {cancel, navigate, dataTotal, setDataTotal, handleFile, valError, msgError, fileError} = useOutletContext();
 
   const [dataStep1, setDataStep1] = useState(initialValue);
-  // const [valError, setValError] = useState({});
-  //const [msgError, setMsgError] = useState();
 
   useEffect(()=>{
     setDataStep1({event_title: dataTotal.event_title, event_description:dataTotal.event_description, location: dataTotal.location, type_event: dataTotal.type_event})
@@ -57,7 +55,7 @@ const Step1 = () => {
               checked={dataStep1.type_event === "2"}
             />
           </div>
-          {/* {valError.type_event && <Form.Text className="text-danger fw-bold">{valError.type_event}</Form.Text>} */}
+          {valError.type_event && <Form.Text className="text-danger fw-bold">{valError.type_event}</Form.Text>}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEventTitle">
           <Form.Label>Título del Evento/Taller:</Form.Label>
@@ -68,7 +66,7 @@ const Step1 = () => {
             value={dataStep1.event_title}
             name="event_title"
           />
-          {/* {valError.event_title && <Form.Text className="text-danger fw-bold">{valError.event_title}</Form.Text>} */}
+          {valError.event_title && <Form.Text className="text-danger fw-bold">{valError.event_title}</Form.Text>}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicDescEvent">
           <Form.Label>Descripción del Evento/Taller:</Form.Label>
@@ -80,7 +78,7 @@ const Step1 = () => {
             value={dataStep1.event_description}
             name="event_description"
           />
-          {/* {valError.event_description && <Form.Text className="text-danger fw-bold">{valError.event_description}</Form.Text>} */}
+          {valError.event_description && <Form.Text className="text-danger fw-bold">{valError.event_description}</Form.Text>}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicLocation">
           <Form.Label>Localización:</Form.Label>
@@ -91,7 +89,7 @@ const Step1 = () => {
             value={dataStep1.location}
             name="location"
           />
-          {/* {valError.location && <Form.Text className="text-danger fw-bold">{valError.location}</Form.Text>} */}
+          {valError.location && <Form.Text className="text-danger fw-bold">{valError.location}</Form.Text>}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCoverFile">
           <Form.Label className="text-decoration-underline">Subir imagen de portada</Form.Label>
@@ -102,8 +100,9 @@ const Step1 = () => {
             name="cover_image"
             accept="image/*"
           />
+          {fileError && <Form.Text className="text-danger fw-bold ms-3">{fileError}</Form.Text>}
         </Form.Group>
-        {/* {msgError && <p className="text-danger">{msgError}</p>} */}
+        {msgError && <p className="text-danger">{msgError}</p>}
         <div className='d-flex gap-3'>
           <button className='cancel-button' onClick={cancel}>Cancelar</button>
           <button className='submit-button' onClick={nextForm}>Siguiente</button>
