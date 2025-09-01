@@ -66,7 +66,7 @@ const RoomReservation = () => {
     } catch (error) {
         console.log(error);
         setValError({});
-        setMsgError('Algo salío mal, inténtelo de nuevo');
+        setMsgError('Algo salió mal, inténtelo de nuevo');
       }
   }
 

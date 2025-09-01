@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ModalKeyPoints } from "./ModalKeyPoints";
+import { validateForms } from "../../helpers/validateForms";
+import { createEventKeyPointSchema } from "../../schemas/createEventKeyPointSchema";
 // import './ptosInteres.css'
 const initialValue = {
      pto_int_name:"",
@@ -7,15 +9,22 @@ const initialValue = {
      
 }
 export const KeyPoints = ({sec, addPoInt, delPunto}) => {
-      const [showForm, setShowForm] = useState(false);
-      const [keyPoint, setKeyPoint] = useState(initialValue);
+  const [showForm, setShowForm] = useState(false);
+  const [keyPoint, setKeyPoint] = useState(initialValue);
+  const [valError, setValError] = useState({});
+  const [msgError, setMsgError] = useState();
 
-      const handleChange = (e) =>{ 
-        const {name, value} = e.target;
-        setKeyPoint({...keyPoint, [name]: value})
-      } 
+  const handleChange = (e) =>{ 
+    const {name, value} = e.target;
+    setKeyPoint({...keyPoint, [name]: value})
+  } 
 
-      const onSubmit = () =>{
+  const onSubmit = () =>{
+    try {
+      const { valid, errors } = validateForms(createEventKeyPointSchema, keyPoint);
+      setValError(errors);
+
+      if (valid) {
         const pto_id = Date.now();
         const ptoToSave = {...keyPoint , pto_id};
         const ptosFinal = [...sec.key_points, ptoToSave];
@@ -23,11 +32,18 @@ export const KeyPoints = ({sec, addPoInt, delPunto}) => {
         setKeyPoint(initialValue)
         setShowForm(false);
       }
+    } catch (error) {
+      console.log(error);
+      setMsgError('Algo  mal, inténtelo de nuevo');
+    }
 
-      const handleClose = () => {
-        setShowForm(false);
-        setKeyPoint(initialValue);
-      }
+
+  }
+
+  const handleClose = () => {
+    setShowForm(false);
+    setKeyPoint(initialValue);
+  }
 
   
   return (
@@ -51,7 +67,9 @@ export const KeyPoints = ({sec, addPoInt, delPunto}) => {
             handleClose={handleClose}
             handleChange={handleChange}
             onSubmit={onSubmit}
-            keyPoint={keyPoint}/>
+            keyPoint={keyPoint}
+            valError={valError}
+            msgError={msgError}/>
     </div>
   );
 };

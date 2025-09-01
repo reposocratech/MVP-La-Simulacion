@@ -23,7 +23,9 @@ const EditRoom = () => {
   const [files, setFiles] = useState();
   const [valError, setValError] = useState({});
   const [msgError, setMsgError] = useState();
-  
+  const [fileError, setFileError] = useState();
+  const [successMessage, setSuccessMessage] = useState();
+
   const navigate = useNavigate();
   const { token } = useContext(AuthContext);
   const { id } = useParams();
@@ -45,9 +47,31 @@ const EditRoom = () => {
     setRoomData({...roomData, [name]:value})
   }
 
-  const handleFile = (e) => {
-    setFiles(e.target.files);
-  }
+const handleFile = (e) => {
+    const selectedFiles = e.target.files;
+
+    if (selectedFiles.length > 3) {
+      setFileError("Solo puedes subir un máximo de 3 imágenes.");
+      e.target.value = null;
+      return;
+    }
+
+    for (const file of selectedFiles) {
+      if (file.name.length > 200) {
+        setFileError(`El nombre de alguno de tus archivos es demasiado largo (máximo 200 caracteres).`);
+        e.target.value = null;
+        return;
+      }
+    }
+
+    setFileError(null);
+    setSuccessMessage(null);
+    setFiles(selectedFiles);
+
+    if (selectedFiles.length > 0) {
+      setSuccessMessage('¡Imágenes seleccionadas correctamente!');
+    }
+  };
 
   const next = (e)=>{
     e.preventDefault();
@@ -63,7 +87,7 @@ const EditRoom = () => {
 
     } catch (error) {
       console.log(error);
-      setMsgError('Algo salío mal, inténtelo de nuevo');
+      setMsgError('Algo salió mal, inténtelo de nuevo');
     }
   }
 
@@ -92,14 +116,16 @@ const EditRoom = () => {
       setValError(errors);
 
       if(valid){
-        await fetchData(`/rooms/editRoom/${id}`, 'put', roomData, token);
+        let result= await fetchData(`/rooms/editRoom/${id}`, 'put', roomData, token);
+        console.log(result);
+        
         setShowForm(3);
         setValError({});    
       }
       
     } catch (error) {
       console.log(error);
-      setMsgError('Algo salío mal, inténtelo de nuevo');
+      setMsgError('Algo salió mal, inténtelo de nuevo');
     }
   }
 
@@ -127,6 +153,11 @@ const EditRoom = () => {
         id={id}
         msgError={msgError}
         setMsgError={setMsgError}
+        fileError={fileError}
+        setFileError={setFileError}
+        successMessage={successMessage}
+        setSuccessMessage={setSuccessMessage}
+        
        />}
     </>
 

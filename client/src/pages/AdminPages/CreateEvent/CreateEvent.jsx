@@ -13,10 +13,10 @@ const initialValue = {
   location: "",
   cover_image: "",
   duration: "",
-  start_date: "",
-  end_date: "",
-  start_hour: "",
-  end_hour: "",
+  start_date: null,
+  end_date: null,
+  start_hour: null,
+  end_hour: null,
   number_of_attendees: "",
   price: "",
   ticket_link: "",
@@ -30,6 +30,7 @@ const CreateEvent = () => {
   const [formOk, setFormOk] = useState(false);
   const [coverImg, setCoverImg] = useState();
   const [sectionsImages, setSectionsImages] = useState([]);
+  const [fileError, setFileError] = useState();
 
   const {token} = useContext(AuthContext);
 
@@ -39,8 +40,21 @@ const CreateEvent = () => {
   const showSectionPublic = location.pathname.endsWith("/step3") || location.pathname.endsWith("/newSection");
   const showSectionsComponent = location.pathname.endsWith("/newSection");
 
+  // const handleFile = (e) => {
+  //   setCoverImg(e.target.files[0]);
+  // }
+
   const handleFile = (e) => {
-    setCoverImg(e.target.files[0]);
+    const selectedFiles = e.target.files[0];
+
+    if (selectedFiles && selectedFiles.name.length > 200) {
+        setFileError(`El nombre de alguno de tus archivos es demasiado largo (máximo 200 caracteres).`);
+        e.target.value = null;
+        return;
+    }
+
+    setFileError(null); 
+    setCoverImg(selectedFiles);
   }
 
   const handleSectionFile = (sec_id, files) => {
@@ -172,7 +186,8 @@ const CreateEvent = () => {
                 navigate,
                 handleFile, 
                 terminar,
-                handleSectionFile
+                handleSectionFile,
+                fileError
               }}/>
             </Col>
           </Row>

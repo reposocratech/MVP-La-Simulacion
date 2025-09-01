@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useOutletContext } from "react-router";
+import { validateForms } from "../../helpers/validateForms";
+import { eventStep2Schema } from "../../schemas/createEventStep2Schema";
 
 const initialValue = {
   duration: "",
@@ -17,6 +19,8 @@ const Step2 = () => {
   const {cancel, navigate, dataTotal, setDataTotal} = useOutletContext();
 
   const [dataStep2, setDataStep2] = useState(initialValue);
+  const [valError, setValError] = useState({});
+  const [msgError, setMsgError] = useState();
 
   useEffect(()=>{
     setDataStep2({
@@ -34,7 +38,8 @@ const Step2 = () => {
   const handleChange = (e) => {
     const {name, value} = e.target;
     setDataStep2({...dataStep2, [name]: value});
-  }
+  };
+
 
   const prevForm = (e) => {
     e.preventDefault();
@@ -44,8 +49,20 @@ const Step2 = () => {
 
   const nextForm = (e) => {
     e.preventDefault();
-    setDataTotal({...dataTotal, ...dataStep2});
-    navigate('step3');
+
+    try {
+      const { valid, errors } = validateForms(eventStep2Schema, dataStep2);
+      setValError(errors);
+
+      if(valid) {
+        setDataTotal({...dataTotal, ...dataStep2});
+        navigate('step3');  
+      }
+    } catch (error) {
+      console.log(error);
+      setMsgError('Algo  mal, inténtelo de nuevo');
+    }
+
   }
 
   return (
@@ -59,7 +76,7 @@ const Step2 = () => {
           value={dataStep2.duration}
           name="duration"
         />
-        {/* {valError.duration && <Form.Text className="text-danger fw-bold">{valError.duration}</Form.Text>} */}
+        {valError.duration && <Form.Text className="text-danger fw-bold">{valError.duration}</Form.Text>}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicStartDate">
         <Form.Label>Fecha de inicio:</Form.Label>
@@ -69,7 +86,7 @@ const Step2 = () => {
           value={dataStep2.start_date}
           name="start_date"
         />
-        {/* {valError.start_date && <Form.Text className="text-danger fw-bold">{valError.start_date}</Form.Text>} */}
+        {valError.start_date && <Form.Text className="text-danger fw-bold">{valError.start_date}</Form.Text>}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEndDate">
         <Form.Label>Fecha de fin:</Form.Label>
@@ -79,7 +96,7 @@ const Step2 = () => {
           value={dataStep2.end_date}
           name="end_date"
         />
-        {/* {valError.end_date && <Form.Text className="text-danger fw-bold">{valError.end_date}</Form.Text>} */}
+        {valError.end_date && <Form.Text className="text-danger fw-bold">{valError.end_date}</Form.Text>}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicStartHour">
         <Form.Label>Hora de inicio:</Form.Label>
@@ -89,7 +106,7 @@ const Step2 = () => {
           value={dataStep2.start_hour}
           name="start_hour"
         />
-        {/* {valError.start_hour && <Form.Text className="text-danger fw-bold">{valError.start_hour}</Form.Text>} */}
+        {valError.start_hour && <Form.Text className="text-danger fw-bold">{valError.start_hour}</Form.Text>}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEndHour">
         <Form.Label>Hora de fin:</Form.Label>
@@ -99,7 +116,7 @@ const Step2 = () => {
           value={dataStep2.end_hour}
           name="end_hour"
         />
-        {/* {valError.end_hour && <Form.Text className="text-danger fw-bold">{valError.end_hour}</Form.Text>} */}
+        {valError.end_hour && <Form.Text className="text-danger fw-bold">{valError.end_hour}</Form.Text>}
       </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicAttendees">
         <Form.Label>Número de asistentes:</Form.Label>
@@ -110,18 +127,19 @@ const Step2 = () => {
           value={dataStep2.number_of_attendees}
           name="number_of_attendees"
         />
-        {/* {valError.number_of_attendees && <Form.Text className="text-danger fw-bold">{valError.number_of_attendees}</Form.Text>} */}
+        {valError.number_of_attendees && <Form.Text className="text-danger fw-bold">{valError.number_of_attendees}</Form.Text>}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPrice">
         <Form.Label>Coste Total:</Form.Label>
         <Form.Control 
-          type="text"
+          type="number"
+          step="any"
           placeholder="Costa del Total"
           onChange={handleChange}
           value={dataStep2.price}
           name="price"
         />
-        {/* {valError.price && <Form.Text className="text-danger fw-bold">{valError.price}</Form.Text>} */}
+        {valError.price && <Form.Text className="text-danger fw-bold">{valError.price}</Form.Text>}
       </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicTicketLink">
         <Form.Label>Enlace ticketera:</Form.Label>
@@ -132,9 +150,9 @@ const Step2 = () => {
           value={dataStep2.ticket_link}
           name="ticket_link"
         />
-        {/* {valError.ticket_link && <Form.Text className="text-danger fw-bold">{valError.ticket_link}</Form.Text>} */}
+        {valError.ticket_link && <Form.Text className="text-danger fw-bold">{valError.ticket_link}</Form.Text>}
       </Form.Group>
-      {/* {msgError && <p className="text-danger">{msgError}</p>} */}
+      {msgError && <p className="text-danger">{msgError}</p>}
       <div className='d-flex flex-column flex-md-row gap-2'>
         <button className='submit-button' onClick={prevForm} >Anterior</button>
         <button className='cancel-button' onClick={cancel}>Cancelar</button>

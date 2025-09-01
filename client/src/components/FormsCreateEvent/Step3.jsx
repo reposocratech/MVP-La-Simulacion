@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useOutletContext } from "react-router";
+import { validateForms } from "../../helpers/validateForms";
+import { createEventKeyPointSchema } from "../../schemas/createEventKeyPointSchema";
 
 const initialValue = {
   key_point_title: "",
@@ -8,11 +10,12 @@ const initialValue = {
 }
 
 const Step3 = () => {
-
   const {cancel, navigate, dataTotal, setDataTotal} = useOutletContext();
 
   const [data, setData] = useState(initialValue);
   const [showForm, setShowForm] = useState(false);
+  const [valError, setValError] = useState({});
+  const [msgError, setMsgError] = useState();
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -21,15 +24,26 @@ const Step3 = () => {
 
 
   const addKeyPoint = () =>{
-    let keyPoints = [...dataTotal.section_public.key_points];
-    keyPoints.push(data);
-    let section = {
-      ...dataTotal.section_public, 
-      key_points: keyPoints
+    try {
+      const { valid, errors} = validateForms(createEventKeyPointSchema, data);
+      setValError(errors);
+
+      if(valid) {
+        let keyPoints = [...dataTotal.section_public.key_points];
+        keyPoints.push(data);
+        let section = {
+          ...dataTotal.section_public, 
+          key_points: keyPoints
+        }
+        setDataTotal({...dataTotal, section_public: section});
+        setShowForm(false);
+        setData(initialValue);
+      }
+    } catch (error) {
+      console.log(error);
+      setMsgError('Algo  mal, inténtelo de nuevo');
     }
-    setDataTotal({...dataTotal, section_public: section});
-    setShowForm(false);
-    setData(initialValue);
+
   }
 
   const cancelKeyPoint = () => {
@@ -68,7 +82,10 @@ const Step3 = () => {
           {showForm ?
           <form action="">
             <input type="text" placeholder="Nombre del público" name="key_point_title" onChange={handleChange} value={data.key_point_title}/>
+            {valError.key_point_title && <p className="text-danger fw-bold">{valError.key_point_title}</p>}
             <input type="text" placeholder="Descripción del público" name="key_point_description" onChange={handleChange} value={data.key_point_description}/>
+            {valError.key_point_description && <p className="text-danger fw-bold">{valError.key_point_description}</p>}
+            {msgError && <p className="text-danger">{msgError}</p>}
             <button type="button" onClick={addKeyPoint}>Aceptar</button>
             <button type="button" onClick={cancelKeyPoint}>Cancelar</button>
           </form>

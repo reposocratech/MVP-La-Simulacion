@@ -1,6 +1,6 @@
 import { Button, Modal } from "react-bootstrap"
 
-export const ModalKeyPoints = ({show, handleClose, onSubmit, keyPoint, handleChange}) => {
+export const ModalKeyPoints = ({show, handleClose, onSubmit, keyPoint, handleChange, valError, msgError}) => {
   return (
     <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -16,6 +16,7 @@ export const ModalKeyPoints = ({show, handleClose, onSubmit, keyPoint, handleCha
             value={keyPoint.key_point_title}
             onChange={handleChange}
             />
+           {valError.key_point_title && < p className="text-danger fw-bold">{valError.key_point_title}</p>} 
         </div>
         <div>
           <label htmlFor="">Descripción</label>
@@ -25,7 +26,9 @@ export const ModalKeyPoints = ({show, handleClose, onSubmit, keyPoint, handleCha
             value={keyPoint.key_point_description}
             onChange={handleChange}
           />
+            {valError.key_point_description && < p className="text-danger fw-bold">{valError.key_point_description}</p>} 
         </div>
+        {msgError && <p className="text-danger">{msgError}</p>}
         <button type="button" onClick={onSubmit}>Aceptar</button>
         <button type="button" onClick={handleClose}>cancelar</button>
       </form>

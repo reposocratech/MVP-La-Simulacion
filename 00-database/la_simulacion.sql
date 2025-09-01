@@ -78,14 +78,14 @@ CREATE TABLE event (
     -- user_id BIGINT UNSIGNED NOT NULL, -- permitan que un usuario cree en la app toda la info de un taller, curso, concierto...
     event_title VARCHAR(100) NOT NULL, 
     event_description VARCHAR(350) NOT NULL,
-    location VARCHAR(150) NOT NULL, -- --quitar not null
+    location VARCHAR(150),
     cover_image VARCHAR(200),
-    duration VARCHAR(50) NOT NULL, -- "30 minutos" o "2 horas", que sea opcional (quitar not null)
+    duration VARCHAR(50), -- "30 minutos" o "2 horas"
     start_date DATE,
     end_date DATE,
     start_hour TIME,
     end_hour TIME, 
-    number_of_attendees MEDIUMINT UNSIGNED,
+    number_of_attendees VARCHAR(50),
     price DECIMAL(6,2),  -- 9999.99  o  0  o  NULL
     ticket_link VARCHAR(200),
     event_is_deleted BOOLEAN NOT NULL DEFAULT 0,
@@ -93,6 +93,7 @@ CREATE TABLE event (
     -- CONSTRAINT fk_user_2 FOREIGN KEY (user_id) 
     -- REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 
 CREATE TABLE review (
 	review_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -143,12 +144,11 @@ CREATE TABLE section_key_point (
     
 SELECT * FROM user;   
 SELECT * FROM room;
+SELECT * FROM room_image;
 SELECT * FROM service;
 SELECT * FROM reservation;
 SELECT * FROM event;
-SELECT * FROM section;
 SELECT * FROM section_image;
-SELECT * FROM section_key_point;
 
 INSERT INTO event (
   event_title, event_description, location, duration, start_date, end_date, 
@@ -164,4 +164,7 @@ INSERT INTO event (
   1200, 0.00, 'https://festivalteatro.barcelona'
 );
 
-
+ALTER TABLE event ADD type_event TINYINT UNSIGNED NOT NULL;
+ALTER TABLE room ADD room_is_deleted BOOLEAN NOT NULL DEFAULT 0;
+ALTER TABLE event MODIFY COLUMN start_date DATE;
+ALTER TABLE event MODIFY COLUMN end_date DATE;

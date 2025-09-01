@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useOutletContext } from "react-router";
+import { validateForms } from "../../helpers/validateForms";
+import { createEventSectionSchema } from "../../schemas/createEventSectionSchema";
 
 const initialValue = {
   section_title: "",
@@ -17,24 +19,61 @@ const NewSection = () => {
   const [newSection, setNewSection] = useState(initialValue);
   const [sectionImages, setSectionImages] = useState();
   const [showForm, setShowForm] = useState(false);
+  const [valError, setValError] = useState({});
+  const [msgError, setMsgError] = useState();
+  const [fileError, setFileError] = useState();
+
 
   const handleChange = (e) => {
     const {name, value} = e.target;
     setNewSection({...newSection, [name]: value});
   }
 
-  const handleFile = (e) => {
-    setSectionImages(e.target.files);
+  // const handleFile = (e) => {
+  //   setSectionImages(e.target.files);
+  // }
+
+  const handleFile =(e)=>{
+    const selectedFiles = e.target.files;
+
+    if (selectedFiles.length > 3) {
+      setFileError('Solo puedes subir un máximo de 3 imágenes.');
+      e.target.value = null; 
+      return; 
+    }
+
+    for (const file of selectedFiles) {
+        if (file.name.length > 200) {
+            setFileError(`El nombre de alguno de tus archivos es demasiado largo (máximo 200 caracteres).`);
+            e.target.value = null;
+            return;
+        }
+    }
+
+    setFileError(null);
+    setSectionImages(selectedFiles);
   }
 
 
   const addSection = (e) => {
     e.preventDefault();
-    let sec_id = Date.now();
-    setDataTotal({...dataTotal, sections: [...dataTotal.sections, {...newSection, sec_id}]});
-    setNewSection(initialValue);
-    handleSectionFile(sec_id, sectionImages);
-    setShowForm(false);
+
+    try {
+      const { valid, errors} = validateForms(createEventSectionSchema, newSection);
+      setValError(errors);
+
+      if(valid) {
+        let sec_id = Date.now();
+        setDataTotal({...dataTotal, sections: [...dataTotal.sections, {...newSection, sec_id}]});
+        setNewSection(initialValue);
+        handleSectionFile(sec_id, sectionImages);
+        setShowForm(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setMsgError('Algo  mal, inténtelo de nuevo');
+    }
+
   }
 
   console.log("DATATOTAL SECT", dataTotal);
@@ -60,7 +99,7 @@ const NewSection = () => {
               value={newSection.section_title}
               name="section_title"
             />
-            {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
+            {valError.section_title && <Form.Text className="text-danger fw-bold">{valError.section_title}</Form.Text>}
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicSectSubTitle">
             <Form.Label>Subtítulo:</Form.Label>
@@ -71,7 +110,7 @@ const NewSection = () => {
               value={newSection.section_subtitle}
               name="section_subtitle"
             />
-            {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
+            {valError.section_subtitle && <Form.Text className="text-danger fw-bold">{valError.section_subtitle}</Form.Text>}
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicSectDesc">
             <Form.Label>Descripción:</Form.Label>
@@ -82,7 +121,7 @@ const NewSection = () => {
               value={newSection.section_description}
               name="section_description"
             />
-            {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
+            {valError.section_description && <Form.Text className="text-danger fw-bold">{valError.section_description}</Form.Text>}
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicSectDuration">
             <Form.Label>Duración:</Form.Label>
@@ -93,7 +132,7 @@ const NewSection = () => {
               value={newSection.section_duration}
               name="section_duration"
             />
-            {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
+            {valError.section_duration && <Form.Text className="text-danger fw-bold">{valError.section_duration}</Form.Text>}
           </Form.Group>
            <Form.Group className="mb-3" controlId="formBasicSectFiles">
             <Form.Label>Subir Imágenes</Form.Label>
@@ -103,8 +142,9 @@ const NewSection = () => {
               onChange={handleFile}
               name="sectionImages"
             />
-            {/* {valError.room_name && <Form.Text className="text-danger fw-bold">{valError.room_name}</Form.Text>} */}
+            {fileError && <Form.Text className="text-danger fw-bold ms-3">{fileError}</Form.Text>}
           </Form.Group>
+        {msgError && <p className="text-danger">{msgError}</p>}
         <button onClick={addSection}>Aceptar</button>
         <button onClick={cancelAddSection}>Cancelar</button>
       </Form>
