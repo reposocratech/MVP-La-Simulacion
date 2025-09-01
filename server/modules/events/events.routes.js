@@ -4,6 +4,8 @@ import { verifyToken } from '../../middlewares/verifyToken.js'
 import { uploadImageAny } from '../../middlewares/multerAny.js'
 import { validateForm } from '../../middlewares/validateForm.js'
 import { createEventSchema } from '../../schemas/eventSchema.js'
+import { validateFormsEvent } from '../../middlewares/validateFormsEvent.js'
+import { eventSchema2 } from '../../schemas/eventSchema2.js'
 const router = express.Router()
 
 router.get('/futures', eventsControllers.getEventData)

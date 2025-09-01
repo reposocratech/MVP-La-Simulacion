@@ -14,13 +14,11 @@ const initialValue = {
 
 const NewSection = () => {
 
-  const {cancel, navigate, dataTotal, setDataTotal, handleSectionFile, terminar} = useOutletContext();
+  const {cancel, navigate, dataTotal, setDataTotal, handleSectionFile, terminar, valError, setValError, msgError, setMsgError} = useOutletContext();
 
   const [newSection, setNewSection] = useState(initialValue);
   const [sectionImages, setSectionImages] = useState();
   const [showForm, setShowForm] = useState(false);
-  const [valError, setValError] = useState({});
-  const [msgError, setMsgError] = useState();
   const [fileError, setFileError] = useState();
 
 
@@ -28,10 +26,6 @@ const NewSection = () => {
     const {name, value} = e.target;
     setNewSection({...newSection, [name]: value});
   }
-
-  // const handleFile = (e) => {
-  //   setSectionImages(e.target.files);
-  // }
 
   const handleFile =(e)=>{
     const selectedFiles = e.target.files;

@@ -12,11 +12,9 @@ const initialValue = {
 }
 
 const Step1 = () => {
-  const {cancel, navigate, dataTotal, setDataTotal, handleFile, fileError} = useOutletContext();
+  const {cancel, navigate, dataTotal, setDataTotal, handleFile, fileError, valError, setValError, msgError, setMsgError} = useOutletContext();
 
   const [dataStep1, setDataStep1] = useState(initialValue);
-  const [valError, setValError] = useState({});
-  const [msgError, setMsgError] = useState();
 
   useEffect(()=>{
     setDataStep1({event_title: dataTotal.event_title, event_description:dataTotal.event_description, location: dataTotal.location, type_event: dataTotal.type_event})

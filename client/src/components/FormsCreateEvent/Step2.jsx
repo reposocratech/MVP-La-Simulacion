@@ -16,11 +16,9 @@ const initialValue = {
 }
 
 const Step2 = () => {
-  const {cancel, navigate, dataTotal, setDataTotal} = useOutletContext();
+  const {cancel, navigate, dataTotal, setDataTotal, valError, setValError, msgError, setMsgError} = useOutletContext();
 
   const [dataStep2, setDataStep2] = useState(initialValue);
-  const [valError, setValError] = useState({});
-  const [msgError, setMsgError] = useState();
 
   useEffect(()=>{
     setDataStep2({

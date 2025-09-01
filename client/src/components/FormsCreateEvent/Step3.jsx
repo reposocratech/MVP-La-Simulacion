@@ -10,12 +10,10 @@ const initialValue = {
 }
 
 const Step3 = () => {
-  const {cancel, navigate, dataTotal, setDataTotal} = useOutletContext();
+  const {cancel, navigate, dataTotal, setDataTotal, valError, setValError, msgError, setMsgError} = useOutletContext();
 
   const [data, setData] = useState(initialValue);
   const [showForm, setShowForm] = useState(false);
-  const [valError, setValError] = useState({});
-  const [msgError, setMsgError] = useState();
 
   const handleChange = (e) => {
     const {name, value} = e.target;
