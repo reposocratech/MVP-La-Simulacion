@@ -6,6 +6,8 @@ import { registerSchema } from "../../../schemas/registerSchema"
 import { validateForms } from "../../../helpers/validateForms"
 import { LuEye, LuEyeClosed } from "react-icons/lu"
 import "./register.css"
+import flor from '../../../assets/decorative/flor-redondeada.svg';
+import destellos from '../../../assets/decorative/pareja-destellos.svg';
 
 const initialValue = {
   user_name: "",
@@ -48,9 +50,11 @@ const Register = () => {
   return (
      <section className='section-register d-flex  justify-content-center ' >
       <Container fluid>
-        <Row>
-           <h1 className="h1-register text-center text-light p-2 w-100">Crea una cuenta <span className='span-register accent-text align-middle'>C</span></h1>
+        <Row>          
+           <h1 className="h1-register text-center text-light p-2 my-5 w-100">Crea una cuenta <span className='span-register accent-text align-middle'>C</span></h1>
           <Col className="d-flex justify-content-center">
+           <div className="form-container p-2">
+              <img src={flor} alt="" className='flor-register' />
               <Form className="form-register border border-2 rounded rounded-3 mb-2" >
                 <Form.Group className="form-group-custom" controlId="formBasicName">
                   <Form.Label className="fw-bold">Nombre:</Form.Label>
@@ -92,7 +96,7 @@ const Register = () => {
                   <Form.Label className="fw-bold" >Repite tu Contraseña: </Form.Label>
                   <InputGroup className="mb-3">
                     <Form.Control
-                    type="password"
+                    type={seePassRep === false ? "password" : "text"}
                     placeholder="Tu contraseña"
                     onChange={handleChange}
                     value={register.repPassword}
@@ -109,6 +113,8 @@ const Register = () => {
                     {msgRembr? <p className="msg-ok-form">{msgRembr} </p> : ""}
                     <p className="mt-3"> <Link to="/login"> ¿Ya tienes una cuenta?Inicia sesión aqui</Link> </p>
               </Form>
+              <img src={destellos} alt="" className='destellos-register' />
+            </div>
           </Col>
         </Row>
       </Container>

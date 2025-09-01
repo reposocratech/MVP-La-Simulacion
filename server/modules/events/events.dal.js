@@ -4,8 +4,7 @@ class EventDal {
   //traer todos los eventos que no estén borrados
   getEventData = async () => {
     try {
-      let sql =
-        'SELECT event_id, event_title, event_description, location, cover_image FROM event WHERE event_is_deleted = 0'
+      let sql = " SELECT event_id, event_title, event_description, location, cover_image, start_date, end_date FROM event WHERE EVENT_IS_DELETED = 0 "
       let result = await executeQuery(sql)
       return result
     } catch (error) {

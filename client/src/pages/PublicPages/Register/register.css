@@ -1,7 +1,7 @@
 .h1-register {
   background-color: var(--color-primary-electric-blue);
   color: white;
-  margin-top: 3rem;
+  margin-top: 2rem;
   font-size: 2rem;
 }
 
@@ -25,51 +25,26 @@
   font-size: 0.75rem;
 }
 
-.passPos {
-  position: relative;
-}
+  
+.form-container {
+    position: relative;
 
-.iconPos {
-  position: absolute;
-  border: none;
-  background-color: transparent;
-  top: 50%;
-  right: 5px;
-  font-size: 1.5rem;
-  transform: translateY(-50%); 
-}
+    .flor-register {
+      z-index: -1;
+      position: absolute;
+      width: 85px;
+      transform: translate(-150px, -25px);
+    }
 
-@media (max-height: 700px) {
-  .h1-register {
-    font-size: 1.5rem;
-    margin-top: 1rem;
+    .destellos-register {
+      z-index: -1;
+      position: relative;
+      width: 190px;
+      transform: translate(500px, -100px);
+    }
+
+    .login-form {
+      z-index: 1;
+    }
   }
 
-  .form-register {
-    width: 100%;
-    max-width: 30rem;
-    padding: 0.7rem;
-  }
-
-  .form-register label,
-  .form-register input,
-  .form-register p,
-  .form-register .text-error {
-    font-size: 0.75rem;
-    margin: 0;
-  }
-
-  .form-group-custom {
-    margin-bottom: 0.75rem;
-  }
-}
-
-@media (max-height: 500px) {
-  .form-register {
-    padding: 0.5rem;
-  }
-
-  .form-group-custom {
-    margin-bottom: 0.5rem;
-  }
-}

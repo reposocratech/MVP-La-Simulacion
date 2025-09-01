@@ -24,7 +24,7 @@ const Register = lazy(() => import('../pages/PublicPages/Register/Register'))
 const Login = lazy(() => import('../pages/PublicPages/Login/Login'))
 const ErrorPage = lazy(() => import('../pages/PublicPages/ErrorPage/ErrorPage'))
 const Calendar = lazy(() => import('../pages/PublicPages/Calendar/Calendar'))
-const Prueba = lazy(() => import('../pages/PublicPages/prueba/Prueba'))
+const Review = lazy(() => import('../pages/PublicPages/Review/Review'))
 const OneEvent = lazy(() => import('../pages/PublicPages/oneEvent/OneEvent'))
 
 // Componentes Administrador:
@@ -61,6 +61,9 @@ const AdminReservations = lazy(() =>
 )
 const AdminServCoop = lazy(() =>
   import('../pages/AdminPages/AdminServCoop/AdminServCoop')
+)
+const AdminReview = lazy (() =>
+  import('../pages/AdminPages/AdminReview/AdminReview')
 )
 const CreateEvent = lazy(() =>
   import('../pages/AdminPages/CreateEvent/CreateEvent')
@@ -113,7 +116,7 @@ export const AppRoutes = () => {
                   <Route path="/register" element={<Register />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/calendar" element={<Calendar />} />
-                  <Route path="/prueba" element={<Prueba />} />
+                  <Route path="/review/:id" element={<Review />} />
                   <Route path="/event/:id" element={<OneEvent />} />
                 </Route>
               </Route>
@@ -149,6 +152,7 @@ export const AppRoutes = () => {
                     element={<AdminReservations />}
                   />
                   <Route path="/admin/servCoop" element={<AdminServCoop />} />
+                  <Route path="/admin/review" element={<AdminReview />} />
                   <Route path="/admin/createEvent" element={<CreateEvent />}>
                     <Route index element={<Step1 />} />
                     <Route path="step2" element={<Step2 />} />

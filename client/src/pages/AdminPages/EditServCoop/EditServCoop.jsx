@@ -23,7 +23,8 @@ export const EditServCoop = () => {
 
   useEffect(() => {
     const fetchServCoop = async() => {
-  try {      
+  try {
+      //LLamada para mostrar los datos del back de un servicio especifico      
       const res = await fetchData(`/services/editservcoop/${id}`, "get" , null , token);
       console.log(res);
       setdatesForm(res.data.result?.[0]);

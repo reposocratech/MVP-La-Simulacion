@@ -2,7 +2,6 @@ import express from 'express'
 import eventsControllers from './events.controllers.js'
 import { verifyToken } from '../../middlewares/verifyToken.js'
 import { uploadImageAny } from '../../middlewares/multerAny.js'
-import { uploadImageFields } from '../../middlewares/multerFields.js'
 const router = express.Router()
 
 router.get('/futures', eventsControllers.getEventData)

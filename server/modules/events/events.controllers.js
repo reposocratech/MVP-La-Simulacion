@@ -162,7 +162,7 @@ class EventController {
   getEventById = async (req, res) => {
     try {
       const { id } = req.params
-      const result = await eventsDal.getEventById(Number(id))
+      const result = await eventsDal.getEventById(id)
       if (!result) {
         return res.status(404).json({ message: 'Evento no encontrado' })
       }
