@@ -33,7 +33,7 @@ const EditRoom = () => {
   useEffect(() => {
     const fetchRoom = async() => {
       try {
-        const res = await fetchData(`/rooms/room/${id}`, "get");
+        const res = await fetchData(`/rooms/room/${id}`, "get", null, token);
         setRoomData(res.data.room[0]);
       } catch (error) {
         console.log(error);

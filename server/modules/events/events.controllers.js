@@ -36,6 +36,7 @@ class EventController {
   }
 
   createEvent = async (req, res) => {
+    
     try {
       //extraer datos del body con destructuring
       const {

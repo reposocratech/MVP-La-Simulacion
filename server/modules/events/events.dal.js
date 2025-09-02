@@ -48,6 +48,7 @@ class EventDal {
   }
 
   createEvent = async (data) => {
+    
     const cleanedData = cleanInputs(data);
 
     const {
