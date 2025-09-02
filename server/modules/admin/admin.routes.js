@@ -17,5 +17,6 @@ router.get('/rooms', verifyToken, adminControllers.getRoomsData);
 router.put('/deleteRoom', verifyToken, adminControllers.deleteRoom);
 router.get('/reservations', verifyToken, adminControllers.getReservationsData);
 router.put('/reservations/status', verifyToken, adminControllers.changeStatusReservation);
+router.get('/reservations/:id', verifyToken, adminControllers.getReservationById);
 
 export default router;
