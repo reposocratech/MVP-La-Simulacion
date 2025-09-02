@@ -18,7 +18,7 @@ export const PrivateRoutes = ({userType, requiredUser}) => {
 
   return (
     <>
-      {user && <Outlet />}
+      {user?.type === requiredUser && <Outlet />}
     </>
   )
 }

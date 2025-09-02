@@ -3,6 +3,7 @@ import Calendar from 'react-calendar'
 import axios from 'axios'
 import 'react-calendar/dist/Calendar.css'
 import './CalendarComponent.css'
+import { useNavigate } from 'react-router'
 const API_PREFIX = `${import.meta.env.VITE_SERVER_URL}/events`
 
 const dateKeyLocal = (d) => {
@@ -80,6 +81,8 @@ const CalendarComponent = () => {
     }
   }
 
+   const navigate = useNavigate();
+
   return (
     <section className="container mt-5 my-4 pt-3 calendar-section ">
       <div className="row g-4 calendar-grid p-3 mb-5">
@@ -93,8 +96,6 @@ const CalendarComponent = () => {
             onActiveStartDateChange={handleActiveStartDateChange}
           />
         </div>
-
-        {/* Columna de la lista de eventos */}
         <div className="col-12 col-lg-7 ">
           <div className="events-panel p-3 bg-white rounded shadow-sm">
             <h3 className="calendar-date-heading mb-3 text-uppercase text-center">
@@ -113,7 +114,7 @@ const CalendarComponent = () => {
                 dailyEvents.map((ev) => (
                   <article className="event-card" key={ev.event_id}>
                     <h4 className="event-title mb-1">{ev.event_title}</h4>
-                    <p className="event-description mb-1">
+                    <p className="event-description mb-1 ">
                       {ev.event_description}
                     </p>
                     <p className="event-time mb-1">
@@ -123,19 +124,12 @@ const CalendarComponent = () => {
                     <p className="event-location mb-1">
                       <strong>Ubicación:</strong> {ev.location}
                     </p>
-                    {ev.price != null && (
-                      <p className="event-price mb-1">
-                        <strong>Precio:</strong> {ev.price}€
-                      </p>
-                    )}
                     {ev.ticket_link && (
                       <a
                         className="event-ticket-link"
-                        href="https://lasimulacion.escenaonline.com/par-public/rest/evento/listado"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        onClick={() => navigate(`/event/${ev.event_id}`)}
                       >
-                        Comprar entradas
+                        Mostrar más información
                       </a>
                     )}
                   </article>
