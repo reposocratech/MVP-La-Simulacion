@@ -80,15 +80,15 @@ export const EditDataSection = ({dataSections, selectedSectionId, onSubmit, canc
       {/* {msgError && <p className="text-danger">{msgError}</p>} */}
       <div className="d-flex gap-3">
         <button
-          className="btn-table unblock"
-          type='button'
-          onClick={() => onSubmit(sectionToEdit)}
-        >Aceptar</button>
-        <button
           className="btn-table block"
           type='button'
           onClick={cancel}
         >Cancelar</button>
+        <button
+          className="btn-table unblock"
+          type='button'
+          onClick={() => onSubmit(sectionToEdit)}
+        >Aceptar</button>
       </div>
     </Form>
   )

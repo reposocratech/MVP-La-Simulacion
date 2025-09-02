@@ -142,29 +142,31 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel}) => {
             {/* {valError.end_hour && <Form.Text className="text-danger fw-bold">{valError.end_hour}</Form.Text>} */}
           </Form.Group>
         </div>
-          <Form.Group className="mb-3" controlId="formBasicAttendees">
-          <Form.Label>Número de asistentes:</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Núm. asistentes"
-            onChange={handleChange}
-            value={eventToEdit.number_of_attendees}
-            name="number_of_attendees"
-          />
-          {/* {valError.number_of_attendees && <Form.Text className="text-danger fw-bold">{valError.number_of_attendees}</Form.Text>} */}
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPrice">
-          <Form.Label>Coste total:</Form.Label>
-          <Form.Control 
-            type="text"
-            placeholder="Coste total en números"
-            onChange={handleChange}
-            value={eventToEdit.price}
-            name="price"
-          />
-          {/* {valError.price && <Form.Text className="text-danger fw-bold">{valError.price}</Form.Text>} */}
-        </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicTicketLink">
+        <div className="d-flex justify-content-center gap-3">
+          <Form.Group className="mb-3 w-100" controlId="formBasicAttendees">
+            <Form.Label>Número de asistentes:</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Núm. asistentes"
+              onChange={handleChange}
+              value={eventToEdit.number_of_attendees}
+              name="number_of_attendees"
+            />
+            {/* {valError.number_of_attendees && <Form.Text className="text-danger fw-bold">{valError.number_of_attendees}</Form.Text>} */}
+          </Form.Group>
+          <Form.Group className="mb-3 w-100" controlId="formBasicPrice">
+            <Form.Label>Coste total:</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Coste total en números"
+              onChange={handleChange}
+              value={eventToEdit.price}
+              name="price"
+            />
+            {/* {valError.price && <Form.Text className="text-danger fw-bold">{valError.price}</Form.Text>} */}
+          </Form.Group>
+        </div>
+        <Form.Group className="mb-3" controlId="formBasicTicketLink">
           <Form.Label>Enlace ticketera:</Form.Label>
           <Form.Control
             type="text"
