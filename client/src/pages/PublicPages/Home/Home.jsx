@@ -11,7 +11,16 @@ const cardsData = [
     textButton: "Más info",
     color: "#F0B9D9", 
     urlButton: "/servicesCoop",
-    textBody: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+    textBody: 
+      <>
+        <p>
+          Desde la <strong>Cooperativa La Simulación</strong> ofrecemos servicios de roducción, gestión cultural y comunicación a artistas, colectivos y entidades. 
+        </p>
+        <p>
+          Trabajamos también con áreas municipales y administraciones públicas, adaptando cada proyecto a las necesidades del territorio.
+        </p>
+      </>
+    ,
     accentLetter: "S",
    },
   {
@@ -20,7 +29,15 @@ const cardsData = [
     textButton: "Más info",
     color: "#B4D380", 
     urlButton: "/events",
-    textBody: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+    textBody: 
+    <>
+        <p>
+          <strong>La Simulación</strong> organiza eventos culturales y talleres que combinan formación, creación y comunidad. 
+        </p>
+        <p>
+          Uno de nuestros principales objetivos con estos eventos y talleres es, además del fomento y desarrollo de la cultura en el tejido social, dar visibilidad al talento local.
+        </p>
+      </>,
     accentLetter: "E"
   },
   {
@@ -29,7 +46,15 @@ const cardsData = [
     textButton: "Más info",
     color: "#D890EA",
     urlButton: "/oneRoom/2",
-    textBody: "Some quick example text to build on the card title and make up the bulk of the card's content.",
+    textBody: 
+    <>
+      <p>
+        La <strong>Asociación La Simulación</strong> pone a disposición un set de grabación pensado para artistas emergentes que empiezan su trayectoria y no tienen recursos
+      </p> 
+      <p>
+        Su uso está limitado a dos sesiones por artista, con un precio simbólico que garantiza apoyo inicial sin competir con el sector profesional.
+      </p>
+    </>,
     accentLetter: "G"
   }
 ];
@@ -45,8 +70,8 @@ const Home = () => {
               <h1 className="pt-2 pb-3">Resumen de la organización</h1>
               <article>
                 <p>
-                  La Simulación es una entidad cultural que busca fomentar la cultura en su localidad. Su misión es mejorar, evolucionar y renovar la estructura y las bases artísticas de la Comunidad Valenciana. Mujeres jóvenes de diversos sectores artísticos (audiovisuales, diseño gráfico, sonido, interpretación, danza...) que quieren ayudar a las personas valencianas, principalmente a los jóvenes, a desarrollar su talento sin necesidad de irse a localidades más potentes en su ámbito artístico.
-                  </p>
+                  <span className="fw-bold">La Simulación</span> es un ecosistema cultural nacido en Castelló que impulsa la creatividad local a través de la formación, la producción y la difusión artística. Desde la asociación y la cooperativa trabajamos con una mirada comunitaria para acompañar a artistas, colectivos y proyectos emergentes, generando espacios donde la cultura se entiende como un derecho y como motor de transformación social.
+                 </p>
               </article>
             </Col>
             <Col xs={12} lg={5} className='d-flex justify-content-center justify-content-lg-end'>
@@ -69,7 +94,7 @@ const Home = () => {
              pasarle sus valores por props de forma dinámica: */}
             {cardsData.map((card)=>{
                 return (
-                  <Col key={card.id}>
+                  <Col key={card.id} className="d-flex">
                     <CardHome 
                         title={card.title}
                         textButton={card.textButton}

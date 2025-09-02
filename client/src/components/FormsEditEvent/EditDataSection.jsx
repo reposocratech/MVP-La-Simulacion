@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap';
 
 export const EditDataSection = ({dataSections, selectedSectionId, onSubmit, cancel}) => {
   const [sectionToEdit, setSectionToEdit] = useState();
-  const [files, setFiles] = useState([]);
+  //const [files, setFiles] = useState([]);
 
   useEffect(() => {
     setSectionToEdit(dataSections.find(elem => elem.section_id === selectedSectionId)); 

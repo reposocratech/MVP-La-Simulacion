@@ -51,7 +51,7 @@ const EditEvent = () => {
       }
     }
     fetchEvent();
-  }, [id, token]);
+  }, [id, token, sectionsImages], );
 
   const handleSectionFile = (sec_id, files) => {
     setSectionsImages([...sectionsImages, {sec_id, files}]);
@@ -85,7 +85,7 @@ const EditEvent = () => {
     } 
   }
 
-  console.log("datatotallll", dataTotal);
+  //console.log("datatotallll", dataTotal);
   
   const submitEditSection = async(section) => {
     try {
@@ -129,6 +129,11 @@ const EditEvent = () => {
                 sections={dataTotal.sections}
                 setCurrentForm={setCurrentForm}
                 setSelectedSectionId={setSelectedSectionId}
+                selectedSectionId={selectedSectionId}
+                sectionsImages={sectionsImages}
+                setSectionsImages={setSectionsImages}
+                handleSectionFile={handleSectionFile}
+                event_id={id}
               />
             }
             {currentForm === 2 &&

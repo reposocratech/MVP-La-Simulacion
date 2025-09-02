@@ -1,5 +1,6 @@
 import executeQuery, { dbPool } from '../../config/db.js'
 import { cleanInputs } from '../../utils/cleanInputs.js'
+import { deleteFile } from '../../helpers/fileSystem.js'
 
 class EventDal {
   //traer todos los eventos que no estén borrados
@@ -313,6 +314,24 @@ class EventDal {
       let sql = 'UPDATE section SET section_title = ?, section_subtitle = ?, section_description = ?, section_duration = ? WHERE section_id = ? AND event_id = ?';
       let values = [section_title, section_subtitle, section_description, section_duration, section_id, event_id];
       let result = await executeQuery(sql, values);
+    } catch (error) {
+      console.log(error);
+      throw { message: 'Error en base de datos' }
+    }
+  }
+
+  deleteSectionImage = async(event_id, section_id, section_image_id, file) => {
+
+    console.log("cositas", event_id, section_id, section_image_id, file);
+
+    try {
+      let sql = "DELETE FROM section_image WHERE section_image_id = ? AND section_id = ? AND event_id = ?";
+      let values = [section_image_id, section_id, event_id];
+
+      let result = await executeQuery(sql, values);
+      console.log ("RESULLLLTTT OJUUUU", result);
+      await deleteFile(file, "events");
+
     } catch (error) {
       console.log(error);
       throw { message: 'Error en base de datos' }
