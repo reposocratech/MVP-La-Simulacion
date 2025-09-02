@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../context/AuthContextProvider'
 import { fetchData } from '../../../helpers/axiosHelper'
 import userPlaceholder from '../../../../../server/public/images/users/default-avatar.svg'
+import { FaCamera } from 'react-icons/fa'
 import './ProfileCard.css'
 
 export const ProfileCard = ({ setActiveComponent }) => {
@@ -79,6 +80,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
           className="profile-image-container"
           onClick={handleImageClick}
           style={{ cursor: 'pointer' }}
+          title="Editar imagen"
         >
           <img
             src={
@@ -88,9 +90,13 @@ export const ProfileCard = ({ setActiveComponent }) => {
                   }`
                 : userPlaceholder
             }
-            alt="Ícono de usuario"
+            alt="Editar foto perfil"
             className="profile-image rounded-circle"
           />
+             <div className="edit-icon-overlay">
+            <FaCamera />
+          	{/*<FaPencilAlt />*/}
+          </div>
         </figure>
         <input
           type="file"
