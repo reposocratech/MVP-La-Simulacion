@@ -67,10 +67,6 @@ const Step2 = lazy(() => import('../components/FormsCreateEvent/Step2'))
 const Step3 = lazy(() => import('../components/FormsCreateEvent/Step3'))
 const NewSection = lazy(() => import('../components/FormsCreateEvent/NewSection'))
 const EditEvent = lazy(() => import('../pages/AdminPages/EditEvent/EditEvent'));
-const Step1Edit = lazy(() => import('../components/FormsEditEvent/Step1'));
-const Step2Edit = lazy(() => import('../components/FormsEditEvent/Step2'));
-const Step3Edit = lazy(() => import('../components/FormsEditEvent/Step3'));
-const EditSection = lazy(() => import('../components/FormsEditEvent/EditSection'));
 const OneReservation = lazy(() => import('../pages/AdminPages/OneReservation/OneReservation'))
 
 
@@ -141,12 +137,7 @@ export const AppRoutes = () => {
                     <Route path="step3" element={<Step3 />} />
                     <Route path="newSection" element={<NewSection />} />
                   </Route>
-                  <Route path="/admin/editEvent/:id" element={<EditEvent />}>
-                    <Route index element={<Step1Edit />} />
-                    <Route path="step2" element={<Step2Edit />} />
-                    <Route path="step3" element={<Step3Edit />} />
-                    <Route path="editSection" element={<EditSection />} />
-                  </Route>
+                  <Route path="/admin/editEvent/:id" element={<EditEvent />} />                  
                 </Route>
               </Route>
 

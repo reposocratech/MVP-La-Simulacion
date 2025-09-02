@@ -1,4 +1,4 @@
-const EventSection = ({ section, index , timeEvent }) => {
+const EventSection = ({ section, index  }) => {
  console.log("----", section);
 
   //if (!section) return null
@@ -19,20 +19,20 @@ const EventSection = ({ section, index , timeEvent }) => {
       <div
         className={`section-body d-flex flex-column ${orientationClass} gap-4`}
       >
-        {section.images && section.images.length > 0 && (
+        
           <div className="flex-fill section-gallery">
-            {section.images.map((file, idx) => (
+            {section.images.map((image, idx) => (
               <img
                 key={idx}
                 src={`${
                   import.meta.env.VITE_SERVER_URL_PUBLIC
-                }images/events/${file}`}
+                }images/events/${image.file}`}
                 alt=""
                 className="section-img"
               />
             ))}
           </div>
-        )}
+        
         <div className="flex-fill">
           {!isFirst && section.section_subtitle && (
             <h4 className="section-subtitle">{section.section_subtitle}</h4>
