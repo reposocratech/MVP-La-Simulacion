@@ -5,12 +5,14 @@ import { fetchData } from '../../../helpers/axiosHelper'
 import EventHeader from '../../../components/Events/EventHeader'
 import EventSection from '../../../components/Events/EventSection'
 import './oneEvent.css'
+import { Rating } from 'react-simple-star-rating'
 
 const OneEvent = () => {
   const { id } = useParams();
 
   const [event, setEvent] = useState(null);
   const [sections, setSections] = useState([]);
+  const [reviews, setReviews] = useState(null)
 
   const navigate = useNavigate();
 
@@ -21,6 +23,9 @@ const OneEvent = () => {
         console.log("res", res);
         setEvent(res.data)
         setSections(res.data.sections || [])
+        const res2 = await fetchData(`/reviews/seeaveragerating/${id}` , "get")
+        setReviews(res2.data.result[0])
+        console.log("res2" , res2.data.result);      
       } catch (error){
         console.log(error);
       }
@@ -51,6 +56,20 @@ const OneEvent = () => {
             index={idx}
           />
         ))}
+          {reviews && reviews.total_reviews > 0 && (
+          <div className="event-reviews my-4">
+          <h5>Opiniones del evento</h5>
+          <Rating
+          initialValue={reviews.average_rating}
+          size={20}
+          fillColor="var(--color-primary-violet)"
+          emptyColor="#CCC"
+          readonly
+          />                
+          <p>{reviews.total_reviews}</p>
+          </div>
+        )}
+
         
         {event?.ticket_link && (
           <div className="text-center my-4">
