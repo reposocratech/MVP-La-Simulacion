@@ -12,6 +12,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
   const fileInputRef = useRef(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [showModal, setShowModal] = useState(false) // estado para el modal
 
   const handleImageClick = () => {
     fileInputRef.current?.click()
@@ -42,15 +43,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
     }
   }
 
-  const handleDeleteAccount = async () => {
-    if (
-      !window.confirm(
-        '¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.'
-      )
-    ) {
-      return
-    }
-
+  const confirmDeleteAccount = async () => {
     setLoading(true)
     try {
       const res = await fetchData(
@@ -70,6 +63,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
       )
     } finally {
       setLoading(false)
+      setShowModal(false)
     }
   }
 
@@ -93,9 +87,8 @@ export const ProfileCard = ({ setActiveComponent }) => {
             alt="Editar foto perfil"
             className="profile-image rounded-circle"
           />
-             <div className="edit-icon-overlay">
+          <div className="edit-icon-overlay">
             <FaCamera />
-          	{/*<FaPencilAlt />*/}
           </div>
         </figure>
         <input
@@ -162,10 +155,58 @@ export const ProfileCard = ({ setActiveComponent }) => {
         >
           Cambiar email
         </button>
-        <button onClick={handleDeleteAccount} className="delete-link">
+        <button onClick={() => setShowModal(true)} className="delete-link">
           Darme de baja
         </button>
       </div>
+
+      {showModal && (
+        <>
+          {/* Backdrop oscuro */}
+          <div
+            className="modal-backdrop fade show"
+          ></div>
+
+          {/* Modal centrado */}
+          <div className="modal fade show d-block" tabIndex="-1" role="dialog">
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Confirmar eliminación</h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={() => setShowModal(false)}
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <p>
+                    ¿Estás seguro de que deseas eliminar tu cuenta? Esta acción
+                    no se puede deshacer.
+                  </p>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="submit-button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    className="cancel-button"
+                    onClick={confirmDeleteAccount}
+                  >
+                    Eliminar cuenta
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </>
   )
 }
