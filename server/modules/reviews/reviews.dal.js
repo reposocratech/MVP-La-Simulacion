@@ -12,6 +12,16 @@ class ReviewDal {
     }
   }
 
+  seeAvgRating = async (id) =>{
+    try {
+    let sql = "SELECT COUNT (*) AS total_reviews , AVG(rating) AS average_rating FROM review WHERE event_id = ? "
+    let result = await executeQuery(sql , id) 
+    return result ;
+    } catch (error) {
+      throw { message: "Error en bd" };  
+    }
+  }
+
   seeAllReview = async () => {
     try {
    let sql = `SELECT review_id , review.description, review.rating, event.event_title

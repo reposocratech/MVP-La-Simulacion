@@ -13,7 +13,9 @@ const Review = () => {
       try {
         //LLamada al back para recoger los datos de la tabla event
         const res = await fetchData(`/events/event/${id}`, "get");
-        setEvent(res.data.event);
+        setEvent(res.data);
+        console.log(res);
+        
       } catch(error) {
         console.log(error);        
       }
