@@ -104,7 +104,7 @@ class AdminDal {
 
   getReservationsData = async() => {
     try {
-      let sql = `SELECT reservation.*, room.room_name FROM reservation JOIN room ON reservation.room_id = room.room_id WHERE room.room_is_deleted = 0`;
+      let sql = `SELECT reservation.*, room.room_name FROM reservation JOIN room ON reservation.room_id = room.room_id WHERE room.room_is_deleted = 0 ORDER BY reservation.date DESC`;
 
       const result = await executeQuery(sql);
       return result;
@@ -128,6 +128,17 @@ class AdminDal {
     try {
       let sql = 'UPDATE reservation SET status = ? WHERE reservation_id = ?';
       await executeQuery(sql, [status, id]);
+
+    } catch (error) {
+      throw { message: "Error en base de datos" };
+    }
+  }
+
+  getReservationById = async(id) => {
+    try {
+      let sql = "SELECT * FROM reservation WHERE reservation_id = ?"; 
+      const result = await executeQuery(sql, [id]);
+      return result;
 
     } catch (error) {
       throw { message: "Error en base de datos" };

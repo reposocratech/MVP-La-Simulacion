@@ -197,4 +197,9 @@ body {
     font-weight: bold;
   }
 
+  .row-pending {
+    background-color: #fdeff8;
+    font-weight: 600;
+  }
+
 }

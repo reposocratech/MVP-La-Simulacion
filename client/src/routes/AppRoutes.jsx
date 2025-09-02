@@ -66,6 +66,7 @@ const Step1 = lazy(() => import('../components/FormsCreateEvent/Step1'))
 const Step2 = lazy(() => import('../components/FormsCreateEvent/Step2'))
 const Step3 = lazy(() => import('../components/FormsCreateEvent/Step3'))
 const NewSection = lazy(() => import('../components/FormsCreateEvent/NewSection'))
+const OneReservation = lazy(() => import('../pages/AdminPages/OneReservation/OneReservation'))
 
 // Componentes de Usuario:
 const Profile = lazy(() => import('../pages/UserPages/Profile/Profile'))
@@ -125,6 +126,7 @@ export const AppRoutes = () => {
                   <Route path="/admin/events" element={<AdminEvents />} />
                   <Route path="/admin/rooms" element={<AdminRooms />} />
                   <Route path="/admin/reservations" element={<AdminReservations />} />
+                  <Route path="/admin/reservations/:id" element={<OneReservation />} />
                   <Route path="/admin/servCoop" element={<AdminServCoop />} />
                   <Route path="/admin/review" element={<AdminReview />} />
                   <Route path="/admin/createEvent" element={<CreateEvent />}>

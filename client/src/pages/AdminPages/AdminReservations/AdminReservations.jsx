@@ -37,7 +37,7 @@ const AdminReservations = () => {
     };
 
     fetchReservations();
-  }, [token]); // o [] si token no cambia
+  }, [token]); 
 
   // Función para actualizar el estado de una reserva:
   const handleStatusChange = async (id, newStatus) => {
@@ -94,8 +94,15 @@ const AdminReservations = () => {
       label: "Nombre Sala"
     },
     {
+      key: "date", 
+      label: "Fecha"
+    },{
       key: "user_id", 
       label: "ID Usuario"
+    },
+    {
+      key: "phone_number", 
+      label: "TLF de contacto"
     },
     {
       key: "status", 
