@@ -148,6 +148,20 @@ class AdminController {
     }
   }
 
+  getReservationById = async(req, res) => {
+    try {
+      const {id} = req.params;
+
+      const result = await adminDal.getReservationById(id);
+      console.log("RESULLLRRLRLRLRLRL", result);
+      res.status(200).json(result);
+      
+
+    } catch (error) {
+      res.status(500).json({message: "Error de servidor"});
+    }
+  } 
+
 }
 
 export default new AdminController();
