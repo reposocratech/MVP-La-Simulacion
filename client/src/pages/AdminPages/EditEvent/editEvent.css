@@ -1,0 +1,53 @@
+.section-create-event {
+  padding-block: 3.75rem;
+
+  h1 {
+    text-align: center;
+    font-size: 2.25rem;
+    margin-block-end: 2.5rem;
+
+    span {
+      margin-inline-end: .5rem;
+      font-family: 'Pilowlava';
+      color: var(--color-secondary-medium-lavender);
+    }
+  }
+
+  article {
+    p span {
+      font-weight: bold;
+    }
+  }
+
+  .p-list {
+    display: list-item;
+    list-style-type: disc;
+    margin-left: 1rem;
+  }
+
+  .section-sections {
+    background-color: var(--color-secondary-light-pink);
+    cursor: default;
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  .border-forms {
+    padding: 1rem;
+    border: 3px solid var(--color-primary-lavender);
+    border-radius: 1rem;
+  }
+
+  .border-info-form {
+    padding: 1rem;
+    border: 3px solid var(--color-secondary-medium-lavender);
+    border-radius: 1rem;
+  }
+
+  .delete-button-icon {
+    border: none;
+    background-color: transparent;
+  }
+
+  
+}

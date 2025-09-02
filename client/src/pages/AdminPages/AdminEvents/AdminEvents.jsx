@@ -57,17 +57,18 @@ const AdminEvents = () => {
       render: (row) => (
         <button
           className="btn-table edit"
+          onClick={() => navigate(`/admin/editEvent/${row.event_id}`)}
         >Editar</button>
       )
     },
     {
       key: "delete", 
-      label: "Eliminar",
+      label: "Borrar",
       render: (row) => (
         <button
           className="btn-table block"
           onClick={() => deleteEvent(row.event_id)}
-        >Eliminar</button>
+        >Borrar</button>
       )
     }
   ];
