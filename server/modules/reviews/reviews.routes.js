@@ -8,5 +8,6 @@ router.get('/adminreviews', verifyToken, reviewsControllers.seeAllReview);
 router.delete('/delreviewdata', verifyToken, reviewsControllers.delReview);
 router.post('/createReview/:id', validateForm(reviewSchema), reviewsControllers.createReview);
 router.get('/seereviews/:id', reviewsControllers.seeReview);
+router.get('/seeaveragerating/:id', reviewsControllers.seeAvgRating);
 
 export default router;
