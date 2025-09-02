@@ -12,7 +12,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
   const fileInputRef = useRef(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [showModal, setShowModal] = useState(false) // estado para el modal
+  const [showModal, setShowModal] = useState(false)
 
   const handleImageClick = () => {
     fileInputRef.current?.click()
