@@ -66,6 +66,7 @@ sendMailServCoop = async (req , res)=>{
     editDataServCoop = async (req , res) =>{
      try {
     const { id ,img } = req.params;
+    console.log("REQ BODY DATA ALBERTO ", req.body.data)
     const {service_name,service_description } = JSON.parse(req.body.data); 
     const data = {
                 service_name,
@@ -76,9 +77,10 @@ sendMailServCoop = async (req , res)=>{
         await servicesDal.editDataServCoop(data);
 
       if (req.file) {
-      if (img !== "null") {
-        await deleteFile(img, "servCoop"); 
-      }
+        if (img && img !== "null" && img !== "") {
+          // Eliminar la imagen anterior
+          await deleteFile(img, "servCoop");
+        }
     }
     
     
