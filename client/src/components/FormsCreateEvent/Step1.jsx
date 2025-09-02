@@ -14,7 +14,6 @@ const initialValue = {
 const Step1 = () => {
   const {cancel, navigate, dataTotal, setDataTotal, handleFile, fileError, valError, setValError, msgError, setMsgError} = useOutletContext();
 
-
   const [dataStep1, setDataStep1] = useState(initialValue);
 
   useEffect(()=>{
@@ -40,7 +39,7 @@ const Step1 = () => {
 
     } catch (error) {
       console.log(error);
-      setMsgError('Algo  mal, inténtelo de nuevo');
+      setMsgError('Algo salió mal, inténtelo de nuevo');
     }
   }
 

@@ -17,6 +17,7 @@ const initialValue = {
 
 const Step2 = () => {
   const {cancel, navigate, dataTotal, setDataTotal, valError, setValError, msgError, setMsgError} = useOutletContext();
+
   const [dataStep2, setDataStep2] = useState(initialValue);
   
   useEffect(()=>{
@@ -57,9 +58,8 @@ const Step2 = () => {
       }
     } catch (error) {
       console.log(error);
-      setMsgError('Algo  mal, inténtelo de nuevo');
+      setMsgError('Algo salió mal, inténtelo de nuevo');
     }
-
   }
 
   return (

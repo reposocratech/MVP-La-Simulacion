@@ -36,8 +36,6 @@ class EventController {
   }
 
   createEvent = async (req, res) => {
-    console.log("es muy tempranoooooooooooooooooooooooo",req.body);
-    
     try {
       //extraer datos del body con destructuring
       const {
@@ -56,7 +54,7 @@ class EventController {
         type_event,
         section_public,
         sections = [],
-      } = JSON.parse(req.body.dataTotal)
+      } = JSON.parse(req.body.dataTotal);
 
       // Manejo de imágenes
       let cover = cover_image || null;
@@ -129,14 +127,48 @@ class EventController {
     }
   }
 
-  getEventById = async (req, res) => {
+  getEventById = async(req, res) => {
+    try {
+      const {id} = req.params;
+      const event = await eventsDal.getEventById(id);
+      res.status(200).json(event);
+    } catch (error) {
+      res.status(500).json({ message: 'Error de servidor' });
+    }
+  }
+
+  editDataEvent = async(req, res) => {
+    try {
+      const {id} = req.params;
+      const result = await eventsDal.editDataEvent(req.body, req.file, id);
+      if(req.file) {
+        res.status(200).json({filename: req.file.filename})
+      } else {
+        res.status(200).json({filename: null});
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Error de servidor' });
+    }
+  }
+
+  editDataSection = async(req, res) => {
+    try {
+      console.log("bodyyy", req.body);
+      const result = await eventsDal.editDataSection(req.body);
+      res.status(200).json("cambio ok");
+    } catch (error) {
+      res.status(500).json({ message: 'Error de servidor' });
+    }
+  }
+
+  /* getEventById = async (req, res) => {
     try {
       const { id } = req.params
       const result = await eventsDal.getEventById(id)
       if (!result) {
         return res.status(404).json({ message: 'Evento no encontrado' })
       }
-      console.log("result de controllerrrrr", result);
+      //console.log("result de controllerrrrr", result);
       let data = {
         event_id: result[0].event_id,
         event_title: result[0].event_title,
@@ -155,7 +187,7 @@ class EventController {
       }
 
       result.forEach(elem => {
-        if (!elem.section_id) return; // si no hay sección, saltamos
+        if (!elem.section_id) return; // if (elem.section_id == null) return;
 
         // buscamos si la sección ya existe en data.sections
         let section = data.sections.find(s => s.section_id === elem.section_id);
@@ -202,7 +234,7 @@ class EventController {
     } catch (error) {
       res.status(500).json({ message: 'Error de servidor' });
     }
-  }
+  } */
 }
 
 export default new EventController()

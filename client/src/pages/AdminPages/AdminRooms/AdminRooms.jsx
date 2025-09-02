@@ -65,12 +65,12 @@ const AdminRooms = () => {
     },
     {
       key: "delete", 
-      label: "Eliminar",
+      label: "Borrar",
       render: (row) => (
         <button
           className="btn-table block"
           onClick={() => deleteRoom(row.room_id)}
-        >Eliminar</button>
+        >Borrar</button>
       )
     }
   ];

@@ -13,7 +13,7 @@ const initialValue = {
   key_points: []
 }
 
-const NewSection = () => {
+const EditSection = () => {
   const {cancel, navigate, dataTotal, setDataTotal, handleSectionFile, terminar, valError, setValError, msgError, setMsgError, fileError, setFileError} = useOutletContext();
 
   const [newSection, setNewSection] = useState(initialValue);
@@ -181,4 +181,4 @@ const NewSection = () => {
   )
 }
 
-export default NewSection;
+export default EditSection;

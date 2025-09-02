@@ -41,9 +41,9 @@ const CreateEvent = () => {
     const selectedFiles = e.target.files[0];
 
     if (selectedFiles && selectedFiles.name.length > 200) {
-        setFileError(`El nombre de alguno de tus archivos es demasiado largo (máximo 200 caracteres).`);
-        e.target.value = null;
-        return;
+      setFileError(`El nombre de alguno de tus archivos es demasiado largo (máximo 200 caracteres).`);
+      e.target.value = null;
+      return;
     }
 
     setFileError(null); 
@@ -134,8 +134,11 @@ const CreateEvent = () => {
               terminar,
               handleSectionFile,
               valError,
+              setValError,
               msgError,
-              fileError
+              setMsgError,
+              fileError,
+              setFileError
             }}/>
           </Col>
         </Row>

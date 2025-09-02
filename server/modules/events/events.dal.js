@@ -188,7 +188,7 @@ class EventDal {
     }
   }
 
-  getEventById = async (id) => {
+  /* getEventById = async (id) => {
     // try {
     //   const sqlEvent = `
     //   SELECT event_id, event_title, event_description, location, cover_image,
@@ -240,7 +240,83 @@ class EventDal {
     } catch (error) {
       throw { message: 'Error en base de datos' }
     }
+  } */
+
+
+  getEventById = async (id) => {
+    try {
+      const sqlEvent = `
+      SELECT event_id, event_title, event_description, location, cover_image,
+              duration, start_date, end_date, start_hour, end_hour,
+              number_of_attendees, price, ticket_link, type_event
+      FROM event
+      WHERE event_is_deleted = 0 AND event_id = ? `;
+
+      const eventResult = await executeQuery(sqlEvent, [id]);
+      if (eventResult.length === 0) return null;
+      const event = eventResult[0];
+
+      const sections = await executeQuery(
+        'SELECT section_id, section_title, section_subtitle, section_description, section_duration FROM section WHERE event_id = ? ORDER BY section_id ASC',
+        [id]
+      );
+
+      for (let section of sections){
+        const images = await executeQuery(
+          'SELECT section_id, section_image_id, file FROM section_image WHERE event_id = ? AND section_id = ? AND section_image_is_deleted = 0 ORDER BY section_image_id ASC',
+          [id, section.section_id]
+        );
+
+        section.images = images;
+      }
+
+      for (let section of sections){
+        const keyPoints = await executeQuery(
+          'SELECT section_id, section_key_point_id, key_point_title, key_point_description FROM section_key_point WHERE event_id = ? AND section_id = ? ORDER BY section_key_point_id ASC',
+          [id, section.section_id]
+        );
+
+        section.keyPoints = keyPoints;
+      }
+
+      event.sections = sections;
+      return event;
+    } catch (error) {
+      console.log(error);
+      throw { message: 'Error en base de datos' }
+    }
+  }
+
+  editDataEvent = async(data, file, id) => {
+    const {type_event, event_title, event_description, location, duration, start_date, end_date, start_hour, end_hour, number_of_attendees,price, ticket_link} = JSON.parse(data.data);
+    try {
+      let sql = 'UPDATE event SET type_event = ?, event_title = ?, event_description = ?, location = ?, duration = ?, start_date = ?, end_date = ?, start_hour = ?, end_hour = ?, number_of_attendees = ?, price = ?, ticket_link = ? WHERE event_id = ?';
+      let values = [type_event, event_title, event_description, location, duration, start_date,  end_date, start_hour, end_hour, number_of_attendees, price, ticket_link, id];
+        
+      if (file) {
+        sql = 'UPDATE event SET type_event = ?, event_title = ?, event_description = ?, location = ?, duration = ?, start_date = ?, end_date = ?, start_hour = ?, end_hour = ?, number_of_attendees = ?, price = ?, ticket_link = ?, cover_image = ? WHERE event_id = ?'
+        values = [type_event, event_title, event_description, location, duration, start_date,  end_date, start_hour, end_hour, number_of_attendees, price, ticket_link, file.filename, id];
+      }
+
+      let result = await executeQuery(sql, values);
+    } catch (error) {
+      console.log(error);
+      throw { message: 'Error en base de datos' }
+    }
+  }
+
+  editDataSection = async(data) => {
+    try {
+      const {section_id, section_title, section_subtitle, section_description, section_duration} = data.section;
+      const {event_id} = data;
+      let sql = 'UPDATE section SET section_title = ?, section_subtitle = ?, section_description = ?, section_duration = ? WHERE section_id = ? AND event_id = ?';
+      let values = [section_title, section_subtitle, section_description, section_duration, section_id, event_id];
+      let result = await executeQuery(sql, values);
+    } catch (error) {
+      console.log(error);
+      throw { message: 'Error en base de datos' }
+    }
   }
 }
 
-export default new EventDal()
+export default new EventDal();

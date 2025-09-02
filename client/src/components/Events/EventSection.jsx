@@ -1,9 +1,12 @@
 const EventSection = ({ section, index , timeEvent }) => {
-  if (!section) return null
+ console.log("----", section);
+
+  //if (!section) return null
 
   const isFirst = index === 0
   const isEven = index % 2 === 0
   const orientationClass = isEven ? 'flex-md-row' : 'flex-md-row-reverse'
+  console.log(section.key_points)
 
   return (
     <section
@@ -34,17 +37,19 @@ const EventSection = ({ section, index , timeEvent }) => {
           {!isFirst && section.section_subtitle && (
             <h4 className="section-subtitle">{section.section_subtitle}</h4>
           )}
+
           <p className="section-text">{section.section_description}</p>
-          {section.key_points && section.key_points.length > 0 && (
+
+          
             <ul className="section-keypoints">
-              {section.key_points.map((kp) => (
+              {section.keyPoints.map((kp) => (
                 <li key={kp.section_key_point_id}>
                   <strong>{kp.key_point_title}:</strong>{' '}
                   {kp.key_point_description}
                 </li>
               ))}
             </ul>
-          )}
+         
         </div>
       </div>
     </section>
