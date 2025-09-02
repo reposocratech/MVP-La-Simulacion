@@ -5,7 +5,7 @@ export const columnReview = (reviewDelete ) => [
   { key:"Eliminar",
     label:"Borrar",
     render:(row) => (
-      <button className="cancel-button" onClick={() => reviewDelete(row)}
+      <button className="btn-table block" onClick={() => reviewDelete(row)}
       type="button"
       >
         Borrar

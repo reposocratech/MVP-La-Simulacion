@@ -19,7 +19,9 @@ export const CardEvents = ({event , navigate}) => {
             </div>
           </div>
           <div className="col-lg-5">
-            <img src={event.cover_image} alt="" className='w-100 h-100 object-fit-cover'/>
+            <img src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/events/${
+              event.cover_image
+            }`} alt="" className='w-100 h-100 object-fit-cover'/>
           </div>
         </div>
     </article>
