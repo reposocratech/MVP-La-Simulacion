@@ -16,23 +16,25 @@ export const SectionList = ({sections, setCurrentForm, setSelectedSectionId, del
           <section className="section-sections mb-3" key={elem.section_id}>
             <div className="d-flex justify-content-between">
               <h3>{elem.section_title}</h3>
-              <div>
-                <button
-                  className="btn-table block"
-                  onClick={() => deleteSection(elem.section_id)}
-                  disabled={elem.section_id === 1}
-                >Borrar sección</button>
-              </div>
+              {elem.section_id !== 1 &&
+                <div>
+                  <button
+                    className="btn-table block"
+                    onClick={() => deleteSection(elem.section_id)}
+                  >Borrar sección</button>
+                </div>
+              }
             </div>
             <p>{elem.section_subtitle}</p>
             <p>{elem.section_description}</p>
             <p>{elem.section_duration}</p>
             <div className="d-flex gap-3 mb-4">
-              <button
-                className="btn-table edit"
-                onClick={() => openEdit(elem.section_id)}
-                disabled={elem.section_id === 1}
-              >Editar sección</button>
+              {elem.section_id !== 1 &&
+                <button
+                  className="btn-table edit"
+                  onClick={() => openEdit(elem.section_id)}
+                >Editar sección</button>
+              }
               <button
                 className="btn-table"
               >Añadir punto clave</button>

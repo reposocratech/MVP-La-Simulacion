@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { fetchData } from "../../../helpers/axiosHelper";
@@ -36,7 +36,6 @@ const EditEvent = () => {
   
   const {token} = useContext(AuthContext);
 
-  const navigate = useNavigate();
   const {id} = useParams();
 
   useEffect(() => {
@@ -56,12 +55,6 @@ const EditEvent = () => {
 
   const handleSectionFile = (sec_id, files) => {
     setSectionsImages([...sectionsImages, {sec_id, files}]);
-  }
-
-  const cancelEditSection = (e) => {
-    e.preventDefault();
-    setDataTotal(initialValue);
-    navigate('/admin/events');
   }
 
   const submitEditEvent = async(event, file) => {
@@ -92,6 +85,10 @@ const EditEvent = () => {
     try {
       const res = await fetchData(`/events/editSection`, "put", {section, event_id: id}, token);
       console.log(res);
+      setDataTotal(prev => ({
+        ...prev,
+        sections: prev.sections.map(sec => sec.section_id === section.section_id ? section : sec)
+      }));
       setCurrentForm(1);
     } catch (error) {
       console.log(error);
@@ -101,7 +98,10 @@ const EditEvent = () => {
   const deleteSection = async(sectionId) => {
     try {
       await fetchData(`/events/deleteSection/${sectionId}`, "delete", null, token);
-      setDataTotal(prev => ({...prev, sections: prev.sections.filter(sec => sec.section_id !== sectionId)}));
+      setDataTotal(prev => ({
+        ...prev, 
+        sections: prev.sections.filter(sec => sec.section_id !== sectionId)
+      }));
     } catch (error) {
       console.log(error);
     }
@@ -140,12 +140,12 @@ const EditEvent = () => {
             </article>
           </Col>
           <Col lg={8}>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <button
                 className="submit-button"
                 disabled={currentForm === 2 || currentForm === 3}
               >Salir de edición</button>
-            </div>
+            </div> */}
             {currentForm === 1 &&
               <SectionList  
                 sections={dataTotal.sections}
