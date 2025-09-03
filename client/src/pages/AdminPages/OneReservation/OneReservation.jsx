@@ -48,24 +48,27 @@ const OneReservation = () => {
   return (
     <section className="section-one-reserv">
       <Container>
-        <Row>
-          <Col className="d-flex justify-content-center">
+        <Row className="d-flex justify-content-center">
+          <Col xs={12} lg={6} className="d-flex justify-content-center">
             <Card>
               <Card.Body>
-                <Card.Title>Solicitud de Reserva de la Sala: {reservation_id}</Card.Title>
+                <Card.Title 
+                className="bg-color-light-green p-2"
+                >Solicitud de Reserva de la Sala: {reservation_id}
+                </Card.Title>
                 {/* <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle> */}
                 <Card.Text>
-                   <strong>Usuario ID:</strong> {user_id}<br />
+                  <strong>Usuario ID:</strong> {user_id}<br />
                   <strong>Teléfono:</strong> {phone_number}<br />
                   <strong>Fecha:</strong> {date}<br />
                   <strong>Hora de inicio:</strong> {start_hour}<br />
                   <strong>Hora de fin:</strong> {end_hour}<br />
-                  <strong>Descripción:</strong> {proyect_description}<br />
+                  <strong>Descripción del proyecto y trayectoria:</strong> {proyect_description}<br />
                   <strong>Tipo de proyecto:</strong> {proyect_type}<br />
                   <strong>Redes:</strong> {socialmedia_link}<br />
-                  <strong>Material iluminación:</strong> {ilumination_material}<br />
+                  <strong>¿Necesita material de iluminación?</strong> {ilumination_material === 0 ? "No" : "Sí"}<br />
                   <strong>Nº asistentes:</strong> {number_of_attendees}<br />
-                  <strong>Requisitos extra:</strong> {aditional_requirement}
+                  <strong>¿Tiene requerimientos técnicos o lógísticos adicionales?</strong> {aditional_requirement || "No especificado"}
                 </Card.Text>
                 <div className="d-flex justify-content-center">
                   <button 

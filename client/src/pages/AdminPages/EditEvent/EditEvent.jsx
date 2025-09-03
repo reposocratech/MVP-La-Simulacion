@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { fetchData } from "../../../helpers/axiosHelper";
@@ -35,10 +35,11 @@ const EditEvent = () => {
   const [sectionsImages, setSectionsImages] = useState([]);
   const [currentForm, setCurrentForm] = useState(1);
   const [selectedSectionId, setSelectedSectionId] = useState();
+  const [refresh, setRefresh] = useState(true);
   const [valError, setValError] = useState({});
   const [msgError, setMsgError] = useState();
   const [fileError, setFileError] = useState();
-  
+
   const {token} = useContext(AuthContext);
 
   const {id} = useParams();
@@ -56,10 +57,13 @@ const EditEvent = () => {
       }
     }
     fetchEvent();
-  }, [id, token]);
+  }, [id, token, sectionsImages, refresh] );
 
-  const handleSectionFile = (sec_id, files) => {
-    setSectionsImages([...sectionsImages, {sec_id, files}]);
+
+  const handleSectionFile = (sec_id, event) => {
+    const files = Array.from(event.target.files); // Asegúrate de convertir FileList en array
+
+    setSectionsImages(files); // solo archivos puros, sin envolver en objeto
   }
 
   const submitEditEvent = async(event, file) => {
@@ -161,6 +165,13 @@ const EditEvent = () => {
                 sections={dataTotal.sections}
                 setCurrentForm={setCurrentForm}
                 setSelectedSectionId={setSelectedSectionId}
+                selectedSectionId={selectedSectionId}
+                sectionsImages={sectionsImages}
+                setSectionsImages={setSectionsImages}
+                handleSectionFile={handleSectionFile}
+                event_id={id}
+                setRefresh={setRefresh}
+                refresh={refresh}
                 deleteSection={deleteSection}
               />
             }
