@@ -181,7 +181,7 @@ class EventDal {
       await connection.commit();
       return event_id;
     } catch (error) {
-      console.log(error)
+      console.log("error del dal", error)
       await connection.rollback();
       throw { message: 'Error en base de datos' };
     } finally {
@@ -313,6 +313,17 @@ class EventDal {
       let sql = 'UPDATE section SET section_title = ?, section_subtitle = ?, section_description = ?, section_duration = ? WHERE section_id = ? AND event_id = ?';
       let values = [section_title, section_subtitle, section_description, section_duration, section_id, event_id];
       let result = await executeQuery(sql, values);
+    } catch (error) {
+      console.log(error);
+      throw { message: 'Error en base de datos' }
+    }
+  }
+
+  deleteSection = async(id) => {
+    try {
+      let sql = 'DELETE FROM section WHERE section_id = ?';
+      const result = await executeQuery(sql, [id]);
+      return result;
     } catch (error) {
       console.log(error);
       throw { message: 'Error en base de datos' }

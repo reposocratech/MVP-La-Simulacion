@@ -49,5 +49,19 @@
     background-color: transparent;
   }
 
-  
+  .btn-table {
+
+    &:hover {
+      filter: brightness(85%);
+    }
+
+    &:disabled {
+      background-color: #ccc;
+
+      &:hover {
+        filter: none;
+        background-color: #ccc; 
+      }
+    }
+  }
 }

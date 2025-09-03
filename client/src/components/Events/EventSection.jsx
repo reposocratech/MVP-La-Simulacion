@@ -5,9 +5,7 @@ const EventSection = ({ section, index }) => {
   const isEven = index % 2 === 0;
 
   return (
-    <section
-      className={`event-section ${isEven ? 'even-section' : 'odd-section'}`}
-    >
+    <section className={`event-section ${isEven ? 'even-section' : 'odd-section'}`}>
       <h3 className="section-title">
         {isFirst ? 'Público beneficiario' : section.section_title}
       </h3>
@@ -29,11 +27,11 @@ const EventSection = ({ section, index }) => {
           )}
 
           <p className="section-text">{section.section_description}</p>
-
           <ul className="section-keypoints">
             {section.keyPoints.map((kp) => (
               <li className="mb-2" key={kp.section_key_point_id}>
                 <strong>{kp.key_point_title}</strong>{' '}
+
                 {kp.key_point_description}
               </li>
             ))}

@@ -6,7 +6,7 @@ import emailVerify from '../../utils/emailVerify.js'
 import { deleteFile } from '../../helpers/fileSystem.js'
 import transporter from '../../utils/nodemailer.js';
 import { generateReservationEmailHTML } from '../../utils/emailReservation.js'
-import emailContact from '../../utils/emailContact.js'
+import { emailContact } from '../../utils/emailContact.js';
 
 dotenv.config()
 class UserController {
@@ -115,7 +115,7 @@ class UserController {
   contactEmail = async (req, res) => {
     try {
       const { name, lastname, email, phone_number, consult } = req.body;
-      const { html } = emailContact({ name, lastname, email, phone_number, consult });
+      const html = emailContact({ name, lastname, email, phone_number, consult });
       const mailOptions = {
         from: `"Formulario contacto Web" <${process.env.EMAIL_USER}>`,
         to: process.env.EMAIL_USER,
