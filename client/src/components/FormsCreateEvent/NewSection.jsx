@@ -127,7 +127,7 @@ const NewSection = () => {
             {valError.section_duration && <Form.Text className="text-danger fw-bold">{valError.section_duration}</Form.Text>}
           </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicSectFiles">
-            <Form.Label>Subir Imágenes</Form.Label>
+            <Form.Label>Subir Imágenes (máximo recomendado 3)</Form.Label>
             <Form.Control
               type="file"
               multiple

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Form } from 'react-bootstrap';
 
-export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError}) => {
+export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError, fileError, setFileError}) => {
   const [eventToEdit, setEventToEdit] = useState({...dataEvent});
   const [file, setFile] = useState();
 
@@ -11,7 +11,16 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError})
   }
 
   const handleFile = (e) => {
-    setFile(e.target.files[0]);
+    const selectedFile = e.target.files[0]
+    setFile(selectedFile);
+
+    if (selectedFile && selectedFile.name.length > 200) {
+      setFileError(`El nombre de alguno de tus archivos es demasiado largo (máximo 200 caracteres).`);
+      e.target.value = null;
+      return;
+    }
+
+    setFileError(null); 
   }
   //console.log(eventToEdit)
   
@@ -40,7 +49,6 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError})
               checked={String(eventToEdit.type_event) === "2"}
             />
           </div>
-          {/* {valError.type_event && <Form.Text className="text-danger fw-bold">{valError.type_event}</Form.Text>} */}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEventTitle">
           <Form.Label>Título del Evento/Taller:</Form.Label>
@@ -85,7 +93,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError})
             name="cover_image"
             accept="image/*"
           />
-          {/* {fileError && <Form.Text className="text-danger fw-bold ms-3">{fileError}</Form.Text>} */}
+          {fileError && <Form.Text className="text-danger fw-bold ms-3">{fileError}</Form.Text>}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicDurationEvent">
           <Form.Label>Duración Total:</Form.Label>
@@ -162,7 +170,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError})
             value={eventToEdit.price}
             name="price"
           />
-          {/* {valError.price && <Form.Text className="text-danger fw-bold">{valError.price}</Form.Text>} */}
+          {valError.price && <Form.Text className="text-danger fw-bold">{valError.price}</Form.Text>}
         </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicTicketLink">
           <Form.Label>Enlace ticketera:</Form.Label>

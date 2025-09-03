@@ -1,6 +1,6 @@
 import { Form, Modal } from "react-bootstrap"
 
-export const ModalAddImgSection = ({handleSectionFile, show, selectedSectionId, handleCloseFile, onSubmit}) => {
+export const ModalAddImgSection = ({handleSectionFile, show, selectedSectionId, handleCloseFile, onSubmit, fileError}) => {
   return (
     <Modal show={show} onHide={handleCloseFile}>
         <Modal.Header closeButton>
@@ -22,6 +22,7 @@ export const ModalAddImgSection = ({handleSectionFile, show, selectedSectionId, 
                 name="sectionImages"
               />
             </Form.Group>
+            {fileError && <Form.Text className="text-danger fw-bold ms-3">{fileError}</Form.Text>}
           </Form>
           </Modal.Body>
         <Modal.Footer>

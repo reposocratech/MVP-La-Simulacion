@@ -9,6 +9,7 @@ import { EditDataEvent } from "../../../components/FormsEditEvent/EditDataEvent"
 import { EditDataSection } from "../../../components/FormsEditEvent/EditDataSection";
 import { validateForms } from "../../../helpers/validateForms";
 import { editEventSchema } from "../../../schemas/editEventSchema";
+import { createEventSectionSchema } from "../../../schemas/createEventSectionSchema";
 import './editEvent.css';
 
 const initialValue = {
@@ -95,16 +96,25 @@ const EditEvent = () => {
   //console.log("datatotallll", dataTotal);
   
   const submitEditSection = async(section) => {
-    try {
-      const res = await fetchData(`/events/editSection`, "put", {section, event_id: id}, token);
-      //console.log(res);
-      setRefresh(!refresh)
+    const { valid, errors } = validateForms(createEventSectionSchema, dataTotal);
+    setValError(errors);
 
-      setDataTotal(prev => ({
-        ...prev,
-        sections: prev.sections.map(sec => sec.section_id === section.section_id ? section : sec)
-      }));
-      setCurrentForm(1);
+    try {
+
+      if(valid){
+        const res = await fetchData(`/events/editSection`, "put", {section, event_id: id}, token);
+        console.log(res);
+
+        setRefresh(!refresh)
+
+        setDataTotal(prev => ({
+          ...prev,
+          sections: prev.sections.map(sec => sec.section_id === section.section_id ? section : sec)
+        }));
+        setCurrentForm(1);
+      }
+
+
     } catch (error) {
       console.log(error);
     }
@@ -176,6 +186,9 @@ const EditEvent = () => {
                 setRefresh={setRefresh}
                 refresh={refresh}
                 deleteSection={deleteSection}
+                fileError={fileError}
+                setFileError={setFileError}
+
               />
             }
             {currentForm === 2 &&
@@ -198,6 +211,9 @@ const EditEvent = () => {
                 cancel={() => setCurrentForm(1)}
                 valError={valError}
                 msgError={msgError}
+                fileError={fileError}
+                setFileError={setFileError}
+                setValError={setValError}
               />
             }
             {currentForm === 3 &&
