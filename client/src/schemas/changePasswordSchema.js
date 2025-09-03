@@ -5,6 +5,7 @@ export const changePasswordSchema = z.object({
   newPass: z
     .string()
     .min(8, { message: 'La contraseña debe tener al menos 8 caracteres' })
+    .max(40, { message: "La contraseña no puede exceder los 40 caracteres" })
     .regex(/[A-Z]/, { message: 'La contraseña debe contener al menos una mayúscula' })
     .regex(/[a-z]/, { message: 'La contraseña debe contener al menos una minúscula' })
     .regex(/[0-9]/, { message: 'La contraseña debe contener al menos un número' })

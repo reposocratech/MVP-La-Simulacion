@@ -3,8 +3,9 @@ import { ZodError } from "zod";
 export const validateForm = (schema) => (req, res, next)=> {
 
   try {
+     console.log("Datos recibidos para validacion:", req.body)
   console.log("CONSOLE LOG VALIDATE", req.body.data)
-   // condición para ver si el req.body trae data. 
+   // condición para ver si el req.body trae data.
    if (req.body.data) {
 
       try {
@@ -26,7 +27,7 @@ export const validateForm = (schema) => (req, res, next)=> {
     next();
 
   } catch (error) {
-    
+
     if(error instanceof ZodError){
       return res.status(400).json({
         error: error.issues.map((er)=>({
