@@ -97,14 +97,14 @@ const OneEvent = () => {
                 href={event.ticket_link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn submit-button text-decoration-none"
+                className="submit-button text-decoration-none"
               >
                 Apúntate al evento
               </a>
             ) : (
               <button
                 onClick={() => navigate(`/review/${id}`)}
-                className="btn submit-button"
+                className=" submit-button"
               >
                 Déjanos tu opinión
               </button>
