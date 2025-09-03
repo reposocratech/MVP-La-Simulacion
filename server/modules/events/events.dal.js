@@ -318,6 +318,39 @@ class EventDal {
       throw { message: 'Error en base de datos' }
     }
   }
+      delKeypoint = async(key_point_id) =>{
+      try {
+       const sql = "DELETE FROM section_key_point WHERE section_key_point_id = ?";
+       await executeQuery(sql, [key_point_id]);
+    } catch (error) {
+      console.log(error);
+      throw { message: 'Error en base de datos' }
+   }
+  }
+
+      addKeypoint = async(data) =>{
+   const { section_id, key_point_title, key_point_description , event_id } = data;
+   try {
+    
+    const sql = `SELECT MAX(section_key_point_id) AS lastId FROM section_key_point WHERE section_id = ? AND event_id = ?`;
+    const result = await executeQuery(sql, [section_id, event_id]);
+    console.log('result maximo id:', result);
+    const lastId = result[0]?.lastId || 0;
+    const newId = lastId +1
+    console.log({ section_id, key_point_title, key_point_description, event_id });
+    
+    const result2 = `INSERT INTO section_key_point (section_key_point_id, key_point_title, key_point_description, section_id , event_id) VALUES (?, ?, ?, ? , ?)`;
+    const values = [newId, key_point_title, key_point_description, section_id , event_id];
+    
+    await executeQuery(result2, values);
+
+  } catch (error) {
+    console.error(error);
+    throw { message: 'Error en base de datos' };
+  }
+};
 }
+
+
 
 export default new EventDal();

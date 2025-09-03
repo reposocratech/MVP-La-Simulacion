@@ -27,7 +27,7 @@ const Events = () => {
   const today = new Date();
 
   const futureEvents = events
-    .filter((e) => new Date(e.start_date) >= today)
+    .filter((e) => new Date(e.end_date) >= today)
     .sort((a, b) => new Date(a.start_date) - new Date(b.start_date));
 
   const pastEvents = events

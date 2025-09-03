@@ -162,6 +162,38 @@ class EventController {
     }
   }
 
+  delKeypoint = async (req , res) =>{
+    try {
+      const { key_point_id } = req.body;
+      await eventsDal.delKeypoint(key_point_id)
+      res.status(200).json("Borrado Ok");
+    } catch (error) {
+      res.status(500).json({ message: 'Error de servidor' });
+    }
+  }
+
+  addKeypoint = async (req , res) =>{
+    try {
+      const { section_id , keyPoint } = req.body;
+      const event_id = req.params.id
+      const data = {
+        event_id,
+        section_id,
+        key_point_title: keyPoint.key_point_title,
+        key_point_description : keyPoint.key_point_description
+      }
+      console.log("dataaaaaaaa" , data);
+      
+      await eventsDal.addKeypoint(data)
+      res.status(200).json("datos metidos");
+    } catch (error) {
+      res.status(500).json({ message: 'Error de servidor' });
+      console.log("error server" , error);
+      
+    }
+  }
+
+
   /* getEventById = async (req, res) => {
     try {
       const { id } = req.params

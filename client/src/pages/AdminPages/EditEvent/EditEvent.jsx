@@ -32,6 +32,7 @@ const EditEvent = () => {
   const [sectionsImages, setSectionsImages] = useState([]);
   const [currentForm, setCurrentForm] = useState(1);
   const [selectedSectionId, setSelectedSectionId] = useState();
+  const [refresh, setRefresh] = useState(true)
   
   const {token} = useContext(AuthContext);
 
@@ -51,7 +52,7 @@ const EditEvent = () => {
       }
     }
     fetchEvent();
-  }, [id, token]);
+  }, [id, token , refresh ]);
 
   const handleSectionFile = (sec_id, files) => {
     setSectionsImages([...sectionsImages, {sec_id, files}]);
@@ -91,6 +92,8 @@ const EditEvent = () => {
     try {
       const res = await fetchData(`/events/editSection`, "put", {section, event_id: id}, token);
       console.log(res);
+      setCurrentForm(1);
+      setRefresh(!refresh)
     } catch (error) {
       console.log(error);
     }
@@ -129,6 +132,8 @@ const EditEvent = () => {
                 sections={dataTotal.sections}
                 setCurrentForm={setCurrentForm}
                 setSelectedSectionId={setSelectedSectionId}
+                setRefresh={setRefresh}
+                refresh={refresh}
               />
             }
             {currentForm === 2 &&
@@ -157,6 +162,8 @@ const EditEvent = () => {
                 selectedSectionId={selectedSectionId}
                 onSubmit={submitEditSection}
                 cancel={() => setCurrentForm(1)}
+                setRefresh={setRefresh}
+                refresh={refresh}
               />
             }
           </Col>
