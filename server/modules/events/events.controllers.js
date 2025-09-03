@@ -163,6 +163,16 @@ class EventController {
     }
   }
 
+  deleteSection = async(req, res) => {
+    try {
+      const {id} = req.params;
+      const result = await eventsDal.deleteSection(id);
+      res.status(200).json("cambio ok");
+    } catch (error) {
+      res.status(500).json({ message: 'Error de servidor' });
+    }
+  }
+
   /* getEventById = async (req, res) => {
     try {
       const { id } = req.params

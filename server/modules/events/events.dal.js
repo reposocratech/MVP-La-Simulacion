@@ -318,6 +318,17 @@ class EventDal {
       throw { message: 'Error en base de datos' }
     }
   }
+
+  deleteSection = async(id) => {
+    try {
+      let sql = 'DELETE FROM section WHERE section_id = ?';
+      const result = await executeQuery(sql, [id]);
+      return result;
+    } catch (error) {
+      console.log(error);
+      throw { message: 'Error en base de datos' }
+    }
+  }
 }
 
 export default new EventDal();

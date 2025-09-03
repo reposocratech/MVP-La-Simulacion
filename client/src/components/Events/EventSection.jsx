@@ -6,12 +6,9 @@ const EventSection = ({ section, index  }) => {
   const isFirst = index === 0
   const isEven = index % 2 === 0
   const orientationClass = isEven ? 'flex-md-row' : 'flex-md-row-reverse'
-  console.log(section.key_points)
 
   return (
-    <section
-      className={`event-section ${isEven ? 'even-section' : 'odd-section'}`}
-    >
+    <section className={`event-section ${isEven ? 'even-section' : 'odd-section'}`}>
       <h3 className="section-title">
         {isFirst ? 'Público beneficiario' : section.section_title}
       </h3>
@@ -39,17 +36,14 @@ const EventSection = ({ section, index  }) => {
           )}
 
           <p className="section-text">{section.section_description}</p>
-
-          
-            <ul className="section-keypoints">
-              {section.keyPoints.map((kp) => (
-                <li key={kp.section_key_point_id}>
-                  <strong>{kp.key_point_title}:</strong>{' '}
-                  {kp.key_point_description}
-                </li>
-              ))}
-            </ul>
-         
+          <ul className="section-keypoints">
+            {section.keyPoints.map((kp) => (
+              <li key={kp.section_key_point_id}>
+                <strong>{kp.key_point_title}:</strong>{' '}
+                {kp.key_point_description}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

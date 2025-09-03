@@ -16,6 +16,7 @@ router.get('/event/:id', eventsControllers.getEventById)
 router.get('/editEvent/:id', verifyToken, eventsControllers.getEventById);
 router.put('/editData/:id', verifyToken, uploadImageSingle("events"), eventsControllers.editDataEvent);
 router.put('/editSection', verifyToken, eventsControllers.editDataSection);
+router.delete('/deleteSection/:id', verifyToken, eventsControllers.deleteSection);
 
 
 export default router;
