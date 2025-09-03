@@ -248,6 +248,21 @@ class EventController {
         res.status(500).json({ message: 'Error de servidor' });
       }
     }
+
+    addSectionImages = async(req, res) => {
+      try {
+        console.log("CONTROLLLERRRR LAU ULTIMO", req.body);
+        console.log("BODY:", req.body);
+console.log("FILES:", req.files);
+        const {event_id, section_id} = req.body;
+        const result = await eventsDal.addSectionImages(event_id, section_id, req.files);
+        
+        res.status(200).json({message: "Imágenes añadidas Ok" }); 
+
+      } catch (error) {
+        res.status(500).json({ message: 'Error de servidor' });
+      }
+    }
 }
 
 export default new EventController()

@@ -7,6 +7,7 @@ import { createEventSchema } from '../../schemas/eventSchema.js'
 import { validateFormsEvent } from '../../middlewares/validateFormsEvent.js'
 import { eventSchema2 } from '../../schemas/eventSchema2.js'
 import { uploadImageSingle } from '../../middlewares/multerSingle.js'
+import { uploadImageMulti } from '../../middlewares/multerMultifile.js'
 const router = express.Router()
 
 router.get('/events', eventsControllers.getEventData)
@@ -18,5 +19,6 @@ router.get('/editEvent/:id', verifyToken, eventsControllers.getEventById);
 router.put('/editData/:id', verifyToken, uploadImageSingle("events"), eventsControllers.editDataEvent);
 router.put('/editSection', verifyToken, eventsControllers.editDataSection);
 router.delete('/delSectionImage', verifyToken, eventsControllers.deleteSectionImage);
+router.put('/addSectionImages', verifyToken, uploadImageMulti("events"), eventsControllers.addSectionImages);
 
 export default router;

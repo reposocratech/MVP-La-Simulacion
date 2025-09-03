@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { Outlet, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { fetchData } from "../../../helpers/axiosHelper";
@@ -51,10 +51,13 @@ const EditEvent = () => {
       }
     }
     fetchEvent();
-  }, [id, token, sectionsImages], );
+  }, [id, token, dataTotal] );
 
-  const handleSectionFile = (sec_id, files) => {
-    setSectionsImages([...sectionsImages, {sec_id, files}]);
+
+  const handleSectionFile = (sec_id, event) => {
+    const files = Array.from(event.target.files); // Asegúrate de convertir FileList en array
+
+    setSectionsImages(files); // solo archivos puros, sin envolver en objeto
   }
 
   const cancelEditSection = (e) => {

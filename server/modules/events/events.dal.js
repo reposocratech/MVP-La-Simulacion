@@ -337,6 +337,39 @@ class EventDal {
       throw { message: 'Error en base de datos' }
     }
   }
+
+  addSectionImages = async(event_id, section_id, imgs) => {
+    const connection = await dbPool.getConnection();
+
+    try {
+      await connection.beginTransaction();
+
+      // Obtengo el id más alto ya que no hay autoincrement:
+        let sqlId = "SELECT IFNULL(MAX(section_image_id), 0) AS max_id FROM section_image WHERE event_id = ? AND section_id = ?";
+        let [result] = await connection.query(sqlId, [event_id, section_id]);
+        let maxId = result[0].max_id;
+
+        imgs.forEach(async(elem)=>{
+          // Por cada imagen incremento el id
+          maxId++;
+          let sqlImg = 'INSERT INTO section_image (event_id, section_id, section_image_id, file) VALUES (?,?,?,?)'
+          let values = [event_id, section_id, maxId, elem.filename]
+
+          await connection.query(sqlImg, values);  
+        })
+
+        await connection.commit();
+      
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+
+    } finally {
+      connection.release();
+    }
+  }
+
+  
 }
 
 export default new EventDal();

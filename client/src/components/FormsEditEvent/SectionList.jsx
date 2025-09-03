@@ -1,12 +1,14 @@
 import { Col, Row } from "react-bootstrap";
 import { HiTrash } from "react-icons/hi";
 import { fetchData } from "../../helpers/axiosHelper";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContextProvider";
+import { ModalAddImgSection } from "./ModalAddImgSection";
 
 
 export const SectionList = ({sections, setCurrentForm, event_id, selectedSectionId, setSelectedSectionId, sectionsImages, setSectionsImages, handleSectionFile}) => {
 
+  const [showModalImg, setShowModalImg] = useState(false);
   const serverUrl = import.meta.env.VITE_SERVER_URL_PUBLIC;
 
   const {token} = useContext(AuthContext);
@@ -26,6 +28,11 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
     setCurrentForm(3);
   }
 
+  const openModalAddImages = (section_id) => {
+    setSelectedSectionId(section_id);
+    setShowModalImg(true);
+  };
+
   const deleteImgSection = async(event_id, section_id, section_image_id, file) => {
     const data = {event_id, section_id, section_image_id, file};
 
@@ -39,7 +46,33 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
     }
   }
 
+  const handleCloseFile = () => {
+    setShowModalImg(false);
+  }
+
+  const addImgSectionSubmit = async() => {
+    try {
+      const newFormData = new FormData();
+      
+      newFormData.append('event_id', event_id);
+      newFormData.append('section_id', selectedSectionId);
+
+      if(sectionsImages.length){
+        for(const elem of sectionsImages){
+          newFormData.append("file", elem);
+        }
+      }
+
+      await fetchData('/events/addSectionImages', "put", newFormData, token);
+      handleCloseFile();
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
+    <>
     <div>
       {
         sections.map(elem => (
@@ -71,6 +104,16 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
                     </div>
                   </Col>
                 ))}
+                <Col>
+                  <div>
+                      <button
+                        onClick={() => openModalAddImages(elem.section_id)}
+                        className="btn-table"
+                      >
+                        Añadir Imágenes
+                      </button>
+                    </div>
+                </Col>
               </Row>
 
             <div className="mt-3">
@@ -94,5 +137,15 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
         ))
       }
     </div>
+
+    {showModalImg &&
+    <ModalAddImgSection 
+        handleSectionFile={handleSectionFile}
+        handleCloseFile={handleCloseFile}
+        show={showModalImg}
+        selectedSectionId={selectedSectionId}
+        onSubmit={addImgSectionSubmit}/>
+    }
+    </>
   )
 }
