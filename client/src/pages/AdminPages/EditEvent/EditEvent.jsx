@@ -31,6 +31,7 @@ const initialValue = {
 
 const EditEvent = () => {
   const serverUrl = import.meta.env.VITE_SERVER_URL_PUBLIC;
+  
   const [dataTotal, setDataTotal] = useState(initialValue);
   const [sectionsImages, setSectionsImages] = useState([]);
   const [currentForm, setCurrentForm] = useState(1);

@@ -133,12 +133,18 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
             <p>{elem.section_description}</p>
             <p>{elem.section_duration}</p>
             <div className="d-flex gap-3 mb-4">
-              {elem.section_id !== 1 && (
+              {elem.section_id !== 1 && 
+                <>
                 <button
                   className="btn-table edit"
                   onClick={() => { setTakeSeccId(elem); openEdit(elem.section_id); }}
                 >Editar sección</button>
-              )}
+                <button
+                  onClick={() => openModalAddImages(elem.section_id)}
+                  className="btn-table"
+                >Añadir Imágenes</button>
+                </>
+              }
               <button
                 className="btn-table"
                 onClick={() => { setTakeSeccId(elem); setShowForm(true); }}
@@ -163,14 +169,6 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
                   </div>
                 </Col>
               ))}
-              <Col>
-                <div>
-                  <button
-                    onClick={() => openModalAddImages(elem.section_id)}
-                    className="btn-table"
-                  >Añadir Imágenes</button>
-                </div>
-              </Col>
             </Row>
 
             <div className="mt-3">
