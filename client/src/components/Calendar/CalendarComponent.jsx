@@ -124,13 +124,12 @@ const CalendarComponent = () => {
                     <p className="event-location mb-1">
                       <strong>Ubicación:</strong> {ev.location}
                     </p>
-                      <a
-                        className="event-ticket-link text-white"
-                        onClick={() => navigate(`/event/${ev.event_id}`)}
-                      >
-                        Mostrar más información
-                      </a>
-
+                    <button
+                      className="event-info-button"
+                      onClick={() => navigate(`/event/${ev.event_id}`)}
+                    >
+                      Mostrar más información
+                    </button>
                   </article>
                 ))
               )}

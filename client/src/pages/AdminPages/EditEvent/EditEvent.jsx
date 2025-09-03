@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { fetchData } from "../../../helpers/axiosHelper";
-import './editEvent.css';
 import { SectionList } from "../../../components/FormsEditEvent/SectionList";
 import { EditDataEvent } from "../../../components/FormsEditEvent/EditDataEvent";
 import { EditDataSection } from "../../../components/FormsEditEvent/EditDataSection";
 import { validateForms } from "../../../helpers/validateForms";
 import { editEventSchema } from "../../../schemas/editEventSchema";
+import { createEventSectionSchema } from "../../../schemas/createEventSectionSchema";
+import './editEvent.css';
 
 const initialValue = {
   event_title: "",
@@ -31,6 +32,7 @@ const initialValue = {
 
 const EditEvent = () => {
   const serverUrl = import.meta.env.VITE_SERVER_URL_PUBLIC;
+  
   const [dataTotal, setDataTotal] = useState(initialValue);
   const [sectionsImages, setSectionsImages] = useState([]);
   const [currentForm, setCurrentForm] = useState(1);
@@ -48,10 +50,8 @@ const EditEvent = () => {
     const fetchEvent = async() => {
       try {
         const res = await fetchData(`/events/editEvent/${id}`, "get", null, token);
-        console.log(res);
-        
+        //console.log(res);
         setDataTotal(res.data);
-        console.log(res.data.sections)
       } catch (error) {
         console.log(error);
       }
@@ -59,8 +59,6 @@ const EditEvent = () => {
     fetchEvent();
 
   }, [id, token, sectionsImages, refresh] );
-
-
 
   const handleSectionFile = (sec_id, event) => {
     const files = Array.from(event.target.files); // Asegúrate de convertir FileList en array
@@ -98,26 +96,34 @@ const EditEvent = () => {
   //console.log("datatotallll", dataTotal);
   
   const submitEditSection = async(section) => {
+    const { valid, errors } = validateForms(createEventSectionSchema, dataTotal);
+    setValError(errors);
+
     try {
-      const res = await fetchData(`/events/editSection`, "put", {section, event_id: id}, token);
-      console.log(res);
 
-      
-      setRefresh(!refresh)
+      if(valid){
+        const res = await fetchData(`/events/editSection`, "put", {section, event_id: id}, token);
+        console.log(res);
 
-      setDataTotal(prev => ({
-        ...prev,
-        sections: prev.sections.map(sec => sec.section_id === section.section_id ? section : sec)
-      }));
-      setCurrentForm(1);
+        setRefresh(!refresh)
+
+        setDataTotal(prev => ({
+          ...prev,
+          sections: prev.sections.map(sec => sec.section_id === section.section_id ? section : sec)
+        }));
+        setCurrentForm(1);
+      }
+
+
     } catch (error) {
       console.log(error);
     }
   }
 
-  const deleteSection = async(sectionId) => {
+  const deleteSection = async(sectionId, images = []) => {
     try {
-      await fetchData(`/events/deleteSection/${sectionId}`, "delete", null, token);
+      const files = images.map(img => img.file);
+      await fetchData(`/events/deleteSection/${sectionId}`, "delete", {files}, token);
       setDataTotal(prev => ({
         ...prev, 
         sections: prev.sections.filter(sec => sec.section_id !== sectionId)
@@ -180,6 +186,8 @@ const EditEvent = () => {
                 setRefresh={setRefresh}
                 refresh={refresh}
                 deleteSection={deleteSection}
+                fileError={fileError}
+                setFileError={setFileError}
 
               />
             }
@@ -203,6 +211,9 @@ const EditEvent = () => {
                 cancel={() => setCurrentForm(1)}
                 valError={valError}
                 msgError={msgError}
+                fileError={fileError}
+                setFileError={setFileError}
+                setValError={setValError}
               />
             }
             {currentForm === 3 &&

@@ -64,7 +64,7 @@ export const EditDataSection = ({dataSections, selectedSectionId, onSubmit, canc
         />
         {valError.section_duration && <Form.Text className="text-danger fw-bold">{valError.section_duration}</Form.Text>}
       </Form.Group>
-      {/* {msgError && <p className="text-danger">{msgError}</p>} */}
+      {msgError && <p className="text-danger">{msgError}</p>}
       <div className="d-flex gap-3">
         <button
           className="btn-table block"

@@ -1,5 +1,4 @@
 const EventSection = ({ section, index }) => {
-  console.log("----", section);
 
   const isFirst = index === 0;
   const isEven = index % 2 === 0;

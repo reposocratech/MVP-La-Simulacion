@@ -137,7 +137,12 @@ const CreateRoom = () => {
       }   
     } catch (error) {
         console.log(error);
-        setMsgError('Algo salió mal, inténtelo de nuevo');
+        if(error.response.data.err_code){
+          setMsgError(error.response.data.message );
+        }else{
+          setMsgError('Ups, algo salió mal')
+        }
+        
       }
     
   }

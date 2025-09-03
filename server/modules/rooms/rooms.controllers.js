@@ -3,7 +3,9 @@ import roomsDal from "./rooms.dal.js";
 class RoomController {
 
   // Método para crear una nueva sala:
-  createRoom = async(req,res)=>{
+  createRoom = async(req,res,e)=>{
+    console.log(e);
+    
     try {
       const {room_name, room_description, who_can_use_it, pricing, usage_policy} = req.body;
 
@@ -29,6 +31,7 @@ class RoomController {
       res.status(200).json({message:"inserción ok", room_id});
 
     } catch (error) {
+      console.log(error);
       res.status(500).json({message:"error de server"})
     }
 
@@ -95,6 +98,15 @@ class RoomController {
       res.status(200).json({message:"inserción ok"});
     } catch (error) {
       res.status(500).json({message: "error de server"});
+    }
+  }
+
+  getRoomsData = async(req, res) => {
+    try {
+      const result = await roomsDal.getRoomsData();
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ message: 'Error de servidor' });
     }
   }
 

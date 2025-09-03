@@ -1,4 +1,4 @@
-import {z} from 'Zod';
+import {z} from 'zod';
 
 export const editEventSchema = z.object({
   type_event: z

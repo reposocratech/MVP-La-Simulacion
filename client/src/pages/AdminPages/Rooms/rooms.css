@@ -1,0 +1,31 @@
+.section-allRooms {
+  padding-block: 3.75rem;
+
+  h1 {
+    text-align: center;
+    font-size: 2.25rem;
+    margin-block-end: 2rem;
+
+    span {
+      margin-inline-end: .5rem;
+      font-family: 'Pilowlava';
+      color: var(--color-primary-violet);
+    }
+  }
+
+  .card-rooms {
+    border: 2px solid var(--color-secondary-medium-violet);
+
+    .info-button {
+      background-color: var(--color-primary-violet);
+      color: black;
+      border: none;
+      border-radius: 12px;
+      padding: .6rem 1.5rem;
+
+      &:hover {
+        filter: brightness(85%);
+      }
+    }
+  }
+}
