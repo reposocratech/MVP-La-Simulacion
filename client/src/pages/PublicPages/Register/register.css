@@ -48,3 +48,42 @@
     }
   }
 
+@media (max-width: 576px) {
+  .section-register .form-container-register .flor-register {
+    position: absolute;
+    width: 60px;
+    left: -8px;
+    top: -12px;
+    transform: none;
+    z-index: 0;
+  }
+
+  .section-register .form-container-register .destellos-register {
+    position: absolute;
+    width: 100px;
+    bottom: 11px;
+    right: -5px;
+    transform: none;
+    z-index: 0;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .section-register .form-container-register .flor-register {
+    position: absolute;
+    width: 110px;
+    left: -45px;
+    top: -30px;
+    transform: none;
+    z-index: 0;
+  }
+
+  .section-register .form-container-register .destellos-register {
+    position: absolute;
+    width: 220px;
+    bottom: -100px;
+    right: -110px;
+    transform: none;
+    z-index: 0;
+  }
+}
