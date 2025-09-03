@@ -37,3 +37,42 @@
     }
   }
 }
+
+@media (max-width: 576px) {
+  .section-login .form-container-login .flor-login {
+    position: absolute;
+    width: 50px;
+   left:-10px;
+    top:-2px;
+    transform: none;
+    z-index:0;
+  }
+
+  .section-login .form-container-login .destellos-login {
+    position: absolute;
+    width: 100px;
+    bottom: -40px;
+    right:-15px;
+    transform: none;
+    z-index: 0
+  }
+}
+@media (min-width: 577px) and (max-width: 768px) {
+  .section-login .form-container-login .flor-login {
+    position: absolute;
+    width: 120px;
+    left: -95px;
+    top:-34px;
+    transform: none;
+    z-index: 0;
+  }
+
+  .section-login .form-container-login .destellos-login {
+    position: absolute;
+    width: 240px;
+    bottom: -190px;
+    right: -110px;
+    transform: none;
+    z-index: 0;
+  }
+}
