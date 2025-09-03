@@ -1,6 +1,6 @@
-import {z} from 'zod';
+import {z} from 'Zod';
 
-export const eventSchema2 = z.object({
+export const editEventSchema = z.object({
   type_event: z
     .string()
     .nonempty({message: "Debes marcar si es Evento o Taller"})
@@ -85,33 +85,5 @@ export const eventSchema2 = z.object({
       return /^https?:\/\/([\w-]+\.)+[\w-]+(\/[\w\-._~:/?#[\]@!$&'()+,;=])?$/.test(val);
     }, {
       message: "No has introducido una URL válida"
-    }),
-  section_title: z
-    .string({message: "Este campo es obligatorio"})
-    .nonempty({message: "Este campo es obligatorio"})
-    .max(100, {message: "Este campo tiene que tener un máximo de 100 caracteres"}),
-  section_subtitle: z
-    .string()
-    .max(350, {message: "Este campo tiene que tener un máximo de 350 caracteres"})
-    .optional()
-    .nullable(),
-  section_description: z
-    .string()
-    .max(600, {message: "Este campo tiene que tener un máximo de 600 caracteres"})
-    .optional()
-    .nullable(),
-  section_duration: z
-    .string()
-    .max(50, {message: "Este campo tiene que tener un máximo de 50 caracteres"})
-    .optional()
-    .nullable(),
-  key_point_title: z
-    .string({message: "Este campo es obligatorio"})
-    .nonempty({message: "Este campo es obligatorio"})
-    .max(150, {message: "Este campo tiene que tener un máximo de 150 caracteres"}),
-  key_point_description: z
-    .string()
-    .max(500, {message: "Este campo tiene que tener un máximo de 500 caracteres"})
-    .optional()
-    .nullable(),
+    })
 })
