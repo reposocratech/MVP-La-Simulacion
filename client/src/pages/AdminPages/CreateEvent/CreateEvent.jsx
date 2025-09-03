@@ -66,9 +66,9 @@ const CreateEvent = () => {
     try {
       let sections = dataTotal.sections;
       let prueba = [];
-      let sectionsFinal = sections?.map((elem, i)=>{
-        let fotos = sectionsImages?.find(e=>e.sec_id === elem.sec_id);
-        prueba?.push({sec_id: `section${i+1}`, files: fotos?.files}); // quizá este id se puede quitar?
+      let sectionsFinal = sections.map((elem, i)=>{
+        let fotos = sectionsImages.find(e=>e.sec_id === elem.sec_id);
+        prueba.push({sec_id: `section${i+1}`, files: fotos?.files}); 
 
         let ptosFinal = elem.key_points.map((pto, ix)=>{
           return({...pto, pto_id:ix+1 })

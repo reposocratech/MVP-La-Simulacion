@@ -136,7 +136,7 @@ class AdminDal {
 
   getReservationById = async(id) => {
     try {
-      let sql = "SELECT * FROM reservation WHERE reservation_id = ?"; 
+      let sql = "SELECT reservation.*, user.user_name, user.lastname, room.room_name FROM reservation reservation JOIN user ON reservation.user_id = user.user_id JOIN room ON reservation.room_id = room.room_id WHERE reservation.reservation_id = ?"; 
       const result = await executeQuery(sql, [id]);
       return result;
 

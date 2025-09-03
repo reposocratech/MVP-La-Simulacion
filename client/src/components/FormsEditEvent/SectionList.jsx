@@ -133,6 +133,7 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
             <p>{elem.section_description}</p>
             <p>{elem.section_duration}</p>
             <div className="d-flex gap-3 mb-4">
+
               {elem.section_id !== 1 && 
                 <>
                 <button
@@ -145,6 +146,7 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
                 >Añadir Imágenes</button>
                 </>
               }
+
               <button
                 className="btn-table"
                 onClick={() => { setTakeSeccId(elem); setShowForm(true); }}
@@ -215,3 +217,4 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
     </>
   );
 };
+
