@@ -1,0 +1,7 @@
+.back-home-button {
+  background-color: var(--color-primary-electric-blue);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: .6rem 1.5rem;
+}
