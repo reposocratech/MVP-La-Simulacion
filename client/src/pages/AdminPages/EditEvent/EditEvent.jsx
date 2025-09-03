@@ -60,8 +60,6 @@ const EditEvent = () => {
 
   }, [id, token, sectionsImages, refresh] );
 
-
-
   const handleSectionFile = (sec_id, event) => {
     const files = Array.from(event.target.files); // Asegúrate de convertir FileList en array
 
@@ -100,9 +98,7 @@ const EditEvent = () => {
   const submitEditSection = async(section) => {
     try {
       const res = await fetchData(`/events/editSection`, "put", {section, event_id: id}, token);
-      console.log(res);
-
-      
+      //console.log(res);
       setRefresh(!refresh)
 
       setDataTotal(prev => ({
@@ -115,9 +111,10 @@ const EditEvent = () => {
     }
   }
 
-  const deleteSection = async(sectionId) => {
+  const deleteSection = async(sectionId, images = []) => {
     try {
-      await fetchData(`/events/deleteSection/${sectionId}`, "delete", null, token);
+      const files = images.map(img => img.file);
+      await fetchData(`/events/deleteSection/${sectionId}`, "delete", {files}, token);
       setDataTotal(prev => ({
         ...prev, 
         sections: prev.sections.filter(sec => sec.section_id !== sectionId)
