@@ -69,8 +69,9 @@ const Home = () => {
             <Col xs={12} lg={7} className="pt-5">
               <h1 className="pt-2 pb-3">Resumen de la organización</h1>
               <article>
-
+              <p>
                   <span className="fw-bold">La Simulación</span> es un ecosistema cultural nacido en Castelló que impulsa la creatividad local a través de la formación, la producción y la difusión artística. Desde la asociación y la cooperativa trabajamos con una mirada comunitaria para acompañar a artistas, colectivos y proyectos emergentes, generando espacios donde la cultura se entiende como un derecho y como motor de transformación social.
+              </p>
 
               </article>
             </Col>
