@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthContextProvider";
 import { ModalAddImgSection } from "./ModalAddImgSection";
 
 
-export const SectionList = ({sections, setCurrentForm, event_id, selectedSectionId, setSelectedSectionId, sectionsImages, setSectionsImages, handleSectionFile}) => {
+export const SectionList = ({sections, setCurrentForm, event_id, selectedSectionId, setSelectedSectionId, sectionsImages, setSectionsImages, handleSectionFile, setRefresh, refresh}) => {
 
   const [showModalImg, setShowModalImg] = useState(false);
   const serverUrl = import.meta.env.VITE_SERVER_URL_PUBLIC;
@@ -64,6 +64,7 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
       }
 
       await fetchData('/events/addSectionImages', "put", newFormData, token);
+      setRefresh(!refresh);
       handleCloseFile();
       
     } catch (error) {

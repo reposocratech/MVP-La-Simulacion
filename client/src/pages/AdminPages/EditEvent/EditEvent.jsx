@@ -32,6 +32,7 @@ const EditEvent = () => {
   const [sectionsImages, setSectionsImages] = useState([]);
   const [currentForm, setCurrentForm] = useState(1);
   const [selectedSectionId, setSelectedSectionId] = useState();
+  const [refresh, setRefresh] = useState(true);
   
   const {token} = useContext(AuthContext);
 
@@ -51,7 +52,7 @@ const EditEvent = () => {
       }
     }
     fetchEvent();
-  }, [id, token, dataTotal] );
+  }, [id, token, sectionsImages, refresh] );
 
 
   const handleSectionFile = (sec_id, event) => {
@@ -137,6 +138,8 @@ const EditEvent = () => {
                 setSectionsImages={setSectionsImages}
                 handleSectionFile={handleSectionFile}
                 event_id={id}
+                setRefresh={setRefresh}
+                refresh={refresh}
               />
             }
             {currentForm === 2 &&
