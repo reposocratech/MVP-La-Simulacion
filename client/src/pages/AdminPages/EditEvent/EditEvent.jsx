@@ -8,6 +8,8 @@ import './editEvent.css';
 import { SectionList } from "../../../components/FormsEditEvent/SectionList";
 import { EditDataEvent } from "../../../components/FormsEditEvent/EditDataEvent";
 import { EditDataSection } from "../../../components/FormsEditEvent/EditDataSection";
+import { validateForms } from "../../../helpers/validateForms";
+import { editEventSchema } from "../../../schemas/editEventSchema";
 
 const initialValue = {
   event_title: "",
@@ -33,6 +35,9 @@ const EditEvent = () => {
   const [sectionsImages, setSectionsImages] = useState([]);
   const [currentForm, setCurrentForm] = useState(1);
   const [selectedSectionId, setSelectedSectionId] = useState();
+  const [valError, setValError] = useState({});
+  const [msgError, setMsgError] = useState();
+  const [fileError, setFileError] = useState();
   
   const {token} = useContext(AuthContext);
 
@@ -62,18 +67,23 @@ const EditEvent = () => {
       const newFormData= new FormData();
       let dataToSend = {...dataTotal, ...event};
       newFormData.append("data", JSON.stringify(dataToSend));
-  
-      if (file) {
-        newFormData.append("file", file);
+      const {valid, errors } = validateForms(editEventSchema, dataToSend);
+      setValError(errors);
+
+      if (valid){
+        if (file) {
+          newFormData.append("file", file);
+        }
+    
+        let result = await fetchData(`/events/editData/${id}`, "put", newFormData, token);
+        if (result.data.filename){
+          setDataTotal({...dataToSend, cover_image: result.data.filename});
+        } else {
+          setDataTotal(dataToSend)
+        }
+        setCurrentForm(1);
       }
   
-      let result = await fetchData(`/events/editData/${id}`, "put", newFormData, token);
-      if (result.data.filename){
-        setDataTotal({...dataToSend, cover_image: result.data.filename});
-      } else {
-        setDataTotal(dataToSend)
-      }
-      setCurrentForm(1);
     } catch (error) {
       console.log(error);
     } 
@@ -172,6 +182,8 @@ const EditEvent = () => {
                 }}
                 onSubmit={submitEditEvent}
                 cancel={() => setCurrentForm(1)}
+                valError={valError}
+                msgError={msgError}
               />
             }
             {currentForm === 3 &&
@@ -180,6 +192,8 @@ const EditEvent = () => {
                 selectedSectionId={selectedSectionId}
                 onSubmit={submitEditSection}
                 cancel={() => setCurrentForm(1)}
+                valError={valError}
+                msgError={msgError}
               />
             }
           </Col>

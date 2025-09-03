@@ -181,7 +181,7 @@ class EventDal {
       await connection.commit();
       return event_id;
     } catch (error) {
-      console.log(error)
+      console.log("error del dal", error)
       await connection.rollback();
       throw { message: 'Error en base de datos' };
     } finally {

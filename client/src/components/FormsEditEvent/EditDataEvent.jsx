@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Form } from 'react-bootstrap';
 
-export const EditDataEvent = ({dataEvent, onSubmit, cancel}) => {
+export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError}) => {
   const [eventToEdit, setEventToEdit] = useState({...dataEvent});
   const [file, setFile] = useState();
 
@@ -51,7 +51,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel}) => {
             value={eventToEdit.event_title}
             name="event_title"
           />
-          {/* {valError.event_title && <Form.Text className="text-danger fw-bold">{valError.event_title}</Form.Text>} */}
+          {valError.event_title && <Form.Text className="text-danger fw-bold">{valError.event_title}</Form.Text>}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicDescEvent">
           <Form.Label>Descripción del Evento/Taller:</Form.Label>
@@ -63,7 +63,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel}) => {
             value={eventToEdit.event_description}
             name="event_description"
           />
-          {/* {valError.event_description && <Form.Text className="text-danger fw-bold">{valError.event_description}</Form.Text>} */}
+          {valError.event_description && <Form.Text className="text-danger fw-bold">{valError.event_description}</Form.Text>}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicLocation">
           <Form.Label>Localización:</Form.Label>
@@ -74,7 +74,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel}) => {
             value={eventToEdit.location}
             name="location"
           />
-          {/* {valError.location && <Form.Text className="text-danger fw-bold">{valError.location}</Form.Text>} */}
+          {valError.location && <Form.Text className="text-danger fw-bold">{valError.location}</Form.Text>}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCoverFile">
           <Form.Label className="text-decoration-underline">Cambiar imagen de portada</Form.Label>
@@ -96,7 +96,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel}) => {
             value={eventToEdit.duration}
             name="duration"
           />
-          {/* {valError.duration && <Form.Text className="text-danger fw-bold">{valError.duration}</Form.Text>} */}
+          {valError.duration && <Form.Text className="text-danger fw-bold">{valError.duration}</Form.Text>}
         </Form.Group>
         <div className="d-flex justify-content-center gap-3">
           <Form.Group className="mb-3 w-100" controlId="formBasicStartDate">
@@ -107,7 +107,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel}) => {
               value={eventToEdit.start_date}
               name="start_date"
             />
-            {/* {valError.start_date && <Form.Text className="text-danger fw-bold">{valError.start_date}</Form.Text>} */}
+            {valError.start_date && <Form.Text className="text-danger fw-bold">{valError.start_date}</Form.Text>}
           </Form.Group>
           <Form.Group className="mb-3 w-100" controlId="formBasicEndDate">
             <Form.Label>Fecha de fin:</Form.Label>
@@ -117,7 +117,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel}) => {
               value={eventToEdit.end_date}
               name="end_date"
             />
-            {/* {valError.end_date && <Form.Text className="text-danger fw-bold">{valError.end_date}</Form.Text>} */}
+            {valError.end_date && <Form.Text className="text-danger fw-bold">{valError.end_date}</Form.Text>}
           </Form.Group>
         </div>
         <div className="d-flex justify-content-center gap-3">
@@ -129,7 +129,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel}) => {
               value={eventToEdit.start_hour}
               name="start_hour"
             />
-            {/* {valError.start_hour && <Form.Text className="text-danger fw-bold">{valError.start_hour}</Form.Text>} */}
+            {valError.start_hour && <Form.Text className="text-danger fw-bold">{valError.start_hour}</Form.Text>}
           </Form.Group>
           <Form.Group className="mb-3 w-100" controlId="formBasicEndHour">
             <Form.Label>Hora de fin:</Form.Label>
@@ -139,34 +139,32 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel}) => {
               value={eventToEdit.end_hour}
               name="end_hour"
             />
-            {/* {valError.end_hour && <Form.Text className="text-danger fw-bold">{valError.end_hour}</Form.Text>} */}
+            {valError.end_hour && <Form.Text className="text-danger fw-bold">{valError.end_hour}</Form.Text>}
           </Form.Group>
         </div>
-        <div className="d-flex justify-content-center gap-3">
-          <Form.Group className="mb-3 w-100" controlId="formBasicAttendees">
-            <Form.Label>Número de asistentes:</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Núm. asistentes"
-              onChange={handleChange}
-              value={eventToEdit.number_of_attendees}
-              name="number_of_attendees"
-            />
-            {/* {valError.number_of_attendees && <Form.Text className="text-danger fw-bold">{valError.number_of_attendees}</Form.Text>} */}
-          </Form.Group>
-          <Form.Group className="mb-3 w-100" controlId="formBasicPrice">
-            <Form.Label>Coste total:</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Coste total en números"
-              onChange={handleChange}
-              value={eventToEdit.price}
-              name="price"
-            />
-            {/* {valError.price && <Form.Text className="text-danger fw-bold">{valError.price}</Form.Text>} */}
-          </Form.Group>
-        </div>
-        <Form.Group className="mb-3" controlId="formBasicTicketLink">
+          <Form.Group className="mb-3" controlId="formBasicAttendees">
+          <Form.Label>Número de asistentes:</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Núm. asistentes"
+            onChange={handleChange}
+            value={eventToEdit.number_of_attendees}
+            name="number_of_attendees"
+          />
+          {valError.number_of_attendees && <Form.Text className="text-danger fw-bold">{valError.number_of_attendees}</Form.Text>}
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPrice">
+          <Form.Label>Coste total:</Form.Label>
+          <Form.Control 
+            type="text"
+            placeholder="Coste total en números"
+            onChange={handleChange}
+            value={eventToEdit.price}
+            name="price"
+          />
+          {/* {valError.price && <Form.Text className="text-danger fw-bold">{valError.price}</Form.Text>} */}
+        </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicTicketLink">
           <Form.Label>Enlace ticketera:</Form.Label>
           <Form.Control
             type="text"
@@ -175,9 +173,9 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel}) => {
             value={eventToEdit.ticket_link}
             name="ticket_link"
           />
-          {/* {valError.ticket_link && <Form.Text className="text-danger fw-bold">{valError.ticket_link}</Form.Text>} */}
+          {valError.ticket_link && <Form.Text className="text-danger fw-bold">{valError.ticket_link}</Form.Text>}
         </Form.Group>
-        {/* {msgError && <p className="text-danger">{msgError}</p>} */}
+        {msgError && <p className="text-danger">{msgError}</p>}
         <div className='d-flex gap-3'>
           <button className='cancel-button' onClick={cancel} type='button'>Cancelar</button>
           <button className='submit-button' onClick={() => onSubmit(eventToEdit, file)} type='button'>Aceptar</button>

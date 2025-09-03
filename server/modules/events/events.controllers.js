@@ -36,6 +36,7 @@ class EventController {
   }
 
   createEvent = async (req, res) => {
+    console.log("log del controllleeeeeeeeeee". req);
     
     try {
       //extraer datos del body con destructuring
@@ -55,7 +56,7 @@ class EventController {
         type_event,
         section_public,
         sections = [],
-      } = JSON.parse(req.body.dataTotal);
+      } = req.body;
 
       // Manejo de imágenes
       let cover = cover_image || null;
@@ -123,7 +124,7 @@ class EventController {
       const eventId = await eventsDal.createEvent(data);
       res.status(200).json({ message: 'Inserción OK', eventId });
     } catch (error) {
-      console.log(error)
+      console.log("eeror del controller", error)
       res.status(500).json({ message: 'Error de servidor' });
     }
   }
