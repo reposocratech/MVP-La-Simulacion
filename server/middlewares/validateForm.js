@@ -3,7 +3,6 @@ import { ZodError } from "zod";
 export const validateForm = (schema) => (req, res, next)=> {
 
   try {
-  console.log("CONSOLE LOG VALIDATE", req.body.data)
    // condición para ver si el req.body trae data. 
    if (req.body.data) {
 
