@@ -1,35 +1,32 @@
 import { ZodError } from "zod";
 
 export const validateFormsEvent = (schema) => (req, res, next) => {
-  try {
-    // Debug opcional: ver qué llega realmente
-    // console.log(">>>> tipo de dataTotal:", typeof req.body.dataTotal);
-    // console.log(">>>> valor de dataTotal:", req.body.dataTotal);
+  // Inicializamos un objeto para los datos que vamos a validar.
+  let dataToValidate = {};
 
-    if (req.body.dataTotal && req.body.dataTotal !== "undefined") {
+  try {
+    // 1. Manejar el caso donde multer envía los datos como req.body.dataTotal
+    if (req.body.dataTotal) {
+      // Si es una cadena, intentamos parsearla
       if (typeof req.body.dataTotal === "string") {
-        // Si es string, intentamos parsear
-        try {
-          req.body = JSON.parse(req.body.dataTotal);
-        } catch (e) {
-          return res.status(400).json({
-            error: [
-              {
-                path: "data",
-                message:
-                  "El formato de los datos no es válido. Se espera un JSON válido.",
-              },
-            ],
-          });
-        }
-      } else if (typeof req.body.dataTotal === "object") {
-        // Si ya es objeto, lo usamos directamente
-        req.body = req.body.dataTotal;
+        dataToValidate = JSON.parse(req.body.dataTotal);
+      } else {
+        // Si ya es un objeto, lo usamos directamente
+        dataToValidate = req.body.dataTotal;
       }
+    } else {
+      // 2. Manejar el caso donde los datos se envían directamente en req.body (sin Multer)
+      dataToValidate = req.body;
     }
 
-    // Validación con Zod
-    schema.parse(req.body);
+    // Validación Zod con los datos procesados
+    schema.parse(dataToValidate);
+
+    // Si la validación pasa, reemplazamos req.body con los datos procesados.
+    // Esto asegura que el controlador siempre reciba el objeto de datos limpio.
+    req.body = dataToValidate;
+
+    // Pasamos el control al siguiente middleware (el controlador)
     next();
   } catch (error) {
     if (error instanceof ZodError) {
@@ -39,10 +36,18 @@ export const validateFormsEvent = (schema) => (req, res, next) => {
           message: er.message,
         })),
       });
+    } else if (error instanceof SyntaxError) {
+      return res.status(400).json({
+        error: [
+          {
+            path: "data",
+            message: "El formato de los datos no es válido. Se espera un JSON.",
+          },
+        ],
+      });
     } else {
       console.error("validateFormsEvent error:", error);
       res.status(500).json({ message: "Ups, algo salió mal" });
     }
   }
 };
-

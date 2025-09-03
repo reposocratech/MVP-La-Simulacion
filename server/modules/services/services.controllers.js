@@ -66,8 +66,8 @@ sendMailServCoop = async (req , res)=>{
     editDataServCoop = async (req , res) =>{
      try {
     const { id ,img } = req.params;
-    console.log("REQ BODY DATA ALBERTO ", req.body.data)
-    const {service_name,service_description } = JSON.parse(req.body.data); 
+
+    const {service_name,service_description } = req.body; 
     const data = {
                 service_name,
                 service_description,
