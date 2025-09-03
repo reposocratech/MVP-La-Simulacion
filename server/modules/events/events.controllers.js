@@ -1,3 +1,4 @@
+import { deleteFile } from '../../helpers/fileSystem.js'
 import eventsDal from './events.dal.js'
 
 class EventController {
@@ -124,7 +125,6 @@ class EventController {
       const eventId = await eventsDal.createEvent(data);
       res.status(200).json({ message: 'Inserción OK', eventId });
     } catch (error) {
-      console.log("eeror del controller", error)
       res.status(500).json({ message: 'Error de servidor' });
     }
   }
@@ -157,18 +157,17 @@ class EventController {
     try {
       console.log("bodyyy", req.body);
       const result = await eventsDal.editDataSection(req.body);
-      res.status(200).json("cambio ok");
+      res.status(200).json({ message: 'Cambios realizados'});
     } catch (error) {
       res.status(500).json({ message: 'Error de servidor' });
     }
   }
 
-
   delKeypoint = async (req , res) =>{
     try {
       const { key_point_id } = req.body;
       await eventsDal.delKeypoint(key_point_id)
-      res.status(200).json("Borrado Ok");
+      res.status(200).json({ message: 'Cambios realizados'});
        } catch (error) {
       res.status(500).json({ message: 'Error de servidor' });
     }
@@ -177,13 +176,17 @@ class EventController {
   deleteSection = async(req, res) => {
     try {
       const {id} = req.params;
+      const files = req.body.files;
       const result = await eventsDal.deleteSection(id);
-      res.status(200).json("cambio ok");
+      
+      for (const file of files) {
+        await deleteFile(file, "events");
+      }
+      res.status(200).json({ message: 'Cambios realizados'});
     } catch (error) {
       res.status(500).json({ message: 'Error de servidor' });
     }
   }
-
 
   addKeypoint = async (req , res) =>{
     try {
@@ -198,7 +201,7 @@ class EventController {
       console.log("dataaaaaaaa" , data);
       
       await eventsDal.addKeypoint(data)
-      res.status(200).json("datos metidos");
+      res.status(200).json({ message: 'Inserción realizada'});
     } catch (error) {
       res.status(500).json({ message: 'Error de servidor' });
       console.log("error server" , error);

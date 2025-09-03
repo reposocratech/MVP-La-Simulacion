@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from 'react-router';
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { fetchData } from "../../../helpers/axiosHelper";
 import { formCoopSchema } from "../../../schemas/formCoopSchema"
@@ -29,13 +30,14 @@ const ServicesCoop = () => {
         const res = await fetchData("/services/servicescoop", "get");
         setServicesCoop(res.data); 
       };
-  servicesCoopData();
+    servicesCoopData();
   }, []);
   
   const handleChange = (e) =>{
     const{name , value} = e.target
     setSendInfo({...sendInfo , [name] : value})
   }
+
   const sendMail = async (e) =>{
     e.preventDefault();
   try {
@@ -53,15 +55,15 @@ const ServicesCoop = () => {
   }}
 
   return (
-     <section  >
-      <Container>
+     <section className="section-servsCoop">
+      <Container fluid className="custom-container-servsCoop">
         <Row className="row-full-height">
-          <Col md={12} lg={3} className="sticky-col-sect ">
+          <Col md={12} lg={2} className="sticky-col-sect px-0">
               <div className="stickyLeft marg-top">
                 {servicesCoop.result?.map(service => (        
                 <div 
                 key={service.service_id}
-                className={`textblack p-2   ${active === service.service_id ? "active" : ""} `}>                 
+                className={`textblack p-3 ${active === service.service_id ? "active" : ""} `}>                 
                   <a className="textblack"  href={`#${service.service_name}`}
                   onClick={() => setActive(service.service_id)}
                   >
@@ -72,7 +74,7 @@ const ServicesCoop = () => {
               </div>
           </Col>
 
-          <Col md={12} lg={6} className="marg-top">
+          <Col md={12} lg={7} className="marg-top">
                 <h1 className="text-center"><span className='span-servcoop accent-text align-middle'>S</span> Nuestros servicios:</h1>
                 {servicesCoop.result?.map(service => (      
                 <section 
@@ -87,10 +89,10 @@ const ServicesCoop = () => {
                 ))}  
           </Col>
 
-          <Col md={12} lg={3} className="sticky-col marg-top ">
-            <h5 className="mb-1"  >¿Quieres más información?</h5>
-            <Form className="border border-1 rounded-2 p-2 ">
-              <Form.Group className="m_form_group"  controlId="formBasicName">
+          <Col md={12} lg={3} className="sticky-col marg-top">
+            <h5 className="mb-3">¿Quieres más información?</h5>
+            <Form className="border border-1 rounded-2 p-3 bg-white">
+              <Form.Group className="m_form_group mb-3"  controlId="formBasicName">
                 <Form.Label>Nombre:</Form.Label>
                 <Form.Control 
                   type="text" 
@@ -101,7 +103,7 @@ const ServicesCoop = () => {
                 />
               {valErrors.user_name && <Form.Text className="form-error">{valErrors.user_name}</Form.Text>}
               </Form.Group>
-              <Form.Group className="m_form_group"  controlId="formBasiclastName">
+              <Form.Group className="m_form_group mb-3"  controlId="formBasiclastName">
                 <Form.Label>Apellidos:</Form.Label>
                 <Form.Control 
                   type="text" 
@@ -112,7 +114,7 @@ const ServicesCoop = () => {
                   />
               {valErrors.lastName && <Form.Text className="form-error">{valErrors.lastName}</Form.Text>}
               </Form.Group>
-              <Form.Group className="m_form_group"  controlId="formBasicEmail">
+              <Form.Group className="m_form_group mb-3"  controlId="formBasicEmail">
                 <Form.Label>Email:</Form.Label>
                 <Form.Control 
                   type="text" 
@@ -123,7 +125,7 @@ const ServicesCoop = () => {
                   />
               {valErrors.email && <Form.Text className="form-error">{valErrors.email}</Form.Text>}
               </Form.Group>
-              <Form.Group className="m_form_group"  controlId="formBasicPhone">
+              <Form.Group className="m_form_group mb-3"  controlId="formBasicPhone">
                 <Form.Label>Telefono:</Form.Label>
                 <Form.Control 
                   type="text" 
@@ -134,7 +136,7 @@ const ServicesCoop = () => {
                   />
                 {valErrors.phone && <Form.Text className="form-error">{valErrors.phone}</Form.Text>}
               </Form.Group>
-              <Form.Group className="m_form_group"  controlId="formBasicType">
+              <Form.Group className="m_form_group mb-3"  controlId="formBasicType">
                 <Form.Label>¿Sobre qué servicio deseas consultar?:</Form.Label>
                  <Form.Select
                   name="type"
@@ -150,7 +152,7 @@ const ServicesCoop = () => {
                   </Form.Select>
                   {valErrors.type && <Form.Text className="form-error">{valErrors.type}</Form.Text>}
                 </Form.Group>
-                <Form.Group className="m_form_group" controlId="formBasicDescription">
+                <Form.Group className="m_form_group mb-3" controlId="formBasicDescription">
                 <Form.Label>Escribe tu consulta:</Form.Label>
                 <Form.Control 
                   as={"textarea"}
@@ -161,9 +163,11 @@ const ServicesCoop = () => {
                   />
                   {valErrors.description && <Form.Text className="form-error">{valErrors.description}</Form.Text>}
                   </Form.Group>                  
-                <button className="submit-button mt-1 w-100" onClick={sendMail}>
-                Enviar
-               </button>
+                <div className="text-center">
+                  <button className="submit-button mt-1 w-50" onClick={sendMail}>
+                  Enviar
+                </button>
+                </div>
                {successMsg && <p className="msg-ok-form">{successMsg}</p>}
             </Form>           
           </Col>

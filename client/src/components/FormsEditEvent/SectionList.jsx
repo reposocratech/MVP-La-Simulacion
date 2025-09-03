@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import { useParams } from 'react-router';
 import { AuthContext } from "../../context/AuthContextProvider";
 import { ModalAddImgSection } from "./ModalAddImgSection";
+
 import { validateForms } from "../../helpers/validateForms";
 import { createEventKeyPointSchema } from "../../schemas/createEventKeyPointSchema";
 
@@ -15,6 +16,7 @@ const initialValue = {
 };
 
 export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectionId, setSelectedSectionId, sectionsImages, setSectionsImages, handleSectionFile, setRefresh, refresh, deleteSection, fileError, setFileError}) => {
+
 
   const [showForm, setShowForm] = useState(false);
   const [keyPoint, setKeyPoint] = useState(initialValue);
@@ -95,6 +97,7 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
         setCurrentForm(1);
       }
 
+
     } catch (error) {
       console.error("Error :", error);
     }
@@ -113,6 +116,7 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
       if (validFiles.length !== sectionsImages.length) {
         setFileError(`El nombre de alguno de tus archivos es demasiado largo (máximo 200 caracteres).`);
       }
+
         for (const elem of sectionsImages) {
           newFormData.append("file", elem);
         }
@@ -138,10 +142,9 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
                 <div>
                   <button
                     className="btn-table block"
-                    onClick={() => deleteSection(elem.section_id)}
-                  >
-                    Borrar sección
-                  </button>
+                    onClick={() => deleteSection(elem.section_id, elem.images)}
+                  >Borrar sección</button>
+
                 </div>
               )}
             </div>
@@ -149,12 +152,21 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
             <p>{elem.section_description}</p>
             <p>{elem.section_duration}</p>
             <div className="d-flex gap-3 mb-4">
-              {elem.section_id !== 1 && (
+
+              {elem.section_id !== 1 && 
+                <>
                 <button
                   className="btn-table edit"
                   onClick={() => { setTakeSeccId(elem); openEdit(elem.section_id); }}
                 >Editar sección</button>
-              )}
+
+                <button
+                  onClick={() => openModalAddImages(elem.section_id)}
+                  className="btn-table"
+                >Añadir Imágenes</button>
+                </>
+              }
+
               <button
                 className="btn-table"
                 onClick={() => { setTakeSeccId(elem); setShowForm(true); }}
@@ -179,14 +191,7 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
                   </div>
                 </Col>
               ))}
-              <Col>
-                <div>
-                  <button
-                    onClick={() => openModalAddImages(elem.section_id)}
-                    className="btn-table"
-                  >Añadir Imágenes</button>
-                </div>
-              </Col>
+
             </Row>
 
             <div className="mt-3">
@@ -234,3 +239,4 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
     </>
   );
 };
+

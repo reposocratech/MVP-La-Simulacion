@@ -132,6 +132,16 @@ class RoomDal {
     }
   }
 
+  getRoomsData = async() => {
+    try {
+      let sql = "SELECT room.room_id, room.room_name, room.room_description, room.who_can_use_it, room.pricing, room.usage_policy, (SELECT file FROM room_image WHERE room_image.room_id = room.room_id ORDER BY room_image_id LIMIT 1) as first_image FROM room WHERE room.room_is_deleted = 0";
+      let result = await executeQuery(sql);
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }
 
 export default new RoomDal();

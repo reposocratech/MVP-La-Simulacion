@@ -32,6 +32,9 @@ const OneReservation = () => {
 
   const {
     user_id,
+    user_name,
+    lastname,
+    room_name,
     reservation_id,
     phone_number,
     date,
@@ -43,7 +46,17 @@ const OneReservation = () => {
     ilumination_material,
     number_of_attendees,
     aditional_requirement,
+    status
   } = reservation;
+
+  const getStatusLabel = (status) => {
+    switch (status) {
+      case 1: return "Pendiente";
+      case 2: return "Confirmada";
+      case 3: return "Cancelada";
+      default: return "Desconocido";
+    };
+  }
 
   return (
     <section className="section-one-reserv">
@@ -53,22 +66,30 @@ const OneReservation = () => {
             <Card>
               <Card.Body>
                 <Card.Title 
-                className="bg-color-light-green p-2"
-                >Solicitud de Reserva de la Sala: {reservation_id}
+                  className="bg-color-light-green p-3 fw-bold text-center"
+                >Solicitud de Reserva de la Sala:<br /> {room_name} - (ID de sala: {reservation_id})
                 </Card.Title>
-                {/* <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle> */}
+                <Card.Subtitle className="my-3">
+                  <strong>
+                      USUARIO con ID
+                    </strong> {user_id}: {user_name} {lastname ? lastname : null}
+                    <button 
+                        className="btn-table ms-2"
+                        onClick={() => navigate(`/admin/userProfile/${user_id}`)}>Ver Usuario
+                    </button>
+                </Card.Subtitle>
                 <Card.Text>
-                  <strong>Usuario ID:</strong> {user_id}<br />
-                  <strong>Teléfono:</strong> {phone_number}<br />
-                  <strong>Fecha:</strong> {date}<br />
-                  <strong>Hora de inicio:</strong> {start_hour}<br />
-                  <strong>Hora de fin:</strong> {end_hour}<br />
-                  <strong>Descripción del proyecto y trayectoria:</strong> {proyect_description}<br />
-                  <strong>Tipo de proyecto:</strong> {proyect_type}<br />
-                  <strong>Redes:</strong> {socialmedia_link}<br />
-                  <strong>¿Necesita material de iluminación?</strong> {ilumination_material === 0 ? "No" : "Sí"}<br />
-                  <strong>Nº asistentes:</strong> {number_of_attendees}<br />
-                  <strong>¿Tiene requerimientos técnicos o lógísticos adicionales?</strong> {aditional_requirement || "No especificado"}
+                  <p><strong>Estado de la Reserva:</strong> {getStatusLabel(status)}</p>
+                  <p><strong>Teléfono:</strong> {phone_number}</p>
+                  <p><strong>Fecha:</strong> {date}</p>
+                  <p><strong>Hora de inicio:</strong> {start_hour}</p>
+                  <p><strong>Hora de fin:</strong> {end_hour}</p>
+                  <p><strong>Descripción del proyecto y trayectoria:</strong> {proyect_description}</p>
+                  <p><strong>Tipo de proyecto:</strong> {proyect_type}</p>
+                  <p><strong>Enlace profesional o de proyecto:</strong> {socialmedia_link}</p>
+                  <p><strong>¿Necesita material de iluminación?</strong> {ilumination_material === 0 ? "No" : "Sí"}</p>
+                  <p><strong>Nº asistentes:</strong> {number_of_attendees}</p>
+                  <p><strong>¿Tiene requerimientos técnicos o lógísticos adicionales?</strong> {aditional_requirement || "No especificado"}</p>
                 </Card.Text>
                 <div className="d-flex justify-content-center">
                   <button 

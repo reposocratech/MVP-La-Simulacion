@@ -28,12 +28,16 @@ export const ModalAddImgSection = ({handleSectionFile, show, selectedSectionId, 
         <Modal.Footer>
           <button 
             type="button"
-            onClick={handleCloseFile}>
+            onClick={handleCloseFile}
+            className="btn-table block"
+          >
             Cancelar
           </button>
           <button 
             type="button"
-            onClick={onSubmit}>
+            onClick={onSubmit}
+            className="btn-table unblock"
+          >
             Aceptar
           </button>
         </Modal.Footer>

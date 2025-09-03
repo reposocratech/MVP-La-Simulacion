@@ -14,4 +14,6 @@ router.put('/editRoom/:id', verifyToken, uploadImageMulti("rooms"), validateForm
 router.get('/imagesByRoomId/:id', verifyToken, roomsControllers.imagesByRoomId);
 router.delete ('/deleteImg', verifyToken, roomsControllers.deleteImg);
 router.post('/addImages', verifyToken, uploadImageMulti("rooms"), roomsControllers.addImages);
+router.get('/rooms', roomsControllers.getRoomsData);
+
 export default router;
