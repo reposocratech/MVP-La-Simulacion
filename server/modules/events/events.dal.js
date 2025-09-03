@@ -1,5 +1,6 @@
 import executeQuery, { dbPool } from '../../config/db.js'
 import { cleanInputs } from '../../utils/cleanInputs.js'
+import { deleteFile } from '../../helpers/fileSystem.js'
 
 class EventDal {
   //traer todos los eventos que no estén borrados
@@ -318,6 +319,101 @@ class EventDal {
       throw { message: 'Error en base de datos' }
     }
   }
+
+      delKeypoint = async(key_point_id) =>{
+      try {
+       const sql = "DELETE FROM section_key_point WHERE section_key_point_id = ?";
+       await executeQuery(sql, [key_point_id]);
+    } catch (error) {
+      console.log(error);
+      throw { message: 'Error en base de datos' }
+   }
+  }
+
+      addKeypoint = async(data) =>{
+   const { section_id, key_point_title, key_point_description , event_id } = data;
+   try {
+    
+    const sql = `SELECT MAX(section_key_point_id) AS lastId FROM section_key_point WHERE section_id = ? AND event_id = ?`;
+    const result = await executeQuery(sql, [section_id, event_id]);
+    console.log('result maximo id:', result);
+    const lastId = result[0]?.lastId || 0;
+    const newId = lastId +1
+    console.log({ section_id, key_point_title, key_point_description, event_id });
+    
+    const result2 = `INSERT INTO section_key_point (section_key_point_id, key_point_title, key_point_description, section_id , event_id) VALUES (?, ?, ?, ? , ?)`;
+    const values = [newId, key_point_title, key_point_description, section_id , event_id];
+    
+    await executeQuery(result2, values);
+
+  } catch (error) {
+    console.error(error);
+    throw { message: 'Error en base de datos' };
+  }
+};
+
+
+  deleteSectionImage = async(event_id, section_id, section_image_id, file) => {
+
+    console.log("cositas", event_id, section_id, section_image_id, file);
+
+    try {
+      let sql = "DELETE FROM section_image WHERE section_image_id = ? AND section_id = ? AND event_id = ?";
+      let values = [section_image_id, section_id, event_id];
+
+      let result = await executeQuery(sql, values);
+      console.log ("RESULLLLTTT OJUUUU", result);
+      await deleteFile(file, "events");
+     } catch (error) {
+      console.log(error);
+      throw { message: 'Error en base de datos' }
+    }
+  }
+
+  deleteSection = async(id) => {
+    try {
+      let sql = 'DELETE FROM section WHERE section_id = ?';
+      const result = await executeQuery(sql, [id]);
+      return result;
+    } catch (error) {
+      console.log(error);
+      throw { message: 'Error en base de datos' }
+    }
+  }
+
+  addSectionImages = async(event_id, section_id, imgs) => {
+    const connection = await dbPool.getConnection();
+
+    try {
+      await connection.beginTransaction();
+
+      // Obtengo el id más alto ya que no hay autoincrement:
+        let sqlId = "SELECT IFNULL(MAX(section_image_id), 0) AS max_id FROM section_image WHERE event_id = ? AND section_id = ?";
+        let [result] = await connection.query(sqlId, [event_id, section_id]);
+        let maxId = result[0].max_id;
+
+        imgs.forEach(async(elem)=>{
+          // Por cada imagen incremento el id
+          maxId++;
+          let sqlImg = 'INSERT INTO section_image (event_id, section_id, section_image_id, file) VALUES (?,?,?,?)'
+          let values = [event_id, section_id, maxId, elem.filename]
+
+          await connection.query(sqlImg, values);  
+        })
+
+        await connection.commit();
+      
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+
+    } finally {
+      connection.release();
+    }
+  }
+
 }
+
+
 
 export default new EventDal();

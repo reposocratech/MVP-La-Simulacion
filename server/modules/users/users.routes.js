@@ -7,6 +7,9 @@ import { registerSchema } from '../../schemas/registerSchema.js';
 import { contactSchema } from '../../schemas/contactSchema.js';
 import { uploadImageSingle } from '../../middlewares/multerSingle.js';
 import { reservationSchema } from '../../schemas/reservationSchema.js';
+import { changeEmailSchema } from '../../schemas/changeEmailSchema.js';
+import { editProfileSchema } from '../../schemas/editProfileSchema.js';
+import {changePasswordSchema} from '../../schemas/changePasswordSchema.js'
 
 const router = express.Router();
 
@@ -18,9 +21,9 @@ router.post('/contact', validateForm(contactSchema), usersController.contactEmai
 
 //Rutas Privadas
 router.get('/userById', verifyToken, usersController.userById);
-router.put('/editUser', verifyToken,  usersController.editUser);
-router.put('/changeEmail', verifyToken, usersController.changeEmail);
-router.put('/changePass', verifyToken, usersController.changePass);
+router.put('/editUser', verifyToken, validateForm(editProfileSchema),  usersController.editUser);
+router.put('/changeEmail', verifyToken, validateForm(changeEmailSchema), usersController.changeEmail);
+router.put('/changePass', verifyToken, validateForm(changePasswordSchema), usersController.changePass);
 router.delete("/deleteUser/:id", verifyToken, usersController.deleteUser);
 router.put("/editAvatar", verifyToken, uploadImageSingle("users"), usersController.editAvatar);
 router.post('/roomReservation/:id/:room_name', verifyToken, validateForm(reservationSchema), usersController.makeRoomReservation);

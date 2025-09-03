@@ -59,6 +59,7 @@ const NewSection = () => {
         setNewSection(initialValue);
         handleSectionFile(sec_id, sectionImages);
         setShowForm(false);
+        setSectionImages();
       }
     } catch (error) {
       console.log(error);
@@ -153,7 +154,7 @@ const NewSection = () => {
         <>
           <div className='mb-4 d-flex flex-column flex-md-row gap-3'>
             <button 
-              className='submit-button' 
+              className='prev-button' 
               disabled={showForm} 
               onClick={()=>navigate('step3')} 
             >Anterior</button>

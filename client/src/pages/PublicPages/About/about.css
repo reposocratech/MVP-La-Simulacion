@@ -44,6 +44,21 @@
   }
 }
 
+@media (max-width: 990px) {
+  .section-about-2 .decor-images-2 {
+    right: 0;   /* o incluso poner left: 50% y transform para centrar */
+    top: -40px;
+
+    .decor-5 {
+      top: 50px;
+      right: 20px;
+    }
+  }
+  .section-about-2 .decor-images-2 img {
+    max-width: 50px; /* hacerlas más pequeñas en móvil */
+  }
+}
+
 .section-about-3 {
   .section-about-title {
     padding-block: 1.5rem;

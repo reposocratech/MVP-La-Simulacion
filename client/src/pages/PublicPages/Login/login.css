@@ -15,7 +15,7 @@
     color: var(--color-primary-electric-blue);
   }
 
-  .form-container {
+  .form-container-login {
     position: relative;
     
     .flor-login {

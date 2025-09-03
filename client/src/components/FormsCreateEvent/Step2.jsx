@@ -156,7 +156,7 @@ const Step2 = () => {
         </Form.Group>
         {msgError && <p className="text-danger">{msgError}</p>}
         <div className='d-flex flex-column flex-md-row gap-3'>
-          <button className='submit-button' onClick={prevForm} >Anterior</button>
+          <button className='prev-button' onClick={prevForm} >Anterior</button>
           <button className='cancel-button' onClick={cancel}>Cancelar</button>
           <button className='submit-button' onClick={nextForm}>Siguiente</button>
         </div>

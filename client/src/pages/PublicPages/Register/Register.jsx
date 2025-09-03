@@ -23,13 +23,13 @@ const Register = () => {
   const [seePass, setseePass] = useState(false)
   const [seePassRep, setseePassRep] = useState(false)
   const [msgRembr, setMsgRembr] = useState("")
-  
-  
+
+
   const handleChange = (e)=>{
     const {name , value} = e.target
     setRegister({...register, [name] : value})
   }
-  
+
   const onSubmit = async (e)=>{
     e.preventDefault();
     try {
@@ -46,14 +46,14 @@ const Register = () => {
         setValErrors({});
         setMsgError(error.response.data);
   }}
-  
+
   return (
      <section className='section-register d-flex  justify-content-center ' >
       <Container fluid>
-        <Row>          
+        <Row>
            <h1 className="h1-register text-center text-light p-2 my-5 w-100">Crea una cuenta <span className='span-register accent-text align-middle'>C</span></h1>
           <Col className="d-flex justify-content-center">
-           <div className="form-container p-2">
+           <div className="form-container-register p-2">
               <img src={flor} alt="" className='flor-register' />
               <Form className="form-register border border-2 rounded rounded-3 mb-2" >
                 <Form.Group className="form-group-custom" controlId="formBasicName">
@@ -121,5 +121,5 @@ const Register = () => {
     </section>
     )
 }
-                     
+
 export default Register;

@@ -113,7 +113,7 @@ class RoomDal {
         let maxId = result[0].max_id;
       
         imgs.forEach(async(elem)=>{
-          // Por cada imágen incremento el id
+          // Por cada imagen incremento el id
           maxId++;
           let sqlImg = 'INSERT INTO room_image (room_id, room_image_id, file) VALUES (?,?,?)'
           let values = [room_id, maxId, elem.filename]

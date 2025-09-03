@@ -3,7 +3,6 @@ import { Form } from 'react-bootstrap';
 
 export const EditDataSection = ({dataSections, selectedSectionId, onSubmit, cancel, valError, msgError}) => {
   const [sectionToEdit, setSectionToEdit] = useState();
-  const [files, setFiles] = useState([]);
 
   useEffect(() => {
     setSectionToEdit(dataSections.find(elem => elem.section_id === selectedSectionId)); 
@@ -65,30 +64,18 @@ export const EditDataSection = ({dataSections, selectedSectionId, onSubmit, canc
         />
         {valError.section_duration && <Form.Text className="text-danger fw-bold">{valError.section_duration}</Form.Text>}
       </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicSectFiles">
-        <Form.Label>Subir Imágenes</Form.Label>
-        <Form.Control
-          type="file"
-          multiple
-          
-          name="sectionImages"
-          accept="image/*"
-        />
-        {/* {fileError && <Form.Text className="text-danger fw-bold ms-3">{fileError}</Form.Text>} */}
-      </Form.Group>
-
-      {msgError && <p className="text-danger">{msgError}</p>}
+      {/* {msgError && <p className="text-danger">{msgError}</p>} */}
       <div className="d-flex gap-3">
-        <button
-          className="btn-table unblock"
-          type='button'
-          onClick={() => onSubmit(sectionToEdit)}
-        >Aceptar</button>
         <button
           className="btn-table block"
           type='button'
           onClick={cancel}
         >Cancelar</button>
+        <button
+          className="btn-table unblock"
+          type='button'
+          onClick={() => onSubmit(sectionToEdit)}
+        >Aceptar</button>
       </div>
     </Form>
   )

@@ -9,16 +9,16 @@ export const CardHome = ({title, accentLetter, textBody, color, textButton, urlB
   const navigate = useNavigate();
 
   return (
-    <Card className="card-home">
-      <Card.Body>
-        <h3 className="fw-bold fs-5">
+    <Card className="card-home h-100">
+      <Card.Body className="d-flex flex-column">
+        <h3 className="fw-bold fs-5 mb-3">
           <span className="accent-text" style={{ color: color, marginInlineEnd: ".5rem", fontSize:"24px" }}
           >{accentLetter}</span>{title}
           </h3>
-        <Card.Text>
+        <Card.Text className="my-auto">
           {textBody}
         </Card.Text>
-        <button className="card-home-button" style={{ backgroundColor: color }}
+        <button className="card-home-button mt-auto" style={{ backgroundColor: color }}
                 onClick={()=>navigate(`${urlButton}`)}> {textButton} </button>
       </Card.Body>
     </Card>

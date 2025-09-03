@@ -14,7 +14,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError})
     setFile(e.target.files[0]);
   }
   //console.log(eventToEdit)
-
+  
   return (
     <Form className="border-forms">
         <h2 className="fs-3 mb-3">Datos generales</h2>

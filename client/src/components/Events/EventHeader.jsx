@@ -3,7 +3,6 @@ import trebolVerde from '../../assets/decorative/trebol-verde.svg'
 import florRedondeada from '../../assets/decorative/flor-redondeada.svg'
 import "./eventheader.css"
 
-//evento foto cabecera titulo e informacion basica del evento con boton de ticketera
 const EventHeader = ({ event , timeEvent }) => {
   if (!event) return null
 
@@ -26,11 +25,6 @@ const EventHeader = ({ event , timeEvent }) => {
   const aforoText = event.number_of_attendees
     ? `${event.number_of_attendees} personas`
     : ''
-  const priceText =
-    event.price !== undefined && event.price !== null
-      ? `${Number(event.price).toFixed(2)} €`
-      : ''
-
   return (
     <section className="event-header">
       <h1 className="event-title"><span className='span-eventheader accent-text align-middle'>ET</span> {event.event_title}</h1>
@@ -75,11 +69,7 @@ const EventHeader = ({ event , timeEvent }) => {
               <strong>Ubicación:</strong> {event.location}
             </li>
           )}
-          {priceText && (
-            <li>
-              <strong>Precio:</strong> {priceText}
-            </li>
-          )}
+
         </ul>
       </div>
       <div className="cta-wrapper">
@@ -95,7 +85,7 @@ const EventHeader = ({ event , timeEvent }) => {
           ) : null
           }
         </div>
-      
+
     </section>
   )
 }

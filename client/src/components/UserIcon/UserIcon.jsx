@@ -32,17 +32,25 @@ export const UserIcon = ({ navbarData }) => {
   return (
     <>
       <button className="avatar-button d-flex align-items-center" onClick={onClickIcon}>
-            {userAvatar? 
-            <img
+            {userType === 1 ? (
+              <img
+                src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/users/avatar-admin-favicon.webp`}
+                alt="Ir al panel de administración"
+                className="avatar-icon"
+              />
+            ) : userAvatar ? (
+              <img
                 src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/users/${userAvatar}`}
                 alt="Ir a mi perfil de usuario"
-                className="avatar-icon" />
-            
-                : <img
+                className="avatar-icon"
+              />
+            ) : (
+              <img
                 src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/users/default-avatar.svg`}
                 alt="Ir a mi perfil de usuario"
-                className="avatar-icon" />
-            }
+                className="avatar-icon"
+              />
+            )}
  
             {
               showTextContent()

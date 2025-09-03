@@ -1,4 +1,4 @@
-import { Container } from 'react-bootstrap'
+import { Container, Row, Col, Card } from 'react-bootstrap'
 import { useNavigate, useParams } from 'react-router'
 import { useState, useEffect } from 'react'
 import { fetchData } from '../../../helpers/axiosHelper'
@@ -25,7 +25,7 @@ const OneEvent = () => {
         setSections(res.data.sections || [])
         const res2 = await fetchData(`/reviews/seeaveragerating/${id}` , "get")
         setReviews(res2.data.result[0])
-        console.log("res2" , res2.data.result);      
+        console.log("res2" , res2.data.result);
       } catch (error){
         console.log(error);
       }
@@ -33,7 +33,6 @@ const OneEvent = () => {
     loadEvent()
   }, [id]);
 
-  console.log("+++++", event);
 
   const today = new Date();
   const timeEvent = event && new Date(event.start_date) >= today;
@@ -41,49 +40,75 @@ const OneEvent = () => {
   return (
     <section className="section-one-event">
       <Container>
-        <EventHeader event={event} timeEvent={timeEvent} />
+        <div className="mb-4">
+          <EventHeader event={event} timeEvent={timeEvent} />
+        </div>
 
         {event?.event_description && (
-          <div className="event-description">
-            <p>{event.event_description}</p>
-          </div>
+          <Card className="border-0 mb-4">
+            <Card.Body className="text-center">
+              <Card.Text className="event-description mx-auto">
+                {event.event_description}
+              </Card.Text>
+            </Card.Body>
+          </Card>
         )}
 
-        {sections.map((section, idx) => (
-          <EventSection
-            key={`${section.section_id}-${idx}`}
-            section={section}
-            index={idx}
-          />
-        ))}
-          {reviews && reviews.total_reviews > 0 && (
-          <div className="event-reviews my-4">
-          <h5>Opiniones del evento</h5>
-          <Rating
-          initialValue={reviews.average_rating}
-          size={20}
-          fillColor="var(--color-primary-violet)"
-          emptyColor="#CCC"
-          readonly
-          />                
-          <p>{reviews.total_reviews}</p>
-          </div>
+        <Row className="g-4">
+          {sections.map((section, idx) => (
+            <Col xs={12} key={`${section.section_id}-${idx}`}>
+              <Card className="border-0 ">
+                <Card.Body>
+                  <EventSection
+                    section={section}
+                    index={idx}
+                  />
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+
+        {reviews && reviews.total_reviews > 0 && (
+          <Card className="border-0 shadow-sm my-4">
+            <Card.Body className="text-center">
+              <h5 className="mb-2">Opiniones del evento</h5>
+              <div className="d-flex justify-content-center align-items-center gap-2">
+                <Rating
+                  initialValue={reviews.average_rating}
+                  size={20}
+                  fillColor="var(--color-primary-violet)"
+                  emptyColor="#CCC"
+                  readonly
+                />
+                <span className="fw-semibold">
+                  {Number(reviews.average_rating).toFixed(1)} / 5
+                </span>
+              </div>
+              <p className="text-muted mb-0">{reviews.total_reviews} valoraciones</p>
+            </Card.Body>
+          </Card>
         )}
 
-        
         {event?.ticket_link && (
           <div className="text-center my-4">
-           {timeEvent ? (
-            <a
-              href={event.ticket_link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="submit-button text-decoration-none"
-            >
-              Apúntate al evento
-            </a>
-          ) : <button onClick={() => navigate(`/review/${id}`)} className='submit-button'>Dejanos Tu opinión</button>
-          }
+            {timeEvent ? (
+              <a
+                href={event.ticket_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="submit-button text-decoration-none"
+              >
+                Apúntate al evento
+              </a>
+            ) : (
+              <button
+                onClick={() => navigate(`/review/${id}`)}
+                className=" submit-button"
+              >
+                Déjanos tu opinión
+              </button>
+            )}
           </div>
         )}
       </Container>
@@ -91,4 +116,4 @@ const OneEvent = () => {
   )
 }
 
-export default OneEvent;
+export default OneEvent

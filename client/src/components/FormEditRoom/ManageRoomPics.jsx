@@ -28,7 +28,7 @@ export const ManageRoomPics = ({id, msgError, setMsgError, setFileError, setSucc
     const data = {id ,room_image_id, file}
    
     try {
-      // LLamada para eliminar imágen
+      // LLamada para eliminar imagen
       await fetchData('/rooms/deleteImg', "delete", data, token);
       
       setImages(images.filter(e=>e.room_image_id !== room_image_id))
