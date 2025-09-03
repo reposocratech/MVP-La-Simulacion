@@ -15,9 +15,7 @@ export const CardHome = ({title, accentLetter, textBody, color, textButton, urlB
           <span className="accent-text" style={{ color: color, marginInlineEnd: ".5rem", fontSize:"24px" }}
           >{accentLetter}</span>{title}
           </h3>
-        <Card.Text className="my-auto">
           {textBody}
-        </Card.Text>
         <button className="card-home-button mt-auto" style={{ backgroundColor: color }}
                 onClick={()=>navigate(`${urlButton}`)}> {textButton} </button>
       </Card.Body>
