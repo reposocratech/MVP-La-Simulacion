@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { Outlet, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { fetchData } from "../../../helpers/axiosHelper";
@@ -8,6 +8,8 @@ import './editEvent.css';
 import { SectionList } from "../../../components/FormsEditEvent/SectionList";
 import { EditDataEvent } from "../../../components/FormsEditEvent/EditDataEvent";
 import { EditDataSection } from "../../../components/FormsEditEvent/EditDataSection";
+import { validateForms } from "../../../helpers/validateForms";
+import { editEventSchema } from "../../../schemas/editEventSchema";
 
 const initialValue = {
   event_title: "",
@@ -28,15 +30,18 @@ const initialValue = {
 }
 
 const EditEvent = () => {
+  const serverUrl = import.meta.env.VITE_SERVER_URL_PUBLIC;
   const [dataTotal, setDataTotal] = useState(initialValue);
   const [sectionsImages, setSectionsImages] = useState([]);
   const [currentForm, setCurrentForm] = useState(1);
   const [selectedSectionId, setSelectedSectionId] = useState();
-  const [refresh, setRefresh] = useState(true)
-  
+  const [refresh, setRefresh] = useState(true);
+  const [valError, setValError] = useState({});
+  const [msgError, setMsgError] = useState();
+  const [fileError, setFileError] = useState();
+
   const {token} = useContext(AuthContext);
 
-  const navigate = useNavigate();
   const {id} = useParams();
 
   useEffect(() => {
@@ -52,16 +57,15 @@ const EditEvent = () => {
       }
     }
     fetchEvent();
-  }, [id, token , refresh ]);
 
-  const handleSectionFile = (sec_id, files) => {
-    setSectionsImages([...sectionsImages, {sec_id, files}]);
-  }
+  }, [id, token, sectionsImages, refresh] );
 
-  const cancelEditSection = (e) => {
-    e.preventDefault();
-    setDataTotal(initialValue);
-    navigate('/admin/events');
+
+
+  const handleSectionFile = (sec_id, event) => {
+    const files = Array.from(event.target.files); // Asegúrate de convertir FileList en array
+
+    setSectionsImages(files); // solo archivos puros, sin envolver en objeto
   }
 
   const submitEditEvent = async(event, file) => {
@@ -69,31 +73,56 @@ const EditEvent = () => {
       const newFormData= new FormData();
       let dataToSend = {...dataTotal, ...event};
       newFormData.append("data", JSON.stringify(dataToSend));
-  
-      if (file) {
-        newFormData.append("file", file);
+      const {valid, errors } = validateForms(editEventSchema, dataToSend);
+      setValError(errors);
+
+      if (valid){
+        if (file) {
+          newFormData.append("file", file);
+        }
+    
+        let result = await fetchData(`/events/editData/${id}`, "put", newFormData, token);
+        if (result.data.filename){
+          setDataTotal({...dataToSend, cover_image: result.data.filename});
+        } else {
+          setDataTotal(dataToSend)
+        }
+        setCurrentForm(1);
       }
   
-      let result = await fetchData(`/events/editData/${id}`, "put", newFormData, token);
-      if (result.data.filename){
-        setDataTotal({...dataToSend, cover_image: result.data.filename});
-      } else {
-        setDataTotal(dataToSend)
-      }
-      setCurrentForm(1);
     } catch (error) {
       console.log(error);
     } 
   }
 
-  console.log("datatotallll", dataTotal);
+  //console.log("datatotallll", dataTotal);
   
   const submitEditSection = async(section) => {
     try {
       const res = await fetchData(`/events/editSection`, "put", {section, event_id: id}, token);
       console.log(res);
-      setCurrentForm(1);
+
+      
       setRefresh(!refresh)
+
+      setDataTotal(prev => ({
+        ...prev,
+        sections: prev.sections.map(sec => sec.section_id === section.section_id ? section : sec)
+      }));
+      setCurrentForm(1);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const deleteSection = async(sectionId) => {
+    try {
+      await fetchData(`/events/deleteSection/${sectionId}`, "delete", null, token);
+      setDataTotal(prev => ({
+        ...prev, 
+        sections: prev.sections.filter(sec => sec.section_id !== sectionId)
+      }));
+
     } catch (error) {
       console.log(error);
     }
@@ -106,12 +135,14 @@ const EditEvent = () => {
         <Row className="justify-content-between gy-4">
           <Col lg={4}>
             <article className="border-info-form shadow-sm">
+              <p className="mb-0"><span>Imagen de portada:</span> </p>
+              <div className="w-75 mb-3">
+                <img src={`${serverUrl}images/events/${dataTotal.cover_image}`} alt="" className="w-100 rounded-3"/>
+              </div>
               <p><span>Tipo:</span> {dataTotal.type_event ? (Number(dataTotal.type_event) === 1 ? "Evento" : "Taller") : ""}</p>
               <p><span>Título:</span> {dataTotal.event_title}</p>
               <p><span>Descripción:</span> {dataTotal.event_description}</p>
               <p><span>Localización:</span> {dataTotal.location}</p>
-              {/* <p><span>Imagen:</span> {coverImg?.name}</p> */}
-              <p><span>Imagen:</span> </p>
               <p><span>Duración Total:</span> {dataTotal.duration}</p>
               <p><span>Fecha de inicio:</span> {dataTotal.start_date}</p>
               <p><span>Fecha de fin:</span> {dataTotal.end_date}</p>
@@ -120,20 +151,36 @@ const EditEvent = () => {
               <p><span>Número de asistentes:</span> {dataTotal.number_of_attendees}</p>
               <p><span>Coste Total:</span> {dataTotal.price}</p>
               <p><span>Enlace ticketera:</span> {dataTotal.ticket_link}</p>
-              <button
-                onClick={() => setCurrentForm(2)}
-                disabled={currentForm === 2}
-              >Editar evento</button>
+              <div className="text-center mt-4">
+                <button
+                  className="lavender-button"
+                  onClick={() => setCurrentForm(2)}
+                  disabled={currentForm === 2}
+                >Editar evento</button>
+              </div>
             </article>
           </Col>
           <Col lg={8}>
+            {/* <div className="mb-4">
+              <button
+                className="submit-button"
+                disabled={currentForm === 2 || currentForm === 3}
+              >Salir de edición</button>
+            </div> */}
             {currentForm === 1 &&
               <SectionList  
                 sections={dataTotal.sections}
                 setCurrentForm={setCurrentForm}
                 setSelectedSectionId={setSelectedSectionId}
+                selectedSectionId={selectedSectionId}
+                sectionsImages={sectionsImages}
+                setSectionsImages={setSectionsImages}
+                handleSectionFile={handleSectionFile}
+                event_id={id}
                 setRefresh={setRefresh}
                 refresh={refresh}
+                deleteSection={deleteSection}
+
               />
             }
             {currentForm === 2 &&
@@ -154,6 +201,8 @@ const EditEvent = () => {
                 }}
                 onSubmit={submitEditEvent}
                 cancel={() => setCurrentForm(1)}
+                valError={valError}
+                msgError={msgError}
               />
             }
             {currentForm === 3 &&
@@ -164,6 +213,8 @@ const EditEvent = () => {
                 cancel={() => setCurrentForm(1)}
                 setRefresh={setRefresh}
                 refresh={refresh}
+                valError={valError}
+                msgError={msgError}
               />
             }
           </Col>

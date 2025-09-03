@@ -137,7 +137,7 @@ export const AppRoutes = () => {
                     <Route path="step3" element={<Step3 />} />
                     <Route path="newSection" element={<NewSection />} />
                   </Route>
-                  <Route path="/admin/editEvent/:id" element={<EditEvent />} />                  
+                  <Route path="/admin/editEvent/:id" element={<EditEvent />}/>
                 </Route>
               </Route>
 

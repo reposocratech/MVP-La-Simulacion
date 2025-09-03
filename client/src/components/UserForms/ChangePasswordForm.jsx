@@ -88,7 +88,7 @@ const ChangePasswordForm = ({ setActiveComponent, setSuccessMessage }) => {
           <VscClose size={30} />
         </Button>
       </div>
-      <Form onSubmit={handleSubmit}>
+      <Form noValidate onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Contraseña actual:</Form.Label>
           <InputGroup className="mb-3">
@@ -104,12 +104,10 @@ const ChangePasswordForm = ({ setActiveComponent, setSuccessMessage }) => {
                 {showPrevPass ? <LuEyeClosed /> : <LuEye />}
               </span>
             </InputGroup.Text>
-          </InputGroup>
-          {errors.prevPass && (
             <Form.Control.Feedback type="invalid">
               {errors.prevPass}
             </Form.Control.Feedback>
-          )}
+          </InputGroup>
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -127,12 +125,10 @@ const ChangePasswordForm = ({ setActiveComponent, setSuccessMessage }) => {
                 {showNewPass ? <LuEyeClosed /> : <LuEye />}
               </span>
             </InputGroup.Text>
-          </InputGroup>
-          {errors.newPass && (
             <Form.Control.Feedback type="invalid">
               {errors.newPass}
             </Form.Control.Feedback>
-          )}
+          </InputGroup>
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -150,12 +146,10 @@ const ChangePasswordForm = ({ setActiveComponent, setSuccessMessage }) => {
                 {showRepPass ? <LuEyeClosed /> : <LuEye />}
               </span>
             </InputGroup.Text>
-          </InputGroup>
-          {errors.repPass && (
             <Form.Control.Feedback type="invalid">
               {errors.repPass}
             </Form.Control.Feedback>
-          )}
+          </InputGroup>
         </Form.Group>
 
         {serverError && <p className="text-danger fw-bold">{serverError}</p>}

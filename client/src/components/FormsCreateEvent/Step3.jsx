@@ -83,7 +83,7 @@ const Step3 = () => {
     <div>
       <div className='mb-4 d-flex flex-column flex-md-row gap-3'>
         <button 
-          className='submit-button'
+          className='prev-button'
           disabled={showForm}
           onClick={prevForm}
         >Anterior</button>
@@ -96,10 +96,6 @@ const Step3 = () => {
           className='cancel-button' 
           onClick={cancel}
         >Cancelar</button>
-        <button 
-          className='submit-button fw-bold' 
-          disabled={dataTotal.section_public.key_points.length === 0 || showForm}
-        >Terminar</button>
       </div>
 
       <div className="p-3 bg-color-secondary-light-pink rounded-4">

@@ -36,6 +36,7 @@ class EventController {
   }
 
   createEvent = async (req, res) => {
+    console.log("log del controllleeeeeeeeeee". req);
     
     try {
       //extraer datos del body con destructuring
@@ -55,7 +56,7 @@ class EventController {
         type_event,
         section_public,
         sections = [],
-      } = JSON.parse(req.body.dataTotal);
+      } = req.body;
 
       // Manejo de imágenes
       let cover = cover_image || null;
@@ -123,7 +124,7 @@ class EventController {
       const eventId = await eventsDal.createEvent(data);
       res.status(200).json({ message: 'Inserción OK', eventId });
     } catch (error) {
-      console.log(error)
+      console.log("eeror del controller", error)
       res.status(500).json({ message: 'Error de servidor' });
     }
   }
@@ -162,15 +163,27 @@ class EventController {
     }
   }
 
+
   delKeypoint = async (req , res) =>{
     try {
       const { key_point_id } = req.body;
       await eventsDal.delKeypoint(key_point_id)
       res.status(200).json("Borrado Ok");
+       } catch (error) {
+      res.status(500).json({ message: 'Error de servidor' });
+    }
+  }
+
+  deleteSection = async(req, res) => {
+    try {
+      const {id} = req.params;
+      const result = await eventsDal.deleteSection(id);
+      res.status(200).json("cambio ok");
     } catch (error) {
       res.status(500).json({ message: 'Error de servidor' });
     }
   }
+
 
   addKeypoint = async (req , res) =>{
     try {
@@ -192,7 +205,6 @@ class EventController {
       
     }
   }
-
 
   /* getEventById = async (req, res) => {
     try {
@@ -268,6 +280,33 @@ class EventController {
       res.status(500).json({ message: 'Error de servidor' });
     }
   } */
+
+    deleteSectionImage = async(req, res) => {
+      try {
+        const {event_id, section_id, section_image_id, file} = req.body;
+        await eventsDal.deleteSectionImage(event_id, section_id, section_image_id, file);
+
+        res.status(200).json({message: "Borrado de imagen Ok" }); 
+
+      } catch (error) {
+        res.status(500).json({ message: 'Error de servidor' });
+      }
+    }
+
+    addSectionImages = async(req, res) => {
+      try {
+        console.log("CONTROLLLERRRR LAU ULTIMO", req.body);
+        console.log("BODY:", req.body);
+console.log("FILES:", req.files);
+        const {event_id, section_id} = req.body;
+        const result = await eventsDal.addSectionImages(event_id, section_id, req.files);
+        
+        res.status(200).json({message: "Imágenes añadidas Ok" }); 
+
+      } catch (error) {
+        res.status(500).json({ message: 'Error de servidor' });
+      }
+    }
 }
 
 export default new EventController()
