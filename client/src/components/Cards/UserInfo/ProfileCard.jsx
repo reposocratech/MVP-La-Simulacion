@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../context/AuthContextProvider'
 import { fetchData } from '../../../helpers/axiosHelper'
 import userPlaceholder from '../../../../../server/public/images/users/default-avatar.svg'
+import { FaCamera } from 'react-icons/fa'
 import './ProfileCard.css'
 
 export const ProfileCard = ({ setActiveComponent }) => {
@@ -11,6 +12,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
   const fileInputRef = useRef(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [showModal, setShowModal] = useState(false)
 
   const handleImageClick = () => {
     fileInputRef.current?.click()
@@ -41,15 +43,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
     }
   }
 
-  const handleDeleteAccount = async () => {
-    if (
-      !window.confirm(
-        '¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.'
-      )
-    ) {
-      return
-    }
-
+  const confirmDeleteAccount = async () => {
     setLoading(true)
     try {
       const res = await fetchData(
@@ -69,6 +63,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
       )
     } finally {
       setLoading(false)
+      setShowModal(false)
     }
   }
 
@@ -79,6 +74,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
           className="profile-image-container"
           onClick={handleImageClick}
           style={{ cursor: 'pointer' }}
+          title="Editar imagen"
         >
           <img
             src={
@@ -88,9 +84,12 @@ export const ProfileCard = ({ setActiveComponent }) => {
                   }`
                 : userPlaceholder
             }
-            alt="Ícono de usuario"
+            alt="Editar foto perfil"
             className="profile-image rounded-circle"
           />
+          <div className="edit-icon-overlay">
+            <FaCamera />
+          </div>
         </figure>
         <input
           type="file"
@@ -103,7 +102,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
         {error && <p className="text-danger fw-bold mt-5">{error}</p>}
 
         <div className="profile-card-body mt-5">
-          <h3>¡Hola! Estos son tus datos de usuario:</h3>
+          <h2 className='h6 text-center'>¡Hola!Estos son tus datos de usuario:</h2>
           <ul className="profile-data-list">
             <li>
               <span className="label">Nombre:</span>
@@ -156,10 +155,58 @@ export const ProfileCard = ({ setActiveComponent }) => {
         >
           Cambiar email
         </button>
-        <button onClick={handleDeleteAccount} className="delete-link">
+        <button onClick={() => setShowModal(true)} className="delete-link">
           Darme de baja
         </button>
       </div>
+
+      {showModal && (
+        <>
+          {/* Backdrop oscuro */}
+          <div
+            className="modal-backdrop fade show"
+          ></div>
+
+          {/* Modal centrado */}
+          <div className="modal fade show d-block" tabIndex="-1" role="dialog">
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Confirmar eliminación</h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={() => setShowModal(false)}
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <p>
+                    ¿Estás seguro de que deseas eliminar tu cuenta? Esta acción
+                    no se puede deshacer.
+                  </p>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="submit-button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    className="cancel-button"
+                    onClick={confirmDeleteAccount}
+                  >
+                    Eliminar cuenta
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </>
   )
 }

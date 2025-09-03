@@ -1,7 +1,12 @@
 .section-one-event {
   padding-block: 3.75rem;
 }
-.event-header { text-align: center; margin-bottom: 2rem; }
+.event-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-inline: 1rem;
+}
+
 .cover-container {
   position: relative;
   width: 100%;
@@ -13,6 +18,12 @@
   justify-content: center;
   align-items: center;
 }
+@media (min-width: 992px) {
+  .cover-container {
+    width: 90%;
+    margin-inline: auto;
+  }
+}
 
 .cover-image {
   width: 100%;
@@ -20,12 +31,31 @@
   object-fit: contain;
 }
 
-.decor { position: absolute; width: 64px; height: 64px; opacity: 0.9; pointer-events: none; }
-.decor-brillo { top: 0.5rem; right: 0.5rem; }
-.decor-trebol { bottom: 0.5rem; left: 0.5rem; }
-.decor-flor   { bottom: 0.5rem; right: 0.5rem; }
-@media (max-width: 576px) { .decor { width: 48px; height: 48px; } }
-
+.decor {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  opacity: 0.9;
+  pointer-events: none;
+}
+.decor-brillo {
+  top: 0.5rem;
+  right: 0.5rem;
+}
+.decor-trebol {
+  bottom: 0.5rem;
+  left: 0.5rem;
+}
+.decor-flor {
+  bottom: 0.5rem;
+  right: 0.5rem;
+}
+@media (max-width: 576px) {
+  .decor {
+    width: 48px;
+    height: 48px;
+  }
+}
 .event-title {
   margin-top: 1.25rem;
   margin-bottom: 1rem;
@@ -36,9 +66,18 @@
   border-radius: 12px;
   display: inline-block;
 }
-
-.event-info { max-width: 900px; margin: 0 auto 2rem; }
-.event-info-list {
+.event-description {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+}
+.event-info {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+}
+.event-info .event-info-list {
   list-style: none;
   padding: 1rem;
   margin: 0;
@@ -49,15 +88,21 @@
   background-color: var(--color-tertiary-lavender);
   border-radius: 12px;
 }
-.event-info-list li {
+.event-info .event-info-list li {
   display: flex;
   align-items: center;
   gap: 0.35rem;
   font-size: 1rem;
+  /* píldora visual, por si Bootstrap mete bordes */
+  background: transparent;
+  border: 0;
 }
-.event-info-list li + li { position: relative; padding-left: 0.75rem; }
 @media (min-width: 576px) {
-  .event-info-list li + li::before {
+  .event-info .event-info-list li + li {
+    position: relative;
+    padding-left: 0.75rem;
+  }
+  .event-info .event-info-list li + li::before {
     content: '';
     position: absolute;
     left: -0.4rem;
@@ -68,20 +113,12 @@
     background: var(--color-primary-green);
   }
 }
-.cta-wrapper { text-align: center; margin-top: 1.5rem; }
-.event-description {
-  max-width: 900px;
-  margin: 0 auto 2rem;
-  font-size: 1rem;
-  line-height: 1.6;
-  text-align: center;
-}
 .event-section {
-  margin-bottom: 2.5rem;
-  padding-bottom: 2.5rem;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
-.event-section:last-of-type { border-bottom: none; }
+.event-section:last-of-type {
+  border-bottom: none;
+}
 .section-title {
   font-size: clamp(1.4rem, 2vw + 1rem, 2rem);
   font-weight: 700;
@@ -94,8 +131,12 @@
   gap: 1.5rem;
 }
 @media (min-width: 768px) {
-  .section-body.flex-md-row { flex-direction: row; }
-  .section-body.flex-md-row-reverse { flex-direction: row-reverse; }
+  .section-body.flex-md-row {
+    flex-direction: row;
+  }
+  .section-body.flex-md-row-reverse {
+    flex-direction: row-reverse;
+  }
 }
 .section-gallery {
   display: flex;
@@ -103,18 +144,17 @@
   gap: 1rem;
 }
 .section-gallery img {
-  flex: 1 1 250px;
-  max-width: 33%;
-  height: 230px;
-  object-fit: contain;
-  background-color: var(--color-tertiary-lavender);
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
   border-radius: 1rem;
+  max-height: 320px;
+  aspect-ratio: auto;
+  flex: 1 1 clamp(240px, 48%, 520px);
 }
 @media (max-width: 768px) {
-  .section-gallery img { max-width: 100%; }
+  .section-gallery img {
+    max-height: 220px;
+    flex-basis: 100%;
+  }
 }
-
-.section-subtitle { font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 600; }
-.section-text     { margin-bottom: 0.5rem; line-height: 1.6; }
-.section-keypoints { margin-left: 1.25rem; list-style: disc; }
-.section-keypoints li { margin-bottom: 0.4rem; }

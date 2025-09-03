@@ -5,6 +5,8 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContextProvider";
 import { ModalAddImgSection } from "./ModalAddImgSection";
 
+export const SectionList = ({sections, setCurrentForm, setSelectedSectionId, deleteSection}) => {
+  const serverUrl = import.meta.env.VITE_SERVER_URL_PUBLIC;
 
 export const SectionList = ({sections, setCurrentForm, event_id, selectedSectionId, setSelectedSectionId, sectionsImages, setSectionsImages, handleSectionFile, setRefresh, refresh}) => {
 
@@ -19,12 +21,12 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
     let sectionFound = sections.find((sect)=>sect.section_id === id_of_section);
 
     if (sectionFound) {
-    // Mete sus imágenes en el estado
-    setSectionsImages(sectionFound.images || []);
-  } else {
-    // Por si acaso, vacía el estado si no encuentra la sección
-    setSectionsImages([]);
-  }
+      // Mete sus imágenes en el estado
+      setSectionsImages(sectionFound.images || []);
+    } else {
+      // Por si acaso, vacía el estado si no encuentra la sección
+      setSectionsImages([]);
+    }
     setCurrentForm(3);
   }
 
@@ -77,17 +79,29 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
     <div>
       {
         sections.map(elem => (
-          <div className="section-sections mb-3" key={elem.section_id}>
-            <h3>{elem.section_title}</h3>
+
+          <section className="section-sections mb-3" key={elem.section_id}>
+            <div className="d-flex justify-content-between">
+              <h3>{elem.section_title}</h3>
+              {elem.section_id !== 1 &&
+                <div>
+                  <button
+                    className="btn-table block"
+                    onClick={() => deleteSection(elem.section_id)}
+                  >Borrar sección</button>
+                </div>
+              }
+            </div>
             <p>{elem.section_subtitle}</p>
             <p>{elem.section_description}</p>
             <p>{elem.section_duration}</p>
             <div className="d-flex gap-3 mb-4">
-              <button
-                className="btn-table"
-                onClick={() => openEdit(elem.section_id)}
-                disabled={elem.section_id === 1}
-              >Editar sección</button>
+              {elem.section_id !== 1 &&
+                <button
+                  className="btn-table edit"
+                  onClick={() => openEdit(elem.section_id)}
+                >Editar sección</button>
+              }
               <button
                 className="btn-table"
               >Añadir punto clave</button>
@@ -116,7 +130,6 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
                     </div>
                 </Col>
               </Row>
-
             <div className="mt-3">
               {elem.keyPoints.map(key => (
                 <div className="rounded-4 p-2 mb-2 bg-light" key={key.section_key_point_id}>
@@ -134,7 +147,7 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
                 </div>
               ))}
             </div>
-          </div>
+          </section>
         ))
       }
     </div>

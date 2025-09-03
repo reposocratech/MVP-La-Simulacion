@@ -129,3 +129,29 @@
   color: #c82333;
   text-decoration: none;
 }
+.profile-image-container {
+  cursor: pointer;
+}
+.edit-icon-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 2rem;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.profile-image-container:hover .edit-icon-overlay {
+  opacity: 1;
+}
+.edit-icon-overlay i {
+  font-size: 1.5rem;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}

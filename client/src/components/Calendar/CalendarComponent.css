@@ -79,7 +79,6 @@
   text-decoration: none;
   display: inline-block;
   margin-top: 0.5rem;
-  color: #000000;
   border-radius: 12px;
 }
 .events-panel {
@@ -107,7 +106,6 @@ text-transform: uppercase;
 .react-calendar__year-view__months__month {
   text-transform: uppercase;
 }
-/* ------- Desktop ------- */
 @media (min-width: 992px) {
   .calendar-section {
     height: 70vh;

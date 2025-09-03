@@ -182,7 +182,7 @@ class EventDal {
       await connection.commit();
       return event_id;
     } catch (error) {
-      console.log(error)
+      console.log("error del dal", error)
       await connection.rollback();
       throw { message: 'Error en base de datos' };
     } finally {
@@ -331,7 +331,17 @@ class EventDal {
       let result = await executeQuery(sql, values);
       console.log ("RESULLLLTTT OJUUUU", result);
       await deleteFile(file, "events");
+     } catch (error) {
+      console.log(error);
+      throw { message: 'Error en base de datos' }
+    }
+  }
 
+  deleteSection = async(id) => {
+    try {
+      let sql = 'DELETE FROM section WHERE section_id = ?';
+      const result = await executeQuery(sql, [id]);
+      return result;
     } catch (error) {
       console.log(error);
       throw { message: 'Error en base de datos' }
@@ -369,7 +379,6 @@ class EventDal {
     }
   }
 
-  
 }
 
 export default new EventDal();

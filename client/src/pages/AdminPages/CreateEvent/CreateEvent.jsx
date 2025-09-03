@@ -51,7 +51,8 @@ const CreateEvent = () => {
   }
 
   const handleSectionFile = (sec_id, files) => {
-    setSectionsImages([...sectionsImages, {sec_id, files}]);
+    if (!files || files.length === 0) return;
+    setSectionsImages([...sectionsImages, { sec_id, files }]);
   }
 
   const cancel = (e) => {
@@ -89,7 +90,9 @@ const CreateEvent = () => {
           });
         }
       });
-      newFormData.append("cover_image", coverImg);
+      if (coverImg) {
+        newFormData.append("cover_image", coverImg);
+      }
 
       let res = await fetchData("/events/CreateEvent", "post", newFormData, token);
       navigate(`/event/${res.data.eventId}`);
