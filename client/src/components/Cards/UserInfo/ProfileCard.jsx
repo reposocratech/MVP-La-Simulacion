@@ -102,34 +102,36 @@ export const ProfileCard = ({ setActiveComponent }) => {
         {error && <p className="text-danger fw-bold mt-5">{error}</p>}
 
         <div className="profile-card-body mt-5">
-          <h2 className='h6 text-center'>¡Hola!stos son tus datos de usuario:</h2>
+          <h2 className='h6 text-center'>¡Hola!Estos son tus datos de usuario</h2>
           <ul className="profile-data-list">
-            <li>
+           <li>
               <span className="label">Nombre:</span>
               <span className="value">
-                {user.user_name || 'No especificado'}
+                {user.user_name ? user.user_name.slice(0, 20) : 'No especificado'}
               </span>
             </li>
             <li>
               <span className="label">Apellidos:</span>
               <span className="value">
-                {user.lastname || 'No especificado'}
+                {user.lastname ? user.lastname.slice(0, 20) : 'No especificado'}
               </span>
             </li>
             <li>
               <span className="label">Email:</span>
-              <span className="value">{user.email || 'No especificado'}</span>
+              <span className="value">
+                {user.email ? user.email.slice(0, 30) : 'No especificado'}
+              </span>
             </li>
             <li>
               <span className="label">Teléfono:</span>
               <span className="value">
-                {user.phone_number || 'No especificado'}
+                {user.phone_number  || 'No especificado'}
               </span>
             </li>
             <li>
               <span className="label">Especialidad Artística:</span>
               <span className="value">
-                {user.specialty || 'No especificado'}
+                {user.specialty ? user.specialty.slice(0, 25) : 'No especificado'}
               </span>
             </li>
           </ul>

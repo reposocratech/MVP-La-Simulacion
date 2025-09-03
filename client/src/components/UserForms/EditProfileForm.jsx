@@ -10,7 +10,6 @@ const EditProfileForm = ({ setActiveComponent, setSuccessMessage }) => {
   const { user, setUser, token } = useContext(AuthContext)
   const [formData, setFormData] = useState({})
   const [errors, setErrors] = useState({})
-  const [serverError, setServerError] = useState('')
   const formRef = useRef(null)
 
   useEffect(() => {
@@ -41,15 +40,13 @@ const EditProfileForm = ({ setActiveComponent, setSuccessMessage }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setErrors({})
-    setServerError('')
 
-    const trimmedData = {
-      user_name: formData.user_name.trim(),
-      lastname: formData.lastname.trim(),
-      phone_number: formData.phone_number ? formData.phone_number.trim() : null,
-      specialty: formData.specialty ? formData.specialty.trim() : null,
+      const trimmedData = {
+      user_name: (formData.user_name ?? '').trim(),
+      lastname: (formData.lastname ?? '').trim(),
+      phone_number: (formData.phone_number ?? '').trim() || null,
+      specialty: (formData.specialty ?? '').trim() || null,
     }
-
     const result = validateForms(editProfileSchema, trimmedData)
 
     if (!result.valid) {
@@ -69,13 +66,12 @@ const EditProfileForm = ({ setActiveComponent, setSuccessMessage }) => {
         error.response.data &&
         error.response.data.message
       ) {
-        setServerError(error.response.data.message)
+        setErrors(error.response.data.message)
       } else {
-        setServerError('Ha ocurrido un error inesperado. Inténtalo de nuevo.')
+        setErrors('Ha ocurrido un error inesperado. Inténtalo de nuevo.')
       }
     }
   }
-
   return (
     <div tabIndex={-1} ref={formRef} className="form-container">
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -137,20 +133,7 @@ const EditProfileForm = ({ setActiveComponent, setSuccessMessage }) => {
             onChange={handleChange}
           />
         </Form.Group>
-
-        {serverError && <p className="text-danger fw-bold">{serverError}</p>}
-        {Object.keys(errors).length > 0 && (
-          <div className="text-danger fw-bold mb-3">
-            <p>Por favor, revisa los siguientes errores:</p>
-            <ul>
-              {Object.values(errors).map((error, index) => (
-                <li key={index}>{error}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        <div className="d-flex justify-content-end mt-4">
+         <div className="d-flex justify-content-end mt-4">
           <Button
             onClick={() => setActiveComponent('none')}
             className="cancel-button me-2"
