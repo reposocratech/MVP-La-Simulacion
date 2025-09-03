@@ -46,7 +46,7 @@ const CreateEvent = () => {
       return;
     }
 
-    setFileError(null); 
+    setFileError(null);
     setCoverImg(selectedFiles);
   }
 
@@ -68,7 +68,7 @@ const CreateEvent = () => {
       let prueba = [];
       let sectionsFinal = sections.map((elem, i)=>{
         let fotos = sectionsImages.find(e=>e.sec_id === elem.sec_id);
-        prueba.push({sec_id: `section${i+1}`, files: fotos.files}); // quizá este id se puede quitar?
+        prueba.push({sec_id: `section${i+1}`, files: fotos?.files}); // quizá este id se puede quitar?
 
         let ptosFinal = elem.key_points.map((pto, ix)=>{
           return({...pto, pto_id:ix+1 })
@@ -77,9 +77,9 @@ const CreateEvent = () => {
           {...elem, sec_id: i+1, key_points:ptosFinal}
         );
       });
-      
+
       let sendData = {...dataTotal, sections:sectionsFinal};
-      
+
       const newFormData = new FormData();
       newFormData.append("dataTotal", JSON.stringify(sendData));
       prueba.forEach((elem)=>{
@@ -126,14 +126,14 @@ const CreateEvent = () => {
           </Col>
           <Col lg={8}>
             <Outlet context={{
-              dataTotal, 
+              dataTotal,
               setDataTotal,
               formOk,
               setFormOk,
               coverImg,
-              cancel, 
+              cancel,
               navigate,
-              handleFile, 
+              handleFile,
               terminar,
               handleSectionFile,
               valError,

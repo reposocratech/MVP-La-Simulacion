@@ -19,7 +19,7 @@ const Step2 = () => {
   const {cancel, navigate, dataTotal, setDataTotal, valError, setValError, msgError, setMsgError} = useOutletContext();
 
   const [dataStep2, setDataStep2] = useState(initialValue);
-  
+
   useEffect(()=>{
     setDataStep2({
       duration: dataTotal.duration,
@@ -54,7 +54,7 @@ const Step2 = () => {
 
       if(valid) {
         setDataTotal({...dataTotal, ...dataStep2});
-        navigate('step3');  
+        navigate('step3');
       }
     } catch (error) {
       console.log(error);
@@ -83,7 +83,7 @@ const Step2 = () => {
             <Form.Control
               type="date"
               onChange={handleChange}
-              value={dataStep2.start_date}
+              value={dataStep2.start_date ? dataStep2.start_date : ""}
               name="start_date"
             />
             {valError.start_date && <Form.Text className="text-danger fw-bold">{valError.start_date}</Form.Text>}
@@ -93,7 +93,7 @@ const Step2 = () => {
             <Form.Control
               type="date"
               onChange={handleChange}
-              value={dataStep2.end_date}
+              value={dataStep2.end_date ? dataStep2.end_date : ""}
               name="end_date"
             />
             {valError.end_date && <Form.Text className="text-danger fw-bold">{valError.end_date}</Form.Text>}
@@ -105,7 +105,7 @@ const Step2 = () => {
             <Form.Control
               type="time"
               onChange={handleChange}
-              value={dataStep2.start_hour}
+              value={dataStep2.start_hour? dataStep2.start_hour : ""}
               name="start_hour"
             />
             {valError.start_hour && <Form.Text className="text-danger fw-bold">{valError.start_hour}</Form.Text>}
@@ -115,7 +115,7 @@ const Step2 = () => {
             <Form.Control
               type="time"
               onChange={handleChange}
-              value={dataStep2.end_hour}
+              value={dataStep2.end_hour ? dataStep2.end_hour : ""}
               name="end_hour"
             />
             {valError.end_hour && <Form.Text className="text-danger fw-bold">{valError.end_hour}</Form.Text>}
@@ -134,7 +134,7 @@ const Step2 = () => {
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPrice">
           <Form.Label>Coste total:</Form.Label>
-          <Form.Control 
+          <Form.Control
             type="text"
             placeholder="Coste total en números"
             onChange={handleChange}
