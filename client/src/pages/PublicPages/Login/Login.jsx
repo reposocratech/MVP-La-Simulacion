@@ -26,7 +26,7 @@ const Login = () => {
   const {user, login} = useContext(AuthContext);
 
   // Hook que al cargar el componente comprueba si hay usuario en el contexto,
-  // de manera que si alguién se logueó, no se le deja ir al login y 
+  // de manera que si alguién se logueó, no se le deja ir al login y
   // se le redirige a una página concreta dependiendo del tipo de user:
   useEffect(()=>{
     if (user){
@@ -45,7 +45,7 @@ const Login = () => {
     try {
       const { valid, errors } = validateForms(loginSchema, userLogin);
       setValError(errors);
-      
+
       if(valid){
         //Espera a que la función de login del contexto termine. Si el servidor devuelve un error, este await lo lanzará.
         await login(userLogin);
@@ -54,25 +54,25 @@ const Login = () => {
       }
 
     } catch (error) {
-      
+
       if (error.response){
-        setValError({}); 
+        setValError({});
         setMsgError(error.response.data.message);
-        
+
       }else{
         setValError({});
         setMsgError('Algo salió mal, inténtelo de nuevo');
       }
     }
   };
-  
+
   return (
     <section className='section-login d-flex justify-content-center' >
       <Container fluid>
         <Row>
           <h1 className='h1-login text-center p-2 my-5'>Entra en tu cuenta <span className='span-login accent-text align-middle'>E</span> </h1>
           <Col className="d-flex justify-content-center">
-            <div className='form-container p-2'>
+            <div className='form-container-login p-2'>
               <img src={flor} alt="" className='flor-login' />
               <Form className='login-form border border-2 p-4 mt-3 rounded rounded-3'>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
