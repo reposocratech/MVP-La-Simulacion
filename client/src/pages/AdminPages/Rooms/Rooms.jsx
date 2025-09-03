@@ -32,7 +32,7 @@ const Rooms = () => {
         {rooms?.map(room => (
           <article
             key={room.room_id}
-            className='card-rooms mx-auto rounded-4 overflow-hidden'
+            className='card-rooms mx-auto rounded-4 overflow-hidden mb-5'
           >
               <div className="row ">
                 <div className="col">

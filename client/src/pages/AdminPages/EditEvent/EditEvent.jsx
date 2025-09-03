@@ -51,7 +51,6 @@ const EditEvent = () => {
         const res = await fetchData(`/events/editEvent/${id}`, "get", null, token);
         //console.log(res);
         setDataTotal(res.data);
-        console.log(res.data.sections)
       } catch (error) {
         console.log(error);
       }

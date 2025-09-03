@@ -25,7 +25,6 @@ const OneEvent = () => {
         setSections(res.data.sections || [])
         const res2 = await fetchData(`/reviews/seeaveragerating/${id}` , "get")
         setReviews(res2.data.result[0])
-        console.log("res2" , res2.data.result);
       } catch (error){
         console.log(error);
       }
