@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { fetchData } from "../../../helpers/axiosHelper";
-import './editEvent.css';
 import { SectionList } from "../../../components/FormsEditEvent/SectionList";
 import { EditDataEvent } from "../../../components/FormsEditEvent/EditDataEvent";
 import { EditDataSection } from "../../../components/FormsEditEvent/EditDataSection";
 import { validateForms } from "../../../helpers/validateForms";
 import { editEventSchema } from "../../../schemas/editEventSchema";
+import './editEvent.css';
 
 const initialValue = {
   event_title: "",
@@ -48,8 +48,7 @@ const EditEvent = () => {
     const fetchEvent = async() => {
       try {
         const res = await fetchData(`/events/editEvent/${id}`, "get", null, token);
-        console.log(res);
-        
+        //console.log(res);
         setDataTotal(res.data);
         console.log(res.data.sections)
       } catch (error) {
@@ -177,7 +176,6 @@ const EditEvent = () => {
                 setRefresh={setRefresh}
                 refresh={refresh}
                 deleteSection={deleteSection}
-
               />
             }
             {currentForm === 2 &&
