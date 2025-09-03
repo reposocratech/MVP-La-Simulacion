@@ -1,18 +1,30 @@
-import { Col, Row } from "react-bootstrap";
+
 import { HiTrash } from "react-icons/hi";
 import { fetchData } from "../../helpers/axiosHelper";
+import { Col, Row } from "react-bootstrap";
+import { EditModalKeyPoints } from "./EditModalKeyPoints";
 import { useContext, useState } from "react";
+import { useParams } from 'react-router';
 import { AuthContext } from "../../context/AuthContextProvider";
 import { ModalAddImgSection } from "./ModalAddImgSection";
+  
+  const initialValue = {
+ key_point_title:"",
+ key_point_description:""
+}
 
-export const SectionList = ({sections, setCurrentForm, setSelectedSectionId, deleteSection}) => {
-  const serverUrl = import.meta.env.VITE_SERVER_URL_PUBLIC;
 
 export const SectionList = ({sections, setCurrentForm, event_id, selectedSectionId, setSelectedSectionId, sectionsImages, setSectionsImages, handleSectionFile, setRefresh, refresh}) => {
-
+  
+  const [showForm, setShowForm] = useState(false);
+  const [keyPoint, setKeyPoint] = useState(initialValue);
+  const [takeSeccId, setTakeSeccId] = useState()
+  const [valError, setValError] = useState({});
+  const [msgError, setMsgError] = useState();
   const [showModalImg, setShowModalImg] = useState(false);
+  
   const serverUrl = import.meta.env.VITE_SERVER_URL_PUBLIC;
-
+  const {id} = useParams()
   const {token} = useContext(AuthContext);
 
   const openEdit = (id_of_section) => {
@@ -29,7 +41,17 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
     }
     setCurrentForm(3);
   }
+  
+   const handleChange = (e) =>{ 
+    const {name, value} = e.target;
+    setKeyPoint({...keyPoint, [name]: value});
+  } 
 
+  const handleClose = () => {
+    setShowForm(false);
+    setKeyPoint(initialValue);
+  }
+  
   const openModalAddImages = (section_id) => {
     setSelectedSectionId(section_id);
     setShowModalImg(true);
@@ -51,6 +73,31 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
   const handleCloseFile = () => {
     setShowModalImg(false);
   }
+  
+   const keypointsDelete = async (sections) => {
+   
+    try {
+      const res = await fetchData("/events/delkeypoint", "put", {key_point_id: sections.section_key_point_id}, token);
+      console.log(res);
+      setRefresh(!refresh); 
+    } catch (error) {
+      console.error("Error al borrar ", error);
+    }
+  };
+   const keypointsAdd = async () => {
+   
+    try {
+      const res = await fetchData(`/events/addkeypoint/${id}`, "put", {section_id: takeSeccId.section_id,keyPoint} , token);
+      console.log(res);      
+      setShowForm(false);
+      setRefresh(!refresh);       
+      setKeyPoint(initialValue);
+      setCurrentForm(1)
+          
+    } catch (error) {
+      console.error("Error :", error);
+    }
+  };
 
   const addImgSectionSubmit = async() => {
     try {
@@ -99,11 +146,12 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
               {elem.section_id !== 1 &&
                 <button
                   className="btn-table edit"
-                  onClick={() => openEdit(elem.section_id)}
+                   onClick={() =>{setTakeSeccId(elem) , openEdit(elem.section_id)}}
                 >Editar sección</button>
               }
               <button
                 className="btn-table"
+                onClick={() => {setTakeSeccId(elem); setShowForm(true) }}
               >Añadir punto clave</button>
             </div>
           
@@ -130,6 +178,7 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
                     </div>
                 </Col>
               </Row>
+
             <div className="mt-3">
               {elem.keyPoints.map(key => (
                 <div className="rounded-4 p-2 mb-2 bg-light" key={key.section_key_point_id}>
@@ -140,6 +189,9 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
                     </div>
                     <div>
                       <button
+
+                        onClick={() => keypointsDelete(key)}
+
                         className="delete-button-icon"
                       ><HiTrash size={20} /></button>
                     </div>
@@ -147,6 +199,20 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
                 </div>
               ))}
             </div>
+          </div>
+        ))
+      }
+             <EditModalKeyPoints
+              show={showForm} 
+              handleClose={handleClose}
+              handleChange={handleChange}
+              onSubmit={keypointsAdd}
+              keyPoint={keyPoint}
+              valError={valError}
+              msgError={msgError}
+            />
+      </div>
+
           </section>
         ))
       }
@@ -163,3 +229,9 @@ export const SectionList = ({sections, setCurrentForm, event_id, selectedSection
     </>
   )
 }
+
+
+
+
+
+

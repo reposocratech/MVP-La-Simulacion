@@ -57,7 +57,9 @@ const EditEvent = () => {
       }
     }
     fetchEvent();
+
   }, [id, token, sectionsImages, refresh] );
+
 
 
   const handleSectionFile = (sec_id, event) => {
@@ -99,6 +101,10 @@ const EditEvent = () => {
     try {
       const res = await fetchData(`/events/editSection`, "put", {section, event_id: id}, token);
       console.log(res);
+
+      
+      setRefresh(!refresh)
+
       setDataTotal(prev => ({
         ...prev,
         sections: prev.sections.map(sec => sec.section_id === section.section_id ? section : sec)
@@ -116,6 +122,7 @@ const EditEvent = () => {
         ...prev, 
         sections: prev.sections.filter(sec => sec.section_id !== sectionId)
       }));
+
     } catch (error) {
       console.log(error);
     }
@@ -173,6 +180,7 @@ const EditEvent = () => {
                 setRefresh={setRefresh}
                 refresh={refresh}
                 deleteSection={deleteSection}
+
               />
             }
             {currentForm === 2 &&
@@ -203,6 +211,8 @@ const EditEvent = () => {
                 selectedSectionId={selectedSectionId}
                 onSubmit={submitEditSection}
                 cancel={() => setCurrentForm(1)}
+                setRefresh={setRefresh}
+                refresh={refresh}
                 valError={valError}
                 msgError={msgError}
               />
