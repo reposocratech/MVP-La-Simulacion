@@ -32,6 +32,15 @@
     }
   }
 
+  @media (max-width: 990px) {
+    .img-deco{
+      bottom: 20px;
+      img {
+        width: 4rem;
+      }
+    }
+  }
+
   .btn-violet {
     background-color: var(--color-primary-violet);
     color: #FFF;
@@ -80,3 +89,4 @@
     }
   }
 }
+
