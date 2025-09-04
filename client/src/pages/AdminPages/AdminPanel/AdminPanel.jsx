@@ -19,7 +19,9 @@ const AdminPanel = () => {
           <Col xs={12} lg={6}>
             <article className="p-4 h-100">
               <h2 className="fs-4 text-center">Gestión de usuarios, reservas y reseñas:</h2>
-              <p>(Gestión de usuarios administradores, bloquear/activar usuarios, cambiar el estado de una reserva...)</p>
+              <p className="text-center text-lg-start">
+                (Gestión de usuarios administradores, bloquear/activar usuarios, cambiar el estado de una reserva...)
+              </p>
               <div className="buttons-container-1 d-flex flex-column gap-3">
                 <button 
                   className="panel-button-gest panel-button-hover"
@@ -47,7 +49,9 @@ const AdminPanel = () => {
           <Col xs={12} lg={6}>
             <article className="p-4">
               <h2 className="fs-4 text-center">Creación/Edición/Borrado de contenidos:</h2>
-              <p>(Añadir servicios, nuevos eventos/talleres, nuevas salas... o Editar/Borrar los ya creados.)</p>
+              <p className="text-center text-lg-start">
+                (Añadir nuevos servicios, crear nuevos eventos/talleres, nuevas salas... o Editar/Borrar los ya creados.)
+              </p>
               <div className="buttons-container-1 d-flex flex-column gap-3">
                 <button 
                     className="panel-button-create panel-button-hover"
