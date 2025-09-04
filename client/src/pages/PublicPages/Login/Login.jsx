@@ -105,7 +105,7 @@ const Login = () => {
                   <button className='submit-button' onClick={onSubmit}>
                     Iniciar sesión
                   </button>
-                  <p className='mb-0'>¿Aún no tienes cuenta?<Link to='/register' className='text-center'> Regístrate desde aquí</Link></p>
+                  <p>¿Aún no tienes cuenta?<Link to='/register' className='text-center'> Regístrate desde aquí</Link></p>
                 </div>
               </Form>
               <img src={destellos} alt="" className='destellos-login' />

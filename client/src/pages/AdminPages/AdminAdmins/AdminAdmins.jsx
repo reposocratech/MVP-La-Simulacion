@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { validateForms } from "../../../helpers/validateForms";
 import { registerSchema } from "../../../schemas/registerSchema";
 import './adminadmins.css';
+import { ModalWarning } from "../../../components/ModalWarning/ModalWarning";
 
 const initialValue = {
   user_name: "",
@@ -26,6 +27,8 @@ const AdminAdmins = () => {
   const [seePassRep, setSeePassRep] = useState(false);
   const [valErrors, setValErrors] = useState({});
   const [msgError, setMsgError] = useState();
+  const [show, setShow] = useState(false);
+  const [idToRemove, setIdToRemove] = useState();
 
   useEffect(() => {
     const fetchAdmins = async() => {
@@ -76,12 +79,19 @@ const AdminAdmins = () => {
 
   const removeAdmin = async(id) => {
     try {
-      const values = { id };
-      const res = await fetchData(`/admin/removeAdmin`, "put", values, token);
-      setAdminsData(adminsData.filter(e => e.user_id !== id));
+      setShow(true);
+      setIdToRemove(id);
     } catch (error) {
       console.log(error);
     }
+  }
+
+  const removeAdminPaso2 = async(id) => {
+    const values = { id };
+    const res = await fetchData(`/admin/removeAdmin`, "put", values, token);
+    setAdminsData(adminsData.filter(e => e.user_id !== id));
+    setShow(false);
+    setIdToRemove();
   }
 
   const columns = [
@@ -193,6 +203,14 @@ const AdminAdmins = () => {
             </AnimatePresence>
           </Col>
         </Row>
+
+        <ModalWarning 
+          title={"Aviso de deshabilitado de administradora"}
+          text={"¿Seguro que quieres deshabilitar a la administradora?"}
+          onSubmit={() => removeAdminPaso2(idToRemove)}
+          handleClose={() => {setShow(false); setIdToRemove()}}
+          show={show}
+        />
       </Container>
     </section>
   )
