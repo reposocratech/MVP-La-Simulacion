@@ -147,7 +147,16 @@ SELECT * FROM room_image;
 SELECT * FROM service;
 SELECT * FROM reservation;
 SELECT * FROM event;
+SELECT * FROM section;
 SELECT * FROM section_image;
+SELECT * FROM section_key_point;
+
+select * 
+from event
+	left join section on  event.event_id = section.event_id
+    left join section_image on section.event_id = section_image.event_id and section.section_id = section_image.section_id
+    left join section_key_point on section.event_id = section_key_point.event_id and section.section_id = section_key_point.section_id
+    where event.event_id = 12;
 
 
 INSERT INTO event (

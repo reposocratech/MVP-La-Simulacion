@@ -7,7 +7,7 @@ export const CardEvents = ({event , navigate}) => {
     <article className='card-event rounded-4 overflow-hidden'>
         <div className="row ">
           <div className="col-lg-7">
-            <div className="p-3 pt-2 d-flex flex-column justify-content-between h-100">
+            <div className="p-3 pt-2 d-flex flex-column justify-content-between">
               <h4 className='mb-3'>{event.event_title}</h4>
               <p>
                 {event.event_description}
@@ -24,7 +24,7 @@ export const CardEvents = ({event , navigate}) => {
           <div className="col-lg-5">
             <img src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/events/${
               event.cover_image
-            }`} alt="" className='w-100 h-100 object-fit-cover'/>
+            }`} alt="" className='cover-img-events w-100 object-fit-cover'/>
           </div>
         </div>
     </article>

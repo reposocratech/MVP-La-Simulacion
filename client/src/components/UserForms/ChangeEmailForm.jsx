@@ -108,7 +108,7 @@ const ChangeEmailForm = ({ setActiveComponent, setSuccessMessage }) => {
           )}
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>Nueva email:</Form.Label>
+          <Form.Label>Nuevo email:</Form.Label>
           <Form.Control
             type="email"
             name="newEmail"
@@ -123,7 +123,7 @@ const ChangeEmailForm = ({ setActiveComponent, setSuccessMessage }) => {
           )}
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>Confirmar nueva email:</Form.Label>
+          <Form.Label>Confirmar nuevo email:</Form.Label>
           <Form.Control
             type="email"
             name="repeatNewEmail"
