@@ -36,7 +36,7 @@ const OneEvent = () => {
   const today = new Date();
   const timeEvent = event && new Date(event.end_date) >= today;
   const timeEventRew = event && new Date(event.start_date) >= today;
-  
+
 
   return (
     <section className="section-one-event">
@@ -91,25 +91,27 @@ const OneEvent = () => {
           </Card>
         )}
 
-        {event?.ticket_link && (
+        {timeEventRew && event?.ticket_link && (
           <div className="text-center my-4">
-            {timeEventRew ? (
-              <a
-                href={event.ticket_link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="submit-button text-decoration-none"
-              >
-                Apúntate al evento
-              </a>
-            ) : (
-              <button
-                onClick={() => navigate(`/review/${id}`)}
-                className=" submit-button"
-              >
-                Déjanos tu opinión
-              </button>
-            )}
+            <a
+              href={event.ticket_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="submit-button text-decoration-none"
+            >
+              Apúntate al evento
+            </a>
+          </div>
+        )}
+
+        {!timeEventRew && (
+          <div className="text-center my-4">
+            <button
+              onClick={() => navigate(`/review/${id}`)}
+              className=" submit-button"
+            >
+              Déjanos tu opinión
+            </button>
           </div>
         )}
       </Container>

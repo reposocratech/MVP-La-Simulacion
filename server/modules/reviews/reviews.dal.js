@@ -3,7 +3,7 @@ import executeQuery from "../../config/db.js";
 class ReviewDal {
   seeReview = async (id) => {
     try {
-   let sql = "SELECT * FROM review WHERE event_id = ? "
+   let sql = "SELECT * FROM review WHERE event_id = ? ORDER BY review_id DESC"
    let result = await executeQuery(sql , id)
    return result;
     } catch (error) {
@@ -24,9 +24,9 @@ class ReviewDal {
 
   seeAllReview = async () => {
     try {
-   let sql = `SELECT review_id , review.description, review.rating, event.event_title
+   let sql = `SELECT review_id , review.description, review.rating, event.event_title ,review_name
   FROM review
-  LEFT JOIN event ON review.event_id = event.event_id
+  LEFT JOIN event ON review.event_id = event.event_id ORDER BY review_id DESC
 `;
    let result = await executeQuery(sql)
    return result;
