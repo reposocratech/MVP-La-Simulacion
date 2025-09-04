@@ -290,7 +290,7 @@ class EventDal {
   }
 
   editDataEvent = async(data, file, id) => {
-    const {type_event, event_title, event_description, location, duration, start_date, end_date, start_hour, end_hour, number_of_attendees,price, ticket_link} = JSON.parse(data.data);
+    const {type_event, event_title, event_description, location, duration, start_date, end_date, start_hour, end_hour, number_of_attendees,price, ticket_link} = data;
     try {
       let sql = 'UPDATE event SET type_event = ?, event_title = ?, event_description = ?, location = ?, duration = ?, start_date = ?, end_date = ?, start_hour = ?, end_hour = ?, number_of_attendees = ?, price = ?, ticket_link = ? WHERE event_id = ?';
       let values = [type_event, event_title, event_description, location, duration, start_date,  end_date, start_hour, end_hour, number_of_attendees, price, ticket_link, id];
@@ -307,18 +307,66 @@ class EventDal {
     }
   }
 
-  editDataSection = async(data) => {
+  // editDataSection = async(data) => {
+  //   console.log("DAL recibe data:", data);
+  //   console.log("DAL recibe file:", file);
+  //   try {
+  //     const {section_id, section_title, section_subtitle, section_description, section_duration} = data;
+  //     // solo convertimos event_id si la DB espera número
+  //     const event_id_num = Number(event_id);
+      
+  //     let sql = 'UPDATE section SET section_title = ?, section_subtitle = ?, section_description = ?, section_duration = ? WHERE section_id = ? AND event_id = ?';
+  //     let values = [section_title, section_subtitle, section_description, section_duration, section_id, event_id];
+  //     let result = await executeQuery(sql, values);
+  //   } catch (error) {
+  //     console.log(error);
+  //     throw { message: 'Error en base de datos' }
+  //   }
+  // }
+
+  editDataSection = async (data) => {
+    console.log("DAL recibe data:", data);
+
     try {
-      const {section_id, section_title, section_subtitle, section_description, section_duration} = data.section;
-      const {event_id} = data;
-      let sql = 'UPDATE section SET section_title = ?, section_subtitle = ?, section_description = ?, section_duration = ? WHERE section_id = ? AND event_id = ?';
-      let values = [section_title, section_subtitle, section_description, section_duration, section_id, event_id];
+     
+      const {
+        section_id,
+        section_title,
+        section_subtitle,
+        section_description,
+        section_duration,
+        event_id
+      } = data;
+
+      // Convertimos event_id a número solo si la columna en DB es INT
+      const event_id_num = Number(event_id);
+
+      let sql = `
+        UPDATE section
+        SET section_title = ?, section_subtitle = ?, section_description = ?, section_duration = ?
+        WHERE section_id = ? AND event_id = ?`;
+
+      let values = [
+        section_title,
+        section_subtitle,
+        section_description,
+        section_duration,
+        section_id,
+        event_id_num
+      ];
+
+      console.log("SQL:", sql);
+      console.log("Values:", values);
+
       let result = await executeQuery(sql, values);
+
+      console.log("Resultado query:", result);
+      return result; 
     } catch (error) {
-      console.log(error);
-      throw { message: 'Error en base de datos' }
+      console.log("Error en DAL:", error);
+      throw { message: 'Error en base de datos' };
     }
-  }
+  };
 
       delKeypoint = async(key_point_id) =>{
       try {
