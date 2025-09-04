@@ -76,7 +76,7 @@ CREATE TABLE event (
 	event_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     -- user_id BIGINT UNSIGNED NOT NULL, -- permitan que un usuario cree en la app toda la info de un taller, curso, concierto...
     event_title VARCHAR(100) NOT NULL, 
-    event_description VARCHAR(350) NOT NULL,
+    event_description VARCHAR(600) NOT NULL,
     location VARCHAR(150),
     cover_image VARCHAR(200),
     duration VARCHAR(50), -- "30 minutos" o "2 horas"
@@ -148,7 +148,7 @@ SELECT * FROM service;
 SELECT * FROM reservation;
 SELECT * FROM event;
 SELECT * FROM section_image;
-
+SELECT * FROM section;
 
 INSERT INTO event (
   event_title, event_description, location, duration, start_date, end_date, 
