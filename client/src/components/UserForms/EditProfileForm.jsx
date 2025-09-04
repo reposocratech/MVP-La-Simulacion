@@ -41,7 +41,7 @@ const EditProfileForm = ({ setActiveComponent, setSuccessMessage }) => {
     e.preventDefault()
     setErrors({})
 
-      const trimmedData = {
+    const trimmedData = {
       user_name: (formData.user_name ?? '').trim(),
       lastname: (formData.lastname ?? '').trim(),
       phone_number: (formData.phone_number ?? '').trim() || null,
@@ -122,7 +122,13 @@ const EditProfileForm = ({ setActiveComponent, setSuccessMessage }) => {
             name="phone_number"
             value={formData.phone_number || ''}
             onChange={handleChange}
+            isInvalid={!!errors.phone_number}
           />
+          {errors.phone_number && (
+            <Form.Control.Feedback type="invalid">
+              {errors.phone_number}
+            </Form.Control.Feedback>
+          )}
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Especialidad artística:</Form.Label>
@@ -131,9 +137,15 @@ const EditProfileForm = ({ setActiveComponent, setSuccessMessage }) => {
             name="specialty"
             value={formData.specialty || ''}
             onChange={handleChange}
+            isInvalid={!!errors.specialty}
           />
+          {errors.specialty && (
+            <Form.Control.Feedback type="invalid">
+              {errors.specialty}
+            </Form.Control.Feedback>
+          )}
         </Form.Group>
-         <div className="d-flex justify-content-end mt-4">
+        <div className="d-flex justify-content-end mt-4">
           <Button
             onClick={() => setActiveComponent('none')}
             className="cancel-button me-2"

@@ -16,6 +16,7 @@ export const editProfileSchema = z.object({
   phone_number: z
     .string()
     .trim()
+    .regex(/^\\+?\\d+$/, "El teléfono solo puede contener números y, opcionalmente, un signo '+' al principio.")
     .max(30, { message: "El teléfono no puede exceder los 30 caracteres" })
     .optional()
     .nullable(),
