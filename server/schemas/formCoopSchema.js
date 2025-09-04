@@ -20,8 +20,11 @@ export const formCoopSchema = z.object({
         .string({message:"El teléfono es necesario"})
         .nonempty({message: "El teléfono es necesario"})
         .min(7, "El número es demasiado corto")
-        .max(15, "El número es demasiado largo")
-        .regex(/^\d+$/, "El teléfono solo debe contener números"),
+        .max(30, "El número es demasiado largo")
+        .regex(
+            /^\+?\d*$/,
+            "El teléfono solo puede contener números y, opcionalmente, un signo '+' al principio."
+        ),
 
     type: z
         .string({message:"Debes marcar alguna de las opciones"})

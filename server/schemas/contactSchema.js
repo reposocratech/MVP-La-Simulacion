@@ -15,7 +15,10 @@ export const contactSchema = z.object({
   phone_number: z
     .string({ message: "El teléfono es obligatorio" })
     .nonempty({ message: "El teléfono es obligatorio" })
-    .regex(/^\d+$/, { message: "El teléfono solo debe contener números" })
+    .regex(
+      /^\+?\d*$/,
+      "El teléfono solo puede contener números y, opcionalmente, un signo '+' al principio."
+    )
     .max(30, { message: "El teléfono no puede exceder los 30 caracteres" }),
 
   consult: z

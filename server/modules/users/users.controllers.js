@@ -18,7 +18,7 @@ class UserController {
             if(result.length !== 0){
                 throw {
                     isLogged: true,
-                    message: "usuario ya existe"}
+                    message: "Este usuario ya existe"}
             }
             //Encriptar la contraseña
             const hashedPassword = await hashPassword(password);
@@ -30,9 +30,18 @@ class UserController {
             //Lo que se manda en el email
             const mailOptions = {
                 from: `"La Simulación" <${process.env.EMAIL_USER}>`,
-                to: email,
+                //to: email,
+                to: "laezne@gmail.com",
                 subject: "Confirma tu cuenta",
-                html: `<h2>Link para confirmar registro</h2><p>${verificationLink}</p>`,
+                html: `<h2 style="
+                background-color: #F0B9D9;
+                display: inline-block; 
+                padding: 0.5rem;
+                border-radius: 10px;
+                "
+                >¡Hola! Este es el link para confirmar tu registro en La Simulación.</h2>
+                <p>Haz clic aquí para verificar tu email:</p>
+                <p>${verificationLink}</p>`,
             };
             const emailResult = await transporter.sendMail(mailOptions);
             res.status(200).json({message:"usuario creado"})

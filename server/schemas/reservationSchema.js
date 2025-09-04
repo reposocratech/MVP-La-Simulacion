@@ -5,7 +5,10 @@ export const reservationSchema = z.object({
     .string({message: "El número de teléfono es obligatorio"})
     .nonempty({message: "El número de teléfono es obligatorio"})
     .max(30, {message: "Has sobrepasado el máximo de caracteres del número de teléfono"})
-    .regex(/^\d+$/, "El teléfono solo debe contener números"),
+    .regex(
+    /^\+?\d*$/,
+    "El teléfono solo puede contener números y, opcionalmente, un signo '+' al principio."
+    ),
   date: z
     .string({message: "La fecha es obligatoria"})
     .nonempty({message: "La fecha es obligatoria"})

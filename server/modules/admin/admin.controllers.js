@@ -50,7 +50,7 @@ class AdminController {
       if (result.length !== 0) {
         throw {
           isLogged: true,
-          message: "Usuario ya existe"
+          message: "Este usuario ya existe"
         }
       }
 
