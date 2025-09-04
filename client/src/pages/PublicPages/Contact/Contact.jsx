@@ -5,7 +5,7 @@ import { getMiniCardsData } from "../../../data/MiniCardsData";
 import { validateForms } from "../../../helpers/validateForms";
 import { fetchData } from "../../../helpers/axiosHelper";
 import { contactSchema } from "../../../schemas/contactSchema";
-import logoGenkoa from '../../../assets/logos/logo_genkoa_insta.png';
+import logoGenkoa from '../../../assets/logos/logo-genkoa-negro.png';
 import SvgLogoSimu from '../../../assets/logos/SvgLogoSimu.jsx';
 import { useState } from "react";
 import './contact.css';
