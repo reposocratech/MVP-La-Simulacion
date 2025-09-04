@@ -97,7 +97,7 @@ CREATE TABLE review (
 	review_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     event_id INT UNSIGNED NOT NULL,
     rating TINYINT NOT NULL, -- de 1 a 5
-    review_name VARCHAR(50),
+    review_name VARCHAR(25),
     description VARCHAR(350), 
 	CONSTRAINT fk_event_1 FOREIGN KEY (event_id) 
     REFERENCES event(event_id) ON DELETE CASCADE ON UPDATE CASCADE    

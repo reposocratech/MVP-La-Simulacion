@@ -12,6 +12,7 @@ const initialValues = {
   service_description: "",
   image: "",
 };
+
 export const CreateServCoop = () => {
   const [datesForm, setdatesForm] = useState(initialValues);
   const [valErrors, setValErrors] = useState({});
@@ -44,23 +45,18 @@ export const CreateServCoop = () => {
         newFormData.append("data", JSON.stringify(datesForm));
         if (file) {
           if (file.name.length > 200) {
-            setFileError(
-              "Los caracteres que admiten la imagen son 200 caracteres"
-            );
+            setFileError("Los caracteres que admiten la imagen son 200 caracteres");
             return;
           } else {
             newFormData.append("file", file);
           }
         }
         //LLamada al back para la creación de un servicio
-        let res = await fetchData("/services/createservicecoop","post",newFormData,token);
-        console.log(res);
-        
+        let res = await fetchData("/services/createservicecoop","post",newFormData,token);        
         navigate("/servicesCoop");
       }
     } catch (error) {
       console.log(error);
-      
       setValErrors({});
     }
   };
