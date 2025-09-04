@@ -64,11 +64,7 @@ const Profile = () => {
               <ProfileCard setActiveComponent={setActiveComponent} />
             </section>
           </Col>
-          <Col
-            xs={12}
-            lg={6}
-            className="d-flex justify-content-center flex-column"
-          >
+          <Col xs={12} lg={6} className="d-flex justify-content-center flex-column">
             <div
               className="mx-auto"
               style={{ maxWidth: 'max-content', padding: '10px 20px' }}
