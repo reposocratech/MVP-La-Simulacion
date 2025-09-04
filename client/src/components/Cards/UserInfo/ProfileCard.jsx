@@ -140,7 +140,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
             <li>
               <span className="label">Email:</span>
               <span className="value">
-                {user.email ? user.email.slice(0, 30) : 'No especificado'}
+                {user.email ? user.email.slice(0, 25) : 'No especificado'}
               </span>
             </li>
             <li>
