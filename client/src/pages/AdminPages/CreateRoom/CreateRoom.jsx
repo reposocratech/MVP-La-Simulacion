@@ -105,7 +105,7 @@ const CreateRoom = () => {
   const cancel2 = (e)=>{
     e.preventDefault();
     setRoomData(initialValue);
-    setShowForm(1);
+    setShowForm('/admin/adminPanel');
   }
 
   const onSubmit = async (e)=>{

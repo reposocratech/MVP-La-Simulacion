@@ -75,4 +75,9 @@
     transform: none;
     z-index: 0;
   }
+
+  .login-link {
+    text-decoration: underline;
+    color: var(--color-primary-electric-blue);
+  }
 }

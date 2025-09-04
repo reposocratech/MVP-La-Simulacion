@@ -86,4 +86,9 @@
     transform: none;
     z-index: 0;
   }
+
+   .register-link {
+    text-decoration: underline;
+    color: var(--color-primary-electric-blue);
+  }
 }
