@@ -30,8 +30,7 @@ class UserController {
             //Lo que se manda en el email
             const mailOptions = {
                 from: `"La Simulación" <${process.env.EMAIL_USER}>`,
-                //to: email,
-                to: "laezne@gmail.com",
+                to: email,
                 subject: "Confirma tu cuenta",
                 html: `<h2 style="
                 background-color: #F0B9D9;

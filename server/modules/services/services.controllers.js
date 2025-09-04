@@ -20,8 +20,7 @@ class ServiceController {
     
         const mailsend = {
         from: `"Servicios Cooperativa" <${process.env.EMAIL_USER}>`,
-        //to: process.env.EMAIL_USER,
-        to: "laezne@gmail.com",
+        to: process.env.EMAIL_USER,
         subject: "Consulta Servicios Cooperativa",
         html: `
           <h2 style="
