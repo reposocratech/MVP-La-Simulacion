@@ -1,13 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Form } from 'react-bootstrap';
 
-// const initialValue = {
-//   section_title: "",
-//   section_subtitle: "",
-//   section_description: "",
-//   section_duration: ""
-// }
-
 export const EditDataSection = ({dataSections, selectedSectionId, onSubmit, cancel, valError, msgError}) => {
   const [sectionToEdit, setSectionToEdit] = useState();
 
@@ -15,22 +8,6 @@ export const EditDataSection = ({dataSections, selectedSectionId, onSubmit, canc
     setSectionToEdit(dataSections.find(elem => elem.section_id === selectedSectionId)); 
   }, []);
 
-  // useEffect(() => {
-  //   const foundSection = dataSections.find(elem => elem.section_id === selectedSectionId);
-  //   if (foundSection) { // Se asegura de que se encuentre la sección antes de actualizar el estado
-  //     setSectionToEdit(foundSection); 
-  //   }
-  // }, [dataSections, selectedSectionId]);
-
-  // useEffect(() => {
-  //       // En cada cambio de `dataSections` o `selectedSectionId`, se actualiza el estado.
-  //       const foundSection = dataSections.find(elem => elem.section_id === selectedSectionId);
-  //       // Si se encuentra la sección, se actualiza el estado.
-  //       // Si no se encuentra, el estado se mantiene como el objeto vacío, o puedes reiniciar los campos.
-  //       if (foundSection) {
-  //           setSectionToEdit(foundSection);
-  //       }
-  //   }, [dataSections, selectedSectionId]);
 
   const handleChange = (e) => {
     const {name, value} = e.target;

@@ -1,6 +1,9 @@
 import { ZodError } from "zod";
 
 export const validateFormsEvent = (schema) => (req, res, next) => {
+  console.log("🟢 validateFormsEvent | RAW body:", req.body);
+  console.log("🟢 validateFormsEvent | dataToValidate antes de parsear:", 
+            req.body.dataTotal || req.body.data || req.body);
   // Inicializamos un objeto para los datos que vamos a validar.
   let dataToValidate = {};
 
@@ -14,9 +17,26 @@ export const validateFormsEvent = (schema) => (req, res, next) => {
         // Si ya es un objeto, lo usamos directamente
         dataToValidate = req.body.dataTotal;
       }
-    } else {
-      // 2. Manejar el caso donde los datos se envían directamente en req.body (sin Multer)
+    }
+    // 2. Manejar el caso donde los datos vienen en req.body.data (por ejemplo desde tu front)
+    else if (req.body.data) {
+      if (typeof req.body.data === "string") {
+        dataToValidate = JSON.parse(req.body.data);
+      } else {
+        dataToValidate = req.body.data;
+      }
+    }
+    // 3. Manejar el caso donde los datos se envían directamente en req.body (sin Multer ni "data")
+    else {
       dataToValidate = req.body;
+    }
+
+    // 4. Desenrollar la sección si existe para que Zod valide un objeto plano
+    if (dataToValidate.section) {
+      dataToValidate = {
+        ...dataToValidate.section,
+        ...("event_id" in dataToValidate ? { event_id: dataToValidate.event_id } : {})
+      };
     }
 
     // Validación Zod con los datos procesados
