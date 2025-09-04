@@ -20,8 +20,7 @@ CREATE TABLE user (
 
 
 CREATE TABLE service (
-	service_id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    -- agent VARCHAR(50) NOT NULL DEFAULT 'Cooperativa' -- cooperativa o asociación    
+	service_id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,  
     service_name  VARCHAR(100) NOT NULL,
     image VARCHAR(200),
     service_description VARCHAR(1500) NOT NULL, 
@@ -98,6 +97,7 @@ CREATE TABLE review (
 	review_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     event_id INT UNSIGNED NOT NULL,
     rating TINYINT NOT NULL, -- de 1 a 5
+    review_name VARCHAR(50),
     description VARCHAR(350), 
 	CONSTRAINT fk_event_1 FOREIGN KEY (event_id) 
     REFERENCES event(event_id) ON DELETE CASCADE ON UPDATE CASCADE    
@@ -151,29 +151,4 @@ SELECT * FROM section;
 SELECT * FROM section_image;
 SELECT * FROM section_key_point;
 
-select * 
-from event
-	left join section on  event.event_id = section.event_id
-    left join section_image on section.event_id = section_image.event_id and section.section_id = section_image.section_id
-    left join section_key_point on section.event_id = section_key_point.event_id and section.section_id = section_key_point.section_id
-    where event.event_id = 12;
-
-
-INSERT INTO event (
-  event_title, event_description, location, duration, start_date, end_date, 
-  number_of_attendees, price, ticket_link
-) VALUES (
-  'Mercadillo artesanal', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita dolorem rerum voluptates repellat porro, autem, illo ullam exercitationem sapiente nisi facilis pariatur architecto consequatur, dicta error quibusdam aut unde. Mollitia.', 'Espacio creativo', '8h', 
-  '2025-09-10', '2025-09-10', 
-  350, 0.00, 'https://entradas.mercadilloartesanal.com'
-),
-(
-  'Festival de Teatro Urbano', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita dolorem rerum voluptates repellat porro, autem, illo ullam exercitationem sapiente nisi facilis pariatur architecto consequatur, dicta error quibusdam aut unde. Mollitia.', 'Barcelona - Plaza Mayor', '4h', 
-  '2025-10-05', '2025-10-05', 
-  1200, 0.00, 'https://festivalteatro.barcelona'
-);
-
-
-ALTER TABLE event ADD type_event TINYINT UNSIGNED NOT NULL;
-ALTER TABLE room ADD room_is_deleted BOOLEAN NOT NULL DEFAULT 0;
 
