@@ -45,7 +45,7 @@ const cardsData = [
     title: "Set de Grabación",
     textButton: "Más info",
     color: "#D890EA",
-    urlButton: "/oneRoom/2",
+    urlButton: "/oneRoom/1",
     textBody:
     <>
       <p>

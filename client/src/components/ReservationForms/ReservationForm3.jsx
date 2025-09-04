@@ -1,7 +1,11 @@
 import { Form } from "react-bootstrap";
+import { useNavigate } from "react-router";
+import './reservationForms.css';
 
 
 export const ReservationForm3 = ({reservationData, handleChange, goPrev, cancel, onSubmit, sendFormOk, valError, msgError}) => {
+
+  const navigate = useNavigate();
 
   return (
     <Form className="border border-2 rounded rounded-3 mb-2 mt-3 p-4">
@@ -67,29 +71,39 @@ export const ReservationForm3 = ({reservationData, handleChange, goPrev, cancel,
         {msgError && <Form.Text className="text-danger fw-bold mt-2">{msgError}</Form.Text>}
       </Form.Group>
       {sendFormOk &&
-        <p className="msg-ok-form"
-        >Solicitud enviada, ¡gracias! Nuestro equipo procederá a evaluarla para darte una respuesta lo antes posible.
-        </p>
+        <div className="text-center mb-3">
+          <p className="msg-ok-form"
+          >Solicitud enviada, ¡gracias! Nuestro equipo procederá a evaluarla para darte una respuesta lo antes posible.
+          </p>
+           <button
+                  type="button"
+                  className="back-home-button"
+                  onClick={()=>navigate("/")}
+                  >Volver al inicio
+          </button>
+        </div>
       }
       
-      <div className="d-flex gap-2">
-         <button 
-            className="babypink-button"
-            onClick={goPrev}
-        >Anterior
-        </button>
-        <button 
-            className="cancel-button"
-            onClick={cancel}
-        >Cancelar
-        </button>
-        <button 
-            className="submit-button"
-            onClick={onSubmit}
-            disabled={reservationData.user_policy_confirmation === 1 ? false : true}
-        >Enviar Solicitud
-        </button>
-      </div>
+      {!sendFormOk &&
+        <div className="d-flex gap-2">
+          <button 
+              className="babypink-button"
+              onClick={goPrev}
+          >Anterior
+          </button>
+          <button 
+              className="cancel-button"
+              onClick={cancel}
+          >Cancelar
+          </button>
+          <button 
+              className="submit-button"
+              onClick={onSubmit}
+              disabled={reservationData.user_policy_confirmation === 1 ? false : true}
+          >Enviar Solicitud
+          </button>
+        </div>
+      }
     </Form>
   )
 }

@@ -93,6 +93,7 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
         setRefresh(!refresh);
         setKeyPoint(initialValue);
         setCurrentForm(1);
+        setValError({});
       }
     } catch (error) {
       console.error("Error :", error);

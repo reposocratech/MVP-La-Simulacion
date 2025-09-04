@@ -66,6 +66,7 @@ const handleFile = (e) => {
 
     setFileError(null);
     setSuccessMessage(null);
+    setMsgError(null)
     setFiles(selectedFiles);
 
     if (selectedFiles.length > 0) {
