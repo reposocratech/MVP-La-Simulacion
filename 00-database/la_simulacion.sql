@@ -76,7 +76,7 @@ CREATE TABLE event (
 	event_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     -- user_id BIGINT UNSIGNED NOT NULL, -- permitan que un usuario cree en la app toda la info de un taller, curso, concierto...
     event_title VARCHAR(100) NOT NULL, 
-    event_description VARCHAR(350) NOT NULL,
+    event_description VARCHAR(600) NOT NULL,
     location VARCHAR(150),
     cover_image VARCHAR(200),
     duration VARCHAR(50), -- "30 minutos" o "2 horas"
@@ -110,7 +110,7 @@ CREATE TABLE section (
     PRIMARY KEY(event_id, section_id),
     section_title VARCHAR(100) NOT NULL,
     section_subtitle VARCHAR(350),
-    section_description VARCHAR(350),
+    section_description VARCHAR(600),
     section_duration VARCHAR(50), -- "30 minutos", "2 horas"
 	CONSTRAINT fk_event_2 FOREIGN KEY (event_id) 
     REFERENCES event(event_id) ON DELETE CASCADE ON UPDATE CASCADE    
