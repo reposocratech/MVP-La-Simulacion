@@ -81,9 +81,10 @@ const CalendarComponent = () => {
       loadMonthEvents(activeStartDate)
     }
   }
-    const handleTicketClick = (url) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
-  };
+
+  const handleTicketClick = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
 
   const navigate = useNavigate()
 
@@ -115,39 +116,56 @@ const CalendarComponent = () => {
               {dailyEvents.length === 0 ? (
                 <p>No hay eventos para este día.</p>
               ) : (
-                dailyEvents.map((ev) => (
-                  <article className="event-card" key={ev.event_id}>
-                    <h4 className="event-title mb-1 fs-3">{ev.event_title}</h4>
-                    <p className="event-description mb-1">
-                      {ev.event_description}
-                    </p>
-                    <p className="event-time mb-1">
-                      <strong>Horario:</strong> {ev.start_hour?.substring(0, 5)}
-                      {ev.end_hour ? ` – ${ev.end_hour.substring(0, 5)}` : ''}
-                    </p>
-                    <p className="event-location mb-1">
-                      <strong>Ubicación:</strong> {ev.location}
-                    </p>
+                dailyEvents.map((ev) => {
+                  const today = new Date()
+                  const eventEnd = new Date(ev.end_date || ev.start_date)
 
-                    <div className="d-flex align-items-center mt-3 gap-3">
-                      <button
-                        className="event-info-button boton"
-                        onClick={() => navigate(`/event/${ev.event_id}`)}
-                      >
-                        Mostrar más información
-                      </button>
+                  const timeEvent = eventEnd >= today
+                  const timeEventRew = eventEnd <= today
 
-                      {ev.ticket_link && (
+                  return (
+                    <article className="event-card" key={ev.event_id}>
+                      <h4 className="event-title mb-1 fs-3">{ev.event_title}</h4>
+                      <p className="event-description mb-1">
+                        {ev.event_description}
+                      </p>
+                      <p className="event-time mb-1">
+                        <strong>Horario:</strong> {ev.start_hour?.substring(0, 5)}
+                        {ev.end_hour ? ` – ${ev.end_hour.substring(0, 5)}` : ''}
+                      </p>
+                      <p className="event-location mb-1">
+                        <strong>Ubicación:</strong> {ev.location}
+                      </p>
+
+                      <div className="d-flex flex-column flex-md-row align-items-center mt-3 gap-3">
                         <button
-                          className="submit-button  text-center boton mt-2"
-                          onClick={() => handleTicketClick(ev.ticket_link)}
+                          className="event-info-button boton w-100 w-md-auto"
+                          onClick={() => navigate(`/event/${ev.event_id}`)}
                         >
-                          Apúntate al evento
+                          Ver más información
                         </button>
-                      )}
-                    </div>
-                  </article>
-                ))
+
+                        {timeEvent && ev.ticket_link && (
+                          <button
+                            className="submit-button text-center boton mt-2 w-100 w-md-auto pt-2"
+                            onClick={() => handleTicketClick(ev.ticket_link)}
+                          >
+                            Apúntate al evento
+                          </button>
+                        )}
+
+                        {timeEventRew && (
+                          <button
+                            className="submit-button text-center  mt-2 w-100 w-md-auto"
+                            onClick={() => navigate(`/review/${ev.event_id}`)}
+                          >
+                            Déjanos tu opinión
+                          </button>
+                        )}
+                      </div>
+                    </article>
+                  )
+                })
               )}
             </div>
           </div>

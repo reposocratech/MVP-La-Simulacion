@@ -95,6 +95,7 @@ CREATE TABLE event (
 
 CREATE TABLE review (
 	review_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    review_name VARCHAR(25),
     event_id INT UNSIGNED NOT NULL,
     rating TINYINT NOT NULL, -- de 1 a 5
     review_name VARCHAR(25),
@@ -150,5 +151,3 @@ SELECT * FROM event;
 SELECT * FROM section;
 SELECT * FROM section_image;
 SELECT * FROM section_key_point;
-
-
