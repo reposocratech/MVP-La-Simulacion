@@ -7,9 +7,15 @@ import { fetchData } from "../../helpers/axiosHelper";
 import './formReview.css';
 import { useParams } from "react-router";
 
+const initialValue = {
+  description:"",
+  review_name:""
+}
+
+
 export const FormReview = () => {
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState(initialValue);
   const [valError, setValError] = useState({});
   const [msgError, setMsgError] = useState();
   const [dataReview, setDataReview] = useState([])
@@ -22,8 +28,8 @@ export const FormReview = () => {
   };
 
   const handleChange = (e) =>{
-    const {value} = e.target
-    setComment(value)    
+    const {name , value} = e.target
+    setComment({...comment,[name]:value})    
   }
 
    useEffect(() => {
@@ -44,17 +50,21 @@ export const FormReview = () => {
     e.preventDefault();
 
     try {
+       const data = {
+        rating: rating,
+        description: comment.description,
+        review_name: comment.review_name
+        }
       //Comprobación de que los datos sean validos
-      const {valid, errors} = validateForms(reviewSchema, {comment , rating});
+      const {valid, errors} = validateForms(reviewSchema, (data));
       setValError(errors);
   
       if (valid){
-        const data = {comment, rating, id};
         //LLamada a la base de datos para insertarles 
         const res = await fetchData(`/reviews/createReview/${id}`, "post", data);
-        console.log(res);
-        setRating(0);
-        setComment("");
+        setRating(0)
+        setComment(initialValue);
+        
       }
     } catch (error) {
       console.log(error);
@@ -62,8 +72,6 @@ export const FormReview = () => {
       setMsgError(error?.response?.data || "Error inesperado en el servidor");       
     }
   }
-
-
   return (
     <Form className='form-review shadow'>
       <div className="mb-3">
@@ -78,15 +86,26 @@ export const FormReview = () => {
         <br />
         {valError.rating && <Form.Text className="text-danger fw-bold">{valError.rating}</Form.Text>}
       </div>
-      <Form.Group className="mb-3" controlId="formBasicRoom_Description">
+       <Form.Group className="mb-3" controlId="formBasicReview_Name">
+        <Form.Control
+          type="text"
+          placeholder="Nombre"
+          name="review_name"
+          onChange={handleChange}
+          value={comment.review_name}
+        />
+        {valError.review_name && <Form.Text className="text-danger fw-bold">{valError.review_name}</Form.Text>}
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicReview_Description">
         <Form.Control 
           as="textarea" 
           rows={3}
+          name="description"
           placeholder="Escribe tu opinión de cómo fue el evento/ taller"
           onChange={handleChange}
-          value={comment}
+          value={comment.description}
         />
-        {valError.comment && <Form.Text className="text-danger fw-bold">{valError.comment}</Form.Text>}
+        {valError.description && <Form.Text className="text-danger fw-bold">{valError.description}</Form.Text>}
       </Form.Group>
         {msgError && <p className="text-danger">{msgError}</p>}
         <div className='mt-3'>
@@ -102,13 +121,14 @@ export const FormReview = () => {
               <div className="d-flex align-items-center">
                 <hr />
                 <Rating
-                  initialValue={Number(review.rating)}
+                  initialValue={Number(comment.rating)}
                   size={20}
                   fillColor="var(--color-primary-violet)"
                   emptyColor="#CCC"
                   readonly
                 />                
               </div>
+              <p className="fw-bold text-start">{review.review_name} </p>
               <p>{review.description}</p>
               <hr />
             </div>
