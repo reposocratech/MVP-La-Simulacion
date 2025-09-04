@@ -48,3 +48,9 @@
     transform: translateY(-2px); /* Mueve el botón ligeramente hacia arriba */
   }
 }
+
+@media (width <= 575px) {
+  .section-panel {
+    padding-block-start: 2.2rem;
+  }
+}
