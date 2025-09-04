@@ -54,4 +54,9 @@
   .destellos-register {
     display: none;
   }
+
+   .register-link {
+    text-decoration: underline;
+    color: var(--color-primary-electric-blue);
+  }
 }

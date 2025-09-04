@@ -45,4 +45,9 @@
   .destellos-login {
     display: none;
   }
+
+  .login-link {
+    text-decoration: underline;
+    color: var(--color-primary-electric-blue);
+  }
 }

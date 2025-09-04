@@ -100,6 +100,7 @@ CREATE TABLE review (
     rating TINYINT NOT NULL, -- de 1 a 5
     review_name VARCHAR(25),
     description VARCHAR(350), 
+    review_name VARCHAR(25), 
 	CONSTRAINT fk_event_1 FOREIGN KEY (event_id) 
     REFERENCES event(event_id) ON DELETE CASCADE ON UPDATE CASCADE    
 );

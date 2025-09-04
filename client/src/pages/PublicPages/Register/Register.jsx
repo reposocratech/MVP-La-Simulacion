@@ -111,7 +111,7 @@ const Register = () => {
                       Aceptar
                     </button>
                     {msgRembr? <p className="msg-ok-form">{msgRembr} </p> : ""}
-                    <p className="mt-3">¿Ya tienes una cuenta? <Link to="/login"> Inicia sesión aqui</Link> </p>
+                    <p className="mt-3">¿Ya tienes una cuenta? <Link to="/login" className="register-link"> Inicia sesión aqui</Link> </p>
               </Form>
               <img src={destellos} alt="" className='destellos-register' />
             </div>
