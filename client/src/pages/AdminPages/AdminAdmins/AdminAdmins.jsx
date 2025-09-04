@@ -61,6 +61,7 @@ const AdminAdmins = () => {
 
       if (valid) {
         const res = await fetchData("/admin/registerAdmin", "post", register, token);
+        console.log(res.data);
         setAdminsData((prev) => [...prev, res.data]);
         setShowForm(false);
         setRegister(initialValue);

@@ -43,7 +43,6 @@ class AdminController {
 
   registerAdmin = async(req, res) => {
     try {
-      console.log(req.body);
       const { user_name, email, password } = req.body;
 
       //Verificacion de que el email no este registrado
@@ -57,10 +56,11 @@ class AdminController {
 
       //encriptar la contraseña
       const hashedPassword = await hashPassword(password);
-      const data = [user_name, email, hashedPassword, 1];
-      await adminDal.registerAdmin(data);
+      const data = [user_name, email, hashedPassword, 1, 1];
+      const insertResult = await adminDal.registerAdmin(data);
+      
       const newInsert = {
-        id: result.insertId,
+        user_id: insertResult.insertId,
         user_name,
         email
       };
