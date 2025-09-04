@@ -47,6 +47,7 @@ const CreateEvent = () => {
     }
 
     setFileError(null);
+    setMsgError(null);
     setCoverImg(selectedFiles);
   }
 

@@ -6,16 +6,17 @@ import { createEventSchema } from '../../schemas/eventSchema.js'
 import { validateFormsEvent } from '../../middlewares/validateFormsEvent.js'
 import { uploadImageSingle } from '../../middlewares/multerSingle.js'
 import { uploadImageMulti } from '../../middlewares/multerMultifile.js'
+import { handleMulterError } from '../../helpers/handleMulterError.js'
+import { editDataEventSchema } from '../../schemas/editDataEventSchema.js'
 const router = express.Router()
 
 router.get('/events', eventsControllers.getEventData)
 router.get('/calendar/month/:year/:month', eventsControllers.getEventsByMonth)
 router.get('/calendar/day/:date', eventsControllers.getEventsByDay)
-router.post('/createEvent', verifyToken, uploadImageAny('events'), 
-  validateFormsEvent(createEventSchema), eventsControllers.createEvent)
+router.post('/createEvent', verifyToken, uploadImageAny('events'), validateFormsEvent(createEventSchema), eventsControllers.createEvent)
 router.get('/event/:id', eventsControllers.getEventById)
 router.get('/editEvent/:id', verifyToken, eventsControllers.getEventById);
-router.put('/editData/:id', verifyToken, uploadImageSingle("events"), eventsControllers.editDataEvent);
+router.put('/editData/:id', verifyToken, uploadImageSingle("events"),  eventsControllers.editDataEvent);
 router.put('/editSection', verifyToken, eventsControllers.editDataSection);
 router.put('/delkeypoint' , verifyToken , eventsControllers.delKeypoint);
 router.put('/addkeypoint/:id' , verifyToken , eventsControllers.addKeypoint);

@@ -15,11 +15,11 @@ export const editProfileSchema = z.object({
     .string()
     .min(9, { message: 'El número de teléfono debe tener al menos 9 caracteres' })
     .max(15, { message: 'El número de teléfono no puede exceder los 15 caracteres' })
-    .optional()
-    .or(z.literal('')),
+    .nullable()
+    .optional(),
   specialty: z
     .string()
     .max(100, { message: 'La especialidad no puede exceder los 100 caracteres' })
-    .optional()
-    .or(z.literal('')),
+    .nullable()
+    .optional(),
 });

@@ -98,6 +98,7 @@ const RoomReservation = () => {
 
       if (valid){
         setValError({});
+        setMsgError();
 
         const allData = {
           room_name: room_name,

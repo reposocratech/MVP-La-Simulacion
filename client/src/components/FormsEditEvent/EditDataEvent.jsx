@@ -22,7 +22,6 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError, 
 
     setFileError(null); 
   }
-  //console.log(eventToEdit)
   
   return (
     <Form className="border-forms">
@@ -101,7 +100,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError, 
             type="text"
             placeholder="Ejemplo: 8 horas, 2 días, 3 semanas, 1h..."
             onChange={handleChange}
-            value={eventToEdit.duration}
+            value={eventToEdit.duration ? eventToEdit.duration : ""}
             name="duration"
           />
           {valError.duration && <Form.Text className="text-danger fw-bold">{valError.duration}</Form.Text>}
@@ -112,7 +111,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError, 
             <Form.Control
               type="date"
               onChange={handleChange}
-              value={eventToEdit.start_date}
+              value={eventToEdit.start_date ? eventToEdit.start_date : ""}
               name="start_date"
             />
             {valError.start_date && <Form.Text className="text-danger fw-bold">{valError.start_date}</Form.Text>}
@@ -122,7 +121,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError, 
             <Form.Control
               type="date"
               onChange={handleChange}
-              value={eventToEdit.end_date}
+              value={eventToEdit.end_date ? eventToEdit.end_date : ""}
               name="end_date"
             />
             {valError.end_date && <Form.Text className="text-danger fw-bold">{valError.end_date}</Form.Text>}
@@ -134,7 +133,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError, 
             <Form.Control
               type="time"
               onChange={handleChange}
-              value={eventToEdit.start_hour}
+              value={eventToEdit.start_hour ? eventToEdit.start_hour : ""}
               name="start_hour"
             />
             {valError.start_hour && <Form.Text className="text-danger fw-bold">{valError.start_hour}</Form.Text>}
@@ -144,7 +143,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError, 
             <Form.Control
               type="time"
               onChange={handleChange}
-              value={eventToEdit.end_hour}
+              value={eventToEdit.end_hour ? eventToEdit.end_hour : ""}
               name="end_hour"
             />
             {valError.end_hour && <Form.Text className="text-danger fw-bold">{valError.end_hour}</Form.Text>}
@@ -156,7 +155,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError, 
             type="text"
             placeholder="Núm. asistentes"
             onChange={handleChange}
-            value={eventToEdit.number_of_attendees}
+            value={eventToEdit.number_of_attendees ? eventToEdit.number_of_attendees : ""}
             name="number_of_attendees"
           />
           {valError.number_of_attendees && <Form.Text className="text-danger fw-bold">{valError.number_of_attendees}</Form.Text>}
@@ -167,7 +166,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError, 
             type="text"
             placeholder="Coste total en números"
             onChange={handleChange}
-            value={eventToEdit.price}
+            value={eventToEdit.price ? eventToEdit.price : ""}
             name="price"
           />
           {valError.price && <Form.Text className="text-danger fw-bold">{valError.price}</Form.Text>}
@@ -178,7 +177,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError, 
             type="text"
             placeholder="www.ticketera.com"
             onChange={handleChange}
-            value={eventToEdit.ticket_link}
+            value={eventToEdit.ticket_link ? eventToEdit.ticket_link : ""}
             name="ticket_link"
           />
           {valError.ticket_link && <Form.Text className="text-danger fw-bold">{valError.ticket_link}</Form.Text>}

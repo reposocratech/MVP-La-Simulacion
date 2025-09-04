@@ -43,6 +43,7 @@ const NewSection = () => {
     }
 
     setFileError(null);
+    setMsgError(null);
     setSectionImages(selectedFiles);
   }
 
@@ -60,6 +61,7 @@ const NewSection = () => {
         handleSectionFile(sec_id, sectionImages);
         setShowForm(false);
         setSectionImages();
+        setValError({});
       }
     } catch (error) {
       console.log(error);

@@ -22,7 +22,7 @@ export const uploadImageAny = (folder) =>{
             callback(null, true);
         },
         limits: {
-            fileSize: 5 * 1024 * 1024, // máximo 5MB por archivo
+            fileSize: 15 * 1024 * 1024, // máximo 15MB por archivo
         },
     }).any();
 

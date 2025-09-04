@@ -34,7 +34,8 @@ const Step1 = () => {
 
       if(valid) {
         setDataTotal({...dataTotal, ...dataStep1});
-        navigate('step2');  
+        navigate('step2'); 
+        setValError({}); 
       }
 
     } catch (error) {

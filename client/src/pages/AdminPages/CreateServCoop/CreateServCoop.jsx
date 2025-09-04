@@ -56,7 +56,7 @@ export const CreateServCoop = () => {
         let res = await fetchData("/services/createservicecoop","post",newFormData,token);
         console.log(res);
         
-        navigate("/admin/servCoop");
+        navigate("/servicesCoop");
       }
     } catch (error) {
       console.log(error);
