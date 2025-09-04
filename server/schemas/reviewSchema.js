@@ -3,7 +3,7 @@ import { z } from "zod";
 export const reviewSchema = z.object({
   review_name: z
   .string()
-  .max(50, "El nombre no puede tener más de 500 caracteres"),
+  .max(25, "El nombre no puede tener más de 50 caracteres"),
   description: z
     .string()
     .max(350, "El comentario no puede tener más de 350 caracteres"),

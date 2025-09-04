@@ -121,7 +121,7 @@ export const FormReview = () => {
               <div className="d-flex align-items-center">
                 <hr />
                 <Rating
-                  initialValue={Number(comment.rating)}
+                  initialValue={Number(review.rating)}
                   size={20}
                   fillColor="var(--color-primary-violet)"
                   emptyColor="#CCC"
@@ -129,7 +129,7 @@ export const FormReview = () => {
                 />                
               </div>
               <p className="fw-bold text-start">{review.review_name} </p>
-              <p>{review.description}</p>
+              <p className="text-start">{review.description}</p>
               <hr />
             </div>
           ))
