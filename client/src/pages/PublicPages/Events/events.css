@@ -12,12 +12,27 @@
       color: var(--color-secondary-medium-green);
     }
   }
-}
-.button-event {
+
+  .button-event {
     background-color: var(--color-primary-green);
     color: black;
     border: none;
     border-radius: 12px;
     padding: .6rem 1.5rem;
+    &:hover {
+      filter: brightness(85%);
+    }
   }
+
+  .container-card-event {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .container-card-event {
+      width: 75%;
+    }
+  }
+}
+
   

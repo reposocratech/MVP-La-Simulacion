@@ -15,7 +15,8 @@ export const contactSchema = z.object({
   phone_number: z
     .string({ message: "El teléfono es obligatorio" })
     .nonempty({ message: "El teléfono es obligatorio" })
-    .regex(/^\d+$/, { message: "El teléfono solo debe contener números" }),
+    .regex(/^\d+$/, { message: "El teléfono solo debe contener números" })
+    .max(30, { message: "El teléfono no puede exceder los 30 caracteres" }),
 
   consult: z
     .string({ message: "La consulta es obligatoria" })
