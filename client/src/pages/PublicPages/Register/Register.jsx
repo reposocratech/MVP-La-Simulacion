@@ -111,7 +111,7 @@ const Register = () => {
                       Aceptar
                     </button>
                     {msgRembr? <p className="msg-ok-form">{msgRembr} </p> : ""}
-                    <p className="mt-3"> <Link to="/login"> ¿Ya tienes una cuenta?Inicia sesión aqui</Link> </p>
+                    <p className="mt-3">¿Ya tienes una cuenta? <Link to="/login"> Inicia sesión aqui</Link> </p>
               </Form>
               <img src={destellos} alt="" className='destellos-register' />
             </div>
@@ -119,7 +119,7 @@ const Register = () => {
         </Row>
       </Container>
     </section>
-    )
+  )
 }
 
 export default Register;
