@@ -85,7 +85,6 @@ const EventHeader = ({ event , timeEvent }) => {
           ) : null
           }
         </div>
-
     </section>
   )
 }

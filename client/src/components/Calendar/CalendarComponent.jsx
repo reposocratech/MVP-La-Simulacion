@@ -4,6 +4,7 @@ import axios from 'axios'
 import 'react-calendar/dist/Calendar.css'
 import './CalendarComponent.css'
 import { useNavigate } from 'react-router'
+
 const API_PREFIX = `${import.meta.env.VITE_SERVER_URL}/events`
 
 const dateKeyLocal = (d) => {
@@ -80,11 +81,14 @@ const CalendarComponent = () => {
       loadMonthEvents(activeStartDate)
     }
   }
+    const handleTicketClick = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
 
-   const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
-    <section className="container mt-5 my-4 pt-3 calendar-section ">
+    <section className="container mt-5 my-4 pt-3 calendar-section">
       <div className="row g-4 calendar-grid p-3 mb-5">
         <div className="col-12 col-lg-5 pt-3 bg-white border rounded-3 mb-5">
           <Calendar
@@ -96,7 +100,7 @@ const CalendarComponent = () => {
             onActiveStartDateChange={handleActiveStartDateChange}
           />
         </div>
-        <div className="col-12 col-lg-7 ">
+        <div className="col-12 col-lg-7">
           <div className="events-panel p-3 bg-white rounded shadow-sm">
             <h3 className="calendar-date-heading mb-3 text-uppercase text-center">
               {selectedDate.toLocaleDateString('es-ES', {
@@ -124,12 +128,24 @@ const CalendarComponent = () => {
                     <p className="event-location mb-1">
                       <strong>Ubicación:</strong> {ev.location}
                     </p>
-                    <button
-                      className="event-info-button"
-                      onClick={() => navigate(`/event/${ev.event_id}`)}
-                    >
-                      Mostrar más información
-                    </button>
+
+                    <div className="d-flex align-items-center mt-3 gap-3">
+                      <button
+                        className="event-info-button boton"
+                        onClick={() => navigate(`/event/${ev.event_id}`)}
+                      >
+                        Mostrar más información
+                      </button>
+
+                      {ev.ticket_link && (
+                        <button
+                          className="submit-button  text-center boton mt-2"
+                          onClick={() => handleTicketClick(ev.ticket_link)}
+                        >
+                          Apúntate al evento
+                        </button>
+                      )}
+                    </div>
                   </article>
                 ))
               )}
