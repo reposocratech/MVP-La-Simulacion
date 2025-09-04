@@ -11,13 +11,13 @@ import './adminadmins.css';
 
 const initialValue = {
   user_name: "",
-  email:"", 
+  email:"",
   password: "",
   repPassword:""
 }
 
 const AdminAdmins = () => {
-  const { token } = useContext(AuthContext);
+  const { token ,user, logout} = useContext(AuthContext);
 
   const [adminsData, setAdminsData] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -78,6 +78,9 @@ const AdminAdmins = () => {
       const values = { id };
       const res = await fetchData(`/admin/removeAdmin`, "put", values, token);
       setAdminsData(adminsData.filter(e => e.user_id !== id));
+      if(user.user_id === id){
+        logout()
+      }
     } catch (error) {
       console.log(error);
     }
@@ -87,7 +90,7 @@ const AdminAdmins = () => {
     {key: "user_name", label: "Nombre"},
     {key: "email", label: "Email"},
     {
-      key: "actions", 
+      key: "actions",
       label: "Acciones",
       render: (row) => (
         <button
@@ -105,7 +108,7 @@ const AdminAdmins = () => {
         <h1><span>A</span>Gestión de administradoras</h1>
         <Row className="justify-content-between gap-3">
           <Col lg={6}>
-            <CustomTable 
+            <CustomTable
               columns={columns}
               data={adminsData}
             />
@@ -119,7 +122,7 @@ const AdminAdmins = () => {
               >Crear Administradora</button>
             </div>
             <AnimatePresence>
-            {showForm && 
+            {showForm &&
                 <motion.div
                   key="form"
                   initial={{ opacity: 0, y: -20 }}
@@ -130,9 +133,9 @@ const AdminAdmins = () => {
                   <Form className="border border-2 rounded-4 p-3" onSubmit={onSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicName">
                       <Form.Label className="fw-bold">Nombre:</Form.Label>
-                      <Form.Control 
-                        type="text" 
-                        placeholder="Nombre" 
+                      <Form.Control
+                        type="text"
+                        placeholder="Nombre"
                         onChange={handleChange}
                         value={register.user_name}
                         name="user_name"
@@ -141,8 +144,8 @@ const AdminAdmins = () => {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label className="fw-bold">Email:</Form.Label>
-                      <Form.Control 
-                        type="text" 
+                      <Form.Control
+                        type="text"
                         placeholder="porejemplo@tucorreo.com"
                         onChange={handleChange}
                         value={register.email}
@@ -153,7 +156,7 @@ const AdminAdmins = () => {
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                       <Form.Label className="fw-bold">Contraseña:</Form.Label>
                       <InputGroup className="mb-3">
-                        <Form.Control 
+                        <Form.Control
                           type={seePass === false ? "password" : "text"}
                           placeholder="Tu contraseña"
                           onChange={handleChange}
@@ -167,8 +170,8 @@ const AdminAdmins = () => {
                     <Form.Group className="mb-3" controlId="formBasicRepPassword">
                       <Form.Label className="fw-bold">Repite la contraseña:</Form.Label>
                       <InputGroup className="mb-3">
-                        <Form.Control 
-                          type={seePassRep === false ? "password" : "text"} 
+                        <Form.Control
+                          type={seePassRep === false ? "password" : "text"}
                           placeholder="Repite tu contraseña"
                           onChange={handleChange}
                           value={register.repPassword}
@@ -180,7 +183,7 @@ const AdminAdmins = () => {
                     </Form.Group>
                     {msgError && <p className="text-danger">{msgError}</p>}
                     <div className="w-100">
-                      <button 
+                      <button
                         className="submit-button w-100"
                         onClick={onSubmit}
                         type="submit"

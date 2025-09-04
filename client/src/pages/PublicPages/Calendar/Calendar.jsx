@@ -6,7 +6,7 @@ const Calendar = () => {
     <section className="calendar-page-wrapper ">
       <Container fluid>
         <Row className="justify-content-center">
-          <h1 className="h1-profile text-center">
+          <h1 className="h1-profile text-center fw-bold" style={{ fontSize: '2.25rem' }}>
             <span className="span-profile accent-text align-middle mx-3">
               EV
             </span>
