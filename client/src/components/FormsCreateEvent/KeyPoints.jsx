@@ -32,6 +32,7 @@ export const KeyPoints = ({sec, addPoInt, delPunto}) => {
         addPoInt(ptosFinal, sec.sec_id);
         setKeyPoint(initialValue);
         setShowForm(false);
+        setValError({});
       }
     } catch (error) {
       console.log(error);

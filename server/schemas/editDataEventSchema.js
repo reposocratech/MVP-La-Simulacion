@@ -1,10 +1,11 @@
 import {z} from 'zod';
 
-export const editEventSchema = z.object({
-  type_event: z.union([z.string(), z.number()])
-  .refine(val => val === "1" || val === "2" || val === 1 || val === 2, {
-    message: "Debes marcar si es Evento o Taller",
-  }),
+export const editDataEventSchema = z.object({
+  type_event: z
+    .string()
+    .nonempty({message: "Debes marcar si es Evento o Taller"})
+    .refine(val => val === "1" || val === "2", {
+      message: "Debes marcar si es Evento o Taller" }),
   event_title: z
     .string({message: "Este campo es obligatorio"})
     .nonempty({message: "Este campo es obligatorio"})
@@ -84,5 +85,5 @@ export const editEventSchema = z.object({
       return /^https?:\/\/([\w-]+\.)+[\w-]+(\/[\w\-._~:/?#[\]@!$&'()+,;=])?$/.test(val);
     }, {
       message: "No has introducido una URL válida"
-    })
+    }),
 })

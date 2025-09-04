@@ -41,7 +41,7 @@ export const ManageRoomPics = ({id, msgError, setMsgError, setFileError, setSucc
   const handleFile = (e) => {
     const files = [...e.target.files];  
     
-    setMsgError("");
+    setMsgError(null);
     setFileError(null);
     setSuccessMessage(null);
 
@@ -92,6 +92,13 @@ export const ManageRoomPics = ({id, msgError, setMsgError, setFileError, setSucc
       navigate(`/oneRoom/${id}`)
     } catch (error) {
       console.log(error);
+        
+        if(error.response.data.err_code){
+          setMsgError(error.response.data.message );
+        }else{
+          setMsgError('Algo salió mal, inténtelo de nuevo');
+        }
+        
     }
 
   }

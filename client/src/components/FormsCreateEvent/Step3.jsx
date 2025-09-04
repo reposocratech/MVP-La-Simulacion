@@ -42,6 +42,7 @@ const Step3 = () => {
         setDataTotal({...dataTotal, section_public: section});
         setShowForm(false);
         setData(initialValue);
+        setValError({});
       }
     } catch (error) {
       console.log(error);

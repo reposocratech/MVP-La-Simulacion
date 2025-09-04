@@ -55,6 +55,7 @@ const Step2 = () => {
       if(valid) {
         setDataTotal({...dataTotal, ...dataStep2});
         navigate('step3');
+        setValError({});
       }
     } catch (error) {
       console.log(error);
