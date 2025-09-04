@@ -97,12 +97,13 @@
   }
 
   h4 {
-    margin-block: 6rem;
+    margin-block-start: 4rem;
+    margin-block-end: 6rem;
     font-family: 'Pilowlava';
     color: var(--color-primary-orange);
   }
 
   .gy-customsize {
-    row-gap: 6rem;
+    row-gap: 8rem;
   }
 }

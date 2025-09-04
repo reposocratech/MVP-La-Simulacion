@@ -1,35 +1,34 @@
-import { Container, Row, Col, Card } from 'react-bootstrap'
-import { useNavigate, useParams } from 'react-router'
-import { useState, useEffect } from 'react'
-import { fetchData } from '../../../helpers/axiosHelper'
-import EventHeader from '../../../components/Events/EventHeader'
-import EventSection from '../../../components/Events/EventSection'
-import './oneEvent.css'
-import { Rating } from 'react-simple-star-rating'
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import { useNavigate, useParams } from 'react-router';
+import { useState, useEffect } from 'react';
+import { fetchData } from '../../../helpers/axiosHelper';
+import EventHeader from '../../../components/Events/EventHeader';
+import EventSection from '../../../components/Events/EventSection';
+import './oneEvent.css';
+import { Rating } from 'react-simple-star-rating';
 
 const OneEvent = () => {
   const { id } = useParams();
 
   const [event, setEvent] = useState(null);
   const [sections, setSections] = useState([]);
-  const [reviews, setReviews] = useState(null)
+  const [reviews, setReviews] = useState(null);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const loadEvent = async () => {
       try {
-        const res = await fetchData(`/events/event/${id}`, 'get')
-        console.log("res", res);
-        setEvent(res.data)
-        setSections(res.data.sections || [])
-        const res2 = await fetchData(`/reviews/seeaveragerating/${id}` , "get")
-        setReviews(res2.data.result[0])
+        const res = await fetchData(`/events/event/${id}`, 'get');
+        setEvent(res.data);
+        setSections(res.data.sections || []);
+        const res2 = await fetchData(`/reviews/seeaveragerating/${id}` , "get");
+        setReviews(res2.data.result[0]);
       } catch (error){
         console.log(error);
       }
     }
-    loadEvent()
+    loadEvent();
   }, [id]);
 
 
