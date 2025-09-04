@@ -152,7 +152,7 @@ export const ProfileCard = ({ setActiveComponent }) => {
             <li>
               <span className="label">Especialidad Artística:</span>
               <span className="value">
-                {user.specialty ? user.specialty.slice(0, 25) : 'No especificado'}
+                {user.specialty ? user.specialty.slice(0, 20) : 'No especificado'}
               </span>
             </li>
           </ul>

@@ -121,14 +121,13 @@
 }
 .section-title {
   font-size: clamp(1.4rem, 2vw + 1rem, 2rem);
-  font-weight: 700;
-  margin-bottom: 1rem;
+  font-weight: 700;;
   text-align: center;
 }
 .section-body {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.5rem;;
 }
 @media (min-width: 768px) {
   .section-body.flex-md-row {

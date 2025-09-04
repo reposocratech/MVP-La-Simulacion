@@ -46,7 +46,7 @@ const OneEvent = () => {
         {event?.event_description && (
           <Card className="border-0 mb-4">
             <Card.Body className="text-center">
-              <Card.Text className="event-description mx-auto">
+              <Card.Text className="event-description mx-auto fs-5">
                 {event.event_description}
               </Card.Text>
             </Card.Body>
