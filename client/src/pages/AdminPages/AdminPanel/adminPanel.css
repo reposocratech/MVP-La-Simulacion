@@ -9,6 +9,12 @@
     color: var(--color-primary-baby-pink);
   }
 
+  @media (width <= 770px) {
+    .spanLetter-panel {
+      font-size: 32px;
+    }
+  }
+
   /* Estilos de los botones del panel de admin: */
   .panel-button-gest {
     background-color: var(--color-primary-baby-pink);
@@ -46,5 +52,11 @@
     filter: brightness(1.1); /* Aumenta el brillo en un 10% */
     box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Añade una sombra sutil */
     transform: translateY(-2px); /* Mueve el botón ligeramente hacia arriba */
+  }
+}
+
+@media (width <= 575px) {
+  .section-panel {
+    padding-block-start: 2.2rem;
   }
 }

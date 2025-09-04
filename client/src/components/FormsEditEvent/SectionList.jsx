@@ -124,6 +124,11 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
 
     } catch (error) {
       console.log(error);
+        if(error.response.data.err_code){
+          setMsgError(error.response.data.message );
+        }else{
+          setMsgError('Algo salió mal, inténtelo de nuevo');
+        }
     }
   };
 

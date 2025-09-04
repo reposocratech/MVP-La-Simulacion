@@ -154,6 +154,8 @@ class EventController {
   }
 
   editDataSection = async(req, res) => {
+    console.log("Controller recibe body:", req.body);
+    console.log("Controller recibe file:", req.file);
     try {
       console.log("bodyyy", req.body);
       const result = await eventsDal.editDataSection(req.body);

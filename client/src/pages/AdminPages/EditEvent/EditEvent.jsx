@@ -117,7 +117,7 @@ const EditEvent = () => {
   };
 
   const submitEditSection = async (section) => {
-    const { valid, errors } = validateForms(createEventSectionSchema, dataTotal);
+    const { valid, errors } = validateForms(createEventSectionSchema, section);
     setValError(errors);
 
     try {
@@ -131,6 +131,7 @@ const EditEvent = () => {
         }));
         setCurrentForm(1);
         setValError({});
+        setMsgError();
       }
     } catch (error) {
       console.log(error);

@@ -28,8 +28,6 @@ const OneReservation = () => {
     fetchReservation();
   }, [token, id]);
 
-  console.log("DATA RESERV", reservation);
-
   const {
     user_id,
     user_name,
@@ -62,23 +60,25 @@ const OneReservation = () => {
     <section className="section-one-reserv">
       <Container>
         <Row className="d-flex justify-content-center">
-          <Col xs={12} lg={6} className="d-flex justify-content-center">
+          <Col  className="d-flex justify-content-center">
             <Card>
               <Card.Body>
                 <Card.Title 
                   className="bg-color-light-green p-3 fw-bold text-center"
                 >Solicitud de Reserva de la Sala:<br /> {room_name} - (ID de sala: {reservation_id})
                 </Card.Title>
-                <Card.Subtitle className="my-3">
-                  <strong>
-                      USUARIO con ID
-                    </strong> {user_id}: {user_name} {lastname ? lastname : null}
+                <Card.Subtitle className="mt-4 mb-3 my-sm-3">
+                  <span className="me-2">
+                    <strong>
+                        USUARIO con ID
+                      </strong> {user_id}: {user_name} {lastname ? lastname : null}
+                  </span>
                     <button 
-                        className="btn-table ms-2"
+                        className="btn-table mt-2 mt-lg-0"
                         onClick={() => navigate(`/admin/userProfile/${user_id}`)}>Ver Usuario
                     </button>
                 </Card.Subtitle>
-                <Card.Text>
+                <article>
                   <p><strong>Estado de la Reserva:</strong> {getStatusLabel(status)}</p>
                   <p><strong>Teléfono:</strong> {phone_number}</p>
                   <p><strong>Fecha:</strong> {date}</p>
@@ -90,8 +90,8 @@ const OneReservation = () => {
                   <p><strong>¿Necesita material de iluminación?</strong> {ilumination_material === 0 ? "No" : "Sí"}</p>
                   <p><strong>Nº asistentes:</strong> {number_of_attendees}</p>
                   <p><strong>¿Tiene requerimientos técnicos o lógísticos adicionales?</strong> {aditional_requirement || "No especificado"}</p>
-                </Card.Text>
-                <div className="d-flex justify-content-center">
+                </article>
+                <div className="d-flex justify-content-center py-2">
                   <button 
                       className="babypink-button"
                       onClick={()=>navigate("/admin/reservations")}>

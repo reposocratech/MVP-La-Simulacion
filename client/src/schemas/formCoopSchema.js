@@ -32,4 +32,4 @@ export const formCoopSchema = z.object({
         .min(10,{message:"La descripción tiene que ser mas larga"})
         .max(500,{message:"El descripción debe ser menor de 500 caracteres"}),
    
-    })
+})

@@ -50,7 +50,6 @@ const AdminEvents = () => {
     },
     {key: "number_of_attendees", label: "Personas"},
     {key: "price", label: "Coste"},
-    /* {key: "ticket_link", label: "Ticket link"}, */
     {
       key: "edit",
       label: "Editar",
