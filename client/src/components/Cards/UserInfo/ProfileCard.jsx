@@ -22,6 +22,27 @@ export const ProfileCard = ({ setActiveComponent }) => {
     const file = event.target.files[0]
     if (!file) return
 
+      if (file.name.length > 100) {
+    setError('El nombre del archivo no puede superar los 100 caracteres.');
+    if (fileInputRef.current) fileInputRef.current.value = '';
+    return;
+    }
+
+     const maxSize = 2 * 1024 * 1024;
+     if (file.size > maxSize) {
+     setError('El archivo no puede superar los 2 MB.');
+     if (fileInputRef.current) fileInputRef.current.value = '';
+     return;
+      }
+
+
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+      if (!allowedTypes.includes(file.type)) {
+       setError('Solo se permiten imágenes en formato JPG, PNG o WebP.');
+      if (fileInputRef.current) fileInputRef.current.value = '';
+     return;
+      }
+
     setError('')
     setLoading(true)
 
