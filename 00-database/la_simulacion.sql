@@ -20,8 +20,7 @@ CREATE TABLE user (
 
 
 CREATE TABLE service (
-	service_id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    -- agent VARCHAR(50) NOT NULL DEFAULT 'Cooperativa' -- cooperativa o asociación    
+	service_id TINYINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,  
     service_name  VARCHAR(100) NOT NULL,
     image VARCHAR(200),
     service_description VARCHAR(1500) NOT NULL, 
@@ -96,8 +95,10 @@ CREATE TABLE event (
 
 CREATE TABLE review (
 	review_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    review_name VARCHAR(25),
     event_id INT UNSIGNED NOT NULL,
     rating TINYINT NOT NULL, -- de 1 a 5
+    review_name VARCHAR(25),
     description VARCHAR(350), 
     review_name VARCHAR(25), 
 	CONSTRAINT fk_event_1 FOREIGN KEY (event_id) 
@@ -151,9 +152,3 @@ SELECT * FROM event;
 SELECT * FROM section;
 SELECT * FROM section_image;
 SELECT * FROM section_key_point;
-
-
-
-
-
-
