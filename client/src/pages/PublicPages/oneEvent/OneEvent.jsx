@@ -34,7 +34,9 @@ const OneEvent = () => {
 
 
   const today = new Date();
-  const timeEvent = event && new Date(event.start_date) >= today;
+  const timeEvent = event && new Date(event.end_date) >= today;
+  const timeEventRew = event && new Date(event.start_date) >= today;
+  
 
   return (
     <section className="section-one-event">
@@ -91,7 +93,7 @@ const OneEvent = () => {
 
         {event?.ticket_link && (
           <div className="text-center my-4">
-            {timeEvent ? (
+            {timeEventRew ? (
               <a
                 href={event.ticket_link}
                 target="_blank"

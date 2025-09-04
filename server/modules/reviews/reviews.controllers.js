@@ -46,8 +46,13 @@ class ReviewController {
   createReview = async(req, res) => {
     try {
       const {id} = req.params
-      const { comment, rating } = req.body;
-      await reviewsDal.createReview(comment, rating, id);
+      const { rating, description, review_name } = req.body;
+      const data = {
+        rating: rating,
+        description:description,
+        review_name:review_name
+      } 
+      await reviewsDal.createReview(data, id);
       res.status(200).json({ message: "Reseña enviada correctamente" });
     } catch (error) {
       console.log(error);  

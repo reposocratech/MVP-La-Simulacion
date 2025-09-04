@@ -49,10 +49,10 @@ class ReviewDal {
   }
 
 
-  createReview = async(comment, rating, id) => {
+  createReview = async(data,id) => {
     try {
-      let sql = "INSERT INTO review (rating, description, event_id) VALUES (?, ?, ?)";
-      let values = [rating, comment, id];
+      let sql = "INSERT INTO review (rating, description, review_name , event_id) VALUES (?, ?, ? ,?)";
+      let values = [data.rating,data.description ,data.review_name , id];
       const result = await executeQuery(sql, values);
     } catch (error) {
       console.log(error);
