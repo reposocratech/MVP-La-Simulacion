@@ -56,7 +56,7 @@ const Profile = () => {
       <Container fluid>
         <Row className="justify-content-center">
           <h1 className="h1-profile titulo text-center mb-3">
-            <span className="span-profile accent-text align-middle ">P</span> Tu
+            <span className="span-profile accent-text align-middle">P</span> Tu
             Perfil
           </h1>
           <Col xs={12} lg={6} className="d-flex justify-content-center">
@@ -64,11 +64,7 @@ const Profile = () => {
               <ProfileCard setActiveComponent={setActiveComponent} />
             </section>
           </Col>
-          <Col
-            xs={12}
-            lg={6}
-            className="d-flex justify-content-center flex-column"
-          >
+          <Col xs={12} lg={6} className="d-flex justify-content-center flex-column">
             <div
               className="mx-auto"
               style={{ maxWidth: 'max-content', padding: '10px 20px' }}

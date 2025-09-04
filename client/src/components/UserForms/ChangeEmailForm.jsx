@@ -7,7 +7,7 @@ import { changeEmailSchema } from '../../schemas/changeEmailSchema'
 import { fetchData } from '../../helpers/axiosHelper'
 
 const ChangeEmailForm = ({ setActiveComponent, setSuccessMessage }) => {
-  const { setUser, token } = useContext(AuthContext)
+  const {user, setUser, token } = useContext(AuthContext)
   const [formData, setFormData] = useState({
     email: '',
     newEmail: '',
@@ -22,6 +22,12 @@ const ChangeEmailForm = ({ setActiveComponent, setSuccessMessage }) => {
       formRef.current.focus()
     }
   }, [])
+
+   useEffect(() => {
+    if (user?.email) {
+      setFormData((prev) => ({ ...prev, email: user.email }))
+    }
+  }, [user])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -102,7 +108,7 @@ const ChangeEmailForm = ({ setActiveComponent, setSuccessMessage }) => {
           )}
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>Nueva email:</Form.Label>
+          <Form.Label>Nuevo email:</Form.Label>
           <Form.Control
             type="email"
             name="newEmail"
@@ -117,7 +123,7 @@ const ChangeEmailForm = ({ setActiveComponent, setSuccessMessage }) => {
           )}
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>Confirmar nueva email:</Form.Label>
+          <Form.Label>Confirmar nuevo email:</Form.Label>
           <Form.Control
             type="email"
             name="repeatNewEmail"

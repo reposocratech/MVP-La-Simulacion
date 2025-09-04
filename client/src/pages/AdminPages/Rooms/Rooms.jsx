@@ -36,7 +36,7 @@ const Rooms = () => {
           >
               <div className="row ">
                 <div className="col">
-                  <div className="p-3 pt-2 d-flex flex-column justify-content-between h-100">
+                  <div className="p-3 pt-2 d-flex flex-column justify-content-between">
                     <h4 className='mb-3'>{room.room_name}</h4>
                     <p className="fw-bold mb-0">Descripción:</p>
                     <p>
@@ -51,7 +51,7 @@ const Rooms = () => {
                   <img 
                     src={`${import.meta.env.VITE_SERVER_URL_PUBLIC}images/rooms/${room.first_image}`}  
                     alt="" 
-                    className='w-100 h-100 object-fit-cover'
+                    className='cover-image-rooms w-100 object-fit-cover'
                   />
                 </div>
               </div>
