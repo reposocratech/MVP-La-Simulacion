@@ -30,7 +30,7 @@ export const ReservationForm2 = ({reservationData, handleChange, goPrev, goNext,
           {valError.proyect_type && <Form.Text className="text-danger fw-bold mt-2">{valError.proyect_type}</Form.Text>}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicSM">
-        <Form.Label>Déjanos un enlace a tu red social profesional o de tu proyecto:</Form.Label>
+        <Form.Label>Déjanos un enlace a tu web, red social o porfolio de tu trayectoria o proyecto, en el que muestres tu trabajo:</Form.Label>
           <Form.Control
             type="text"
             placeholder="URL red social" 

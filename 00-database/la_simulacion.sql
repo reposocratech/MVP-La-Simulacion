@@ -96,6 +96,7 @@ CREATE TABLE event (
 
 CREATE TABLE review (
 	review_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    review_name VARCHAR(50),
     event_id INT UNSIGNED NOT NULL,
     rating TINYINT NOT NULL, -- de 1 a 5
     description VARCHAR(350), 
