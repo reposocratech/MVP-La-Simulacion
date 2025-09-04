@@ -20,7 +20,7 @@ export const CustomTable = ({ data, columns }) => {
               {/* para cada columna se pinta su celda */}
               {columns.map((col) => (
                 <td key={col.key}
-                    className={row.status === 1 ? 'row-pending' : ''}>
+                  className={row.status === 1 ? 'row-pending' : ''}>
                   {/* si la columna tiene render: se usa el condicional y si no, se muestra directamente el valor */}
                   {col.render ? col.render(row) : row[col.key]}
                 </td>

@@ -55,7 +55,7 @@ class AdminDal {
 
   registerAdmin = async(data) => {
     try {
-      let sql = 'INSERT INTO user (user_name, email, password, type) VALUES (?, ?, ?, ?)';
+      let sql = 'INSERT INTO user (user_name, email, password, user_is_confirmed, type) VALUES (?, ?, ?, ?, ?)';
       const result = await executeQuery(sql, data);
       return result;
     } catch (error) {

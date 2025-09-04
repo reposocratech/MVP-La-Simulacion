@@ -1,6 +1,7 @@
 .profile-card {
   margin-block-start: 4rem;
-  padding-block: 3rem;
+  padding-block-start: 5rem;
+  padding-block-end: 2rem;
   background-color: var(--color-primary-green);
   border-radius: 20px;
   width: 100%;

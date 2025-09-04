@@ -27,7 +27,7 @@ const UserProfile = () => {
   return (
     <section className="profile-page-wrapper">
       <Container>
-        <h1 className="text-center mb-3">
+        <h1 className="text-center mb-5">
           <span className='accent-text me-2'>P</span>
           Perfil de {userData?.user_name}
         </h1>

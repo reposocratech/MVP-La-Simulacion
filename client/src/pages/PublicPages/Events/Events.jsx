@@ -43,18 +43,18 @@ const Events = () => {
           <span>EV</span>{" "}
           {eventType === "future"
             ? "Próximos eventos y talleres"
-            : "Eventos pasados"}
+            : "Eventos y talleres pasados"}
         </h1>
 
-        <div className="mb-4 d-flex gap-3 justify-content-center">
+        <div className="mb-4 d-flex flex-column flex-lg-row gap-3 justify-content-center">
           <button
-            className={"button-event"}
+            className="button-event"
             onClick={() => setEventType("future")}
           >
             Próximos eventos
           </button>
           <button
-            className={"button-event"}
+            className="button-event"
             onClick={() => setEventType("past")}
           >
             Eventos pasados
@@ -65,10 +65,10 @@ const Events = () => {
           ><ImCalendar className="me-2"/>Visita nuestro calendario</button>
         </div>
 
-        <div className="d-flex flex-column align-items-center gap-4">
+        <div className="d-flex flex-column align-items-center gap-5">
           {eventsToShow.length > 0 ? (
             eventsToShow.map((event) => (
-              <div key={event.event_id} className="w-75">
+              <div key={event.event_id} className="container-card-event">
                 <CardEvents event={event} navigate={navigate} />
               </div>
             ))
