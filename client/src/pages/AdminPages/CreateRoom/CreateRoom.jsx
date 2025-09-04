@@ -136,13 +136,11 @@ const CreateRoom = () => {
         setSuccessMessage('Imágenes subidas con éxito'); 
       }   
     } catch (error) {
-        console.log(error);
         if(error.response.data.err_code){
           setMsgError(error.response.data.message );
         }else{
-          setMsgError('Ups, algo salió mal')
+          setMsgError('Algo salió mal, inténtelo de nuevo')
         }
-        
       }
     
   }

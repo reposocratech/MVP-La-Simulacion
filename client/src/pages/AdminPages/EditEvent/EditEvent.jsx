@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router";
-import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { fetchData } from "../../../helpers/axiosHelper";
 import { SectionList } from "../../../components/FormsEditEvent/SectionList";
@@ -26,13 +25,13 @@ const initialValue = {
   price: "",
   ticket_link: "",
   type_event: "",
-  section_public: {key_points: [], section_title: "Público beneficiario"},
+  section_public: { key_points: [], section_title: "Público beneficiario" },
   sections: []
-}
+};
 
 const EditEvent = () => {
   const serverUrl = import.meta.env.VITE_SERVER_URL_PUBLIC;
-  
+
   const [dataTotal, setDataTotal] = useState(initialValue);
   const [sectionsImages, setSectionsImages] = useState([]);
   const [currentForm, setCurrentForm] = useState(1);
@@ -42,97 +41,115 @@ const EditEvent = () => {
   const [msgError, setMsgError] = useState();
   const [fileError, setFileError] = useState();
 
-  const {token} = useContext(AuthContext);
-
-  const {id} = useParams();
+  const { token } = useContext(AuthContext);
+  const { id } = useParams();
 
   useEffect(() => {
-    const fetchEvent = async() => {
+    const fetchEvent = async () => {
       try {
         const res = await fetchData(`/events/editEvent/${id}`, "get", null, token);
-        //console.log(res);
-        setDataTotal(res.data);
+
+        const evento = {
+          ...res.data,
+          start_hour: res.data.start_hour ? res.data.start_hour.slice(0, 5) : "",
+          end_hour: res.data.end_hour ? res.data.end_hour.slice(0, 5) : "",
+          type_event: res.data.type_event ? String(res.data.type_event) : "",
+        };
+
+        setDataTotal(evento);
       } catch (error) {
         console.log(error);
       }
-    }
+    };
     fetchEvent();
-
-  }, [id, token, sectionsImages, refresh] );
+  }, [id, token, sectionsImages, refresh]);
 
   const handleSectionFile = (sec_id, event) => {
-    const files = Array.from(event.target.files); // Asegúrate de convertir FileList en array
+    const files = Array.from(event.target.files);
+    setSectionsImages(files);
+  };
 
-    setSectionsImages(files); // solo archivos puros, sin envolver en objeto
-  }
-
-  const submitEditEvent = async(event, file) => {
+  const submitEditEvent = async (event, file) => {
     try {
-      const newFormData= new FormData();
-      let dataToSend = {...dataTotal, ...event};
-      newFormData.append("data", JSON.stringify(dataToSend));
-      const {valid, errors } = validateForms(editEventSchema, dataToSend);
+      // Convertimos type_event a string y normalizamos horas
+      const normalizeHour = (h) => (h && h.length === 5 ? `${h}:00` : h);
+
+      let dataToValidate = {
+        ...dataTotal,
+        ...event,
+        type_event: String(event.type_event),
+      };
+
+      const { valid, errors } = validateForms(editEventSchema, dataToValidate);
       setValError(errors);
 
-      if (valid){
-        if (file) {
-          newFormData.append("file", file);
-        }
-    
-        let result = await fetchData(`/events/editData/${id}`, "put", newFormData, token);
-        if (result.data.filename){
-          setDataTotal({...dataToSend, cover_image: result.data.filename});
-        } else {
-          setDataTotal(dataToSend)
-        }
-        setCurrentForm(1);
+      if (!valid) {
+        console.warn("Errores de validación:", errors);
+        return;
       }
-  
+
+      let dataToSend = {
+        ...dataToValidate,
+        start_hour: normalizeHour(dataToValidate.start_hour),
+        end_hour: normalizeHour(dataToValidate.end_hour),
+      };
+
+      const newFormData = new FormData();
+      newFormData.append("data", JSON.stringify(dataToSend));
+
+      if (file) {
+        newFormData.append("file", file);
+      }
+
+      const result = await fetchData(`/events/editData/${id}`, "put", newFormData, token);
+
+      if (result.data.filename) {
+        setDataTotal({ ...dataToSend, cover_image: result.data.filename });
+      } else {
+        setDataTotal(dataToSend);
+      }
+
+      setCurrentForm(1);
     } catch (error) {
       console.log(error);
-    } 
-  }
+      setMsgError("Algo salió mal, inténtelo de nuevo");
+    }
+  };
 
-  //console.log("datatotallll", dataTotal);
-  
-  const submitEditSection = async(section) => {
+  const submitEditSection = async (section) => {
     const { valid, errors } = validateForms(createEventSectionSchema, dataTotal);
     setValError(errors);
 
     try {
-
-      if(valid){
-        const res = await fetchData(`/events/editSection`, "put", {section, event_id: id}, token);
-        console.log(res);
-
-        setRefresh(!refresh)
+      if (valid) {
+        const res = await fetchData(`/events/editSection`, "put", { section, event_id: id }, token);
+        setRefresh(!refresh);
 
         setDataTotal(prev => ({
           ...prev,
           sections: prev.sections.map(sec => sec.section_id === section.section_id ? section : sec)
         }));
         setCurrentForm(1);
+        setValError({});
       }
-
-
     } catch (error) {
       console.log(error);
+      setMsgError('Algo salió mal, inténtelo de nuevo');
     }
-  }
+  };
 
-  const deleteSection = async(sectionId, images = []) => {
+  const deleteSection = async (sectionId, images = []) => {
     try {
       const files = images.map(img => img.file);
-      await fetchData(`/events/deleteSection/${sectionId}`, "delete", {files}, token);
+      await fetchData(`/events/deleteSection/${sectionId}`, "delete", { files }, token);
       setDataTotal(prev => ({
-        ...prev, 
+        ...prev,
         sections: prev.sections.filter(sec => sec.section_id !== sectionId)
       }));
-
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <section className="section-create-event">
@@ -141,11 +158,11 @@ const EditEvent = () => {
         <Row className="justify-content-between gy-4">
           <Col lg={4}>
             <article className="border-info-form shadow-sm">
-              <p className="mb-0"><span>Imagen de portada:</span> </p>
+              <p className="mb-0"><span>Imagen de portada:</span></p>
               <div className="w-75 mb-3">
                 <img src={`${serverUrl}images/events/${dataTotal.cover_image}`} alt="" className="w-100 rounded-3"/>
               </div>
-              <p><span>Tipo:</span> {dataTotal.type_event ? (Number(dataTotal.type_event) === 1 ? "Evento" : "Taller") : ""}</p>
+              <p><span>Tipo:</span> {dataTotal.type_event === "1" ? "Evento" : dataTotal.type_event === "2" ? "Taller" : ""}</p>
               <p><span>Título:</span> {dataTotal.event_title}</p>
               <p><span>Descripción:</span> {dataTotal.event_description}</p>
               <p><span>Localización:</span> {dataTotal.location}</p>
@@ -167,14 +184,8 @@ const EditEvent = () => {
             </article>
           </Col>
           <Col lg={8}>
-            {/* <div className="mb-4">
-              <button
-                className="submit-button"
-                disabled={currentForm === 2 || currentForm === 3}
-              >Salir de edición</button>
-            </div> */}
             {currentForm === 1 &&
-              <SectionList  
+              <SectionList
                 sections={dataTotal.sections}
                 setCurrentForm={setCurrentForm}
                 setSelectedSectionId={setSelectedSectionId}
@@ -188,25 +199,11 @@ const EditEvent = () => {
                 deleteSection={deleteSection}
                 fileError={fileError}
                 setFileError={setFileError}
-
               />
             }
             {currentForm === 2 &&
-              <EditDataEvent 
-                dataEvent={{
-                  type_event: dataTotal.type_event,
-                  event_title: dataTotal.event_title,
-                  event_description: dataTotal.event_description,
-                  location: dataTotal.location,
-                  duration: dataTotal.duration,
-                  start_date: dataTotal.start_date,
-                  end_date: dataTotal.end_date, 
-                  start_hour: dataTotal.start_hour,
-                  end_hour: dataTotal.end_hour, 
-                  number_of_attendees: dataTotal.number_of_attendees,
-                  price: dataTotal.price, 
-                  ticket_link: dataTotal.ticket_link
-                }}
+              <EditDataEvent
+                dataEvent={dataTotal}
                 onSubmit={submitEditEvent}
                 cancel={() => setCurrentForm(1)}
                 valError={valError}
@@ -217,7 +214,7 @@ const EditEvent = () => {
               />
             }
             {currentForm === 3 &&
-              <EditDataSection 
+              <EditDataSection
                 dataSections={dataTotal.sections}
                 selectedSectionId={selectedSectionId}
                 onSubmit={submitEditSection}
@@ -232,7 +229,7 @@ const EditEvent = () => {
         </Row>
       </Container>
     </section>
-  )
-}
+  );
+};
 
 export default EditEvent;
