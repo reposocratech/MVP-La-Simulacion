@@ -42,7 +42,7 @@ const EventHeader = ({ event , timeEvent }) => {
         <img src={trebolVerde} alt="" className="decor decor-trebol" />
         <img src={florRedondeada} alt="" className="decor decor-flor" />
       </div>
-      <div className="event-info">
+      <div className="event-info mt-3">
         <ul className="event-info-list">
           {dateText && (
             <li>

@@ -14,13 +14,16 @@ export const editProfileSchema = z.object({
     .max(100, { message: "Los apellidos no pueden exceder los 100 caracteres" }),
 
   phone_number: z
-    .string()
-    .trim()
-    .regex(/^\\+?\\d+$/, "El teléfono solo puede contener números y, opcionalmente, un signo '+' al principio.")
-    .max(30, { message: "El teléfono no puede exceder los 30 caracteres" })
-    .optional()
-    .nullable(),
-
+  .string()
+  .trim()
+  .regex(
+    /^\+?\d*$/,
+    "El teléfono solo puede contener números y, opcionalmente, un signo '+' al principio."
+  )
+  .max(30, { message: "El teléfono no puede exceder los 30 caracteres" })
+  .min(9, {message:"El teléfono debe tener 9 caracteres mínimo"})
+  .optional()
+  .nullable(),
   specialty: z
     .string()
     .trim()

@@ -113,8 +113,8 @@ const CalendarComponent = () => {
               ) : (
                 dailyEvents.map((ev) => (
                   <article className="event-card" key={ev.event_id}>
-                    <h4 className="event-title mb-1">{ev.event_title}</h4>
-                    <p className="event-description mb-1 ">
+                    <h4 className="event-title mb-1 fs-3">{ev.event_title}</h4>
+                    <p className="event-description mb-1">
                       {ev.event_description}
                     </p>
                     <p className="event-time mb-1">
