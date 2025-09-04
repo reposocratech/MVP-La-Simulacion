@@ -9,6 +9,12 @@
     color: var(--color-primary-baby-pink);
   }
 
+  @media (width <= 770px) {
+    .spanLetter-panel {
+      font-size: 32px;
+    }
+  }
+
   /* Estilos de los botones del panel de admin: */
   .panel-button-gest {
     background-color: var(--color-primary-baby-pink);
