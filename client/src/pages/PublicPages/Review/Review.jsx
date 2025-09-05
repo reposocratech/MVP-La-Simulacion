@@ -27,7 +27,6 @@ const Review = () => {
     <section>
       <Container className="text-center">
         <h1 className="mt-5"><span className='span-review accent-text align-middle'>RW </span>{event?.event_title} </h1>
-        <h2 className="mt-3">{event?.event_description} </h2>
         <section className="py-5">
           <Row className="justify-content-center">
             <Col lg={7}>

@@ -24,7 +24,8 @@ export const formCoopSchema = z.object({
         .regex(/^\d+$/, "El teléfono solo debe contener números"),
 
     type: z
-        .string({message:"Debes marcar alguna de las opciones"}),
+        .string()
+        .min(2, { message: "Debes marcar alguna de las opciones" }),
 
     description: z
         .string({message:"El descripción es necesaria"})
@@ -32,4 +33,4 @@ export const formCoopSchema = z.object({
         .min(10,{message:"La descripción tiene que ser mas larga"})
         .max(500,{message:"El descripción debe ser menor de 500 caracteres"}),
    
-})
+    })

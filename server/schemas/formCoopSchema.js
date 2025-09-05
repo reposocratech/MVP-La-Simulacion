@@ -24,8 +24,8 @@ export const formCoopSchema = z.object({
         .regex(/^\d+$/, "El teléfono solo debe contener números"),
 
     type: z
-        .string({message:"Debes marcar alguna de las opciones"})
-        .nonempty({message: "El descripción es necesaria"}),
+        .string()
+        .min(2, { message: "Debes marcar alguna de las opciones" }),
 
     description: z
         .string({message:"El descripción es necesaria"})
