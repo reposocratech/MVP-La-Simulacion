@@ -27,12 +27,12 @@ const Events = () => {
   const today = new Date();
 
   const futureEvents = events
-    .filter((e) => new Date(e.end_date) >= today)
-    .sort((a, b) => new Date(a.start_date) - new Date(b.start_date));
+  .filter((e) => !e.end_date || new Date(e.end_date) >= today)
+  .sort((a, b) => new Date(a.start_date) - new Date(b.start_date));
 
   const pastEvents = events
-    .filter((e) => new Date(e.end_date) < today)
-    .sort((a, b) => new Date(b.end_date) - new Date(a.end_date)); 
+  .filter((e) => e.end_date && new Date(e.end_date) < today)
+  .sort((a, b) => new Date(b.end_date) - new Date(a.end_date)); 
 
   const eventsToShow = eventType === "future" ? futureEvents : pastEvents;
 

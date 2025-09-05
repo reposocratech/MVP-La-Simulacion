@@ -103,7 +103,7 @@ const OneEvent = () => {
           </div>
         )}
 
-        {!timeEventRew && (
+        {!timeEventRew && event?.end_date && (
           <div className="text-center my-4">
             <button
               onClick={() => navigate(`/review/${id}`)}

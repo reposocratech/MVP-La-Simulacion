@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from 'react-router';
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { fetchData } from "../../../helpers/axiosHelper";
 import { formCoopSchema } from "../../../schemas/formCoopSchema"
@@ -45,6 +44,7 @@ const ServicesCoop = () => {
     setSuccessMsg("");
     setValErrors(errors)
     if(valid){
+      //LLamada Para mandar el formulario al equipo
       let res = await fetchData("/services/servicescoop" , "post" , sendInfo)
       console.log(res);
       setSuccessMsg("Formulario enviado");
@@ -143,7 +143,7 @@ const ServicesCoop = () => {
                   value={sendInfo.type}
                   onChange={handleChange}
                   >
-                  <option value="">Elige el servicio</option>
+                  <option value="" disabled>Elige el servicio</option>
                     {servicesCoop.result?.map(service => (
                     <option key={service.service_id} value={service.service_name}>
                     {service.service_name}
