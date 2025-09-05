@@ -13,15 +13,16 @@ export const CustomTable = ({ data, columns }) => {
             ))}
           </tr>
         </thead>
+
+        {/* iteración sobre filas y columnas */}
         <tbody>
-          {/* se recorre la lista de datos */}
           {data?.map((row, index) => (
             <tr key={index}>
-              {/* para cada columna se pinta su celda */}
               {columns.map((col) => (
                 <td key={col.key}
+                  /* aplicación de estilos condicionales */
                   className={row.status === 1 ? 'row-pending' : ''}>
-                  {/* si la columna tiene render: se usa el condicional y si no, se muestra directamente el valor */}
+                  {/* renderizado flexible: si existe col.render utiliza función personalizada y si no, se muestra el valor */}
                   {col.render ? col.render(row) : row[col.key]}
                 </td>
               ))}

@@ -130,7 +130,6 @@ CREATE TABLE section_image (
     REFERENCES section(event_id, section_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 CREATE TABLE section_key_point (
 	event_id INT UNSIGNED NOT NULL,
     section_id TINYINT UNSIGNED NOT NULL,
