@@ -46,7 +46,7 @@ class RoomDal {
 
   getRoomById = async(id)=> {
     try {
-      let sql = "SELECT * FROM room WHERE room_id = ?"
+      let sql = "SELECT * FROM room WHERE room_id = ? AND room_is_deleted = 0"
       const result = await executeQuery(sql, [id]);
       return result;
 

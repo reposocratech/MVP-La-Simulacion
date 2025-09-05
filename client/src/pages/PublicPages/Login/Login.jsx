@@ -84,7 +84,7 @@ const Login = () => {
                     value={userLogin.email}
                     name="email"
                   />
-                  {valError.email && <Form.Text>{valError.email}</Form.Text>}
+                  {valError.email && <Form.Text className="text-danger fw-bold">{valError.email}</Form.Text>}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                   <Form.Label>Contraseña:</Form.Label>

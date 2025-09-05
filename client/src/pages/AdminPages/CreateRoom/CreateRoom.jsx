@@ -96,16 +96,10 @@ const CreateRoom = () => {
     setShowForm(1);
   }
 
-  const cancel1 = (e)=>{
+  const cancel = (e)=>{
     e.preventDefault();
     setRoomData(initialValue);
     navigate('/admin/adminPanel');
-  }
-
-  const cancel2 = (e)=>{
-    e.preventDefault();
-    setRoomData(initialValue);
-    setShowForm('/admin/adminPanel');
   }
 
   const onSubmit = async (e)=>{
@@ -151,7 +145,7 @@ const CreateRoom = () => {
           room={roomData}
           handleChange={handleChange}
           next={next}
-          cancel={cancel1}
+          cancel={cancel}
           valError={valError}
         />}
       {showForm === 2 && <FormRoom2 
@@ -159,7 +153,7 @@ const CreateRoom = () => {
           handleChange={handleChange}
           handleFile={handleFile}
           previous={previous}
-          cancel={cancel2}
+          cancel={cancel}
           onSubmit={onSubmit}
           valError={valError}
           msgError={msgError}

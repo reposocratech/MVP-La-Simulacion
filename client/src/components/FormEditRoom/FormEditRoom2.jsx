@@ -12,7 +12,7 @@ export const FormEditRoom2 = ({room, handleChange, cancel, previous, onSubmit, v
               <Form className='w-75 border border-2 p-4 rounded rounded-3'>
                 <Form.Group className="mb-3" controlId="formBasicPricing">
                   <Form.Label>Precios:</Form.Label>
-                  <Form.Control
+                  <Form.Control as="textarea" rows={3}
                     type="text"
                     onChange={handleChange}
                     value={room.pricing}
@@ -22,7 +22,7 @@ export const FormEditRoom2 = ({room, handleChange, cancel, previous, onSubmit, v
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicUsage_Policy">
                   <Form.Label>Política y condiciones de uso:</Form.Label>
-                  <Form.Control
+                  <Form.Control as="textarea" rows={3}
                     type="text"
                     onChange={handleChange}
                     value={room.usage_policy}

@@ -265,7 +265,7 @@ class EventDal {
 
       for (let section of sections){
         const images = await executeQuery(
-          'SELECT section_id, section_image_id, file FROM section_image WHERE event_id = ? AND section_id = ? AND section_image_is_deleted = 0 ORDER BY section_image_id ASC',
+          'SELECT section_id, section_image_id, file FROM section_image WHERE event_id = ? AND section_id = ?  ORDER BY section_image_id ASC',
           [id, section.section_id]
         );
 

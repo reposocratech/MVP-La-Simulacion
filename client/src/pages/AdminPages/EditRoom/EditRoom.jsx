@@ -103,11 +103,6 @@ const handleFile = (e) => {
     navigate('/admin/adminPanel');
   }
 
-  const cancel2 = (e)=>{
-    e.preventDefault();
-    setRoomData(initialValue);
-    setShowForm(1);
-  }
   
   const onSubmit = async(e)=>{
     e.preventDefault();
@@ -144,7 +139,7 @@ const handleFile = (e) => {
         room={roomData}
         handleChange={handleChange}
         handleFile={handleFile}
-        cancel={cancel2}
+        cancel={cancel1}
         previous={previous}
         onSubmit={onSubmit}
         valError={valError}
