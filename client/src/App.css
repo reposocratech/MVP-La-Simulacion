@@ -91,12 +91,15 @@ body {
     border-radius: 12px;
     padding: .6rem 1.5rem;
 
+    &:hover {
+      filter: brightness(85%);
+    }
+
     &:disabled {
       color: #9c9c9c;
       background: 
         linear-gradient(to right, rgba(224, 224, 224, 0.6), rgba(240, 240, 240, 0.6)),
         var(--color-primary-green);
-
     }
   }
 
@@ -106,6 +109,10 @@ body {
     border: none;
     border-radius: 12px;
     padding: .6rem 1.5rem;
+
+    &:hover {
+      filter: brightness(85%);
+    }
   }
 
   .prev-button {
@@ -114,6 +121,10 @@ body {
     border: none;
     border-radius: 12px;
     padding: .6rem 1.5rem;
+
+    &:hover {
+      filter: brightness(85%);
+    }
   }
 
   .babypink-button {
@@ -121,6 +132,10 @@ body {
     border: none;
     border-radius: 12px;
     padding: .6rem 1.5rem;
+
+    &:hover {
+      filter: brightness(85%);
+    }
   }
 
   .edit-button {
@@ -129,6 +144,10 @@ body {
     border: none;
     border-radius: 12px;
     padding: .6rem 1.5rem;
+
+    &:hover {
+      filter: brightness(85%);
+    }
   }
 
   .create-button {

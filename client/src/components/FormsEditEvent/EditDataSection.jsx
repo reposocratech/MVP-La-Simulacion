@@ -41,7 +41,6 @@ export const EditDataSection = ({dataSections, selectedSectionId, onSubmit, canc
           {valError.section_subtitle && <Form.Text className="text-danger fw-bold">{valError.section_subtitle}</Form.Text>}
         </Form.Group>
       </div>
-
       <Form.Group className="mb-3" controlId="formBasicSectDesc">
         <Form.Label>Descripción:</Form.Label>
         <Form.Control

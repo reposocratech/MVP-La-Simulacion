@@ -112,7 +112,7 @@ const EditEvent = () => {
       setCurrentForm(1);
     } catch (error) {
       console.log(error);
-      setMsgError("Algo salió mal, inténtelo de nuevo");
+      setMsgError(error?.response?.data?.message || "Algo salió mal, inténtelo de nuevo");
     }
   };
 
@@ -135,7 +135,7 @@ const EditEvent = () => {
       }
     } catch (error) {
       console.log(error);
-      setMsgError('Algo salió mal, inténtelo de nuevo');
+      setMsgError(error?.response?.data?.message || 'Algo salió mal, inténtelo de nuevo');
     }
   };
 

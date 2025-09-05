@@ -79,12 +79,12 @@ const AdminAdmins = () => {
 
   const removeAdmin = async(id) => {
     try {
-      const values = { id };
+      /* const values = { id };
       const res = await fetchData(`/admin/removeAdmin`, "put", values, token);
       setAdminsData(adminsData.filter(e => e.user_id !== id));
       if(user.user_id === id){
         logout()
-      }
+      } */
       setShow(true);
       setIdToRemove(id);
     } catch (error) {
@@ -96,6 +96,9 @@ const AdminAdmins = () => {
     const values = { id };
     const res = await fetchData(`/admin/removeAdmin`, "put", values, token);
     setAdminsData(adminsData.filter(e => e.user_id !== id));
+    if(user.user_id === id){
+        logout()
+      }
     setShow(false);
     setIdToRemove();
   }

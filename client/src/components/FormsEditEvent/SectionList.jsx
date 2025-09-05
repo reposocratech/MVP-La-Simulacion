@@ -15,7 +15,6 @@ const initialValue = {
 };
 
 export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectionId, setSelectedSectionId, sectionsImages, setSectionsImages, handleSectionFile, setRefresh, refresh, deleteSection, fileError, setFileError}) => {
-
   const [showForm, setShowForm] = useState(false);
   const [keyPoint, setKeyPoint] = useState(initialValue);
   const [takeSeccId, setTakeSeccId] = useState();
@@ -26,6 +25,11 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
   const serverUrl = import.meta.env.VITE_SERVER_URL_PUBLIC;
   const { id } = useParams();
   const { token } = useContext(AuthContext);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setKeyPoint({ ...keyPoint, [name]: value });
+  };
 
   const openEdit = (id_of_section) => {
     setSelectedSectionId(id_of_section);
@@ -40,11 +44,6 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
     setCurrentForm(3);
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setKeyPoint({ ...keyPoint, [name]: value });
-  };
-
   const handleClose = () => {
     setShowForm(false);
     setKeyPoint(initialValue);
@@ -55,9 +54,12 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
     setShowModalImg(true);
   };
 
+  const handleCloseFile = () => {
+    setShowModalImg(false);
+  };
+
   const deleteImgSection = async (event_id, section_id, section_image_id, file) => {
     const data = { event_id, section_id, section_image_id, file };
-
     try {
       await fetchData("/events/delSectionImage", "delete", data, token);
       setSectionsImages(sectionsImages.filter((elem) => elem.section_image_id !== section_image_id));
@@ -66,29 +68,13 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
     }
   };
 
-  const handleCloseFile = () => {
-    setShowModalImg(false);
-  };
-
-  const keypointsDelete = async (sections) => {
-    try {
-      const res = await fetchData("/events/delkeypoint", "put", { key_point_id: sections.section_key_point_id }, token);
-      console.log(res);
-      setRefresh(!refresh);
-    } catch (error) {
-      console.error("Error al borrar ", error);
-    }
-  };
-
   const keypointsAdd = async () => {
     const { valid, errors } = validateForms(createEventKeyPointSchema, keyPoint);
     setValError(errors);
 
     try {
-
       if(valid){
         const res = await fetchData(`/events/addkeypoint/${id}`, "put", { section_id: takeSeccId.section_id, keyPoint }, token);
-        console.log(res);
         setShowForm(false);
         setRefresh(!refresh);
         setKeyPoint(initialValue);
@@ -96,7 +82,17 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
         setValError({});
       }
     } catch (error) {
-      console.error("Error :", error);
+      console.log(error);
+      setMsgError(error?.response?.data?.message || 'Algo salió mal, inténtelo de nuevo');
+    }
+  };
+
+  const keypointsDelete = async (sections) => {
+    try {
+      const res = await fetchData("/events/delkeypoint", "put", { key_point_id: sections.section_key_point_id }, token);
+      setRefresh(!refresh);
+    } catch (error) {
+      console.error("Error al borrar ", error);
     }
   };
 
@@ -110,9 +106,9 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
       if (sectionsImages.length) {
         const validFiles = sectionsImages.filter(file => file.name.length <= 200);
 
-      if (validFiles.length !== sectionsImages.length) {
-        setFileError(`El nombre de alguno de tus archivos es demasiado largo (máximo 200 caracteres).`);
-      }
+        if (validFiles.length !== sectionsImages.length) {
+          setFileError(`El nombre de alguno de tus archivos es demasiado largo (máximo 200 caracteres).`);
+        }
         for (const elem of sectionsImages) {
           newFormData.append("file", elem);
         }
@@ -121,14 +117,9 @@ export const SectionList = ({ sections, setCurrentForm, event_id, selectedSectio
       await fetchData('/events/addSectionImages', "put", newFormData, token);
       setRefresh(!refresh);
       handleCloseFile();
-
     } catch (error) {
       console.log(error);
-        if(error.response.data.err_code){
-          setMsgError(error.response.data.message );
-        }else{
-          setMsgError('Algo salió mal, inténtelo de nuevo');
-        }
+      setMsgError(error?.response?.data || 'Algo salió mal, inténtelo de nuevo');
     }
   };
 

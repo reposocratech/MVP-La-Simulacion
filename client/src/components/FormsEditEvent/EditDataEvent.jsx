@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
 export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError, fileError, setFileError}) => {
@@ -11,7 +11,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError, 
   }
 
   const handleFile = (e) => {
-    const selectedFile = e.target.files[0]
+    const selectedFile = e.target.files[0];
     setFile(selectedFile);
 
     if (selectedFile && selectedFile.name.length > 200) {
@@ -184,8 +184,16 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError, 
         </Form.Group>
         {msgError && <p className="text-danger">{msgError}</p>}
         <div className='d-flex gap-3'>
-          <button className='cancel-button' onClick={cancel} type='button'>Cancelar</button>
-          <button className='submit-button' onClick={() => onSubmit(eventToEdit, file)} type='button'>Aceptar</button>
+          <button 
+            className='cancel-button' 
+            onClick={cancel} 
+            type='button'
+          >Cancelar</button>
+          <button 
+            className='submit-button' 
+            onClick={() => onSubmit(eventToEdit, file)} 
+            type='button'
+          >Aceptar</button>
         </div>
       </Form>
   )
