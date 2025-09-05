@@ -14,7 +14,7 @@ const cardsData = [
     textBody:
       <>
         <p>
-          Desde la <strong>Cooperativa La Simulación</strong> ofrecemos servicios de roducción, gestión cultural y comunicación a artistas, colectivos y entidades.
+          Desde la <strong>Cooperativa La Simulación</strong> ofrecemos servicios de producción, gestión cultural y comunicación a artistas, colectivos y entidades.
         </p>
         <p>
           Trabajamos también con áreas municipales y administraciones públicas, adaptando cada proyecto a las necesidades del territorio.
@@ -49,7 +49,7 @@ const cardsData = [
     textBody:
     <>
       <p>
-        La <strong>Asociación La Simulación</strong> pone a disposición un set de grabación pensado para artistas emergentes que empiezan su trayectoria y no tienen recursos
+        La <strong>Asociación La Simulación</strong> pone a disposición un set de grabación pensado para artistas emergentes que empiezan su trayectoria y no tienen recursos.
       </p>
       <p>
         Su uso está limitado a dos sesiones por artista, con un precio simbólico que garantiza apoyo inicial sin competir con el sector profesional.
