@@ -4,7 +4,7 @@ import servicesDal from "./services.dal.js";
 
 class ServiceController {
 
-getDataServCoop = async (req , res) => {
+  getDataServCoop = async (req , res) => {
   try {
   const result = await servicesDal.getDataServCoop();
   res.status(200).json({message: "Datos Ok" , result }) 
@@ -13,7 +13,7 @@ getDataServCoop = async (req , res) => {
   }
 }
 
-sendMailServCoop = async (req , res)=>{
+  sendMailServCoop = async (req , res)=>{
     try {
         
         const {user_name , lastName , email , phone , type , description} = req.body
@@ -23,7 +23,13 @@ sendMailServCoop = async (req , res)=>{
         to: process.env.EMAIL_USER,
         subject: "Consulta Servicios Cooperativa",
         html: `
-          <h2>Consulta de Servicios Cooperativa</h2>
+          <h2 style="
+            background-color: #F0B9D9;
+            display: inline-block; 
+            padding: 0.5rem;
+            border-radius: 10px;
+          "
+        >Consulta de Servicios Cooperativa</h2>
           <p><strong>Nombre:</strong> ${user_name} ${lastName}</p>
           <p><strong>Email:</strong> ${email}</p>
           <p><strong>Teléfono:</strong> ${phone}</p>

@@ -41,12 +41,12 @@ const AdminEvents = () => {
     {
       key: "start_date", 
       label: "Comienza",
-      render: (row) => new Date(row.start_date).toLocaleDateString("es-ES")
+      render: (row) => row.start_date ? new Date(row.start_date).toLocaleDateString("es-ES") : 'Sin fecha'
     },
     {
       key: "end_date", 
       label: "Finaliza",
-      render: (row) => new Date(row.end_date).toLocaleDateString("es-ES")
+      render: (row) => row.end_date ? new Date(row.end_date).toLocaleDateString("es-ES") : 'Sin fecha'
     },
     {key: "number_of_attendees", label: "Personas"},
     {key: "price", label: "Coste"},

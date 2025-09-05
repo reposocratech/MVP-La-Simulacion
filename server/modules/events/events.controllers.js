@@ -300,9 +300,6 @@ class EventController {
 
     addSectionImages = async(req, res) => {
       try {
-        console.log("CONTROLLLERRRR LAU ULTIMO", req.body);
-        console.log("BODY:", req.body);
-console.log("FILES:", req.files);
         const {event_id, section_id} = req.body;
         const result = await eventsDal.addSectionImages(event_id, section_id, req.files);
         

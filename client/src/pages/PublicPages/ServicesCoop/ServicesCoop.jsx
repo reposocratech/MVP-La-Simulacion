@@ -168,7 +168,7 @@ const ServicesCoop = () => {
                   Enviar
                 </button>
                 </div>
-               {successMsg && <p className="msg-ok-form">{successMsg}</p>}
+               {successMsg && <p className="msg-ok-form mt-3 text-center">{successMsg}</p>}
             </Form>
           </Col>
         </Row>
