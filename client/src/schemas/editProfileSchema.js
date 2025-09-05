@@ -5,12 +5,14 @@ export const editProfileSchema = z.object({
     .string()
     .trim()
     .nonempty({ message: "El nombre es obligatorio" })
+    .min(3, {message:"El nombre debe tener mínimo 3 caracteres"})
     .max(50, { message: "El nombre no puede exceder los 50 caracteres" }),
 
   lastname: z
     .string()
     .trim()
     .nonempty({ message: "Los apellidos son obligatorios" })
+    .min(3, {message:"Los apellidos deben tener mínimo 3 caracteres"})
     .max(100, { message: "Los apellidos no pueden exceder los 100 caracteres" }),
 
   phone_number: z
