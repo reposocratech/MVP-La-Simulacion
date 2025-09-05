@@ -37,7 +37,7 @@ export const sociaTeam = [
   {
     id: 6,
     name: "Lledó García",
-    p1: "fotógrafa y publicitaria, además tiene una revista sobre el talento urbano de La Terreta llamada 'No Exported'. Aboga por crear historias a través de la lente de su cámara y dar a conocer estas historias a través de sus redes.",
+    p1: "Fotógrafa y publicitaria, además tiene una revista sobre el talento urbano de La Terreta llamada 'No Exported'. Aboga por crear historias a través de la lente de su cámara y dar a conocer estas historias a través de sus redes.",
     p2: "En 2024 se unió como socia en la Asociación La Simulación, colaborando en los diversos proyectos y eventos que esta iniciativa lleva a cabo.",
     img: "/images/imagesAbout/profile/lledo.webp"
   }

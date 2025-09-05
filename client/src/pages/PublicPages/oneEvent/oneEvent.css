@@ -58,7 +58,6 @@
 }
 .event-title {
   margin-top: 1.25rem;
-  margin-bottom: 1rem;
   padding: 0.5rem 1rem;
   font-size: clamp(1.6rem, 2.5vw + 1rem, 2.4rem);
   font-weight: 800;
