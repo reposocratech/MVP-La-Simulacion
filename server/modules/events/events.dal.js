@@ -6,29 +6,29 @@ class EventDal {
   //traer todos los eventos que no estén borrados
   getEventData = async () => {
     try {
-      let sql = " SELECT event_id, event_title, event_description, location, cover_image, start_date, end_date FROM event WHERE EVENT_IS_DELETED = 0 "
-      let result = await executeQuery(sql)
-      return result
+      let sql = " SELECT event_id, event_title, event_description, location, cover_image, start_date, end_date FROM event WHERE EVENT_IS_DELETED = 0 ";
+      let result = await executeQuery(sql);
+      return result;
     } catch (error) {
-      throw { message: 'Error en bd' }
+      throw { message: 'Error en bd' };
     }
   }
 
   getEventsByMonth = async (year, month) => {
     try {
-      const monthStr = String(month).padStart(2, '0')
-      const firstDay = `${year}-${monthStr}-01`
+      const monthStr = String(month).padStart(2, '0');
+      const firstDay = `${year}-${monthStr}-01`;
       const sql = `SELECT event_id, event_title, event_description, location, cover_image,
                         start_date, end_date, start_hour, end_hour, price, ticket_link
                  FROM event
                  WHERE event_is_deleted = 0
                    AND ((start_date BETWEEN ? AND LAST_DAY(?))
-                        OR (end_date BETWEEN ? AND LAST_DAY(?)))`
-      const params = [firstDay, firstDay, firstDay, firstDay]
-      const result = await executeQuery(sql, params)
-      return result
+                        OR (end_date BETWEEN ? AND LAST_DAY(?)))`;
+      const params = [firstDay, firstDay, firstDay, firstDay];
+      const result = await executeQuery(sql, params);
+      return result;
     } catch (error) {
-      throw { message: 'Error en bd' }
+      throw { message: 'Error en bd' };
     }
   }
 
@@ -39,12 +39,12 @@ class EventDal {
                  FROM event
                  WHERE event_is_deleted = 0
                    AND start_date <= ?
-                   AND (end_date IS NULL OR end_date >= ?)`
-      const params = [date, date]
-      const result = await executeQuery(sql, params)
-      return result
+                   AND (end_date IS NULL OR end_date >= ?)`;
+      const params = [date, date];
+      const result = await executeQuery(sql, params);
+      return result;
     } catch (error) {
-      throw { message: 'Error en bd' }
+      throw { message: 'Error en bd' };
     }
   }
 
@@ -68,7 +68,6 @@ class EventDal {
       cover_image,
       sections,
     } = cleanedData; 
-
 
     const connection = await dbPool.getConnection();
 
@@ -172,7 +171,6 @@ class EventDal {
               let valuesImg = [event_id, section_id, imgId, img];
 
               let resImg = await connection.query(sqlImg, valuesImg);
-              
             }
           }
         }
@@ -181,14 +179,13 @@ class EventDal {
       await connection.commit();
       return event_id;
     } catch (error) {
-      console.log("error del dal", error)
+      console.log(error)
       await connection.rollback();
       throw { message: 'Error en base de datos' };
     } finally {
       connection.release();
     }
   }
-
 
   getEventById = async (id) => {
     try {
@@ -248,15 +245,13 @@ class EventDal {
       let result = await executeQuery(sql, values);
     } catch (error) {
       console.log(error);
-      throw { message: 'Error en base de datos' }
+      throw { message: 'Error en base de datos' };
     }
   }
-
 
   editDataSection = async (data) => {
 
     try {
-     
       const {
         section_id,
         section_title,
@@ -285,7 +280,6 @@ class EventDal {
 
       let result = await executeQuery(sql, values);
 
-      console.log("Resultado query:", result);
       return result; 
     } catch (error) {
       console.log("Error en DAL:", error);
@@ -293,37 +287,33 @@ class EventDal {
     }
   };
 
-      delKeypoint = async(key_point_id) =>{
-      try {
+  delKeypoint = async(key_point_id) =>{
+    try {
        const sql = "DELETE FROM section_key_point WHERE section_key_point_id = ?";
        await executeQuery(sql, [key_point_id]);
     } catch (error) {
       console.log(error);
-      throw { message: 'Error en base de datos' }
-   }
+      throw { message: 'Error en base de datos' };
+    }
   }
 
-      addKeypoint = async(data) =>{
-   const { section_id, key_point_title, key_point_description , event_id } = data;
-   try {
-    
-    const sql = `SELECT MAX(section_key_point_id) AS lastId FROM section_key_point WHERE section_id = ? AND event_id = ?`;
-    const result = await executeQuery(sql, [section_id, event_id]);
-    console.log('result maximo id:', result);
-    const lastId = result[0]?.lastId || 0;
-    const newId = lastId +1
-    console.log({ section_id, key_point_title, key_point_description, event_id });
-    
-    const result2 = `INSERT INTO section_key_point (section_key_point_id, key_point_title, key_point_description, section_id , event_id) VALUES (?, ?, ?, ? , ?)`;
-    const values = [newId, key_point_title, key_point_description, section_id , event_id];
-    
-    await executeQuery(result2, values);
-
-  } catch (error) {
-    console.error(error);
-    throw { message: 'Error en base de datos' };
-  }
-};
+  addKeypoint = async(data) =>{
+    const { section_id, key_point_title, key_point_description , event_id } = data;
+    try {
+      const sql = `SELECT MAX(section_key_point_id) AS lastId FROM section_key_point WHERE section_id = ? AND event_id = ?`;
+      const result = await executeQuery(sql, [section_id, event_id]);
+      const lastId = result[0]?.lastId || 0;
+      const newId = lastId +1;
+      
+      const result2 = `INSERT INTO section_key_point (section_key_point_id, key_point_title, key_point_description, section_id , event_id) VALUES (?, ?, ?, ? , ?)`;
+      const values = [newId, key_point_title, key_point_description, section_id , event_id];
+      
+      await executeQuery(result2, values);
+    } catch (error) {
+      console.error(error);
+      throw { message: 'Error en base de datos' };
+    }
+  };
 
 
   deleteSectionImage = async(event_id, section_id, section_image_id, file) => {
@@ -334,9 +324,9 @@ class EventDal {
 
       let result = await executeQuery(sql, values);
       await deleteFile(file, "events");
-     } catch (error) {
+    } catch (error) {
       console.log(error);
-      throw { message: 'Error en base de datos' }
+      throw { message: 'Error en base de datos' };
     }
   }
 
@@ -347,7 +337,7 @@ class EventDal {
       return result;
     } catch (error) {
       console.log(error);
-      throw { message: 'Error en base de datos' }
+      throw { message: 'Error en base de datos' };
     }
   }
 
@@ -358,32 +348,29 @@ class EventDal {
       await connection.beginTransaction();
 
       // Obtengo el id más alto ya que no hay autoincrement:
-        let sqlId = "SELECT IFNULL(MAX(section_image_id), 0) AS max_id FROM section_image WHERE event_id = ? AND section_id = ?";
-        let [result] = await connection.query(sqlId, [event_id, section_id]);
-        let maxId = result[0].max_id;
+      let sqlId = "SELECT IFNULL(MAX(section_image_id), 0) AS max_id FROM section_image WHERE event_id = ? AND section_id = ?";
+      let [result] = await connection.query(sqlId, [event_id, section_id]);
+      let maxId = result[0].max_id;
 
-        imgs.forEach(async(elem)=>{
-          // Por cada imagen incremento el id
-          maxId++;
-          let sqlImg = 'INSERT INTO section_image (event_id, section_id, section_image_id, file) VALUES (?,?,?,?)'
-          let values = [event_id, section_id, maxId, elem.filename]
+      imgs.forEach(async(elem)=>{
+        // Por cada imagen incremento el id
+        maxId++;
+        let sqlImg = 'INSERT INTO section_image (event_id, section_id, section_image_id, file) VALUES (?,?,?,?)';
+        let values = [event_id, section_id, maxId, elem.filename];
 
-          await connection.query(sqlImg, values);  
-        })
+        await connection.query(sqlImg, values);  
+      })
 
-        await connection.commit();
+      await connection.commit();
       
     } catch (error) {
       await connection.rollback();
       throw error;
-
     } finally {
       connection.release();
     }
   }
-
 }
-
 
 
 export default new EventDal();

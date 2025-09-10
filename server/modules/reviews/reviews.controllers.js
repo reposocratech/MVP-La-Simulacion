@@ -3,9 +3,9 @@ import reviewsDal from "./reviews.dal.js";
 class ReviewController {
   seeReview = async(req , res) => {
     try {
-    const {id} = req.params
-    const result = await reviewsDal.seeReview(id);          
-    res.status(200).json({message: "Datos Ok" , result }); 
+      const {id} = req.params
+      const result = await reviewsDal.seeReview(id);          
+      res.status(200).json({message: "Datos Ok" , result }); 
     } catch (error) {            
       res.status(500).json({message: "server error"});
     }
@@ -13,20 +13,20 @@ class ReviewController {
 
   seeAvgRating = async (req , res) =>{
     try {
-    const {id} = req.params
-    const result = await reviewsDal.seeAvgRating(id); 
-    res.status(200).json({message: "Datos Ok" , result });
+      const {id} = req.params
+      const result = await reviewsDal.seeAvgRating(id); 
+      res.status(200).json({message: "Datos Ok" , result });
     } catch (error) {
-    res.status(500).json({message: "server error"});  
+      res.status(500).json({message: "server error"});  
     }
   }
 
 
   seeAllReview = async(req , res) => {
     try {
-    const result = await reviewsDal.seeAllReview();          
-    res.status(200).json({message: "Datos Ok" , result }); 
-    } catch (error) {            
+      const result = await reviewsDal.seeAllReview();          
+      res.status(200).json({message: "Datos Ok" , result }); 
+    } catch (error) {
       res.status(500).json({message: "server error"});
     }
   }

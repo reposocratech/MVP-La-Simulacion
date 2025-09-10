@@ -64,7 +64,6 @@ const AdminAdmins = () => {
 
       if (valid) {
         const res = await fetchData("/admin/registerAdmin", "post", register, token);
-        console.log(res.data);
         setAdminsData((prev) => [...prev, res.data]);
         setShowForm(false);
         setRegister(initialValue);
@@ -91,7 +90,7 @@ const AdminAdmins = () => {
     const res = await fetchData(`/admin/removeAdmin`, "put", values, token);
     setAdminsData(adminsData.filter(e => e.user_id !== id));
     if(user.user_id === id){
-        logout()
+        logout();
       }
     setShow(false);
     setIdToRemove();

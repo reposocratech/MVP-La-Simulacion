@@ -105,7 +105,7 @@ export const EditDataEvent = ({dataEvent, onSubmit, cancel, valError, msgError, 
           />
           {valError.duration && <Form.Text className="text-danger fw-bold">{valError.duration}</Form.Text>}
         </Form.Group>
-        <div className="d-flex justify-content-center gap-3">
+        <div className="d-flex justify-content-center gap-2 flex-column flex-lg-row">
           <Form.Group className="mb-3 w-100" controlId="formBasicStartDate">
             <Form.Label>Fecha de inicio:</Form.Label>
             <Form.Control

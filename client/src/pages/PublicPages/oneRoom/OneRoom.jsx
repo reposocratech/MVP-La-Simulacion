@@ -9,7 +9,7 @@ import greenFlower from '../../../assets/decorative/trebol-verde.svg';
 import './oneRoom.css';
 
 const OneRoom = () => {
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -64,7 +64,6 @@ const OneRoom = () => {
             )
           })}
         </Row>
-
 
         <section className="section-room-info">
           {user ? (

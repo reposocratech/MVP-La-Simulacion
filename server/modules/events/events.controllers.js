@@ -37,7 +37,7 @@ class EventController {
   }
 
   createEvent = async (req, res) => {
-    
+
     try {
       //extraer datos del body con destructuring
       const {
@@ -166,7 +166,7 @@ class EventController {
       const { key_point_id } = req.body;
       await eventsDal.delKeypoint(key_point_id)
       res.status(200).json({ message: 'Cambios realizados'});
-       } catch (error) {
+    } catch (error) {
       res.status(500).json({ message: 'Error de servidor' });
     }
   }
@@ -202,10 +202,8 @@ class EventController {
     } catch (error) {
       res.status(500).json({ message: 'Error de servidor' });
       console.log("error server" , error);
-      
     }
   }
-
 
     deleteSectionImage = async(req, res) => {
       try {
@@ -232,4 +230,4 @@ class EventController {
     }
 }
 
-export default new EventController()
+export default new EventController();
