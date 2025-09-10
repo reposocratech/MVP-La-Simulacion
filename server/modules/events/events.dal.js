@@ -187,6 +187,7 @@ class EventDal {
     }
   }
 
+
   getEventById = async (id) => {
     try {
       const sqlEvent = `
@@ -248,6 +249,7 @@ class EventDal {
       throw { message: 'Error en base de datos' };
     }
   }
+
 
   editDataSection = async (data) => {
 
