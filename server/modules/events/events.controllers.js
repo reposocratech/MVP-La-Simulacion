@@ -37,7 +37,6 @@ class EventController {
   }
 
   createEvent = async (req, res) => {
-    console.log("log del controllleeeeeeeeeee". req);
     
     try {
       //extraer datos del body con destructuring
@@ -154,10 +153,7 @@ class EventController {
   }
 
   editDataSection = async(req, res) => {
-    console.log("Controller recibe body:", req.body);
-    console.log("Controller recibe file:", req.file);
     try {
-      console.log("bodyyy", req.body);
       const result = await eventsDal.editDataSection(req.body);
       res.status(200).json({ message: 'Cambios realizados'});
     } catch (error) {
@@ -200,7 +196,6 @@ class EventController {
         key_point_title: keyPoint.key_point_title,
         key_point_description : keyPoint.key_point_description
       }
-      console.log("dataaaaaaaa" , data);
       
       await eventsDal.addKeypoint(data)
       res.status(200).json({ message: 'Inserción realizada'});
@@ -210,6 +205,7 @@ class EventController {
       
     }
   }
+
 
     deleteSectionImage = async(req, res) => {
       try {

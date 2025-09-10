@@ -189,6 +189,7 @@ class EventDal {
     }
   }
 
+
   getEventById = async (id) => {
     try {
       const sqlEvent = `
@@ -252,9 +253,7 @@ class EventDal {
   }
 
 
-
   editDataSection = async (data) => {
-    console.log("DAL recibe data:", data);
 
     try {
      
@@ -283,9 +282,6 @@ class EventDal {
         section_id,
         event_id_num
       ];
-
-      console.log("SQL:", sql);
-      console.log("Values:", values);
 
       let result = await executeQuery(sql, values);
 
@@ -332,14 +328,11 @@ class EventDal {
 
   deleteSectionImage = async(event_id, section_id, section_image_id, file) => {
 
-    console.log("cositas", event_id, section_id, section_image_id, file);
-
     try {
       let sql = "DELETE FROM section_image WHERE section_image_id = ? AND section_id = ? AND event_id = ?";
       let values = [section_image_id, section_id, event_id];
 
       let result = await executeQuery(sql, values);
-      console.log ("RESULLLLTTT OJUUUU", result);
       await deleteFile(file, "events");
      } catch (error) {
       console.log(error);
