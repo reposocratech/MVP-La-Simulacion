@@ -125,7 +125,6 @@ CREATE TABLE section_image (
 	section_image_id TINYINT UNSIGNED NOT NULL,
     primary key(event_id, section_id, section_image_id),
     file VARCHAR(200) NOT NULL,
-    section_image_is_deleted BOOLEAN NOT NULL DEFAULT 0,
 	CONSTRAINT fk_section_1 FOREIGN KEY (event_id, section_id)
     REFERENCES section(event_id, section_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -151,3 +150,33 @@ SELECT * FROM event;
 SELECT * FROM section;
 SELECT * FROM section_image;
 SELECT * FROM section_key_point;
+
+INSERT INTO room (room_name, room_description, who_can_use_it, pricing, usage_policy) VALUES ('SET DE GRABACIÓN', 'El set de grabación de La Simulación está ubicado en una sala de baile de Castelló de la Plana  adaptada para proyectos audiovisuales y sesiones creativas. El espacio cuenta siempre con un fondo blanco fijo de 2,5 m de alto por 3 m de ancho, ideal para grabaciones limpias y versátiles. Además, ofrecemos la posibilidad de alquilar material de iluminación adicional. 
+Desde la asociación La Simulación, queremos facilitar el acceso a herramientas profesionales a artistas emergentes de Castelló. Ofrecemos nuestro espacio y material a un coste asequible, priorizando proyectos en fase de desarrollo y sin presupuesto elevado. Los ingresos generados se destinan íntegramente a la asociación para seguir impulsando proyectos en apoyo a la comunidad artística local y cubrir los gastos de mantenimiento del espacio.
+', 'Este servicio está destinado a artistas emergentes, entendiendo por ello:
+Músicos: con menos de 10.000 reproducciones por canción o 5.000 oyentes mensuales en Spotify/YouTube.
+Ilustradores/as y artistas visuales: en etapa inicial, sin exposiciones individuales de gran alcance o contratos comerciales establecidos.
+Modelos y performers: en proceso de creación de portafolio y sin representación por agencias consolidadas.
+Proyectos audiovisuales: que no cuenten con financiación comercial ni presupuestos elevados de producción.
+Cada solicitud será evaluada para garantizar que cumple con el propósito del espacio.
+', 'Alquiler del espacio: 25€/hora (15€/hora para socias).
+Alquiler de material adicional (focos grandes y de colores): 50€/jornada (35€ para socias).', 'Puntualidad: Se debe respetar el horario reservado.
+Pago anticipado: El importe debe abonarse antes de la sesión.
+Condiciones del espacio: Debe entregarse limpio y en las mismas condiciones en las que se recibió.
+Responsabilidad sobre daños: Cualquier daño al material o al espacio será responsabilidad del usuario/a, quien deberá asumir los costes de reparación o reemplazo.
+Uso adecuado: No se permite utilizar el espacio para proyectos que contradigan los valores de la asociación o que impliquen actividades comerciales que puedan generar competencia desleal con empresas locales.');
+
+INSERT INTO service (service_name, service_description) VALUES ('Organización de eventos culturales, creativos y comunitarios', 'En La Simulación nos especializamos en la organización de eventos con enfoque cultural, artístico y comunitario. No organizamos bodas, comuniones ni eventos tradicionales; nuestro trabajo se centra en propuestas con contenido, creatividad y participación.
+Diseñamos, producimos y coordinamos eventos que transforman espacios y activan el tejido social, apostando por formatos originales y experiencias con valor cultural, educativo o lúdico.
+Convertimos cualquier espacio o evento en una experiencia participativa y signifi cativa. Proponemos actividades que fomentan la creatividad y la colaboración, como laboratorios creativos, juegos urbanos, intervenciones artísticas o dinámicas de grupo. Nuestra metodología pone en el centro a las personas y busca activar el entorno para fortalecer los lazos comunitarios y la cultura de proximidad.');
+
+INSERT INTO service (service_name, service_description) VALUES ('Management artístico y acompañamiento de proyectos', 'Acompañamos a artistas, colectivos y entidades culturales en el desarrollo y la gestión de sus proyectos.
+Ofrecemos asesoramiento personalizado para la producción, visibilización y sostenibilidad de sus propuestas. Además, facilitamos la conexión con redes culturales y oportunidades de colaboración, contribuyendo a fortalecer el ecosistema cultural y creativo.');
+
+INSERT INTO service (service_name, service_description) VALUES ('Talleres artísticos y audiovisuales', 'Impartimos talleres diseñados para distintos públicos y contextos, combinando arte, música, teatro, audiovisual y expresión creativa.
+● Doble propósito: como entretenimiento y como herramienta para la gestión emocional, la autoexploración y la construcción de pensamiento crítico.
+● Nos adaptamos a diferentes edades y necesidades, generando espacios seguros y estimulantes para que todas las personas puedan expresarse.');
+
+INSERT INTO service (service_name, service_descroption) VALUES ('Servicios de comunicación y publicidad', 'Creamos campañas con contenido cultural y social, diseñamos narrativas visuales y producimos materiales audiovisuales.
+Nuestro enfoque combina sensibilidad estética, conocimiento de los públicos y compromiso con el impacto positivo en la comunidad.');
+
