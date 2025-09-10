@@ -153,7 +153,6 @@ class AdminController {
       const {id} = req.params;
 
       const result = await adminDal.getReservationById(id);
-      console.log("RESULLLRRLRLRLRLRL", result);
       res.status(200).json(result);
       
 

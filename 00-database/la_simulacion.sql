@@ -125,7 +125,6 @@ CREATE TABLE section_image (
 	section_image_id TINYINT UNSIGNED NOT NULL,
     primary key(event_id, section_id, section_image_id),
     file VARCHAR(200) NOT NULL,
-    section_image_is_deleted BOOLEAN NOT NULL DEFAULT 0,
 	CONSTRAINT fk_section_1 FOREIGN KEY (event_id, section_id)
     REFERENCES section(event_id, section_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
