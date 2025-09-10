@@ -172,7 +172,7 @@ class EventDal {
               let valuesImg = [event_id, section_id, imgId, img];
 
               let resImg = await connection.query(sqlImg, valuesImg);
-              //console.log('RES IMG', resImg);
+              
             }
           }
         }
@@ -251,6 +251,7 @@ class EventDal {
       throw { message: 'Error en base de datos' }
     }
   }
+
 
   editDataSection = async (data) => {
 

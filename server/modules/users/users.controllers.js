@@ -63,7 +63,7 @@ class UserController {
         //Verificacion de email y codificación
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const email = decoded.email;
-      //Verificar relacion Email tokon
+      //Verificar relacion Email token
       if (!email) {
         return res.status(400).json({ message: 'Token inválido' });
       }
