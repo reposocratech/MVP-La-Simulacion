@@ -40,9 +40,11 @@ const Register = () => {
         if(valid){
         let res = await fetchData("/users/register","post", register)
         setMsgRembr("Te hemos enviado un email de confirmación, verifícalo")
+        setMsgError()
         }
   }
     catch (error) {
+        setMsgRembr()
         setValErrors({});
         setMsgError(error.response.data);
   }}
