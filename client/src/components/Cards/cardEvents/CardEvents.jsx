@@ -3,7 +3,8 @@ import './cardEvents.css';
 
 export const CardEvents = ({event , navigate}) => {
   const formatDate = (d) => (d ? new Date(d).toLocaleDateString() : '')
-  const day = formatDate(event.start_date)
+  const startday = formatDate(event.start_date)
+  const endday = formatDate(event.end_date)
   return (
     <article className='card-event rounded-4 overflow-hidden'>
         <Row>
@@ -13,7 +14,7 @@ export const CardEvents = ({event , navigate}) => {
               <p>
                 {event.event_description}
               </p>
-              <p>{day}</p>
+              <p>{startday} - {endday}</p>
               <p className='fst-italic'>
                 {event.location}
               </p>

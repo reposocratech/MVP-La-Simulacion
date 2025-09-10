@@ -250,6 +250,7 @@ class EventDal {
   }
 
   editDataSection = async (data) => {
+
     try {
       const {
         section_id,

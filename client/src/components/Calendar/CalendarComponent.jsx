@@ -156,7 +156,7 @@ const CalendarComponent = () => {
 
                         {timeEventRew && (
                           <button
-                            className="submit-button text-center  mt-2 w-100 w-md-auto"
+                            className="submit-button text-center boton mt-2 w-100 w-md-auto pt-2"
                             onClick={() => navigate(`/review/${ev.event_id}`)}
                           >
                             Déjanos tu opinión
