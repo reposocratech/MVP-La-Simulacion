@@ -63,7 +63,7 @@ class UserController {
         //Verificacion de email y codificación
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const email = decoded.email;
-      //Verificar relacion Email tokon
+      //Verificar relacion Email token
       if (!email) {
         return res.status(400).json({ message: 'Token inválido' });
       }
@@ -147,7 +147,6 @@ class UserController {
   }
 
   makeRoomReservation = async (req, res) => {
-    console.log("REQBODY PARA BD e EMAIL RESEV", req.body);
     try {
       // envío los datos de reserva del form a la BD:
       await usersDal.makeRoomReservation(req.body);
@@ -157,7 +156,7 @@ class UserController {
 
       const mailOptions = {
         from: `"Reservas La Simulación" <${process.env.EMAIL_USER}>`,
-        to: "laezne@gmail.com",
+        to: process.env.EMAIL_USER,
         subject: `Nueva solicitud de reserva`,
         html: emailReservationHTML
       }
@@ -168,7 +167,6 @@ class UserController {
       res.status(200).json({ message: 'Solicitud de reserva enviada correctamente.' })
 
     } catch (error) {
-      console.log("ERRROR CONTROLLLER RESERV", error);
       res.status(500).json({ message: 'server error' })
     }
   }

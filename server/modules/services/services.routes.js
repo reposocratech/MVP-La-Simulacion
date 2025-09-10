@@ -11,6 +11,7 @@ const router = express.Router();
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
+//Consulta de email para servicio de la Cooperativa
 router.post('/servicescoop', validateForm(formCoopSchema) , servicesControllers.sendMailServCoop);
 router.get('/servicescoop', servicesControllers.getDataServCoop)
 router.get('/adminservicescoop', verifyToken , servicesControllers.getDataServCoop)

@@ -13,7 +13,6 @@ const Rooms = () => {
     const fetchRooms = async () => {
       try {
         const res = await fetchData("/rooms/rooms", "get");
-        console.log(res.data);
         setRooms(res.data);
       } catch (error) {
         console.log(error);

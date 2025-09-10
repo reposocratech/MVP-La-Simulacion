@@ -8,7 +8,6 @@ export const EditDataSection = ({dataSections, selectedSectionId, onSubmit, canc
     setSectionToEdit(dataSections.find(elem => elem.section_id === selectedSectionId)); 
   }, []);
 
-
   const handleChange = (e) => {
     const {name, value} = e.target;
     setSectionToEdit({...sectionToEdit, [name]: value});

@@ -59,6 +59,7 @@ class AdminController {
       const data = [user_name, email, hashedPassword, 1, 1];
       const insertResult = await adminDal.registerAdmin(data);
       
+      //objeto con los datos del nuevo admin para enviar al front
       const newInsert = {
         user_id: insertResult.insertId,
         user_name,
@@ -121,7 +122,7 @@ class AdminController {
     try {
       const result = await adminDal.getReservationsData();
       res.status(200).json(result);
-      } catch (error) {
+    } catch (error) {
       res.status(500).json({message: "Error de servidor"});
     }
   }
@@ -153,10 +154,8 @@ class AdminController {
       const {id} = req.params;
 
       const result = await adminDal.getReservationById(id);
-      console.log("RESULLLRRLRLRLRLRL", result);
       res.status(200).json(result);
       
-
     } catch (error) {
       res.status(500).json({message: "Error de servidor"});
     }
