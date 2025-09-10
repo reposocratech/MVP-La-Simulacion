@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { fetchData } from "../../../helpers/axiosHelper";
 import { SectionList } from "../../../components/FormsEditEvent/SectionList";
@@ -43,6 +43,7 @@ const EditEvent = () => {
 
   const { token } = useContext(AuthContext);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -156,6 +157,12 @@ const EditEvent = () => {
     <section className="section-create-event">
       <Container>
         <h1><span>ET</span>Editar un evento/ taller</h1>
+        <div className="text-center my-4">
+          <button 
+            className="lavender-button"
+            onClick={() => navigate(`/event/${id}`)}
+          >Ir a la vista del evento/taller</button>
+        </div>
         <Row className="justify-content-between gy-4">
           <Col lg={4}>
             <article className="border-info-form shadow-sm">

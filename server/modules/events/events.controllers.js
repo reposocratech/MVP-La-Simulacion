@@ -37,8 +37,6 @@ class EventController {
   }
 
   createEvent = async (req, res) => {
-    console.log("log del controllleeeeeeeeeee". req);
-    
     try {
       //extraer datos del body con destructuring
       const {
@@ -154,10 +152,7 @@ class EventController {
   }
 
   editDataSection = async(req, res) => {
-    console.log("Controller recibe body:", req.body);
-    console.log("Controller recibe file:", req.file);
     try {
-      console.log("bodyyy", req.body);
       const result = await eventsDal.editDataSection(req.body);
       res.status(200).json({ message: 'Cambios realizados'});
     } catch (error) {
@@ -170,7 +165,7 @@ class EventController {
       const { key_point_id } = req.body;
       await eventsDal.delKeypoint(key_point_id)
       res.status(200).json({ message: 'Cambios realizados'});
-       } catch (error) {
+    } catch (error) {
       res.status(500).json({ message: 'Error de servidor' });
     }
   }
@@ -200,91 +195,14 @@ class EventController {
         key_point_title: keyPoint.key_point_title,
         key_point_description : keyPoint.key_point_description
       }
-      console.log("dataaaaaaaa" , data);
       
       await eventsDal.addKeypoint(data)
       res.status(200).json({ message: 'Inserción realizada'});
     } catch (error) {
       res.status(500).json({ message: 'Error de servidor' });
       console.log("error server" , error);
-      
     }
   }
-
-  /* getEventById = async (req, res) => {
-    try {
-      const { id } = req.params
-      const result = await eventsDal.getEventById(id)
-      if (!result) {
-        return res.status(404).json({ message: 'Evento no encontrado' })
-      }
-      //console.log("result de controllerrrrr", result);
-      let data = {
-        event_id: result[0].event_id,
-        event_title: result[0].event_title,
-        event_description: result[0].event_description,
-        location: result[0].location,
-        cover_image: result[0].cover_image,
-        duration: result[0].duration,
-        start_date: result[0].start_date,
-        end_date: result[0].end_date,
-        start_hour: result[0].start_hour,
-        end_hour: result[0].end_hour,
-        number_of_attendees: result[0].number_of_attendees,
-        ticket_link: result[0].ticket_link,
-        type_event: result[0].type_event,
-        sections: []
-      }
-
-      result.forEach(elem => {
-        if (!elem.section_id) return; // if (elem.section_id == null) return;
-
-        // buscamos si la sección ya existe en data.sections
-        let section = data.sections.find(s => s.section_id === elem.section_id);
-
-        if (!section) {
-          // si no existe, la creamos
-          section = {
-            section_id: elem.section_id,
-            section_title: elem.section_title,
-            section_subtitle: elem.section_subtitle,
-            section_description: elem.section_description,
-            section_duration: elem.section_duration,
-            event_id: elem.event_id,
-            section_images: [],
-            section_key_points: []
-          };
-          data.sections.push(section);
-        }
-
-        // si hay imagen, la añadimos a la sección existente
-        if (elem.section_image_id) {
-          section.section_images.push({
-            event_id: elem.event_id,
-            section_id: elem.section_id,
-            section_image_id: elem.section_image_id,
-            file: elem.file
-          });
-        }
-
-        // si hay key_point, lo añadimos también
-        if (elem.section_key_point_id) {
-          section.section_key_points.push({
-            event_id: elem.event_id,
-            section_id: elem.section_id,
-            section_key_point_id: elem.section_key_point_id,
-            key_point_title: elem.key_point_title,
-            key_point_description: elem.key_point_description
-          });
-        }
-      });
-      console.log("dataaaaaaaaaaaaaaaa", data);
-      res.status(200).json(data);
-
-    } catch (error) {
-      res.status(500).json({ message: 'Error de servidor' });
-    }
-  } */
 
     deleteSectionImage = async(req, res) => {
       try {
@@ -311,4 +229,4 @@ class EventController {
     }
 }
 
-export default new EventController()
+export default new EventController();

@@ -7,7 +7,7 @@ export const CustomTable = ({ data, columns }) => {
       <Table bordered hover size="sm" className='custom-table text-center'>
         <thead>
           <tr>
-            {/* se recorren las columnas y se pintan los títulos */}
+            {/* se recorren las columnas y se renderizan los títulos */}
             {columns?.map((col) => (
               <th key={col.key}>{col.label}</th>
             ))}

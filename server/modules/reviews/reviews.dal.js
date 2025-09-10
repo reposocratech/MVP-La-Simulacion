@@ -7,8 +7,7 @@ class ReviewDal {
    let result = await executeQuery(sql , id)
    return result;
     } catch (error) {
-      throw { message: "Error en bd" }; 
-      
+      throw { message: "Error en bd" };
     }
   }
 
@@ -43,7 +42,6 @@ class ReviewDal {
       await executeQuery(sql , values)
     } catch (error) {
       console.log(error);
-      
        throw { message: "Error en bd" };         
     }
   }

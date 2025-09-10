@@ -24,7 +24,6 @@ export const emailContact = ({ name, lastname, email, phone_number, consult }) =
             ">
             <h4><strong>Nombre</strong> ${name} ${lastname ? lastname : ""}</h4>
             <h4><strong>Email:</strong> ${email}</h4>
-            <hr>
             <p><strong>Teléfono:</strong> ${phone_number}</p>
             <p><strong>Consulta:</strong> ${consult}</p>
           </div>
