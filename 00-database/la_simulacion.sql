@@ -98,9 +98,7 @@ CREATE TABLE review (
     review_name VARCHAR(25),
     event_id INT UNSIGNED NOT NULL,
     rating TINYINT NOT NULL, -- de 1 a 5
-    review_name VARCHAR(25),
     description VARCHAR(350), 
-    review_name VARCHAR(25), 
 	CONSTRAINT fk_event_1 FOREIGN KEY (event_id) 
     REFERENCES event(event_id) ON DELETE CASCADE ON UPDATE CASCADE    
 );
@@ -177,6 +175,6 @@ INSERT INTO service (service_name, service_description) VALUES ('Talleres artís
 ● Doble propósito: como entretenimiento y como herramienta para la gestión emocional, la autoexploración y la construcción de pensamiento crítico.
 ● Nos adaptamos a diferentes edades y necesidades, generando espacios seguros y estimulantes para que todas las personas puedan expresarse.');
 
-INSERT INTO service (service_name, service_descroption) VALUES ('Servicios de comunicación y publicidad', 'Creamos campañas con contenido cultural y social, diseñamos narrativas visuales y producimos materiales audiovisuales.
+INSERT INTO service (service_name, service_description) VALUES ('Servicios de comunicación y publicidad', 'Creamos campañas con contenido cultural y social, diseñamos narrativas visuales y producimos materiales audiovisuales.
 Nuestro enfoque combina sensibilidad estética, conocimiento de los públicos y compromiso con el impacto positivo en la comunidad.');
 
