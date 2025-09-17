@@ -67,6 +67,7 @@ const Home = () => {
         <Container>
           <Row>
             <Col xs={12} lg={7} className="pt-5">
+              <p className="fs-4 text-center text-lg-start mb-3">¡Hola!</p>
               <h1 className="h1-home pt-2 pb-3 text-center text-lg-start">Resumen de la organización</h1>
               <article className="px-2 px-lg-0">
               <p>
