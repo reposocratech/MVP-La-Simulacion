@@ -124,6 +124,23 @@ El frontend está construido con React y Vite, lo que permite recarga rápida y 
 
 ---
 
+## 🔒 Privacidad y Herramientas de Desarrollo
+
+### 🤖 Uso de GitHub Copilot
+
+Si utilizas GitHub Copilot u otras herramientas de AI para desarrollo, consulta nuestra [**Guía de Privacidad**](./PRIVACY_GUIDE.md) para:
+
+- Identificar rastros visibles de uso de AI en tu repositorio
+- Limpiar el historial de commits si es necesario  
+- Aplicar mejores prácticas para mantener privacidad
+
+**Script de análisis rápido:**
+```bash
+./scripts/check-copilot-traces.sh
+```
+
+---
+
 ## 🧰 Solución de problemas
 
 ### ❌ Error de conexión a MySQL
